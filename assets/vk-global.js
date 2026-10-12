@@ -91,7 +91,6 @@
       if (this._init) return; this._init = true;
       this.setAttribute('aria-hidden', this.hasAttribute('open') ? 'false' : 'true');
       this.addEventListener('click', (e) => { if (e.target.closest('[data-drawer-close]') || e.target.classList.contains('vk-drawer__overlay')) this.close(); });
-      this.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); this.close(); } });
     }
     get panel() { return this.querySelector('.vk-drawer__panel') || this; }
     open(trigger) {
@@ -100,6 +99,8 @@
       this.setAttribute('open', ''); this.setAttribute('aria-hidden', 'false');
       document.querySelectorAll(`[data-drawer-open="${this.id}"]`).forEach((t) => t.setAttribute('aria-expanded', 'true'));
       VK.lockScroll();
+      this._esc = (e) => { if (e.key === 'Escape') this.close(); };
+      document.addEventListener('keydown', this._esc);
       VK.trapFocus(this.panel, this.querySelector('[data-drawer-autofocus]') || this.panel);
       VK.publish(VK.EVENTS.drawerOpen, { id: this.id, drawer: this });
       this.dispatchEvent(new CustomEvent('vk:open'));
@@ -107,6 +108,7 @@
     close() {
       if (!this.hasAttribute('open')) return;
       this.removeAttribute('open'); this.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', this._esc);
       document.querySelectorAll(`[data-drawer-open="${this.id}"]`).forEach((t) => t.setAttribute('aria-expanded', 'false'));
       VK.unlockScroll(); VK.removeTrapFocus(this._trigger);
       VK.publish(VK.EVENTS.drawerClose, { id: this.id, drawer: this });

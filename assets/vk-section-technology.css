@@ -80,9 +80,10 @@
   .vk-tech--cinematic .vk-tech__scroller { height: auto; }
   .vk-tech--cinematic .vk-tech__sticky { position: static; height: auto; }
   .vk-stack { --vk-sep: 1; width: min(100%, 380px); }
-  .vk-tech__grid { grid-template-columns: 1fr; }
+  .vk-tech__grid { grid-template-columns: minmax(0, 1fr); }
+  .vk-tech__visual { padding-top: 4rem; }
   .vk-tech__step { opacity: 1; }
   .vk-tech__desc { max-height: none; opacity: 1; }
 }
-@media (max-width: 749px) { .vk-tech__stats { grid-template-columns: 1fr; } .vk-tech__stat + .vk-tech__stat { padding-left: 0; border-left: 0; border-top: 1px solid var(--vk-border); padding-bottom: 1.5rem; } }
+@media (max-width: 749px) { .vk-tech__stats { grid-template-columns: minmax(0, 1fr); } .vk-tech__stat + .vk-tech__stat { padding-left: 0; border-left: 0; border-top: 1px solid var(--vk-border); padding-bottom: 1.5rem; } }
 @media (prefers-reduced-motion: reduce) { .vk-stack { --vk-sep: 1; } .vk-tech__desc { max-height: none; opacity: 1; } .vk-tech__step { opacity: 1; } }

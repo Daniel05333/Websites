@@ -15,6 +15,7 @@
 
 /* ---------- Header ---------- */
 .vk-header-section { position: sticky; top: 0; z-index: var(--vk-z-header); transition: transform 600ms var(--vk-ease-out); }
+.vk-header-section:has(vk-drawer[open]) { z-index: calc(var(--vk-z-drawer) + 1); transform: none; }
 .vk-header-section:has([data-sticky="none"]) { position: relative; }
 html.vk-scroll-down.vk-scrolled-far:not(.vk-mega-open) .vk-header-section:has([data-sticky="on_scroll_up"]) { transform: translateY(calc(-100% - 8px)); }
 .vk-header-section:has(.is-transparent) { margin-bottom: calc(-1 * (var(--vk-header-h) + 24px)); }

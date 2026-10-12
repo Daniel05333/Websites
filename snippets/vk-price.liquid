@@ -23,7 +23,7 @@
   assign vk_on_sale = false
   if vk_compare > vk_price
     assign vk_on_sale = true
-    assign vk_saving = vk_compare | minus: vk_price | money
+    assign vk_saving = vk_compare | minus: vk_price | money_without_trailing_zeros
   endif
 -%}
 <div class="vk-price{% if size == 'lg' %} vk-price--lg{% endif %}{% if class %} {{ class }}{% endif %}" data-price>

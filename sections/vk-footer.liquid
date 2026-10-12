@@ -1,7 +1,7 @@
 {{ 'vk-section-footer.css' | asset_url | stylesheet_tag }}
 <footer id="vk-{{ section.id }}" class="vk-footer color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
   <div class="vk-container">
-    {%- if section.settings.show_newsletter -%}
+    {%- if section.settings.show_newsletter and template.name != 'index' -%}
       <div class="vk-footer__top" data-reveal>
         <div class="vk-footer__statement">
           <p class="vk-eyebrow">{{ section.settings.newsletter_eyebrow }}</p>

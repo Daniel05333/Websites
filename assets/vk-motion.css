@@ -64,3 +64,11 @@ html.vk-scroll-down.vk-scrolled-far .vk-header-wrapper[data-sticky="on_scroll_up
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   [data-magnetic], [data-tilt], [data-parallax] { transform: none !important; }
 }
+
+/* Accent words inside split headings: re-apply the ember text clip on each word
+   (background-clip does not reach transformed inline-block children). */
+[data-split] em { background: none !important; color: inherit; -webkit-text-fill-color: initial; }
+[data-split] em .vk-split-inner {
+  background: var(--vk-em-bg, var(--vk-ember)); -webkit-background-clip: text; background-clip: text;
+  color: var(--vk-em-color, transparent); padding-right: .08em; margin-right: -.04em;
+}

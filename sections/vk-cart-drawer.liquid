@@ -6,7 +6,7 @@
 -%}
 <vk-cart-drawer id="vk-cart-drawer" class="vk-cart-drawer color-scheme-2" role="dialog" aria-modal="true" aria-labelledby="vk-cart-drawer-title" side="right">
   <div class="vk-drawer__overlay"></div>
-  <div class="vk-drawer__panel">
+  <div class="vk-drawer__panel" tabindex="-1">
     <div class="vk-drawer__header">
       <h2 id="vk-cart-drawer-title" class="vk-drawer__title">{{ 'cart.title' | t }} <span class="vk-cart-drawer__count vk-mono">({{ cart.item_count }})</span></h2>
       <button type="button" class="vk-icon-btn vk-icon-btn--plain" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 22 %}</button>

@@ -50,7 +50,7 @@
 .vk-hotspot__name { font-size: .6875rem; letter-spacing: .14em; text-transform: uppercase; color: var(--vk-molten); }
 .vk-hotspot__text { font-size: .8125rem; color: rgba(247,245,242,.82); line-height: 1.45; }
 @media (max-width: 989px) {
-  .vk-solution__grid { grid-template-columns: 1fr; }
+  .vk-solution__grid { grid-template-columns: minmax(0, 1fr); }
   .vk-solution__visual { order: -1; }
   .vk-hotspot__label { max-width: 200px; }
 }

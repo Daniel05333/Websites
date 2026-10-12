@@ -44,7 +44,7 @@
         {%- for block in vk_stats -%}
           <div class="vk-tech__stat" data-reveal {{ block.shopify_attributes }}>
             <dt class="vk-tech__stat-label">{{ block.settings.label }}</dt>
-            <dd class="vk-tech__stat-value"><span data-count-to="{{ block.settings.number }}" data-count-decimals="{{ block.settings.decimals }}">{{ block.settings.number }}</span><span class="vk-tech__stat-suffix">{{ block.settings.suffix }}</span></dd>
+            <dd class="vk-tech__stat-value"><span data-count-to="{{ block.settings.number }}" data-count-decimals="{{ block.settings.decimals }}">{% if block.settings.decimals > 0 %}{{ block.settings.number | times: 1.0 | round: block.settings.decimals }}{% else %}{{ block.settings.number }}{% endif %}</span><span class="vk-tech__stat-suffix">{{ block.settings.suffix }}</span></dd>
           </div>
         {%- endfor -%}
       </dl>

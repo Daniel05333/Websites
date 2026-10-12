@@ -18,7 +18,9 @@
     if (id === 'vk-cart-drawer') {
       const next = doc.querySelector('[data-cart-content]'); const cur = document.querySelector('#vk-cart-drawer [data-cart-content]');
       const count = doc.querySelector('.vk-cart-drawer__count'); const curCount = document.querySelector('#vk-cart-drawer .vk-cart-drawer__count');
+      const hadFocus = cur && cur.contains(document.activeElement);
       if (next && cur) cur.replaceWith(next); if (count && curCount) curCount.replaceWith(count);
+      if (hadFocus) document.querySelector('#vk-cart-drawer .vk-drawer__panel')?.focus({ preventScroll: true });
       return;
     }
     const target = document.getElementById(`shopify-section-${id}`);

@@ -76,5 +76,5 @@ vk-cart-drawer[open] .vk-line { animation: vk-fade-up 600ms var(--vk-ease-out) b
 .vk-main-cart__promises { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; font-size: .8125rem; color: var(--vk-fg-muted); }
 .vk-main-cart__promises li { display: flex; gap: .5rem; align-items: center; }
 .vk-main-cart__promises svg { color: var(--vk-accent); }
-@media (max-width: 989px) { .vk-main-cart__layout { grid-template-columns: 1fr; } .vk-main-cart__summary { position: static; } }
+@media (max-width: 989px) { .vk-main-cart__layout { grid-template-columns: minmax(0, 1fr); } .vk-main-cart__summary { position: static; } }
 @media (max-width: 749px) { .vk-lines--page .vk-line { grid-template-columns: 88px 1fr; } }

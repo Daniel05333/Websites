@@ -31,6 +31,11 @@
 
     {{ content_for_header }}
 
+    <script src="{{ 'vk-global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vk-motion.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vk-product-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vk-cart.js' | asset_url }}" defer="defer"></script>
+
     {{ 'vk-base.css' | asset_url | stylesheet_tag }}
     {{ 'vk-motion.css' | asset_url | stylesheet_tag }}
     {{ 'vk-product-card.css' | asset_url | stylesheet_tag }}
@@ -138,9 +143,5 @@
       }
     </script>
 
-    <script src="{{ 'vk-global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'vk-motion.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'vk-product-form.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'vk-cart.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

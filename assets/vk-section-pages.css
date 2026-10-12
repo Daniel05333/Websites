@@ -88,3 +88,5 @@
 .vk-account__edit summary, .vk-account__new summary { list-style: none; cursor: pointer; }
 .vk-account__edit summary::-webkit-details-marker, .vk-account__new summary::-webkit-details-marker { display: none; }
 @media (max-width: 989px) { .vk-account__layout { grid-template-columns: 1fr; } .vk-account__table { font-size: .8125rem; } }
+.vk-search-page__head { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 749px) { .vk-search-page__form { padding-left: 1rem; gap: .5rem; } .vk-search-page__form .vk-btn { --vk-btn-h: 44px; padding: 0 1rem; } .vk-search-page__input { font-size: 1rem; } }

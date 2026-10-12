@@ -90,6 +90,11 @@ body.vk-grain::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Custom elements are block-level wrappers by default */
+vk-facets, vk-product-info, vk-variant-picker, vk-bundle-picker, vk-product-gallery, vk-recommendations, vk-reviews-wall,
+vk-compare, vk-technology, vk-predictive-search, vk-product-form, vk-cart-items, vk-tabs, vk-accordion, vk-solution,
+vk-announcement, vk-price-range, vk-video, vk-slider, vk-marquee { display: block; }
+
 /* ---------- Accessibility ---------- */
 .vk-visually-hidden, .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
