@@ -275,7 +275,7 @@ if (!customElements.get('vk-forge-stage')) {
       const probe = document.createElement('canvas');
       if (!(probe.getContext('webgl2') || probe.getContext('webgl'))) return;
       let THREE;
-      try { THREE = await import(this.dataset.three); } catch (e) { console.warn('Forge stage: 3D unavailable', e); return; }
+      try { THREE = await import(new URL(this.dataset.three, document.baseURI).href); } catch (e) { console.warn('Forge stage: 3D unavailable', e); return; }
       const mobile = matchMedia('(max-width: 989px)').matches;
       const renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: !mobile, alpha: false, powerPreference: 'high-performance' });
       renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 2));
