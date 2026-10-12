@@ -194,6 +194,8 @@ Dark surface card (`--vk-surface` on scheme bg), radius `--vk-radius`, 1px `--vk
 
 `assets/vk-motion.css` holds all reveal/split/marquee/transition keyframes and states.
 
+Cart count: the header wraps the count in `<span id="vk-cart-icon-bubble">` containing `<span class="vk-cart-count" data-cart-count>N</span>`; `sections/vk-cart-icon-bubble.liquid` renders that inner span so the cart module can refresh it via the Section Rendering API. The cart button has `data-drawer-open="vk-cart-drawer"`.
+
 Cart (`vk-cart.js`): `<vk-cart-drawer>` (extends drawer behaviour, re-renders via Section Rendering API section id `vk-cart-drawer`), `<vk-cart-items>` (qty change/remove → `/cart/change.js` with `sections: ['vk-cart-drawer','vk-cart-icon-bubble', 'vk-main-cart' when on cart page]`), free-shipping progress (`settings.free_shipping_threshold` in shop currency units), cart upsell product, cart note. Product forms publish `cartUpdate` with `{source, cart, sections}`; the drawer listens and opens.
 
 Product (`vk-product.js`): `<vk-product-form>` (fetch `/cart/add.js` with `sections`, loading state, error message, publishes cartUpdate; falls back to native POST without JS), `<vk-variant-picker>` (reads `<script type="application/json" data-variants>`; updates URL `?variant=`, hidden id input, price block, ATC label/disabled, featured media, sticky ATC; publishes `variantChange`), `<vk-product-gallery>`, `<vk-sticky-atc>`, `<vk-bundle-picker>`, `<vk-recommendations>`.
@@ -223,6 +225,9 @@ Section agents do NOT edit `templates/*.json` directly. Each agent writes, for e
 
 ### Product `product`
 01 `vk-main-product` (gallery, info, bundles, ATC, accordions, sticky ATC) · 02 `vk-stories` "Real kitchens, real results" · 03 `vk-usp-bar` · 04 `vk-problem` · 05 `vk-solution` · 06 `vk-technology` (compact variant) · 07 `vk-comparison` · 08 `vk-reviews-wall` (masonry photo reviews + @app) · 09 `vk-faq` · 10 `vk-cta` · 11 `vk-product-recommendations`
+
+### Technology page `page.technology`
+01 `vk-hero` (VolcanicCore™ variant, macro visual) · 02 `vk-technology` (cinematic) · 03 `vk-benefits` · 04 `vk-comparison` · 05 `vk-faq` (technology questions) · 06 `vk-cta`
 
 ### Others
 `cart` → `vk-main-cart` + `vk-product-recommendations`; `search` → `vk-main-search`; `404` → `vk-main-404`; `page` → `vk-main-page`; `page.about` → `vk-hero` (story variant) + `vk-manifesto` + `vk-image-text` ×2 + `vk-technology` + `vk-cta`; `page.contact` → `vk-main-page` + `vk-contact-form` + `vk-faq`; `list-collections` → `vk-main-list-collections`; `blog` → `vk-main-blog`; `article` → `vk-main-article`; `password` (layout `password`) → `vk-main-password`; `gift_card.liquid`; `customers/*` → minimal `vk-main-account-*` sections (login, register, account, order, addresses, reset_password, activate_account).
