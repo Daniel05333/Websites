@@ -84,7 +84,8 @@
     "social_x_link": "",
     "predictive_search_enabled": true,
     "show_currency_selector": true,
-    "show_language_selector": true
+    "show_language_selector": true,
+    "enable_luxe_cursor": true
   },
   "presets": {
     "VOLKARA": {
@@ -172,7 +173,8 @@
       "social_x_link": "",
       "predictive_search_enabled": true,
       "show_currency_selector": true,
-      "show_language_selector": true
+      "show_language_selector": true,
+      "enable_luxe_cursor": true
     }
   }
 }

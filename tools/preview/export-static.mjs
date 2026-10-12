@@ -43,7 +43,7 @@ const bar = (route) => `<div class="vk-preview-bar"><strong>VOLKARA preview</str
 function rewrite(html, route = '') {
   const defaultSort = html.match(/<option value="([a-z-]+)" selected/)?.[1] || 'manual';
   return html
-    .replace(/(href|src|action)="(\/[^"]*)"/g, (m, attr, href) => {
+    .replace(/(href|src|action|data-three)="(\/[^"]*)"/g, (m, attr, href) => {
       if (href.startsWith('//') || href.startsWith('/cart/change')) return m;
       const r = rewritePath(href);
       if (r) return `${attr}="${r}"`;

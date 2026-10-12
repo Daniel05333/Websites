@@ -38,10 +38,12 @@ html.js.vk-motion [data-reveal="mask"].is-revealed { clip-path: inset(0 0 0 0 ro
 .vk-split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
 .vk-split-inner { display: inline-block; will-change: transform; }
 html.js.vk-motion [data-split] .vk-split-inner {
-  transform: translate3d(0, 105%, 0);
-  transition: transform 1100ms var(--vk-ease-out) calc(var(--vk-w, 0) * 55ms + var(--vk-delay, 0ms));
+  transform: translate3d(0, 105%, 0); filter: blur(10px); opacity: 0;
+  transition: transform 1100ms var(--vk-ease-out) calc(var(--vk-w, 0) * 55ms + var(--vk-delay, 0ms)),
+              filter 1100ms var(--vk-ease-out) calc(var(--vk-w, 0) * 55ms + var(--vk-delay, 0ms)),
+              opacity 900ms var(--vk-ease-out) calc(var(--vk-w, 0) * 55ms + var(--vk-delay, 0ms));
 }
-html.js.vk-motion [data-split].is-revealed .vk-split-inner { transform: none; }
+html.js.vk-motion [data-split].is-revealed .vk-split-inner { transform: none; filter: none; opacity: 1; }
 html.js.vk-motion [data-split][data-reveal] { opacity: 1; transform: none; }
 
 /* ---------- Magnetic ---------- */
@@ -72,3 +74,13 @@ html.vk-scroll-down.vk-scrolled-far .vk-header-wrapper[data-sticky="on_scroll_up
   background: var(--vk-em-bg, var(--vk-ember)); -webkit-background-clip: text; background-clip: text;
   color: var(--vk-em-color, transparent); padding-right: .08em; margin-right: -.04em;
 }
+
+/* ---------- Luxury cursor (assets/vk-cursor.js) ---------- */
+.vk-cursor { position: fixed; top: 0; left: 0; z-index: 2147483000; pointer-events: none; border-radius: 50%; opacity: 0; mix-blend-mode: difference; transition: opacity .3s; will-change: transform; }
+.vk-cursor-visible .vk-cursor { opacity: 1; }
+.vk-cursor--dot { width: 6px; height: 6px; border: 2px solid #fff; }
+.vk-cursor--ring { width: 40px; height: 40px; border: 1.5px solid rgba(255,255,255,.7); transition: width .3s var(--vk-ease-out), height .3s var(--vk-ease-out), background-color .3s, border-color .3s, opacity .3s; }
+.vk-cursor--ring.is-hover { width: 64px; height: 64px; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.9); }
+.vk-cursor--ring.is-down { width: 30px; height: 30px; }
+html.vk-cursor-on, html.vk-cursor-on body, html.vk-cursor-on a, html.vk-cursor-on button, html.vk-cursor-on [role="button"], html.vk-cursor-on label, html.vk-cursor-on summary, html.vk-cursor-on select { cursor: none; }
+html.vk-cursor-on input:not([type="radio"]):not([type="checkbox"]), html.vk-cursor-on textarea { cursor: text; }

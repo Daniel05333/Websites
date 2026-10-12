@@ -33,6 +33,7 @@
 
     <script src="{{ 'vk-global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'vk-motion.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.enable_luxe_cursor -%}<script src="{{ 'vk-cursor.js' | asset_url }}" defer="defer"></script>{%- endif -%}
     <script src="{{ 'vk-product-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'vk-cart.js' | asset_url }}" defer="defer"></script>
 

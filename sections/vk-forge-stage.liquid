@@ -1,0 +1,118 @@
+{{ 'vk-section-forge-stage.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-forge-stage.js' | asset_url }}" type="module"></script>
+{%- liquid
+  assign s = section.settings
+  assign vk_slides = section.blocks | where: 'type', 'slide'
+-%}
+<vk-forge-stage
+  id="vk-{{ section.id }}"
+  class="vk-stage vk-stage--{{ s.palette }}"
+  style="--vk-stage-length: {{ s.length }}vh;"
+  data-three="{{ 'vk-three.module.min.js' | asset_url }}"
+  data-palette="{{ s.palette }}"
+  data-sparks="{{ s.sparks }}"
+  aria-label="{{ s.label | escape }}"
+  role="region"
+>
+  <div class="vk-stage__sticky">
+    <div class="vk-stage__fallback" aria-hidden="true">
+      {%- render 'vk-image', image: s.fallback_image, sizes: '(min-width: 990px) 50vw, 100vw', fallback: 'vk-visual-pan.webp', fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: '' -%}
+    </div>
+    <canvas class="vk-stage__canvas" aria-hidden="true"></canvas>
+    <div class="vk-stage__shade" aria-hidden="true"></div>
+
+    <div class="vk-stage__grid" aria-hidden="true">
+      <span class="vk-stage__hline"></span>
+      {%- for i in (1..5) -%}
+        <span class="vk-stage__vline">
+          <span class="vk-stage__dot" data-stage-dot></span><span class="vk-stage__dot" data-stage-dot></span>
+          {%- if forloop.last -%}
+            <span class="vk-stage__dashes">
+              {%- for slide in vk_slides -%}<span class="vk-stage__dash"><span class="vk-stage__dash-fill" data-stage-fill></span></span>{%- endfor -%}
+            </span>
+          {%- endif -%}
+        </span>
+      {%- endfor -%}
+    </div>
+
+    <div class="vk-stage__slides">
+      {%- for block in vk_slides -%}
+        {%- liquid
+          assign b = block.settings
+          assign vk_title = b.title | escape | replace: '|', '<br>'
+          assign vk_label = b.title | replace: '|', ' '
+        -%}
+        <div class="vk-stage__slide vk-stage__slide--col-{{ b.column }}{% if forloop.first %} is-active{% endif %}" data-stage-slide {{ block.shopify_attributes }}>
+          {%- if b.show_image -%}
+            <div class="vk-stage__mask" aria-hidden="true">{% render 'vk-image', image: b.image, sizes: '(min-width: 990px) 25vw, 45vw', fallback: 'vk-visual-macro.webp', fallback_width: 1024, fallback_height: 1024, placeholder: 'macro', alt: '' %}</div>
+          {%- endif -%}
+          {%- if b.eyebrow != blank -%}<p class="vk-stage__eyebrow vk-mono">{{ b.eyebrow }}</p>{%- endif -%}
+          <h2 class="vk-stage__title" aria-label="{{ vk_label | escape }}" data-stage-title>{{ vk_title }}</h2>
+          <div class="vk-stage__copy{% if b.text_2 != blank %} vk-stage__copy--two{% endif %}">
+            {%- if b.text != blank -%}<p class="vk-stage__text">{{ b.text }}</p>{%- endif -%}
+            {%- if b.text_2 != blank -%}<p class="vk-stage__text">{{ b.text_2 }}</p>{%- endif -%}
+          </div>
+          {%- if b.button_label != blank or b.button2_label != blank -%}
+            <div class="vk-stage__actions">
+              {%- if b.button_label != blank -%}{% render 'vk-button', label: b.button_label, url: b.button_url, style: 'primary', icon: 'arrow-right', magnetic: true %}{%- endif -%}
+              {%- if b.button2_label != blank -%}{% render 'vk-button', label: b.button2_label, url: b.button2_url, style: 'secondary' %}{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</vk-forge-stage>
+
+{% schema %}
+{
+  "name": "VOLKARA · Forge stage",
+  "tag": "section",
+  "class": "vk-section-forge-stage",
+  "settings": [
+    { "type": "paragraph", "content": "A cinematic scroll scene: a 3D Forge Pan rendered in WebGL, molten sparks and a liquid-metal background. The camera orbits the pan while visitors scroll; each slide fades in at its own moment. Visitors who prefer reduced motion see a calm, static version." },
+    { "type": "text", "id": "label", "label": "Accessible name", "default": "Het Volkara-verschil" },
+    { "type": "range", "id": "length", "label": "Scroll length", "min": 300, "max": 800, "step": 50, "unit": "vh", "default": 500 },
+    { "type": "select", "id": "palette", "label": "Background palette", "default": "lava-titanium", "options": [
+      { "value": "lava-titanium", "label": "Lava → titanium (shifts while scrolling)" },
+      { "value": "lava", "label": "Lava" },
+      { "value": "titanium", "label": "Titanium" }
+    ] },
+    { "type": "range", "id": "sparks", "label": "Sparks", "min": 0, "max": 600, "step": 50, "default": 450 },
+    { "type": "image_picker", "id": "fallback_image", "label": "Fallback image", "info": "Shown while the 3D scene loads and on devices without WebGL." }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "title", "label": "Title", "info": "Use | for a line break.", "default": "Gesmeed|door vuur" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "textarea", "id": "text_2", "label": "Second column" },
+        { "type": "select", "id": "column", "label": "Desktop column", "default": "1", "options": [
+          { "value": "1", "label": "1" }, { "value": "2", "label": "2" }, { "value": "3", "label": "3" }, { "value": "4", "label": "4" }
+        ] },
+        { "type": "checkbox", "id": "show_image", "label": "Show editorial image", "default": false },
+        { "type": "image_picker", "id": "image", "label": "Editorial image" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_url", "label": "Button link" },
+        { "type": "text", "id": "button2_label", "label": "Second button label" },
+        { "type": "url", "id": "button2_url", "label": "Second button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VOLKARA · Forge stage",
+      "blocks": [
+        { "type": "slide", "settings": { "title": "Gesmeed|door vuur", "text": "Vijf lagen metaal, samengesmeed tot één pan." } },
+        { "type": "slide", "settings": { "title": "Puur|titanium", "column": "2", "show_image": true } },
+        { "type": "slide", "settings": { "title": "Warmte die|luistert", "column": "3" } },
+        { "type": "slide", "settings": { "title": "Gemaakt om|te blijven", "column": "2" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

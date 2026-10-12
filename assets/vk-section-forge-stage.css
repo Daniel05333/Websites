@@ -1,0 +1,99 @@
+/* VOLKARA — Forge stage: cinematic scroll scene (WebGL pan, sparks, liquid metal) with an editorial overlay */
+.vk-stage {
+  --vk-stage-gutter: clamp(1rem, .4rem + 2.6vw, 3.75rem);
+  --vk-stage-col: calc((100vw - 2 * var(--vk-stage-gutter)) / 4);
+  position: relative; display: block; height: var(--vk-stage-length, 500vh);
+  background: #000; color: #fff6ed;
+}
+.vk-stage__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; isolation: isolate; }
+
+/* canvas + fallback */
+.vk-stage__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; opacity: 0; transition: opacity 1.6s var(--vk-ease-out); }
+.vk-stage.is-gl .vk-stage__canvas { opacity: 1; }
+.vk-stage__fallback {
+  position: absolute; inset: 0; z-index: 0; display: grid; place-items: center;
+  background: radial-gradient(60% 55% at 62% 50%, rgba(215,38,30,.28), transparent 70%), #000;
+  transition: opacity 1.2s var(--vk-ease-out);
+}
+.vk-stage__fallback > * { position: relative; width: min(56vh, 46vw); aspect-ratio: 1; margin-left: 20vw; border-radius: 50%; overflow: hidden; }
+.vk-stage__fallback img, .vk-stage__fallback svg { width: 100%; height: 100%; object-fit: cover; }
+.vk-stage.is-gl .vk-stage__fallback { opacity: 0; }
+.vk-stage__shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, transparent 22%, transparent 55%, rgba(0,0,0,.72) 100%); }
+
+/* editorial grid: 5 hairlines, drifting dots, stories progress */
+.vk-stage__grid { position: absolute; inset: 0 calc(var(--vk-stage-gutter) - 1px); z-index: 2; display: flex; justify-content: space-between; pointer-events: none; }
+.vk-stage__hline { position: absolute; left: calc(-1 * var(--vk-stage-gutter)); right: calc(-1 * var(--vk-stage-gutter)); top: calc(var(--vk-header-h) + 1.5rem); height: 1px; background: rgba(247,245,242,.1); }
+.vk-stage__vline { position: relative; width: 1px; height: 100%; background: rgba(247,245,242,.1); }
+.vk-stage__vline:nth-child(4) { margin-top: calc(var(--vk-header-h) + 1.5rem); height: auto; }
+.vk-stage__dot { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); background: rgba(247,245,242,.35); box-shadow: 0 0 6px rgba(255,75,50,.35); }
+.vk-stage__dashes { position: absolute; top: 50%; left: 50%; display: flex; flex-direction: column; gap: 12px; transform: translate(-50%, -50%); }
+.vk-stage__dash { position: relative; width: 2px; height: 40px; border-radius: 2px; background: rgba(247,245,242,.15); overflow: hidden; }
+.vk-stage__dash-fill { position: absolute; left: 0; right: 0; top: 0; height: 0%; border-radius: inherit; background: linear-gradient(180deg, var(--vk-molten), #fff6ed); }
+
+/* slides */
+.vk-stage__slides { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.vk-stage__slide { position: absolute; bottom: 12%; left: calc(var(--vk-stage-gutter) + 20px); width: calc(var(--vk-stage-col) * 2 - 20px); }
+.vk-stage__slide--col-2 { left: calc(var(--vk-stage-gutter) + var(--vk-stage-col) + 20px); }
+.vk-stage__slide--col-3 { left: calc(var(--vk-stage-gutter) + var(--vk-stage-col) * 2 + 20px); width: calc(var(--vk-stage-col) * 2 - 60px); }
+.vk-stage__slide--col-4 { left: auto; right: calc(var(--vk-stage-gutter) + 20px); width: calc(var(--vk-stage-col) * 1.6); }
+.vk-stage__slide.is-active { pointer-events: auto; }
+.vk-stage__eyebrow { margin: 0 0 1.25rem; font-size: .6875rem; letter-spacing: .24em; text-transform: uppercase; color: var(--vk-molten); opacity: 0; transition: opacity .8s var(--vk-ease-out); }
+.vk-stage__title {
+  text-shadow: 0 2px 30px rgba(0,0,0,.45);
+  margin: 0 0 1.5rem; font-family: var(--vk-font-luxe); font-weight: 400;
+  font-size: clamp(3rem, 1rem + 6.4vw, 7.25rem); line-height: 1; letter-spacing: .02em;
+  color: #fff6ed; text-wrap: balance;
+}
+.vk-stage__char { display: inline-block; opacity: 0; transform: translateY(50px); filter: blur(12px); transition: opacity .8s cubic-bezier(.25,1,.5,1), transform .8s cubic-bezier(.25,1,.5,1), filter .8s cubic-bezier(.25,1,.5,1); }
+.vk-stage__copy { display: grid; gap: 1.25rem; max-width: calc(var(--vk-stage-col) - 40px); min-width: 16rem; }
+.vk-stage__copy--two { grid-template-columns: 1fr 1fr; gap: calc(40px + 20px); max-width: calc(var(--vk-stage-col) * 2 - 40px); }
+.vk-stage__text { margin: 0; font-size: 1rem; line-height: 1.7; font-weight: 300; letter-spacing: .02em; color: #d1d5db; }
+.vk-stage__copy, .vk-stage__actions { opacity: 0; transform: translateY(30px); transition: opacity .8s cubic-bezier(.25,1,.5,1) .4s, transform .8s cubic-bezier(.25,1,.5,1) .4s; }
+.vk-stage__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; transition-delay: .55s; }
+.vk-stage__slide.is-active .vk-stage__char { opacity: 1; transform: none; filter: blur(0); }
+.vk-stage__slide.is-active .vk-stage__eyebrow, .vk-stage__slide.is-active .vk-stage__copy, .vk-stage__slide.is-active .vk-stage__actions { opacity: 1; transform: none; }
+.vk-stage__slide:not(.is-active) .vk-stage__char { transition-delay: 0s !important; transition-duration: .5s; }
+
+/* editorial image mask: wipes open top → bottom */
+.vk-stage__mask {
+  position: fixed; top: calc(var(--vk-header-h) + 3rem); left: calc(var(--vk-stage-gutter) + 20px);
+  width: calc(var(--vk-stage-col) - 40px); aspect-ratio: 1; overflow: hidden; border-radius: 2px;
+  clip-path: inset(0 0 100% 0); opacity: 0; pointer-events: none;
+  transition: clip-path 1.8s cubic-bezier(.16,1,.3,1), opacity .8s ease;
+}
+.vk-stage__mask > * { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vk-stage__mask img, .vk-stage__mask svg { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transition: transform 1.8s cubic-bezier(.16,1,.3,1); }
+.vk-stage__slide.is-active .vk-stage__mask { clip-path: inset(0 0 0 0); opacity: 1; }
+.vk-stage__slide.is-active .vk-stage__mask img, .vk-stage__slide.is-active .vk-stage__mask svg { transform: scale(1); }
+.vk-stage__sticky { contain: paint; } /* keeps the fixed mask inside the sticky stage */
+
+/* tablet & mobile */
+@media (max-width: 989px) {
+  .vk-stage__grid { inset: 0 var(--vk-stage-gutter); }
+  .vk-stage__vline:nth-child(3), .vk-stage__vline:nth-child(4) { display: none; }
+  .vk-stage__slide, .vk-stage__slide--col-2, .vk-stage__slide--col-3, .vk-stage__slide--col-4 { left: var(--vk-stage-gutter); right: calc(var(--vk-stage-gutter) + 24px); width: auto; bottom: 7%; }
+  .vk-stage__title { font-size: clamp(2.75rem, 1.5rem + 7vw, 4.5rem); margin-bottom: 1rem; }
+  .vk-stage__copy, .vk-stage__copy--two { max-width: 34rem; min-width: 0; grid-template-columns: 1fr; gap: .75rem; }
+  .vk-stage__text { font-size: .9375rem; line-height: 1.6; }
+  .vk-stage__mask { width: 38vw; max-width: 220px; left: var(--vk-stage-gutter); }
+  .vk-stage__fallback > * { width: 78vw; margin: 0 0 30vh; }
+  .vk-stage__shade { background: linear-gradient(180deg, rgba(0,0,0,.4) 0%, transparent 25%, transparent 38%, rgba(0,0,0,.86) 78%); }
+}
+@media (max-width: 749px) {
+  .vk-stage__copy--two .vk-stage__text + .vk-stage__text { display: none; }
+}
+
+/* static version: no JS, reduced motion */
+html.no-js .vk-stage, .vk-stage.is-static { height: auto; }
+html.no-js .vk-stage__sticky, .vk-stage.is-static .vk-stage__sticky { position: relative; height: auto; overflow: visible; padding: calc(var(--vk-header-h) + 4rem) 0 6rem; }
+html.no-js .vk-stage__canvas, .vk-stage.is-static .vk-stage__canvas, html.no-js .vk-stage__grid, .vk-stage.is-static .vk-stage__grid, html.no-js .vk-stage__shade, .vk-stage.is-static .vk-stage__shade { display: none; }
+html.no-js .vk-stage__fallback, .vk-stage.is-static .vk-stage__fallback { position: relative; inset: auto; height: 60vh; opacity: 1; }
+html.no-js .vk-stage__fallback > *, .vk-stage.is-static .vk-stage__fallback > * { margin: 0; width: min(60vh, 80vw); }
+html.no-js .vk-stage__slides, .vk-stage.is-static .vk-stage__slides { position: relative; display: grid; gap: 4rem; padding: 0 var(--vk-stage-gutter); }
+html.no-js .vk-stage__slide, .vk-stage.is-static .vk-stage__slide { position: relative; inset: auto; width: auto; max-width: 52rem; }
+html.no-js .vk-stage__char, .vk-stage.is-static .vk-stage__char,
+html.no-js .vk-stage__eyebrow, .vk-stage.is-static .vk-stage__eyebrow,
+html.no-js .vk-stage__copy, .vk-stage.is-static .vk-stage__copy,
+html.no-js .vk-stage__actions, .vk-stage.is-static .vk-stage__actions { opacity: 1; transform: none; filter: none; transition: none; }
+html.no-js .vk-stage__mask, .vk-stage.is-static .vk-stage__mask { position: relative; top: auto; left: auto; width: min(280px, 60vw); margin-bottom: 2rem; clip-path: none; opacity: 1; }
+html.no-js .vk-stage__slide { pointer-events: auto; }

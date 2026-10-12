@@ -113,110 +113,6 @@
         "card-3"
       ]
     },
-    "solution": {
-      "type": "vk-solution",
-      "settings": {
-        "index": "02",
-        "eyebrow": "Het Volkara-verschil",
-        "heading": "Geen coating. Gewoon <em>titanium</em>.",
-        "subheading": "Bij Volkara kook je direct op titanium. Er is niets opgespoten, dus er is niets dat kan afslijten. Elk detail is ontworpen voor hoe je thuis echt kookt.",
-        "fallback": "vk-visual-pan.webp",
-        "image_alt": "Volkara Forge Pan met het titanium LavaCell™-oppervlak",
-        "button_label": "Bekijk de Forge Pan",
-        "button_url": "/products/forge-pan",
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 120
-      },
-      "blocks": {
-        "point-1": {
-          "type": "point",
-          "settings": {
-            "title": "Geen PFAS. Geen PTFE. Geen coating.",
-            "hotspot": 1,
-            "text": "<p>Het kookoppervlak is titanium en zit vast in de pan zelf. Er zit geen synthetische laag tussen je eten en het metaal, dus er is niets dat kan krassen, afbladderen of vervangen moet worden.</p>"
-          }
-        },
-        "point-2": {
-          "type": "point",
-          "settings": {
-            "title": "Loslaten doe je met techniek.",
-            "hotspot": 1,
-            "text": "<p>Het LavaCell™-reliëf houdt een dun laagje olie vast in de dalen. Verwarm de pan voor, voeg wat vet toe en je eten laat vanzelf los — met een mooie korst.</p>"
-          }
-        },
-        "point-3": {
-          "type": "point",
-          "settings": {
-            "title": "Warmte tot aan de rand.",
-            "hotspot": 4,
-            "text": "<p>De aluminium kern verdeelt de warmte gelijkmatig over de hele bodem. Geen aangebrand midden, geen bleke rand en geen gegok.</p>"
-          }
-        },
-        "point-4": {
-          "type": "point",
-          "settings": {
-            "title": "Elke kookplaat. Elke spatel.",
-            "hotspot": 3,
-            "text": "<p>Gas, inductie, keramisch, elektrisch en de oven. Een metalen spatel of garde mag gewoon, en op drukke avonden kan de pan in de vaatwasser.</p>"
-          }
-        },
-        "hotspot-5": {
-          "type": "hotspot",
-          "settings": {
-            "number": 1,
-            "x": 42,
-            "y": 46,
-            "label_side": "right",
-            "label": "LavaCell™-oppervlak",
-            "text": "Titanium reliëf: de toppen beschermen, de dalen houden olie vast."
-          }
-        },
-        "hotspot-6": {
-          "type": "hotspot",
-          "settings": {
-            "number": 2,
-            "x": 22,
-            "y": 30,
-            "label_side": "right",
-            "label": "Schenkrand",
-            "text": "Een uitlopende rand, zodat saus en vet netjes uitschenken."
-          }
-        },
-        "hotspot-7": {
-          "type": "hotspot",
-          "settings": {
-            "number": 3,
-            "x": 80,
-            "y": 78,
-            "label_side": "left",
-            "label": "Gesmede steel",
-            "text": "Ligt stevig in de hand. De lavarode ring herken je aan elk Volkara-product."
-          }
-        },
-        "hotspot-8": {
-          "type": "hotspot",
-          "settings": {
-            "number": 4,
-            "x": 50,
-            "y": 70,
-            "label_side": "left",
-            "label": "Inductiebodem",
-            "text": "Magnetische rvs-bodem, vlak afgewerkt voor goed contact met de kookplaat."
-          }
-        }
-      },
-      "block_order": [
-        "point-1",
-        "point-2",
-        "point-3",
-        "point-4",
-        "hotspot-5",
-        "hotspot-6",
-        "hotspot-7",
-        "hotspot-8"
-      ]
-    },
     "technology": {
       "type": "vk-technology",
       "settings": {
@@ -991,6 +887,83 @@
         "category-5",
         "category-6"
       ]
+    },
+    "stage": {
+      "type": "vk-forge-stage",
+      "settings": {
+        "label": "Het Volkara-verschil",
+        "length": 500,
+        "palette": "lava-titanium",
+        "sparks": 450
+      },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "02 — Het Volkara-verschil",
+            "title": "Gesmeed|door vuur",
+            "text": "Vijf lagen metaal, samengesmeed tot één stevige pan. Bovenop geen coating die slijt, maar een titanium kookoppervlak.",
+            "text_2": "Gemaakt voor wie elke dag kookt: een mooie korst, warmte tot aan de rand en een pan die op elke kookplaat werkt.",
+            "column": "1",
+            "show_image": false,
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": ""
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Geen coating",
+            "title": "Puur|titanium",
+            "text": "Geen PFAS, geen PTFE, niets opgespoten. Je eten raakt alleen titanium: een metaal dat niet reageert met je eten en de smaak niet verandert.",
+            "text_2": "",
+            "column": "2",
+            "show_image": true,
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": ""
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "LavaCell™-reliëf",
+            "title": "Loslaten|zonder laagje",
+            "text": "Het reliëf van zeshoekjes houdt een dun laagje olie vast. Verwarm de pan voor, voeg wat vet toe en je eten laat vanzelf los, met een mooie korst.",
+            "text_2": "",
+            "column": "3",
+            "show_image": false,
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": ""
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Elke kookplaat. Elke spatel.",
+            "title": "Gemaakt om|te blijven",
+            "text": "Gas, inductie, keramisch en de oven. Een metalen spatel mag, de vaatwasser ook. Zonder coating is er niets dat kan opraken.",
+            "text_2": "",
+            "column": "2",
+            "show_image": false,
+            "button_label": "Bekijk de Forge Pan",
+            "button_url": "/products/forge-pan",
+            "button2_label": "Zo werkt VolcanicCore™",
+            "button2_url": "/pages/technology"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3",
+        "slide-4"
+      ]
     }
   },
   "order": [
@@ -998,7 +971,7 @@
     "usp",
     "categories",
     "problem",
-    "solution",
+    "stage",
     "technology",
     "featured",
     "benefits",

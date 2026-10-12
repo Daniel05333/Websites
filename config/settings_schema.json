@@ -189,6 +189,13 @@
         "label": "Enable magnetic buttons",
         "info": "Buttons gently follow the cursor on desktop.",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_luxe_cursor",
+        "label": "Enable luxury cursor",
+        "info": "A double-ring cursor on desktop. Never shown on touch devices or with reduced motion.",
+        "default": true
       }
     ]
   },

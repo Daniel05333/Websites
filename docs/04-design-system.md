@@ -86,3 +86,17 @@ Durations: 200 / 400 / 800 / 1200ms. Easing: out `cubic-bezier(.16,1,.3,1)`, spr
 ## 7. Accessibility checklist
 
 Landmarks and heading order, labelled controls, visible `:focus-visible` (2px Molten ring), 44px+ tap targets, focus trap + Escape in drawers, `aria-live` cart updates, alt text everywhere, reduced-motion respected, all content visible without JS.
+
+## 8. Luxe laag (Forge stage, cursor, blur-reveal)
+
+| Onderdeel | Bestand | Werking |
+|---|---|---|
+| **Forge stage** | `sections/vk-forge-stage.liquid`, `assets/vk-forge-stage.js`, `assets/vk-section-forge-stage.css` | Filmische scrollscène: een 3D Forge Pan in code gebouwd (titanium LavaCell™-reliëf, lavarode kraag), met vonken uit de smederij, een achtergrond van vloeibaar metaal die tijdens het scrollen van lava naar titanium verkleurt, een camera die 360° om de pan draait, redactionele rasterlijnen met zwevende stippen, een voortgangsbalk in verhaalstijl en titels die per letter vervaagd opkomen. |
+| 3D-bibliotheek | `assets/vk-three.module.min.js` (Three.js r160, MIT) | Zelf gehost, geen CDN. Laadt pas als de stage binnen ~900px van het scherm komt. Geen WebGL? Dan zie je de productfoto. |
+| Display-letter | `assets/vk-italiana.woff2` (Italiana, OFL) | `--vk-font-luxe`, alleen voor stage-titels |
+| Luxe cursor | `assets/vk-cursor.js` | Dubbele ring, alleen bij een muis op desktop. Uit te zetten via *Theme settings → Animations*. |
+| Blur-reveal | `assets/vk-motion.css` | Koppen met `data-split` komen woord voor woord op, van onscherp naar scherp |
+
+**Toegankelijkheid en snelheid:** bij *reduced motion* of zonder JavaScript is de stage een statische, gewone sectie. Op mobiel draait de scène met minder vonken, zonder schaduwen en met een lagere pixeldichtheid. De render stopt zodra de stage uit beeld is.
+
+**Wat het nog beter maakt:** een echt 3D-model van de Volkara-pan (GLB, ~2–5 MB) in plaats van het nagebouwde model, en een eigen redactionele foto in slide 2.
