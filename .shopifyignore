@@ -5,3 +5,4 @@ package.json
 package-lock.json
 .theme-check.yml
 README.md
+data/
