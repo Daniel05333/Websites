@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Deep-merges tools/locale-fragments/<owner>.<locale>.json into locales/<locale>(.default).json.
+// Deep-merges tools/locale-fragments/<owner>.<locale>.json into locales/<locale>(.default).json (nl is the default locale).
 // Fragments win only for keys that don't exist yet; differing existing values are reported as conflicts
 // (pass --force to let fragments overwrite). Idempotent.
 import fs from 'node:fs';
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const fragDir = path.join(root, 'tools/locale-fragments');
 const force = process.argv.includes('--force');
-const localeFile = (loc) => path.join(root, 'locales', loc === 'en' ? 'en.default.json' : `${loc}.json`);
+const localeFile = (loc) => path.join(root, 'locales', loc === 'nl' ? 'nl.default.json' : `${loc}.json`);
 const isObj = (v) => v && typeof v === 'object' && !Array.isArray(v);
 let conflicts = 0;
 

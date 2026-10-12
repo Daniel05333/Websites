@@ -10,6 +10,13 @@ const head = ['Handle', 'Title', 'Body (HTML)', 'Vendor', 'Product Category', 'T
   'Subtitle (product.metafields.custom.subtitle)', 'Badge (product.metafields.custom.badge)', 'Specs (product.metafields.custom.specs)'];
 const esc = (v) => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
 const money = (c) => (c == null ? '' : (c / 100).toFixed(2));
+// Nederlandse SEO-omschrijving: ondertitel + een korte, controleerbare regel per soort product.
+const SEO_LINE = {
+  Mes: 'Mes van gelaagd damascusstaal van Volkara.',
+  Accessoire: 'Accessoire van Volkara, gemaakt om bij je pannen te passen.',
+};
+const seoDescription = (p) => `${p.metafields.custom.subtitle} ${SEO_LINE[p.type] || 'Titanium kookoppervlak zonder coating, PFAS- en PTFE-vrij. Geschikt voor inductie en alle warmtebronnen.'}`;
+const seoTitle = (p) => { const t = p.title.replace(/^Volkara /, ''); return `${t.charAt(0).toUpperCase()}${t.slice(1)} | Volkara`; };
 const rows = [head];
 for (const p of products) {
   const m = p.metafields.custom;
@@ -19,9 +26,9 @@ for (const p of products) {
     rows.push([
       p.handle, first ? p.title : '', first ? p.description : '', first ? p.vendor : '', first ? 'Home & Garden > Kitchen & Dining > Cookware & Bakeware' : '',
       first ? p.type : '', first ? [...p.tags, ...p.collections].join(', ') : '', first ? 'TRUE' : '',
-      first ? (single ? 'Title' : 'Size') : '', v.title, v.sku, 1500, 'shopify', 0, 'deny', 'manual',
+      first ? (single ? 'Title' : p.options[0]) : '', v.title, v.sku, 1500, 'shopify', 0, 'deny', 'manual',
       money(v.price), money(v.compare_at_price), 'TRUE', 'TRUE', '', '', '',
-      first ? `${p.title} | VOLKARA` : '', first ? `${m.subtitle} VolcanicCore™ 5-ply forged titanium cookware with a lifetime warranty.` : '', first ? 'draft' : '',
+      first ? seoTitle(p) : '', first ? seoDescription(p) : '', first ? 'draft' : '',
       first ? m.subtitle : '', first ? (m.badge || '') : '', first ? JSON.stringify(m.specs.value) : '',
     ]);
   });

@@ -32,7 +32,7 @@ Then follow the store setup in [`docs/06-data-model.md`](docs/06-data-model.md):
 | Cart | Drawer or page, free-shipping bar, upsell, note, Section Rendering API updates |
 | Header | Announcement bar, mega menu, predictive search, mobile drawer, localization |
 | Settings | 5 color schemes, typography, animation toggles, brand promises, cart behaviour, visuals |
-| i18n | English (default) + Dutch (`locales/nl.json`) UI strings. Section copy is editable in the theme editor. |
+| i18n | Dutch (default, `locales/nl.default.json`) + English (`locales/en.json`) UI strings. Section copy is editable in the theme editor. |
 
 No build step, no frameworks, no external CDNs. Fonts are self-hosted (SIL OFL).
 

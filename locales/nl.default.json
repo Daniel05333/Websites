@@ -2,13 +2,13 @@
   "accessibility": {
     "pause_video": "Video pauzeren",
     "play_video": "Video afspelen",
-    "skip_to_text": "Naar inhoud",
+    "skip_to_text": "Direct naar de inhoud",
     "slide_of": "Dia {{ current }} van {{ total }}"
   },
   "blogs": {
     "all": "Alles",
     "by": "Door {{ author }}",
-    "comment_posted": "Bedankt — je reactie verschijnt na goedkeuring.",
+    "comment_posted": "Bedankt voor je reactie. Hij verschijnt zodra we hem hebben goedgekeurd.",
     "comments": {
       "one": "{{ count }} reactie",
       "other": "{{ count }} reacties"
@@ -16,7 +16,7 @@
     "next": "Volgend artikel",
     "post_comment": "Reactie plaatsen",
     "previous": "Vorig artikel",
-    "read_more": "Lees het verhaal",
+    "read_more": "Lees verder",
     "read_time": {
       "one": "{{ count }} min leestijd",
       "other": "{{ count }} min leestijd"
@@ -25,36 +25,36 @@
   },
   "cart": {
     "checkout": "Afrekenen",
-    "checkout_total": "Afrekenen — {{ total }}",
+    "checkout_total": "Afrekenen · {{ total }}",
     "continue": "Verder winkelen",
-    "empty": "Je tas is leeg.",
-    "empty_primary": "Shop de Forge Pan",
-    "empty_secondary": "Bekijk alle kookgerei",
-    "empty_text": "Elke goede keuken begint met één pan.",
-    "error": "Er ging iets mis. Probeer het opnieuw.",
+    "empty": "Je winkelwagen is leeg.",
+    "empty_primary": "Bekijk de Forge Pan",
+    "empty_secondary": "Bekijk alle pannen",
+    "empty_text": "Een goede keuken begint met één goede pan.",
+    "error": "Er ging iets mis. Probeer het nog eens.",
     "free_shipping": {
       "away": "Nog {{ amount }} tot gratis verzending.",
       "away_html": "Nog <strong>{{ amount }}</strong> tot gratis verzending.",
       "empty": "Gratis verzending vanaf {{ amount }}.",
-      "label": "Voortgang naar gratis verzending",
-      "reached": "Gratis verzending ontgrendeld. Van ons."
+      "label": "Voortgang tot gratis verzending",
+      "reached": "Je bestelling wordt gratis verzonden."
     },
-    "item_added": "Toegevoegd aan je tas",
+    "item_added": "Toegevoegd aan je winkelwagen",
     "item_count": {
-      "one": "{{ count }} stuk",
-      "other": "{{ count }} stuks"
+      "one": "{{ count }} artikel",
+      "other": "{{ count }} artikelen"
     },
-    "note": "Voeg een notitie of cadeaubericht toe",
-    "quantity_error_generic": "Alleen de beschikbare hoeveelheid is toegevoegd.",
+    "note": "Opmerking of cadeauboodschap toevoegen",
+    "quantity_error_generic": "We hebben alleen het beschikbare aantal toegevoegd.",
     "quantity_for": "Aantal voor {{ title }}",
     "remove": "Verwijderen",
     "subtotal": "Subtotaal",
     "summary": "Overzicht",
-    "taxes_shipping": "Inclusief btw. Verzendkosten worden bij het afrekenen berekend.",
-    "title": "Je tas",
-    "update": "Tas bijwerken",
-    "upsell_heading": "Hoort erbij",
-    "view_cart": "Bekijk tas"
+    "taxes_shipping": "Inclusief btw. Verzendkosten zie je bij het afrekenen.",
+    "title": "Je winkelwagen",
+    "update": "Winkelwagen bijwerken",
+    "upsell_heading": "Past er goed bij",
+    "view_cart": "Bekijk winkelwagen"
   },
   "collections": {
     "apply": "Toepassen",
@@ -65,51 +65,51 @@
       "other": "{{ count }} kolommen"
     },
     "count": {
-      "one": "{{ count }} stuk",
-      "other": "{{ count }} stuks"
+      "one": "{{ count }} product",
+      "other": "{{ count }} producten"
     },
-    "density": "Rasterweergave",
-    "empty": "Deze collectie wordt gesmeed.",
-    "empty_filters": "Niets voldoet aan deze filters.",
-    "empty_filters_text": "Wis de filters of bekijk de volledige collectie.",
-    "empty_text": "Nieuwe stukken zijn onderweg. Bekijk intussen de volledige collectie.",
+    "density": "Weergave",
+    "empty": "Deze collectie is nog leeg.",
+    "empty_filters": "Geen producten met deze filters.",
+    "empty_filters_text": "Wis de filters of bekijk de hele collectie.",
+    "empty_text": "Er komen nieuwe producten aan. Bekijk intussen de hele collectie.",
     "explore": "Ontdek",
-    "filter": "Filter",
-    "price_from": "Van (€)",
+    "filter": "Filteren",
+    "price_from": "Vanaf (€)",
     "price_to": "Tot (€)",
-    "refine": "Verfijnen",
+    "refine": "Filteren",
     "remove_filter": "Filter verwijderen",
     "show_more": "Meer tonen",
     "show_results": {
       "one": "Toon {{ count }} resultaat",
       "other": "Toon {{ count }} resultaten"
     },
-    "showing": "{{ shown }} van {{ total }} getoond",
-    "sort": "Sorteren",
+    "showing": "{{ shown }} van {{ total }}",
+    "sort": "Sorteren op",
     "title": "Collecties",
-    "view_all": "Bekijk alle kookgerei"
+    "view_all": "Bekijk alle pannen"
   },
   "contact": {
-    "email": "E-mail",
+    "email": "E-mailadres",
     "message": "Bericht",
-    "message_placeholder": "Vertel ons hoe we kunnen helpen.",
+    "message_placeholder": "Waar kunnen we je mee helpen?",
     "name": "Naam",
-    "order": "Ordernummer (optioneel)",
-    "send": "Verstuur bericht",
+    "order": "Bestelnummer (optioneel)",
+    "send": "Bericht versturen",
     "topic": "Onderwerp"
   },
   "customer": {
     "account": {
       "addresses": {
-        "one": "Bekijk {{ count }} adres",
-        "other": "Bekijk {{ count }} adressen"
+        "one": "{{ count }} adres bekijken",
+        "other": "{{ count }} adressen bekijken"
       },
       "back": "Terug naar je account",
       "details": "Accountgegevens",
-      "eyebrow": "Je account",
+      "eyebrow": "Mijn account",
       "logout": "Uitloggen",
-      "no_orders": "Je hebt nog geen bestellingen geplaatst.",
-      "orders": "Bestelgeschiedenis",
+      "no_orders": "Je hebt nog niets besteld.",
+      "orders": "Mijn bestellingen",
       "welcome": "Welkom terug, {{ name }}"
     },
     "activate": {
@@ -117,9 +117,9 @@
       "title": "Activeer je account"
     },
     "addresses": {
-      "add": "Nieuw adres toevoegen",
-      "address1": "Adres",
-      "address2": "Appartement, toevoeging, etc.",
+      "add": "Adres toevoegen",
+      "address1": "Straat en huisnummer",
+      "address2": "Toevoeging (optioneel)",
       "city": "Plaats",
       "confirm": "Dit adres verwijderen?",
       "country": "Land",
@@ -128,15 +128,15 @@
       "edit": "Bewerken",
       "phone": "Telefoon",
       "save": "Adres opslaan",
-      "set_default": "Als standaardadres instellen",
-      "title": "Je adressen",
+      "set_default": "Als standaardadres gebruiken",
+      "title": "Mijn adressen",
       "zip": "Postcode"
     },
-    "email": "E-mail",
+    "email": "E-mailadres",
     "first_name": "Voornaam",
     "last_name": "Achternaam",
     "password": "Wachtwoord",
-    "password_confirm": "Bevestig wachtwoord",
+    "password_confirm": "Herhaal wachtwoord",
     "login": {
       "create": "Account aanmaken",
       "forgot": "Wachtwoord vergeten?",
@@ -159,19 +159,19 @@
       "track": "Zending volgen"
     },
     "recover": {
-      "submit": "Verstuur resetlink",
-      "success": "We hebben je een e-mail gestuurd met een link om je wachtwoord te resetten.",
-      "text": "We mailen je een link om je wachtwoord te resetten.",
+      "submit": "Stuur me een resetlink",
+      "success": "We hebben je een e-mail gestuurd met een link om een nieuw wachtwoord in te stellen.",
+      "text": "Vul je e-mailadres in. We sturen je een link om een nieuw wachtwoord in te stellen.",
       "title": "Wachtwoord resetten"
     },
     "register": {
-      "have_account": "Heb je al een account? Inloggen",
-      "marketing": "Stuur me nieuwe stukken en recepten",
+      "have_account": "Heb je al een account? Log in",
+      "marketing": "Houd me op de hoogte van nieuwe producten en kooktips",
       "submit": "Account aanmaken",
-      "title": "Maak je account aan"
+      "title": "Account aanmaken"
     },
     "reset": {
-      "submit": "Wachtwoord resetten",
+      "submit": "Wachtwoord opslaan",
       "title": "Kies een nieuw wachtwoord"
     }
   },
@@ -194,12 +194,12 @@
       "s": "s",
       "seconds": "Seconden"
     },
-    "error": "Er ging iets mis.",
+    "error": "Er ging iets mis. Probeer het nog eens.",
     "home": "Home",
     "loading": "Laden…",
     "meta": {
       "page": "Pagina {{ page }}",
-      "tags": "Getagd met \"{{ tags }}\""
+      "tags": "Onderwerp: {{ tags }}"
     },
     "next": "Volgende",
     "pagination": "Paginering",
@@ -217,14 +217,14 @@
       "expires_on": "Geldig tot {{ expires_on }}",
       "initial_value": "Oorspronkelijke waarde {{ value }}",
       "print": "Afdrukken",
-      "shop_link": "Begin met winkelen",
-      "subtext": "Je VOLKARA-cadeaukaart",
+      "shop_link": "Naar de winkel",
+      "subtext": "Je Volkara-cadeaukaart",
       "title": "Je cadeaukaart van {{ value }} voor {{ shop }}"
     }
   },
   "header": {
     "account": "Account",
-    "cart": "Tas",
+    "cart": "Winkelwagen",
     "cart_count": {
       "one": "{{ count }} artikel",
       "other": "{{ count }} artikelen"
@@ -241,35 +241,35 @@
   },
   "newsletter": {
     "button": "Aanmelden",
-    "error": "Dat e-mailadres lijkt niet te kloppen. Controleer het en probeer opnieuw.",
+    "error": "Dit e-mailadres lijkt niet te kloppen. Controleer het en probeer het nog eens.",
     "label": "E-mailadres",
     "placeholder": "Je e-mailadres",
-    "success": "Je bent erbij. Houd je inbox in de gaten — de eerste brief is onderweg."
+    "success": "Bedankt voor je aanmelding. Je staat op de lijst voor onze nieuwsbrief."
   },
   "password": {
     "admin_html": "Ben je de eigenaar van de winkel? <a href=\"{{ link }}\">Log hier in</a>.",
-    "enter": "Toegang met wachtwoord",
+    "enter": "Inloggen met wachtwoord",
     "label": "Wachtwoord",
     "notify": "Houd me op de hoogte",
     "submit": "Openen"
   },
   "products": {
     "card": {
-      "add_variant": "{{ variant }} toevoegen aan tas",
+      "add_variant": "{{ variant }} in winkelwagen",
       "choose": "Kies {{ option }}",
       "quick_add": "Snel toevoegen"
     },
     "product": {
-      "add_to_bag": "In mijn tas",
-      "add_to_bag_price": "In mijn tas — {{ price }}",
-      "add_to_cart": "In mijn tas",
+      "add_to_bag": "In winkelwagen",
+      "add_to_bag_price": "In winkelwagen · {{ price }}",
+      "add_to_cart": "In winkelwagen",
       "added": "Toegevoegd",
       "adding": "Toevoegen…",
       "bundle_save": "Je bespaart {{ amount }} ten opzichte van los kopen",
       "choose_options": "Kies opties",
       "media": {
         "gallery": "Productgalerij",
-        "open": "Open afbeelding {{ index }} op volledig scherm",
+        "open": "Afbeelding {{ index }} vergroten",
         "show": "Toon afbeelding {{ index }}"
       },
       "new": "Nieuw",
@@ -286,16 +286,16 @@
         "label": "Aantal"
       },
       "rating": {
-        "aria": "Beoordeeld met {{ rating }} van 5 op basis van {{ count }} reviews",
+        "aria": "Gemiddeld {{ rating }} van 5, op basis van {{ count }} beoordelingen",
         "count": {
-          "one": "{{ count }} review",
-          "other": "{{ count }} reviews"
+          "one": "{{ count }} beoordeling",
+          "other": "{{ count }} beoordelingen"
         }
       },
-      "shipping_calculated": "Verzendkosten worden bij het afrekenen berekend.",
+      "shipping_calculated": "Verzendkosten zie je bij het afrekenen.",
       "sold_out": "Uitverkocht",
       "tax_included": "Inclusief btw.",
-      "unavailable": "Niet beschikbaar in deze maat"
+      "unavailable": "Deze uitvoering is niet beschikbaar"
     }
   },
   "search": {
@@ -303,26 +303,26 @@
     "label": "Zoeken",
     "loading": "Zoeken…",
     "more": "Meer",
-    "no_results": "Niets gevonden voor “{{ terms }}”.",
+    "no_results": "Geen resultaten voor ‘{{ terms }}’.",
     "no_results_generic": "Geen resultaten.",
-    "no_results_text": "Probeer “pan”, “wok” of “set” — of bekijk de volledige collectie.",
+    "no_results_text": "Probeer een ander woord, zoals ‘pan’ of ‘wok’, of bekijk de hele collectie.",
     "page": "Pagina",
-    "placeholder": "Zoek pannen, woks, messen…",
-    "popular": "Populaire zoekopdrachten",
+    "placeholder": "Zoek op pan, wok, deksel…",
+    "popular": "Veel gezocht",
     "products": "Producten",
     "results_count": {
-      "one": "{{ count }} resultaat voor “{{ terms }}”",
-      "other": "{{ count }} resultaten voor “{{ terms }}”"
+      "one": "{{ count }} resultaat voor ‘{{ terms }}’",
+      "other": "{{ count }} resultaten voor ‘{{ terms }}’"
     },
     "submit": "Zoeken",
     "suggestions": "Suggesties",
-    "view_all": "Zoek naar “{{ terms }}”"
+    "view_all": "Alle resultaten voor ‘{{ terms }}’"
   },
   "sections": {
     "categories": {
       "pieces": {
-        "one": "{{ count }} stuk",
-        "other": "{{ count }} stuks"
+        "one": "{{ count }} product",
+        "other": "{{ count }} producten"
       }
     },
     "comparison": {
@@ -332,13 +332,13 @@
       "status_yes": "Ja"
     },
     "faq": {
-      "filter_label": "Doorzoek de vragen",
-      "filter_placeholder": "Doorzoek de vragen…",
-      "no_results": "Geen vragen gevonden. Probeer een ander woord of neem contact op."
+      "filter_label": "Zoek in de vragen",
+      "filter_placeholder": "Zoek in de vragen…",
+      "no_results": "Geen vraag gevonden. Probeer een ander woord of neem contact met ons op."
     },
     "featured": {
       "placeholder_text": "Kies een collectie in de thema-editor.",
-      "placeholder_title": "Je product"
+      "placeholder_title": "Productnaam"
     },
     "hero": {
       "scroll": "Scroll"
@@ -349,20 +349,20 @@
     "reviews": {
       "all": "Alles",
       "based_on": {
-        "one": "Op basis van {{ count }} review",
-        "other": "Op basis van {{ count }} reviews"
+        "one": "Op basis van {{ count }} beoordeling",
+        "other": "Op basis van {{ count }} beoordelingen"
       },
-      "filter": "Reviews filteren",
+      "filter": "Beoordelingen filteren",
       "five_stars": "5 sterren",
-      "show_more": "Meer reviews tonen",
-      "verified": "Geverifieerde koper",
+      "show_more": "Meer beoordelingen tonen",
+      "verified": "Geverifieerde aankoop",
       "with_photos": "Met foto's"
     },
     "stories": {
       "play": "Speel {{ title }} af"
     },
     "usp": {
-      "label": "Onze beloftes"
+      "label": "Goed om te weten"
     }
   },
   "templates": {

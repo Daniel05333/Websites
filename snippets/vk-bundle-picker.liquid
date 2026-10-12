@@ -11,7 +11,7 @@
 {%- liquid
   assign b = block.settings
   assign vk_addon = b.t2_addon
-  assign vk_addon_v = vk_addon.selected_or_first_available_variant
+  assign vk_addon_v = nil
   for av in vk_addon.variants
     if av.option1 == variant.option1
       assign vk_addon_v = av
@@ -38,11 +38,11 @@
       <span class="vk-bundle__price" data-tier-price="single">{{ variant.price | money }}</span>
     </label>
     {%- if vk_addon != blank -%}
-      <label class="vk-bundle">
+      <label class="vk-bundle" data-tier="addon"{% if vk_addon_v == nil %} hidden{% endif %}>
         <input type="radio" name="vk-bundle-{{ section_id }}" value="addon">
         <span class="vk-bundle__radio" aria-hidden="true"></span>
         <span class="vk-bundle__copy"><span class="vk-bundle__title">{{ b.t2_title }}{% if b.t2_tag != blank %} <span class="vk-bundle__tag">{{ b.t2_tag }}</span>{% endif %}</span><span class="vk-bundle__text">{{ b.t2_text }}</span></span>
-        <span class="vk-bundle__price" data-tier-price="addon">{{ vk_t2_price | money }}</span>
+        <span class="vk-bundle__price" data-tier-price="addon">{% if vk_addon_v != nil %}{{ vk_t2_price | money }}{% endif %}</span>
       </label>
     {%- endif -%}
     {%- if vk_t3 != blank and vk_t3.id != product.id -%}

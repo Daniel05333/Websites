@@ -61,8 +61,14 @@
       if (inputs) inputs.innerHTML = '';
       if (this.idInput) this.idInput.disabled = false; if (qty) qty.disabled = false;
       if (bp && bp.data) {
+        // The add-on (e.g. a lid) is only offered in the exact same size as the selected variant.
+        const addon = bp.data.addon && v ? bp.data.addon.variants.find((a) => a.option1 === v.options[0] && a.available) : null;
+        const addonTier = bp.querySelector('[data-tier="addon"]');
+        if (addonTier) {
+          addonTier.hidden = !addon;
+          if (!addon && this.tier === 'addon') { this.tier = 'single'; const single = bp.querySelector('input[value="single"]'); if (single) single.checked = true; }
+        }
         bp.querySelectorAll('.vk-bundle').forEach((l) => l.classList.toggle('is-active', l.querySelector('input').checked));
-        const addon = bp.data.addon && v ? (bp.data.addon.variants.find((a) => a.option1 === v.options[0] && a.available) || bp.data.addon.variants.find((a) => a.available)) : null;
         const addonPrice = bp.querySelector('[data-tier-price="addon"]'); if (addonPrice && v && addon) addonPrice.textContent = VK.formatMoney(v.price + addon.price);
         const singlePrice = bp.querySelector('[data-tier-price="single"]'); if (singlePrice && v) singlePrice.textContent = VK.formatMoney(v.price);
         if (this.tier === 'addon' && addon && v) {

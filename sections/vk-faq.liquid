@@ -58,12 +58,12 @@
   "settings": [
     { "type": "select", "id": "layout", "label": "Layout", "default": "split", "options": [{ "value": "split", "label": "Split (sticky heading)" }, { "value": "centered", "label": "Centered" }] },
     { "type": "text", "id": "index", "label": "Chapter number", "default": "09" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FAQ" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Questions, <em>answered</em>." },
-    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Everything worth knowing before your first sear." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Veelgestelde vragen" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Goed om te <em>weten</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Alles wat je wilt weten voordat je voor het eerst gaat bakken." },
     { "type": "checkbox", "id": "show_filter", "label": "Show instant search", "default": true },
-    { "type": "text", "id": "contact_title", "label": "Contact title", "default": "Still curious?" },
-    { "type": "text", "id": "contact_text", "label": "Contact text", "default": "Talk to a person — we reply within one working day." },
+    { "type": "text", "id": "contact_title", "label": "Contact title", "default": "Nog een vraag?" },
+    { "type": "text", "id": "contact_text", "label": "Contact text", "default": "Stuur ons een bericht. We reageren zo snel mogelijk op werkdagen." },
     { "type": "url", "id": "contact_url", "label": "Contact link" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
@@ -71,8 +71,8 @@
   ],
   "blocks": [
     { "type": "question", "name": "Question", "settings": [
-      { "type": "text", "id": "question", "label": "Question", "default": "Is VOLKARA really PFAS-free?" },
-      { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes. There is no synthetic coating of any kind.</p>" }
+      { "type": "text", "id": "question", "label": "Question", "default": "Is Volkara echt PFAS-vrij?" },
+      { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Ja. Er zit geen coating op de pan, dus ook geen PFAS of PTFE.</p>" }
     ] }
   ],
   "presets": [{ "name": "VOLKARA · FAQ", "blocks": [{ "type": "question" }, { "type": "question" }, { "type": "question" }] }]

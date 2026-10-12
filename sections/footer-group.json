@@ -5,13 +5,13 @@
     "footer": {
       "type": "vk-footer",
       "blocks": {
-        "brand": { "type": "brand", "settings": { "text": "<p>Forged titanium cookware, engineered around VolcanicCore™. Built for the heat of serious home kitchens — and for the decades after.</p>", "email": "support@volkara.com", "hours": "Mon–Fri, 09:00–17:00 CET", "address": "" } },
-        "menu-shop": { "type": "menu", "settings": { "heading": "Shop", "menu": "footer-shop" } },
-        "menu-help": { "type": "menu", "settings": { "heading": "Support", "menu": "footer-help" } },
-        "menu-legal": { "type": "menu", "settings": { "heading": "Legal", "menu": "footer-legal" } }
+        "brand": { "type": "brand", "settings": { "text": "<p>Titanium kookgerei met VolcanicCore™-opbouw. Zonder coating, voor elke kookplaat en voor dagelijks gebruik.</p>", "email": "support@volkara.com", "hours": "", "address": "" } },
+        "menu-shop": { "type": "menu", "settings": { "heading": "Collectie", "menu": "footer-shop" } },
+        "menu-help": { "type": "menu", "settings": { "heading": "Klantenservice", "menu": "footer-help" } },
+        "menu-legal": { "type": "menu", "settings": { "heading": "Voorwaarden", "menu": "footer-legal" } }
       },
       "block_order": ["brand", "menu-shop", "menu-help", "menu-legal"],
-      "settings": { "color_scheme": "scheme-1", "show_newsletter": true, "newsletter_eyebrow": "The inner circle", "newsletter_text": "New pieces, recipes and nothing you'll want to unsubscribe from.", "show_promises": true, "show_payment_icons": true, "show_wordmark": true, "legal_text": "All rights reserved. All prices include VAT." }
+      "settings": { "color_scheme": "scheme-1", "show_newsletter": true, "newsletter_eyebrow": "Nieuwsbrief", "newsletter_text": "Kooktips, recepten en nieuwe producten in je inbox. Afmelden kan altijd.", "show_promises": true, "show_payment_icons": true, "show_wordmark": true, "legal_text": "Alle prijzen zijn inclusief btw." }
     }
   },
   "order": ["footer"]

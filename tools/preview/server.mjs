@@ -23,7 +23,7 @@ const handleize = (s) => String(s ?? '').toLowerCase().normalize('NFKD').replace
 const errors = [];
 
 /* ---------- Data model ---------- */
-const locale = () => readJSON('locales/en.default.json');
+const locale = () => readJSON('locales/nl.default.json');
 function themeSettings() {
   const schema = readJSON('config/settings_schema.json'); const data = readJSON('config/settings_data.json');
   const out = {};
@@ -78,13 +78,13 @@ function collectionByHandle(h, query) {
   const typeValues = [...new Set(products.map((p) => p.type))].map((t) => ({ label: t, value: t, count: products.filter((p) => p.type === t).length, active: types.includes(t), param_name: 'filter.p.product_type', url_to_remove: urlWith((u) => { const k = u.getAll('filter.p.product_type').filter((x) => x !== t); u.delete('filter.p.product_type'); k.forEach((x) => u.append('filter.p.product_type', x)); }) }));
   const maxPrice = Math.max(...products.map((p) => p.price_max));
   const filters = [
-    { label: 'Availability', param_name: 'filter.v.availability', type: 'list', values: [{ label: 'In stock', value: '1', count: products.length, active: avail.includes('1'), param_name: 'filter.v.availability', url_to_remove: urlWith((u) => u.delete('filter.v.availability')) }], active_values: [] },
-    { label: 'Price', param_name: 'filter.v.price', type: 'price_range', range_max: maxPrice, min_value: { param_name: 'filter.v.price.gte', value: gte ? gte * 100 : null }, max_value: { param_name: 'filter.v.price.lte', value: lte ? lte * 100 : null }, url_to_remove: urlWith((u) => { u.delete('filter.v.price.gte'); u.delete('filter.v.price.lte'); }), active_values: [] },
-    { label: 'Product type', param_name: 'filter.p.product_type', type: 'list', values: typeValues, active_values: typeValues.filter((v) => v.active) },
+    { label: 'Beschikbaarheid', param_name: 'filter.v.availability', type: 'list', values: [{ label: 'Op voorraad', value: '1', count: products.length, active: avail.includes('1'), param_name: 'filter.v.availability', url_to_remove: urlWith((u) => u.delete('filter.v.availability')) }], active_values: [] },
+    { label: 'Prijs', param_name: 'filter.v.price', type: 'price_range', range_max: maxPrice, min_value: { param_name: 'filter.v.price.gte', value: gte ? gte * 100 : null }, max_value: { param_name: 'filter.v.price.lte', value: lte ? lte * 100 : null }, url_to_remove: urlWith((u) => { u.delete('filter.v.price.gte'); u.delete('filter.v.price.lte'); }), active_values: [] },
+    { label: 'Producttype', param_name: 'filter.p.product_type', type: 'list', values: typeValues, active_values: typeValues.filter((v) => v.active) },
   ];
   filters[0].active_values = filters[0].values.filter((v) => v.active);
   return { ...raw, url: base, products: filtered, products_count: filtered.length, all_products_count: total, featured_image: null, image: null, filters, sort_by: sort, default_sort_by: 'manual',
-    sort_options: [['manual', 'Featured'], ['best-selling', 'Best selling'], ['price-ascending', 'Price, low to high'], ['price-descending', 'Price, high to low'], ['created-descending', 'Newest']].map(([value, name]) => ({ value, name })),
+    sort_options: [['manual', 'Aanbevolen'], ['best-selling', 'Bestverkocht'], ['price-ascending', 'Prijs, laag naar hoog'], ['price-descending', 'Prijs, hoog naar laag'], ['created-descending', 'Datum, nieuw naar oud']].map(([value, name]) => ({ value, name })),
     metafields: { custom: { hero_heading: { value: raw.hero }, eyebrow: null, subtitle: null } } };
 }
 const linklist = (h) => { const m = mock.menus[h]; if (!m) return null; const wrap = (l) => ({ ...l, active: false, child_active: false, links: (l.links || []).map(wrap) }); return { handle: h, title: h, links: m.map(wrap) }; };
@@ -176,11 +176,11 @@ const F = {
   color_extract(hex, part) { const h = String(hex).replace('#', ''); const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16); if (part === 'red') return r; if (part === 'green') return g; if (part === 'blue') return b; const mx = Math.max(r, g, b) / 255, mn = Math.min(r, g, b) / 255; const l = (mx + mn) / 2; const s = mx === mn ? 0 : (l > .5 ? (mx - mn) / (2 - mx - mn) : (mx - mn) / (mx + mn)); return Math.round(s * 100); },
   color_brightness(hex) { const h = String(hex).replace('#', ''); return Math.round((parseInt(h.slice(0, 2), 16) * 299 + parseInt(h.slice(2, 4), 16) * 587 + parseInt(h.slice(4, 6), 16) * 114) / 1000); },
   payment_type_svg_tag: (type) => `<svg class="vk-payment-icon" viewBox="0 0 38 24" role="img" aria-label="${type}"><rect width="38" height="24" rx="4" fill="#F7F5F2"/><text x="19" y="15" font-size="7" text-anchor="middle" font-family="Arial" fill="#080808">${String(type).slice(0, 6).toUpperCase()}</text></svg>`,
-  default_errors: () => '', default_pagination: () => '', structured_data: () => '{}', payment_button: () => '<div class="shopify-payment-button"><button class="shopify-payment-button__button vk-btn vk-btn--light vk-btn--block" type="button">Buy with Shop Pay</button></div>',
+  default_errors: () => '', default_pagination: () => '', structured_data: () => '{}', payment_button: () => '<div class="shopify-payment-button"><button class="shopify-payment-button__button vk-btn vk-btn--light vk-btn--block" type="button">Kopen met Shop Pay</button></div>',
   metafield_tag: (m) => m?.value ?? '', video_tag: () => '', media_tag: () => '', external_video_tag: () => '', model_viewer_tag: () => '', format_address: () => '<p>VOLKARA B.V.<br>Amsterdam</p>', format_code: (c) => c,
   time_tag: (d) => `<time>${new Date(d).toDateString()}</time>`, link_to: (txt, url) => `<a href="${url}">${txt}</a>`, url_encode: (s) => encodeURIComponent(s ?? ''),
   at_least: (a, b) => Math.max(Number(a), Number(b)), newline_to_br: (s) => String(s ?? '').replace(/\n/g, '<br />'),
-  date(d, fmt, ...rest) { const o = kw([fmt, ...rest]); if (d === 'now') d = new Date(); const dt = new Date(d); if (fmt === '%Y') return dt.getFullYear(); if (fmt === '%s') return Math.floor(dt / 1000); if (o.format || Array.isArray(fmt)) return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); return dt.toLocaleDateString('en-GB'); },
+  date(d, fmt, ...rest) { const o = kw([fmt, ...rest]); if (d === 'now') d = new Date(); const dt = new Date(d); if (fmt === '%Y') return dt.getFullYear(); if (fmt === '%s') return Math.floor(dt / 1000); if (o.format || Array.isArray(fmt)) return dt.toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' }); return dt.toLocaleDateString('nl-NL'); },
 };
 for (const [k, fn] of Object.entries(F)) engine.registerFilter(k, fn);
 
@@ -225,7 +225,7 @@ function baseContext(req, url, cart) {
   return {
     shop: { name: 'VOLKARA', url: `http://localhost:${PORT}`, currency: 'EUR', money_format: '€{{amount_with_comma_separator}}', money_with_currency_format: '€{{amount_with_comma_separator}} EUR', enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'ideal', 'klarna'], customer_accounts_enabled: true, policies: [], shipping_policy: { body: 'x', url: '/policies/shipping-policy' } },
     settings, cart: cartObject(cart), customer: null, current_page: Number(url.searchParams.get('page')) || 1,
-    request: { locale: { iso_code: 'en' }, design_mode: false, path: url.pathname, url: url.pathname + url.search, host: 'localhost' },
+    request: { locale: { iso_code: 'nl' }, design_mode: false, path: url.pathname, url: url.pathname + url.search, host: 'localhost' },
     routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', cart_update_url: '/cart/update', cart_clear_url: '/cart/clear', predictive_search_url: '/search/suggest', product_recommendations_url: '/recommendations/products', search_url: '/search', collections_url: '/collections', all_products_collection_url: '/collections/all', account_url: '/account', account_login_url: '/account/login', account_logout_url: '/account/logout', account_register_url: '/account/register', account_addresses_url: '/account/addresses' },
     localization: { available_countries: [], available_languages: [] },
     collections: Object.fromEntries(mock.collections.map((c) => [c.handle, collectionByHandle(c.handle)])),
@@ -264,9 +264,9 @@ async function handlePage(req, res, url) {
   const cart = cartFor(req); const r = route(url); const ctx = baseContext(req, url, cart);
   let template = r.template;
   if (r.collection) { ctx.collection = collectionByHandle(r.collection, url.searchParams); if (!ctx.collection) template = '404'; }
-  if (r.product) { const p = productByHandle(r.product); if (!p) template = '404'; else { const vid = url.searchParams.get('variant'); const v = p.variants.find((x) => String(x.id) === vid); ctx.product = { ...p, selected_or_first_available_variant: v || p.variants[0], selected_variant: v || null, options_with_values: p.options_with_values.map((o, i) => ({ ...o, selected_value: (v || p.variants[0]).options[i] })) }; ctx.page_title = p.title; } }
+  if (r.product) { const p = productByHandle(r.product); if (!p) template = '404'; else { const vid = url.searchParams.get('variant'); const v = p.variants.find((x) => String(x.id) === vid); ctx.product = { ...p, selected_or_first_available_variant: v || p.variants[0], selected_variant: v || null, options_with_values: p.options_with_values.map((o, i) => ({ ...o, selected_value: (v || p.variants[0]).options[i] })) }; ctx.page_title = p.title; if (p.template_suffix && fs.existsSync(path.join(ROOT, `templates/product.${p.template_suffix}.json`))) template = `product.${p.template_suffix}`; } }
   if (r.page) { const pg = mock.pages.find((x) => x.handle === r.page); if (!pg) template = '404'; else { ctx.page = pg; if (pg.template_suffix && fs.existsSync(path.join(ROOT, `templates/page.${pg.template_suffix}.json`))) template = `page.${pg.template_suffix}`; } }
-  if (template === 'blog' || template === 'article') { const arts = mock.articles.map((a) => ({ ...a, url: `/blogs/journal/${a.handle}`, image: null, excerpt_or_content: a.content, comments_count: 0, comments: [] })); ctx.blog = { title: 'Journal', url: '/blogs/journal', articles: arts, all_tags: ['Technique', 'Story', 'Technology'], comments_enabled_q: false }; if (r.article) { ctx.article = arts.find((a) => a.handle === r.article); if (!ctx.article) template = '404'; } }
+  if (template === 'blog' || template === 'article') { const arts = mock.articles.map((a) => ({ ...a, url: `/blogs/journal/${a.handle}`, image: null, excerpt_or_content: a.content, comments_count: 0, comments: [] })); ctx.blog = { title: 'Journaal', url: '/blogs/journal', articles: arts, all_tags: ['Techniek', 'Verhaal', 'Technologie'], comments_enabled_q: false }; if (r.article) { ctx.article = arts.find((a) => a.handle === r.article); if (!ctx.article) template = '404'; } }
   if (template === 'search') { const q = (url.searchParams.get('q') || '').toLowerCase(); const results = q ? allProducts().filter((p) => p.title.toLowerCase().includes(q) || p.type.toLowerCase().includes(q)).map((p) => ({ ...p, object_type: 'product' })) : []; ctx.search = { performed: !!q, terms: q, results, results_count: results.length }; }
   if (template === 'cart' || url.pathname === '/recommendations/products') ctx.product = ctx.product || null;
   const sid = url.searchParams.get('section_id'); const sids = url.searchParams.get('sections');

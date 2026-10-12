@@ -312,25 +312,25 @@
         "type": "text",
         "id": "promise_warranty",
         "label": "Warranty",
-        "default": "Lifetime warranty"
+        "default": "Wettelijke garantie"
       },
       {
         "type": "text",
         "id": "promise_trial",
         "label": "Trial",
-        "default": "60-day home trial"
+        "default": "14 dagen bedenktijd"
       },
       {
         "type": "text",
         "id": "promise_shipping",
         "label": "Shipping",
-        "default": "Free shipping over €75"
+        "default": "Gratis verzending vanaf €75"
       },
       {
         "type": "text",
         "id": "promise_secure",
         "label": "Checkout",
-        "default": "Secure checkout"
+        "default": "Veilig betalen met iDEAL"
       }
     ]
   },

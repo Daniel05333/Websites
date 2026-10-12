@@ -57,8 +57,10 @@
       assign vk_placeholder = 'wok'
     when 'Set', 'Cookware Set'
       assign vk_placeholder = 'set'
-    when 'Knife'
+    when 'Knife', 'Mes'
       assign vk_placeholder = 'knife'
+    when 'Accessoire', 'Accessory'
+      assign vk_placeholder = 'macro'
   endcase
   assign vk_single = product.has_only_default_variant
   assign vk_v = product.selected_or_first_available_variant

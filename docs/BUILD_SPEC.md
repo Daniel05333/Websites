@@ -202,9 +202,9 @@ Product (`vk-product.js`): `<vk-product-form>` (fetch `/cart/add.js` with `secti
 
 ## 9. Locale (translation) workflow — IMPORTANT for parallel work
 
-- `locales/en.default.json` and `locales/nl.json` are owned by the **foundation agent** only. It pre-creates shared namespaces: `general.*`, `accessibility.*`, `products.product.*`, `products.card.*`, `cart.*`, `collections.*`, `search.*`, `newsletter.*`, `customer.*`, `gift_cards.*`, `templates.*`, `sections.*` (empty object for others).
+- `locales/nl.default.json` (default) and `locales/en.json` are owned by the **foundation agent** only. It pre-creates shared namespaces: `general.*`, `accessibility.*`, `products.product.*`, `products.card.*`, `cart.*`, `collections.*`, `search.*`, `newsletter.*`, `customer.*`, `gift_cards.*`, `templates.*`, `sections.*` (empty object for others).
 - Every other agent that needs new storefront strings writes **fragment files**: `tools/locale-fragments/<agent-id>.en.json` and `tools/locale-fragments/<agent-id>.nl.json` (Dutch translation) — nested JSON under `sections.<your_section_name>.*` (or another clearly-owned namespace). The orchestrator deep-merges fragments into the locale files with `node tools/merge-locales.mjs`. You MAY run that script yourself to test (it is idempotent and safe to run concurrently-ish; if it reports a conflict, rename your keys).
-- Before inventing a key, check whether `locales/en.default.json` already has it.
+- Before inventing a key, check whether `locales/nl.default.json` already has it.
 - Pluralization: `{ "one": "…", "other": "…" }` with `count`.
 
 ## 10. Templates workflow

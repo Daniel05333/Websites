@@ -7,20 +7,20 @@
       "type": "vk-hero",
       "settings": {
         "fallback": "vk-visual-macro.webp",
-        "image_alt": "Extreme macro of the LavaCell™ titanium surface, oil glinting in the hexagonal valleys",
+        "image_alt": "Extreme close-up van het titanium LavaCell™-oppervlak, met olie die glinstert in de zeshoekige dalen",
         "overlay": 45,
         "parallax": 20,
         "show_embers": true,
         "height": "large",
         "alignment": "left",
         "show_scroll_cue": false,
-        "eyebrow": "VolcanicCore™ technology",
-        "heading": "Five layers. One <em>body</em>.",
+        "eyebrow": "VolcanicCore™-technologie",
+        "heading": "Vijf lagen. Eén <em>pan</em>.",
         "heading_tag": "auto",
-        "subheading": "VolcanicCore™ is how we build every VOLKARA pan and pot: a titanium surface with nothing to wear away, a triple aluminium core that heats edge to edge, and stainless steel that keeps it all rigid, flat and induction-ready.",
-        "primary_label": "Shop the Forge Pan",
+        "subheading": "VolcanicCore™ is de opbouw van elke Volkara-pan: een titanium oppervlak zonder coating, een aluminium kern die de warmte tot aan de rand verdeelt en roestvrij staal dat alles stevig en geschikt voor inductie maakt.",
+        "primary_label": "Bekijk de Forge Pan",
         "primary_url": "/products/forge-pan",
-        "secondary_label": "Explore all cookware",
+        "secondary_label": "Bekijk alle pannen",
         "secondary_url": "/collections/all",
         "color_scheme": "scheme-1",
         "padding_top": 0,
@@ -31,28 +31,28 @@
           "type": "trust",
           "settings": {
             "icon": "flame",
-            "text": "5-ply · 3.0 mm"
+            "text": "Vijf lagen metaal"
           }
         },
         "trust-2": {
           "type": "trust",
           "settings": {
-            "icon": "shield",
-            "text": "Oven-safe to 260°C"
+            "icon": "leaf",
+            "text": "PFAS- en PTFE-vrij"
           }
         },
         "trust-3": {
           "type": "trust",
           "settings": {
-            "icon": "leaf",
-            "text": "PFAS- & PTFE-free"
+            "icon": "shield",
+            "text": "Geschikt voor inductie"
           }
         },
         "trust-4": {
           "type": "trust",
           "settings": {
-            "icon": "star",
-            "text": "Lifetime warranty"
+            "icon": "return",
+            "text": "14 dagen bedenktijd"
           }
         }
       },
@@ -68,13 +68,13 @@
       "settings": {
         "layout": "cinematic",
         "index": "01",
-        "eyebrow": "The layers",
-        "heading": "Engineered like a <em>volcano</em>.",
-        "intro": "Scroll through the stack. Each layer has a single job, and together they behave like one piece of metal: fast to heat, slow to cool, impossible to peel apart.",
+        "eyebrow": "De lagen",
+        "heading": "Opgebouwd als een <em>vulkaan</em>.",
+        "intro": "Scroll door de opbouw. Elke laag heeft één taak, en samen gedragen ze zich als één stuk metaal: snel warm en stabiel op temperatuur.",
         "show_background": true,
-        "button_label": "See it in the Forge Pan",
+        "button_label": "Bekijk de Forge Pan",
         "button_url": "/products/forge-pan",
-        "footnote": "Specifications shown for the Forge Pan. Each product page lists its own dimensions and weight.",
+        "footnote": "Opbouw zoals in de Forge Pan. Op elke productpagina vind je de maten en specificaties van dat product.",
         "color_scheme": "scheme-1",
         "padding_top": 120,
         "padding_bottom": 120
@@ -83,46 +83,46 @@
         "layer-1": {
           "type": "layer",
           "settings": {
-            "name": "LavaCell™ Surface",
-            "spec": "LAYER 01 · LAVACELL™ · Ti",
+            "name": "LavaCell™-oppervlak",
+            "spec": "LAAG 01 · LAVACELL™ · Ti",
             "texture": "lavacell",
-            "description": "<p>Laser-etched hexagonal titanium relief. Raised peaks shield the surface from utensils; valleys hold a micro-film of oil for natural release and a deeper sear.</p>"
+            "description": "<p>Een titanium reliëf van zeshoekjes. De toppen beschermen het oppervlak tegen keukengerei, de dalen houden een dun laagje olie vast voor een natuurlijke loslating en een mooie korst.</p>"
           }
         },
         "layer-2": {
           "type": "layer",
           "settings": {
-            "name": "Titanium Shield",
-            "spec": "LAYER 02 · TITANIUM SHIELD · Ti",
+            "name": "Titanium kooklaag",
+            "spec": "LAAG 02 · TITANIUM · Ti",
             "texture": "titanium",
-            "description": "<p>A pure, non-reactive titanium cooking layer. No PFAS, no PTFE, no coating to wear off — nothing between your food and the metal.</p>"
+            "description": "<p>Een kooklaag van titanium die niet reageert met je eten. Geen PFAS, geen PTFE en geen coating die kan slijten: niets tussen je eten en het metaal.</p>"
           }
         },
         "layer-3": {
           "type": "layer",
           "settings": {
-            "name": "Thermal Core",
-            "spec": "LAYER 03 · THERMAL CORE · Al ×3",
+            "name": "Thermische kern",
+            "spec": "LAAG 03 · THERMISCHE KERN · Al",
             "texture": "thermal",
-            "description": "<p>A triple aluminium core that pulls heat from the centre to the rim in seconds. No hot spots, no cold edge.</p>"
+            "description": "<p>Een aluminium kern die de warmte snel van het midden naar de rand brengt. Geen hete plekken, geen koude rand.</p>"
           }
         },
         "layer-4": {
           "type": "layer",
           "settings": {
-            "name": "Stainless Structure",
-            "spec": "LAYER 04 · STAINLESS STRUCTURE · 18/10",
+            "name": "Rvs-structuur",
+            "spec": "LAAG 04 · RVS-STRUCTUUR · 18/10",
             "texture": "steel",
-            "description": "<p>An 18/10 stainless steel body that gives the pan its rigidity and resists warping under thermal shock.</p>"
+            "description": "<p>Een romp van roestvrij staal die de pan stevigheid geeft en helpt kromtrekken te voorkomen.</p>"
           }
         },
         "layer-5": {
           "type": "layer",
           "settings": {
-            "name": "Magnetic Base",
-            "spec": "LAYER 05 · MAGNETIC BASE · 18/0",
+            "name": "Magnetische bodem",
+            "spec": "LAAG 05 · MAGNETISCHE BODEM · 18/0",
             "texture": "magnetic",
-            "description": "<p>18/0 magnetic stainless steel: induction-ready and machined flat, so the pan sits true on every hob.</p>"
+            "description": "<p>Magnetisch rvs, geschikt voor inductie en vlak afgewerkt, zodat de pan op elke kookplaat goed contact maakt.</p>"
           }
         },
         "stat-6": {
@@ -130,26 +130,26 @@
           "settings": {
             "number": 5,
             "decimals": 0,
-            "suffix": "-PLY",
-            "label": "forged layers, bonded as one"
+            "suffix": " LAGEN",
+            "label": "samengesmeed tot één geheel"
           }
         },
         "stat-7": {
           "type": "stat",
           "settings": {
-            "number": 3,
-            "decimals": 1,
-            "suffix": " MM",
-            "label": "body thickness for steady heat"
+            "number": 0,
+            "decimals": 0,
+            "suffix": " COATING",
+            "label": "dus niets dat kan afbladderen"
           }
         },
         "stat-8": {
           "type": "stat",
           "settings": {
-            "number": 260,
+            "number": 6,
             "decimals": 0,
-            "suffix": "°C",
-            "label": "oven- and grill-safe"
+            "suffix": " WARMTEBRONNEN",
+            "label": "van gas en inductie tot de oven"
           }
         }
       },
@@ -168,10 +168,10 @@
       "type": "vk-benefits",
       "settings": {
         "index": "02",
-        "eyebrow": "What you'll feel",
-        "heading": "Performance you can <em>feel</em>.",
-        "subheading": "Engineering only matters at the hob. Here's where you'll notice it.",
-        "button_label": "Find your piece",
+        "eyebrow": "Wat je merkt",
+        "heading": "Dit merk je bij elke <em>maaltijd</em>.",
+        "subheading": "Techniek telt pas op het fornuis. Hier merk je het verschil.",
+        "button_label": "Vind jouw pan",
         "button_url": "/collections/all",
         "color_scheme": "scheme-5",
         "padding_top": 120,
@@ -185,9 +185,9 @@
             "theme": "dark",
             "icon": "flame",
             "fallback": "vk-visual-sear.webp",
-            "stat": "3.0 MM HEAT-HOLDING BODY",
-            "title": "A sear with real crust",
-            "text": "<p>Peaks lift, valleys hold oil. The LavaCell™ relief gives steak, scallops and potatoes the contact they need for a deep, even crust.</p>"
+            "stat": "MOOIE KORST",
+            "title": "Aanbraden zoals het hoort",
+            "text": "<p>De toppen van het reliëf geven biefstuk, coquilles en aardappels het contact dat ze nodig hebben voor een egale, krokante korst.</p>"
           }
         },
         "tile-2": {
@@ -197,9 +197,9 @@
             "theme": "light",
             "icon": "thermometer",
             "fallback": "none",
-            "stat": "AL ×3 THERMAL CORE",
-            "title": "Heat in seconds",
-            "text": "<p>The triple aluminium core answers the dial immediately — up for a sear, down for a sauce — without the long lag of cast iron.</p>"
+            "stat": "SNELLE REACTIE",
+            "title": "Warmte die luistert",
+            "text": "<p>Zet je het vuur hoger of lager, dan volgt de pan snel. Hoog om dicht te schroeien, laag voor een saus — zonder het lange wachten van gietijzer.</p>"
           }
         },
         "tile-3": {
@@ -209,9 +209,9 @@
             "theme": "light",
             "icon": "utensils",
             "fallback": "none",
-            "stat": "0 COATINGS TO SCRATCH",
-            "title": "Metal-utensil safe",
-            "text": "<p>Use the spatula you actually like. Titanium peaks take the contact, so whisks, tongs and fish slices are welcome.</p>"
+            "stat": "METALEN SPATEL MAG",
+            "title": "Gebruik je favoriete spatel",
+            "text": "<p>De titanium toppen vangen het contact op. Garde, tang en visspatel zijn gewoon welkom.</p>"
           }
         },
         "tile-4": {
@@ -221,9 +221,9 @@
             "theme": "dark",
             "icon": "oven",
             "fallback": "vk-visual-chef.webp",
-            "stat": "260°C OVEN-SAFE",
-            "title": "Hob to oven to table",
-            "text": "<p>Start on the hob, finish in the oven, serve from the pan. Built for the whole recipe, not just the first step.</p>"
+            "stat": "OVENBESTENDIG",
+            "title": "Van fornuis naar oven naar tafel",
+            "text": "<p>Begin op het vuur, maak af in de oven en serveer uit de pan. Gemaakt voor het hele recept, niet alleen voor de eerste stap.</p>"
           }
         },
         "tile-5": {
@@ -233,9 +233,9 @@
             "theme": "light",
             "icon": "dishwasher",
             "fallback": "none",
-            "stat": "DISHWASHER-SAFE",
-            "title": "Clean in a minute",
-            "text": "<p>Titanium and stainless steel have nothing to strip, so the dishwasher is fine. Most days, warm water and a soft sponge are quicker.</p>"
+            "stat": "VAATWASSERBESTENDIG",
+            "title": "Snel weer schoon",
+            "text": "<p>Titanium en rvs hebben geen laag die kan afslijten, dus de vaatwasser mag. Meestal is warm water met een zachte spons nog sneller.</p>"
           }
         },
         "tile-6": {
@@ -245,9 +245,9 @@
             "theme": "ember",
             "icon": "award",
             "fallback": "none",
-            "stat": "LIFETIME WARRANTY",
-            "title": "Built to be handed down",
-            "text": "<p>No coating to expire, a body that resists warping and a lifetime warranty in writing. Buy once. Pass it on.</p>"
+            "stat": "GEEN COATING",
+            "title": "Geen pan meer om te vervangen",
+            "text": "<p>Er is geen antiaanbaklaag die op raakt. Met normaal gebruik en een beetje zorg gaat deze pan jarenlang mee.</p>"
           }
         }
       },
@@ -264,13 +264,13 @@
       "type": "vk-comparison",
       "settings": {
         "index": "03",
-        "eyebrow": "The comparison",
-        "heading": "Not all pans are <em>created equal</em>.",
-        "subheading": "How VolcanicCore™ compares with the two pans most kitchens already own.",
-        "competitor_1": "Non-stick",
-        "competitor_2": "Cast iron",
-        "footnote": "Compared with typical PTFE-coated aluminium pans and traditional unenamelled cast iron. Individual products vary. Every VOLKARA piece is backed by a lifetime warranty.",
-        "button_label": "Choose your pan",
+        "eyebrow": "De vergelijking",
+        "heading": "Niet elke pan is <em>gelijk</em>.",
+        "subheading": "Zo verhoudt VolcanicCore™ zich tot de twee pannen die de meeste keukens al hebben.",
+        "competitor_1": "Antiaanbak",
+        "competitor_2": "Gietijzer",
+        "footnote": "Vergeleken met gangbare aluminium pannen met PTFE-coating en traditioneel, niet-geëmailleerd gietijzer. Afzonderlijke producten kunnen verschillen.",
+        "button_label": "Kies jouw pan",
         "button_url": "/collections/pans",
         "color_scheme": "scheme-1",
         "padding_top": 120,
@@ -280,97 +280,97 @@
         "row-1": {
           "type": "row",
           "settings": {
-            "group": "Performance",
-            "feature": "Searing",
-            "ours": "Deep, even crust",
+            "group": "Prestaties",
+            "feature": "Aanbraden",
+            "ours": "Diepe, egale korst",
             "c1_status": "no",
-            "c1_text": "Coating limits high heat",
+            "c1_text": "Coating verdraagt geen hoge hitte",
             "c2_status": "yes",
-            "c2_text": "Excellent crust"
+            "c2_text": "Uitstekende korst"
           }
         },
         "row-2": {
           "type": "row",
           "settings": {
             "group": "",
-            "feature": "Heat response",
-            "ours": "Fast and even, edge to edge",
+            "feature": "Warmte",
+            "ours": "Snel en gelijkmatig, tot aan de rand",
             "c1_status": "partial",
-            "c1_text": "Fast, but thin bases build hot spots",
+            "c1_text": "Snel, maar dunne bodems vormen hotspots",
             "c2_status": "partial",
-            "c2_text": "Slow to heat, slow to adjust"
+            "c2_text": "Warmt langzaam op, reageert traag"
           }
         },
         "row-3": {
           "type": "row",
           "settings": {
-            "group": "Durability",
-            "feature": "Metal utensils",
-            "ours": "Welcome",
+            "group": "Duurzaamheid",
+            "feature": "Metalen keukengerei",
+            "ours": "Geen probleem",
             "c1_status": "no",
-            "c1_text": "Scratch the coating",
+            "c1_text": "Krast de coating",
             "c2_status": "yes",
-            "c2_text": "Welcome"
+            "c2_text": "Geen probleem"
           }
         },
         "row-4": {
           "type": "row",
           "settings": {
             "group": "",
-            "feature": "Working life",
-            "ours": "Built for decades, lifetime warranty",
+            "feature": "Levensduur",
+            "ours": "Geen coating die opraakt",
             "c1_status": "no",
-            "c1_text": "Replaced every few years",
+            "c1_text": "Na een paar jaar aan vervanging toe",
             "c2_status": "yes",
-            "c2_text": "Decades, with care"
+            "c2_text": "Jarenlang, mits goed onderhouden"
           }
         },
         "row-5": {
           "type": "row",
           "settings": {
-            "group": "Health & purity",
-            "feature": "PFAS & PTFE",
-            "ours": "None — no coating at all",
+            "group": "Gezondheid",
+            "feature": "PFAS en PTFE",
+            "ours": "Geen — er is geen coating",
             "c1_status": "no",
-            "c1_text": "PTFE fluoropolymer coating",
+            "c1_text": "PTFE-coating (fluorpolymeer)",
             "c2_status": "yes",
-            "c2_text": "None"
+            "c2_text": "Geen"
           }
         },
         "row-6": {
           "type": "row",
           "settings": {
             "group": "",
-            "feature": "Acidic food",
-            "ours": "Non-reactive with tomato, wine and citrus",
+            "feature": "Zure gerechten",
+            "ours": "Reageert niet met tomaat, wijn of citroen",
             "c1_status": "partial",
-            "c1_text": "Fine while the coating is intact",
+            "c1_text": "Prima zolang de coating heel is",
             "c2_status": "no",
-            "c2_text": "Reacts and can taste metallic"
+            "c2_text": "Reageert en kan metaalachtig smaken"
           }
         },
         "row-7": {
           "type": "row",
           "settings": {
-            "group": "Everyday life",
-            "feature": "Care",
-            "ours": "Dishwasher-safe, no ritual",
+            "group": "Dagelijks gebruik",
+            "feature": "Onderhoud",
+            "ours": "Vaatwasserbestendig, geen gedoe",
             "c1_status": "partial",
-            "c1_text": "Hand-wash to protect the coating",
+            "c1_text": "Met de hand afwassen om de coating te sparen",
             "c2_status": "no",
-            "c2_text": "Hand-wash, dry and oil every time"
+            "c2_text": "Na elk gebruik afwassen, drogen en invetten"
           }
         },
         "row-8": {
           "type": "row",
           "settings": {
             "group": "",
-            "feature": "Weight",
-            "ours": "Balanced — ≈ 1.3 kg at 28 cm",
+            "feature": "Gewicht",
+            "ours": "Stevig en uitgebalanceerd",
             "c1_status": "yes",
-            "c1_text": "Light",
+            "c1_text": "Licht",
             "c2_status": "no",
-            "c2_text": "Heavy — often 2.5 kg or more"
+            "c2_text": "Zwaar"
           }
         }
       },
@@ -390,12 +390,12 @@
       "settings": {
         "layout": "split",
         "index": "04",
-        "eyebrow": "Technical FAQ",
-        "heading": "The science, <em>simply</em>.",
-        "subheading": "For the cooks who want to know exactly what they're cooking on.",
+        "eyebrow": "Technische vragen",
+        "heading": "De techniek, <em>simpel</em> uitgelegd.",
+        "subheading": "Voor wie precies wil weten waarop hij kookt.",
         "show_filter": false,
-        "contact_title": "Still curious?",
-        "contact_text": "Talk to a person — we reply within one working day.",
+        "contact_title": "Staat je vraag er niet bij?",
+        "contact_text": "Stel hem aan ons. We helpen je graag verder.",
         "contact_url": "/pages/contact",
         "color_scheme": "scheme-2",
         "padding_top": 120,
@@ -405,43 +405,43 @@
         "question-1": {
           "type": "question",
           "settings": {
-            "question": "Is the cooking surface really titanium, or a titanium coating?",
-            "answer": "<p>Titanium. The LavaCell™ surface is a solid titanium layer bonded into the pan's body — not a spray, a paint or a \"titanium-reinforced\" non-stick coating. There is nothing applied on top of it.</p>"
+            "question": "Is het kookoppervlak echt titanium, of een titanium coating?",
+            "answer": "<p>Titanium. Het LavaCell™-oppervlak is een titanium laag die vastzit in de pan zelf — geen spray, geen verf en geen antiaanbaklaag \"met titanium\". Er is niets op aangebracht.</p>"
           }
         },
         "question-2": {
           "type": "question",
           "settings": {
-            "question": "What does \"5-ply\" mean?",
-            "answer": "<p>Five metal layers bonded into one body: titanium at the surface, then a titanium shield, a triple aluminium thermal core, an 18/10 stainless steel structure and an 18/0 magnetic stainless base. Each does one job; together they behave as a single sheet of metal.</p>"
+            "question": "Wat betekenen de vijf lagen?",
+            "answer": "<p>Vijf lagen metaal die samen één geheel vormen: het titanium LavaCell™-oppervlak, een titanium kooklaag, een aluminium kern, een romp van roestvrij staal en een magnetische bodem. Elke laag heeft één taak; samen gedragen ze zich als één stuk metaal.</p>"
           }
         },
         "question-3": {
           "type": "question",
           "settings": {
-            "question": "How does a surface release food without a coating?",
-            "answer": "<p>The hexagonal relief holds a micro-film of oil in its valleys, while the raised peaks reduce the area food can grip. Combined with a properly preheated pan, proteins form a crust and release on their own.</p>"
+            "question": "Hoe laat eten los zonder coating?",
+            "answer": "<p>Het zeshoekige reliëf houdt een dun laagje olie vast in de dalen, terwijl de toppen het contactoppervlak verkleinen. In een goed voorverwarmde pan vormt eiwit een korst en laat het vanzelf los.</p>"
           }
         },
         "question-4": {
           "type": "question",
           "settings": {
-            "question": "Why aluminium in the middle?",
-            "answer": "<p>Aluminium conducts heat more than ten times better than stainless steel. Three layers of it pull heat from the burner out to the rim quickly and evenly, so the whole base cooks — not just the centre.</p>"
+            "question": "Waarom aluminium in het midden?",
+            "answer": "<p>Aluminium geleidt warmte veel beter dan roestvrij staal. De aluminium kern brengt de warmte snel en gelijkmatig naar de rand, zodat de hele bodem kookt en niet alleen het midden.</p>"
           }
         },
         "question-5": {
           "type": "question",
           "settings": {
-            "question": "Can the layers separate over time?",
-            "answer": "<p>They're forged and bonded under pressure, not glued, and built to stay as one. Delamination under household use is covered by the lifetime warranty.</p>"
+            "question": "Kunnen de lagen loslaten?",
+            "answer": "<p>De lagen zijn onder druk samengesmeed, niet gelijmd, en vormen één geheel. Merk je toch iets vreemds aan je pan? Neem contact met ons op, dan kijken we samen naar een oplossing.</p>"
           }
         },
         "question-6": {
           "type": "question",
           "settings": {
-            "question": "Why is the pan safe at 260°C when coated pans aren't?",
-            "answer": "<p>There is no polymer to soften or break down. Titanium and stainless steel are stable far beyond any oven temperature; 260°C is the limit we rate for the handle and the whole assembly.</p>"
+            "question": "Waarom kan deze pan heter worden dan een pan met coating?",
+            "answer": "<p>Er is geen kunststoflaag die zacht kan worden of kan afbreken. Titanium en roestvrij staal verdragen hoge temperaturen. De maximale oventemperatuur per product, die mede bepaald wordt door de steel, vind je in de specificaties.</p>"
           }
         }
       },
@@ -460,10 +460,10 @@
         "layout": "inset",
         "fallback": "vk-visual-hero.webp",
         "show_embers": true,
-        "eyebrow": "Feel the difference",
-        "heading": "Hear the first <em>sizzle</em>.",
-        "subheading": "Every VOLKARA pan and pot is built on VolcanicCore™. Choose yours and cook with it for 60 days.",
-        "button_label": "Choose your pan",
+        "eyebrow": "Voel het verschil",
+        "heading": "Hoor het eerste <em>gesis</em>.",
+        "subheading": "Elke Volkara-pan is gebouwd op VolcanicCore™. Kies de jouwe en ontdek het zelf.",
+        "button_label": "Kies jouw pan",
         "button_url": "/collections/pans",
         "guarantee": "",
         "color_scheme": "scheme-1",
@@ -474,22 +474,22 @@
         "chip-1": {
           "type": "chip",
           "settings": {
-            "icon": "shield",
-            "text": "Lifetime warranty"
+            "icon": "leaf",
+            "text": "PFAS- en PTFE-vrij"
           }
         },
         "chip-2": {
           "type": "chip",
           "settings": {
             "icon": "return",
-            "text": "60-day home trial"
+            "text": "14 dagen bedenktijd"
           }
         },
         "chip-3": {
           "type": "chip",
           "settings": {
             "icon": "truck",
-            "text": "Free shipping over €75"
+            "text": "Gratis verzending vanaf €75"
           }
         }
       },

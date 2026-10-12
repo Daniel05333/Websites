@@ -6,7 +6,7 @@
     "main": {
       "type": "vk-main-blog",
       "settings": {
-        "eyebrow": "The journal",
+        "eyebrow": "Het journaal",
         "color_scheme": "scheme-1",
         "padding_top": 160,
         "padding_bottom": 120
@@ -15,14 +15,14 @@
     "newsletter": {
       "type": "vk-newsletter",
       "settings": {
-        "eyebrow": "The inner circle",
-        "heading": "Stay close to the <em>fire</em>.",
-        "subheading": "First access to new pieces, technique notes from serious home cooks and the occasional dispatch from the forge. One email a fortnight — never more.",
-        "placeholder": "Your email address",
-        "button_label": "Join",
-        "success_text": "You're in. Watch your inbox — the first letter is on its way.",
-        "error_text": "That email address doesn't look right. Please check it and try again.",
-        "consent": "<p>By joining, you agree to receive marketing emails from VOLKARA. Unsubscribe in one click, any time. Read our <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>",
+        "eyebrow": "Nieuwsbrief",
+        "heading": "Blijf dicht bij het <em>vuur</em>.",
+        "subheading": "Kooktechniek, onderhoudstips en als eerste horen over nieuwe producten. Afmelden kan altijd met één klik.",
+        "placeholder": "Je e-mailadres",
+        "button_label": "Aanmelden",
+        "success_text": "Gelukt, je bent aangemeld. De volgende nieuwsbrief komt naar je toe.",
+        "error_text": "Dit e-mailadres lijkt niet te kloppen. Controleer het en probeer het opnieuw.",
+        "consent": "<p>Door je aan te melden ga je akkoord met het ontvangen van e-mails van Volkara. Afmelden kan altijd met één klik. Lees onze <a href=\"/policies/privacy-policy\">privacyverklaring</a>.</p>",
         "show_embers": true,
         "color_scheme": "scheme-2",
         "padding_top": 120,
@@ -32,33 +32,26 @@
         "perk-1": {
           "type": "perk",
           "settings": {
-            "text": "Early access to new releases"
+            "text": "Als eerste nieuwe producten zien"
           }
         },
         "perk-2": {
           "type": "perk",
           "settings": {
-            "text": "Recipes and technique notes"
+            "text": "Recepten en kooktechniek"
           }
         },
         "perk-3": {
           "type": "perk",
           "settings": {
-            "text": "Care guides for a lifetime of use"
-          }
-        },
-        "perk-4": {
-          "type": "perk",
-          "settings": {
-            "text": "Invitations to members-only events"
+            "text": "Tips voor gebruik en onderhoud"
           }
         }
       },
       "block_order": [
         "perk-1",
         "perk-2",
-        "perk-3",
-        "perk-4"
+        "perk-3"
       ]
     }
   },

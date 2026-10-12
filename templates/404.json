@@ -7,11 +7,11 @@
       "type": "vk-main-404",
       "settings": {
         "eyebrow": "Error 404",
-        "heading": "This page went up in <em>smoke</em>.",
-        "text": "The link may be old or the page may have moved. The fire is still burning everywhere else.",
-        "primary_label": "Shop the collection",
+        "heading": "Deze pagina is in <em>rook</em> opgegaan.",
+        "text": "De link is misschien verouderd of de pagina is verplaatst. Op de rest van de site brandt het vuur gewoon door.",
+        "primary_label": "Bekijk de collectie",
         "primary_url": "/collections/all",
-        "secondary_label": "Back to home",
+        "secondary_label": "Naar de homepage",
         "color_scheme": "scheme-1"
       }
     }

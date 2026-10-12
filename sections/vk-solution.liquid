@@ -52,13 +52,13 @@
   "class": "vk-solution-section",
   "settings": [
     { "type": "text", "id": "index", "label": "Chapter number", "default": "03" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The VOLKARA difference" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "One pan. <em>For life.</em>" },
-    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Every material earns its place. Nothing is sprayed on, nothing wears off." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Het verschil van Volkara" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Eén pan. <em>Zonder coating.</em>" },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Elk materiaal heeft een functie. Er is niets opgespoten en niets dat kan afslijten." },
     { "type": "image_picker", "id": "image", "label": "Product image", "info": "Square product shot on black works best." },
     { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-pan.webp", "options": [{ "value": "vk-visual-pan.webp", "label": "Forge Pan" }, { "value": "vk-visual-wok.webp", "label": "Wok" }, { "value": "vk-visual-set.webp", "label": "Set" }] },
-    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "VOLKARA Forge Pan with its LavaCell™ titanium surface" },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the Forge Pan" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Volkara Forge Pan met LavaCell™-kookoppervlak van titanium" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Bekijk de Forge Pan" },
     { "type": "url", "id": "button_url", "label": "Button link" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
@@ -66,8 +66,8 @@
   ],
   "blocks": [
     { "type": "point", "name": "Checklist item", "limit": 6, "settings": [
-      { "type": "text", "id": "title", "label": "Title", "default": "No PFAS. No PTFE. No coating." },
-      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>The cooking surface is pure titanium, bonded into the body of the pan.</p>" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Geen PFAS. Geen PTFE. Geen coating." },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Het kookoppervlak is van titanium en vast verbonden met de rest van de pan.</p>" },
       { "type": "range", "id": "hotspot", "label": "Linked hotspot number", "min": 0, "max": 6, "step": 1, "default": 1, "info": "0 = none" }
     ] },
     { "type": "hotspot", "name": "Hotspot", "limit": 6, "settings": [
@@ -75,8 +75,8 @@
       { "type": "range", "id": "x", "label": "Horizontal position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
       { "type": "range", "id": "y", "label": "Vertical position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
       { "type": "select", "id": "label_side", "label": "Label side", "default": "right", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }] },
-      { "type": "text", "id": "label", "label": "Label", "default": "LavaCell™ surface" },
-      { "type": "text", "id": "text", "label": "Detail", "default": "Laser-etched titanium hexagons: peaks protect, valleys hold oil." }
+      { "type": "text", "id": "label", "label": "Label", "default": "LavaCell™-oppervlak" },
+      { "type": "text", "id": "text", "label": "Detail", "default": "Zeshoekjes van titanium: de toppen beschermen, in de dalen blijft de olie staan." }
     ] }
   ],
   "presets": [{ "name": "VOLKARA · Solution & hotspots", "blocks": [{ "type": "point" }, { "type": "hotspot" }] }]

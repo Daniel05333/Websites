@@ -24,7 +24,25 @@
           </li>
         {%- endfor -%}
       {%- else -%}
-        <li class="vk-gallery__slide is-active"><div class="vk-pmedia">{% render 'vk-image', fallback: 'vk-visual-pan.webp', fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: product.title, loading: 'eager' %}</div></li>
+        {%- liquid
+          assign vk_ph = 'product'
+          assign vk_fb = 'vk-visual-pan.webp'
+          case product.type
+            when 'Wok'
+              assign vk_ph = 'wok'
+              assign vk_fb = 'vk-visual-wok.webp'
+            when 'Set', 'Cookware Set'
+              assign vk_ph = 'set'
+              assign vk_fb = 'vk-visual-set.webp'
+            when 'Knife', 'Mes'
+              assign vk_ph = 'knife'
+              assign vk_fb = 'vk-visual-knife.webp'
+            when 'Accessoire', 'Accessory'
+              assign vk_ph = 'macro'
+              assign vk_fb = 'none'
+          endcase
+        -%}
+        <li class="vk-gallery__slide is-active"><div class="vk-pmedia">{% render 'vk-image', fallback: vk_fb, fallback_width: 1024, fallback_height: 1024, placeholder: vk_ph, alt: product.title, loading: 'eager' %}</div></li>
       {%- endif -%}
     </ul>
     {%- if product.media.size > 1 -%}
