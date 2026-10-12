@@ -1,0 +1,35 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-cart",
+      "settings": {
+        "heading": "Almost <em>yours</em>.",
+        "show_note": true,
+        "show_dynamic_checkout": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 96
+      }
+    },
+    "recommendations": {
+      "type": "vk-product-recommendations",
+      "settings": {
+        "eyebrow": "Pairs with your bag",
+        "heading": "Finish the <em>set</em>.",
+        "subheading": "Lids, tools and boards made to work with VolcanicCore™.",
+        "intent": "complementary",
+        "limit": 4,
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 120
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommendations"
+  ]
+}

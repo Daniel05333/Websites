@@ -1,0 +1,75 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-search-page color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <header class="vk-search-page__head">
+      <p class="vk-eyebrow"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>
+      <h1 class="vk-h1" data-split>{{ s.heading }}</h1>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="vk-search-page__form">
+        <label for="vk-search-page-q" class="vk-visually-hidden">{{ 'search.label' | t }}</label>
+        {% render 'vk-icon', name: 'search', size: 22 %}
+        <input id="vk-search-page-q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" class="vk-search-page__input" autocomplete="off">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="submit" class="vk-btn vk-btn--primary"><span class="vk-btn__label">{{ 'search.submit' | t }}</span></button>
+      </form>
+      {%- if search.performed -%}
+        <p class="vk-mono vk-search-page__count" role="status">{{ 'search.results_count' | t: count: search.results_count, terms: search.terms }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        {%- if search.results_count > 0 -%}
+          {%- assign vk_products = search.results | where: 'object_type', 'product' -%}
+          {%- assign vk_other = search.results | where: 'object_type', 'article' -%}
+          {%- assign vk_pages = search.results | where: 'object_type', 'page' -%}
+          {%- if vk_products.size > 0 -%}
+            <ul class="vk-product-grid" role="list">
+              {%- for item in vk_products -%}<li>{% render 'vk-product-card', product: item, index: forloop.index %}</li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if vk_other.size > 0 or vk_pages.size > 0 -%}
+            <ul class="vk-search-page__rows" role="list">
+              {%- for item in vk_other -%}<li><a href="{{ item.url }}" class="vk-search-page__row"><span class="vk-mono">{{ 'search.journal' | t }}</span><span>{{ item.title | escape }}</span>{% render 'vk-icon', name: 'arrow-up-right', size: 16 %}</a></li>{%- endfor -%}
+              {%- for item in vk_pages -%}<li><a href="{{ item.url }}" class="vk-search-page__row"><span class="vk-mono">{{ 'search.page' | t }}</span><span>{{ item.title | escape }}</span>{% render 'vk-icon', name: 'arrow-up-right', size: 16 %}</a></li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if paginate.pages > 1 -%}<nav class="vk-pagination" aria-label="{{ 'general.pagination' | t }}">{{ paginate | default_pagination: next: '→', previous: '←' }}</nav>{%- endif -%}
+        {%- else -%}
+          <div class="vk-empty">
+            <p class="vk-h3">{{ 'search.no_results' | t: terms: search.terms }}</p>
+            <p class="vk-muted">{{ 'search.no_results_text' | t }}</p>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+
+    {%- if search.performed == false or search.results_count == 0 -%}
+      <div class="vk-search-page__suggest">
+        <p class="vk-eyebrow">{{ 'search.popular' | t }}</p>
+        <div class="vk-flex">
+          {%- assign vk_terms = s.popular | split: ',' -%}
+          {%- for t in vk_terms -%}<a href="{{ routes.search_url }}?q={{ t | strip | url_encode }}" class="vk-chip">{{ t | strip }}</a>{%- endfor -%}
+        </div>
+        <ul class="vk-product-grid vk-search-page__best" role="list">
+          {%- for p in collections['bestsellers'].products limit: 4 -%}<li>{% render 'vk-product-card', product: p, index: forloop.index %}</li>{%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Search" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Find your <em>instrument</em>." },
+    { "type": "text", "id": "popular", "label": "Popular searches", "default": "Forge Pan, Wok, Sets, Knives, Glass lid" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ]
+}
+{% endschema %}

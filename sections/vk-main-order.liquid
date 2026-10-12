@@ -1,0 +1,29 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+<section id="vk-{{ section.id }}" class="vk-section vk-account color-{{ section.settings.color_scheme }}">
+  <div class="vk-container">
+    <a href="{{ routes.account_url }}" class="vk-link">{% render 'vk-icon', name: 'arrow-left', size: 16 %}{{ 'customer.account.back' | t }}</a>
+    <h1 class="vk-h2">{{ 'customer.order.title' | t: name: order.name }}</h1>
+    <p class="vk-muted">{{ order.created_at | time_tag: format: 'date_at_time' }}{% if order.cancelled %} · {{ 'customer.order.cancelled' | t }}{% endif %}</p>
+    <table class="vk-account__table">
+      <thead><tr><th scope="col">{{ 'customer.order.product' | t }}</th><th scope="col">{{ 'customer.order.quantity' | t }}</th><th scope="col">{{ 'customer.order.total' | t }}</th></tr></thead>
+      <tbody>
+        {%- for item in order.line_items -%}
+          <tr><td>{{ item.title | link_to: item.product.url }}{% if item.fulfillment %}<br><span class="vk-small vk-muted">{{ item.fulfillment.created_at | time_tag: format: 'date' }}{% if item.fulfillment.tracking_url %} · <a href="{{ item.fulfillment.tracking_url }}" class="vk-link">{{ 'customer.order.track' | t }}</a>{% endif %}</span>{% endif %}</td><td>{{ item.quantity }}</td><td>{{ item.final_line_price | money }}</td></tr>
+        {%- endfor -%}
+      </tbody>
+      <tfoot>
+        <tr><th scope="row" colspan="2">{{ 'customer.order.subtotal' | t }}</th><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+        {%- for line in order.shipping_methods -%}<tr><th scope="row" colspan="2">{{ line.title }}</th><td>{{ line.price | money }}</td></tr>{%- endfor -%}
+        {%- for tax in order.tax_lines -%}<tr><th scope="row" colspan="2">{{ tax.title }} ({{ tax.rate_percentage }}%)</th><td>{{ tax.price | money }}</td></tr>{%- endfor -%}
+        <tr><th scope="row" colspan="2">{{ 'customer.order.total' | t }}</th><td>{{ order.total_net_amount | money_with_currency }}</td></tr>
+      </tfoot>
+    </table>
+    <div class="vk-account__addresses">
+      <div class="vk-account__card"><h2 class="vk-h4">{{ 'customer.order.billing' | t }}</h2>{{ order.billing_address | format_address }}</div>
+      <div class="vk-account__card"><h2 class="vk-h4">{{ 'customer.order.shipping' | t }}</h2>{{ order.shipping_address | format_address }}</div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Order", "settings": [{ "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }] }
+{% endschema %}

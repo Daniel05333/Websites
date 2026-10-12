@@ -1,0 +1,374 @@
+{
+  "accessibility": {
+    "pause_video": "Pause video",
+    "play_video": "Play video",
+    "skip_to_text": "Skip to content",
+    "slide_of": "Slide {{ current }} of {{ total }}"
+  },
+  "blogs": {
+    "all": "All",
+    "by": "By {{ author }}",
+    "comment_posted": "Thank you — your comment will appear once approved.",
+    "comments": {
+      "one": "{{ count }} comment",
+      "other": "{{ count }} comments"
+    },
+    "next": "Next article",
+    "post_comment": "Post comment",
+    "previous": "Previous article",
+    "read_more": "Read the story",
+    "read_time": {
+      "one": "{{ count }} min read",
+      "other": "{{ count }} min read"
+    },
+    "tags": "Filter by topic"
+  },
+  "cart": {
+    "checkout": "Checkout",
+    "checkout_total": "Checkout — {{ total }}",
+    "continue": "Continue shopping",
+    "empty": "Your bag is empty.",
+    "empty_primary": "Shop the Forge Pan",
+    "empty_secondary": "Browse all cookware",
+    "empty_text": "Every great kitchen starts with one pan.",
+    "error": "Something went wrong. Please try again.",
+    "free_shipping": {
+      "away": "You're {{ amount }} away from free shipping.",
+      "away_html": "You're <strong>{{ amount }}</strong> away from free shipping.",
+      "empty": "Free shipping on orders over {{ amount }}.",
+      "label": "Progress towards free shipping",
+      "reached": "Free shipping unlocked. It's on us."
+    },
+    "item_added": "Added to your bag",
+    "item_count": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "note": "Add a note or gift message",
+    "quantity_error_generic": "Only the available quantity was added.",
+    "quantity_for": "Quantity for {{ title }}",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "summary": "Order summary",
+    "taxes_shipping": "Taxes included. Shipping calculated at checkout.",
+    "title": "Your bag",
+    "update": "Update bag",
+    "upsell_heading": "Made to go with it",
+    "view_cart": "View bag"
+  },
+  "collections": {
+    "apply": "Apply",
+    "categories": "Categories",
+    "clear_all": "Clear all",
+    "columns": {
+      "one": "{{ count }} column",
+      "other": "{{ count }} columns"
+    },
+    "count": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "density": "Grid density",
+    "empty": "This collection is being forged.",
+    "empty_filters": "Nothing matches those filters.",
+    "empty_filters_text": "Clear them, or explore the full collection.",
+    "empty_text": "New pieces are on their way. Explore the full collection in the meantime.",
+    "explore": "Explore",
+    "filter": "Filter",
+    "price_from": "From (€)",
+    "price_to": "To (€)",
+    "refine": "Refine",
+    "remove_filter": "Remove filter",
+    "show_more": "Show more",
+    "show_results": {
+      "one": "Show {{ count }} result",
+      "other": "Show {{ count }} results"
+    },
+    "showing": "Showing {{ shown }} of {{ total }}",
+    "sort": "Sort",
+    "title": "Collections",
+    "view_all": "View all cookware"
+  },
+  "contact": {
+    "email": "Email",
+    "message": "Message",
+    "message_placeholder": "Tell us how we can help.",
+    "name": "Name",
+    "order": "Order number (optional)",
+    "send": "Send message",
+    "topic": "Topic"
+  },
+  "customer": {
+    "account": {
+      "addresses": {
+        "one": "View {{ count }} address",
+        "other": "View {{ count }} addresses"
+      },
+      "back": "Back to your account",
+      "details": "Account details",
+      "eyebrow": "Your account",
+      "logout": "Log out",
+      "no_orders": "You haven't placed any orders yet.",
+      "orders": "Order history",
+      "welcome": "Welcome back, {{ name }}"
+    },
+    "activate": {
+      "submit": "Activate account",
+      "title": "Activate your account"
+    },
+    "addresses": {
+      "add": "Add a new address",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "confirm": "Delete this address?",
+      "country": "Country",
+      "default": "Default",
+      "delete": "Delete",
+      "edit": "Edit",
+      "phone": "Phone",
+      "save": "Save address",
+      "set_default": "Set as default address",
+      "title": "Your addresses",
+      "zip": "Postal code"
+    },
+    "email": "Email",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "password": "Password",
+    "password_confirm": "Confirm password",
+    "login": {
+      "create": "Create an account",
+      "forgot": "Forgot your password?",
+      "guest": "Continue as guest",
+      "submit": "Sign in",
+      "title": "Sign in"
+    },
+    "order": {
+      "billing": "Billing address",
+      "cancelled": "Cancelled",
+      "date": "Date",
+      "number": "Order",
+      "product": "Product",
+      "quantity": "Quantity",
+      "shipping": "Shipping address",
+      "status": "Status",
+      "subtotal": "Subtotal",
+      "title": "Order {{ name }}",
+      "total": "Total",
+      "track": "Track shipment"
+    },
+    "recover": {
+      "submit": "Send reset link",
+      "success": "We've sent you an email with a link to reset your password.",
+      "text": "We'll email you a link to reset your password.",
+      "title": "Reset your password"
+    },
+    "register": {
+      "have_account": "Already have an account? Sign in",
+      "marketing": "Send me new pieces and recipes",
+      "submit": "Create account",
+      "title": "Create your account"
+    },
+    "reset": {
+      "submit": "Reset password",
+      "title": "Choose a new password"
+    }
+  },
+  "footer": {
+    "address": "Address",
+    "email": "Customer service",
+    "hours": "Opening hours"
+  },
+  "general": {
+    "breadcrumbs": "Breadcrumbs",
+    "close": "Close",
+    "copied": "Link copied",
+    "countdown": {
+      "d": "d",
+      "days": "Days",
+      "h": "h",
+      "hours": "Hours",
+      "m": "m",
+      "minutes": "Minutes",
+      "s": "s",
+      "seconds": "Seconds"
+    },
+    "error": "Something went wrong.",
+    "home": "Home",
+    "loading": "Loading…",
+    "meta": {
+      "page": "Page {{ page }}",
+      "tags": "Tagged \"{{ tags }}\""
+    },
+    "next": "Next",
+    "pagination": "Pagination",
+    "payment_methods": "Payment methods",
+    "previous": "Previous",
+    "share": "Share",
+    "show_less": "Show less",
+    "show_more": "Show more"
+  },
+  "gift_cards": {
+    "issued": {
+      "add_to_apple_wallet": "Add to Apple Wallet",
+      "copy_code": "Copy code",
+      "expired": "Expired",
+      "expires_on": "Expires on {{ expires_on }}",
+      "initial_value": "Initial value {{ value }}",
+      "print": "Print",
+      "shop_link": "Start shopping",
+      "subtext": "Your VOLKARA gift card",
+      "title": "Your {{ value }} gift card for {{ shop }}"
+    }
+  },
+  "header": {
+    "account": "Account",
+    "cart": "Bag",
+    "cart_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "log_in": "Log in",
+    "main_navigation": "Main navigation",
+    "menu": "Menu",
+    "search": "Search"
+  },
+  "localization": {
+    "country_label": "Country / currency",
+    "language_label": "Language",
+    "update": "Update"
+  },
+  "newsletter": {
+    "button": "Join",
+    "error": "That email address doesn't look right. Please check it and try again.",
+    "label": "Email address",
+    "placeholder": "Your email address",
+    "success": "You're in. Watch your inbox — the first letter is on its way."
+  },
+  "password": {
+    "admin_html": "Are you the store owner? <a href=\"{{ link }}\">Log in here</a>.",
+    "enter": "Enter using password",
+    "label": "Password",
+    "notify": "Notify me",
+    "submit": "Enter"
+  },
+  "products": {
+    "card": {
+      "add_variant": "Add {{ variant }} to bag",
+      "choose": "Choose {{ option }}",
+      "quick_add": "Quick add"
+    },
+    "product": {
+      "add_to_bag": "Add to bag",
+      "add_to_bag_price": "Add to bag — {{ price }}",
+      "add_to_cart": "Add to bag",
+      "added": "Added",
+      "adding": "Adding…",
+      "bundle_save": "You save {{ amount }} vs. buying separately",
+      "choose_options": "Choose options",
+      "media": {
+        "gallery": "Product gallery",
+        "open": "Open image {{ index }} in full screen",
+        "show": "Show image {{ index }}"
+      },
+      "new": "New",
+      "price": {
+        "from": "From",
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "save": "Save {{ amount }}",
+        "save_percent": "Save {{ percent }}%"
+      },
+      "quantity": {
+        "decrease": "Decrease quantity",
+        "increase": "Increase quantity",
+        "label": "Quantity"
+      },
+      "rating": {
+        "aria": "Rated {{ rating }} out of 5 from {{ count }} reviews",
+        "count": {
+          "one": "{{ count }} review",
+          "other": "{{ count }} reviews"
+        }
+      },
+      "shipping_calculated": "Shipping calculated at checkout.",
+      "sold_out": "Sold out",
+      "tax_included": "Tax included.",
+      "unavailable": "Unavailable in this size"
+    }
+  },
+  "search": {
+    "journal": "Journal",
+    "label": "Search",
+    "loading": "Searching…",
+    "more": "More",
+    "no_results": "Nothing for “{{ terms }}”.",
+    "no_results_generic": "No results.",
+    "no_results_text": "Try “pan”, “wok” or “set” — or browse the full collection.",
+    "page": "Page",
+    "placeholder": "Search pans, woks, knives…",
+    "popular": "Popular searches",
+    "products": "Products",
+    "results_count": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    },
+    "submit": "Search",
+    "suggestions": "Suggestions",
+    "view_all": "Search for “{{ terms }}”"
+  },
+  "sections": {
+    "categories": {
+      "pieces": {
+        "one": "{{ count }} piece",
+        "other": "{{ count }} pieces"
+      }
+    },
+    "comparison": {
+      "compare_with": "Compare with",
+      "status_no": "No",
+      "status_partial": "Partly",
+      "status_yes": "Yes"
+    },
+    "faq": {
+      "filter_label": "Search the questions",
+      "filter_placeholder": "Search the questions…",
+      "no_results": "No questions match. Try another word or contact us."
+    },
+    "featured": {
+      "placeholder_text": "Assign a collection in the theme editor.",
+      "placeholder_title": "Your product"
+    },
+    "hero": {
+      "scroll": "Scroll"
+    },
+    "problem": {
+      "failure": "Failure"
+    },
+    "reviews": {
+      "all": "All",
+      "based_on": {
+        "one": "Based on {{ count }} review",
+        "other": "Based on {{ count }} reviews"
+      },
+      "filter": "Filter reviews",
+      "five_stars": "5 stars",
+      "show_more": "Show more reviews",
+      "verified": "Verified buyer",
+      "with_photos": "With photos"
+    },
+    "stories": {
+      "play": "Play {{ title }}"
+    },
+    "usp": {
+      "label": "Our promises"
+    }
+  },
+  "templates": {
+    "password": {
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"vk-link\">Log in here</a>",
+      "opening_soon": "Opening soon"
+    }
+  }
+}

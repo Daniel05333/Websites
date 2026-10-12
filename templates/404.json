@@ -1,0 +1,22 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-404",
+      "settings": {
+        "eyebrow": "Error 404",
+        "heading": "This page went up in <em>smoke</em>.",
+        "text": "The link may be old or the page may have moved. The fire is still burning everywhere else.",
+        "primary_label": "Shop the collection",
+        "primary_url": "/collections/all",
+        "secondary_label": "Back to home",
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

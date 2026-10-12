@@ -1,0 +1,23 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+<section id="vk-{{ section.id }}" class="vk-section vk-account color-{{ section.settings.color_scheme }}">
+  <div class="vk-container vk-account__narrow">
+    <div class="vk-account__card">
+      <h1 class="vk-h2" data-split>{{ 'customer.register.title' | t }}</h1>
+      {%- form 'create_customer', novalidate: 'novalidate', class: 'vk-account__form' -%}
+        {%- if form.errors %}<p class="vk-form-message vk-form-message--error" role="alert">{{ form.errors | default_errors }}</p>{% endif -%}
+        <div class="vk-contact__grid">
+          <div class="vk-field"><label class="vk-label" for="vk-reg-first">{{ 'customer.first_name' | t }}</label><input class="vk-input" id="vk-reg-first" name="customer[first_name]" autocomplete="given-name"></div>
+          <div class="vk-field"><label class="vk-label" for="vk-reg-last">{{ 'customer.last_name' | t }}</label><input class="vk-input" id="vk-reg-last" name="customer[last_name]" autocomplete="family-name"></div>
+        </div>
+        <div class="vk-field"><label class="vk-label" for="vk-reg-email">{{ 'customer.email' | t }}</label><input class="vk-input" id="vk-reg-email" type="email" name="customer[email]" autocomplete="email" required></div>
+        <div class="vk-field"><label class="vk-label" for="vk-reg-pw">{{ 'customer.password' | t }}</label><input class="vk-input" id="vk-reg-pw" type="password" name="customer[password]" autocomplete="new-password" required></div>
+        <label class="vk-checkbox"><input type="checkbox" name="customer[accepts_marketing]" value="true"><span>{{ 'customer.register.marketing' | t }}</span></label>
+        <button type="submit" class="vk-btn vk-btn--primary vk-btn--block"><span class="vk-btn__label">{{ 'customer.register.submit' | t }}</span></button>
+        <a href="{{ routes.account_login_url }}" class="vk-link">{{ 'customer.register.have_account' | t }}</a>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Register", "settings": [{ "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }] }
+{% endschema %}

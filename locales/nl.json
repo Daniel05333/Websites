@@ -1,0 +1,374 @@
+{
+  "accessibility": {
+    "pause_video": "Video pauzeren",
+    "play_video": "Video afspelen",
+    "skip_to_text": "Naar inhoud",
+    "slide_of": "Dia {{ current }} van {{ total }}"
+  },
+  "blogs": {
+    "all": "Alles",
+    "by": "Door {{ author }}",
+    "comment_posted": "Bedankt — je reactie verschijnt na goedkeuring.",
+    "comments": {
+      "one": "{{ count }} reactie",
+      "other": "{{ count }} reacties"
+    },
+    "next": "Volgend artikel",
+    "post_comment": "Reactie plaatsen",
+    "previous": "Vorig artikel",
+    "read_more": "Lees het verhaal",
+    "read_time": {
+      "one": "{{ count }} min leestijd",
+      "other": "{{ count }} min leestijd"
+    },
+    "tags": "Filter op onderwerp"
+  },
+  "cart": {
+    "checkout": "Afrekenen",
+    "checkout_total": "Afrekenen — {{ total }}",
+    "continue": "Verder winkelen",
+    "empty": "Je tas is leeg.",
+    "empty_primary": "Shop de Forge Pan",
+    "empty_secondary": "Bekijk alle kookgerei",
+    "empty_text": "Elke goede keuken begint met één pan.",
+    "error": "Er ging iets mis. Probeer het opnieuw.",
+    "free_shipping": {
+      "away": "Nog {{ amount }} tot gratis verzending.",
+      "away_html": "Nog <strong>{{ amount }}</strong> tot gratis verzending.",
+      "empty": "Gratis verzending vanaf {{ amount }}.",
+      "label": "Voortgang naar gratis verzending",
+      "reached": "Gratis verzending ontgrendeld. Van ons."
+    },
+    "item_added": "Toegevoegd aan je tas",
+    "item_count": {
+      "one": "{{ count }} stuk",
+      "other": "{{ count }} stuks"
+    },
+    "note": "Voeg een notitie of cadeaubericht toe",
+    "quantity_error_generic": "Alleen de beschikbare hoeveelheid is toegevoegd.",
+    "quantity_for": "Aantal voor {{ title }}",
+    "remove": "Verwijderen",
+    "subtotal": "Subtotaal",
+    "summary": "Overzicht",
+    "taxes_shipping": "Inclusief btw. Verzendkosten worden bij het afrekenen berekend.",
+    "title": "Je tas",
+    "update": "Tas bijwerken",
+    "upsell_heading": "Hoort erbij",
+    "view_cart": "Bekijk tas"
+  },
+  "collections": {
+    "apply": "Toepassen",
+    "categories": "Categorieën",
+    "clear_all": "Alles wissen",
+    "columns": {
+      "one": "{{ count }} kolom",
+      "other": "{{ count }} kolommen"
+    },
+    "count": {
+      "one": "{{ count }} stuk",
+      "other": "{{ count }} stuks"
+    },
+    "density": "Rasterweergave",
+    "empty": "Deze collectie wordt gesmeed.",
+    "empty_filters": "Niets voldoet aan deze filters.",
+    "empty_filters_text": "Wis de filters of bekijk de volledige collectie.",
+    "empty_text": "Nieuwe stukken zijn onderweg. Bekijk intussen de volledige collectie.",
+    "explore": "Ontdek",
+    "filter": "Filter",
+    "price_from": "Van (€)",
+    "price_to": "Tot (€)",
+    "refine": "Verfijnen",
+    "remove_filter": "Filter verwijderen",
+    "show_more": "Meer tonen",
+    "show_results": {
+      "one": "Toon {{ count }} resultaat",
+      "other": "Toon {{ count }} resultaten"
+    },
+    "showing": "{{ shown }} van {{ total }} getoond",
+    "sort": "Sorteren",
+    "title": "Collecties",
+    "view_all": "Bekijk alle kookgerei"
+  },
+  "contact": {
+    "email": "E-mail",
+    "message": "Bericht",
+    "message_placeholder": "Vertel ons hoe we kunnen helpen.",
+    "name": "Naam",
+    "order": "Ordernummer (optioneel)",
+    "send": "Verstuur bericht",
+    "topic": "Onderwerp"
+  },
+  "customer": {
+    "account": {
+      "addresses": {
+        "one": "Bekijk {{ count }} adres",
+        "other": "Bekijk {{ count }} adressen"
+      },
+      "back": "Terug naar je account",
+      "details": "Accountgegevens",
+      "eyebrow": "Je account",
+      "logout": "Uitloggen",
+      "no_orders": "Je hebt nog geen bestellingen geplaatst.",
+      "orders": "Bestelgeschiedenis",
+      "welcome": "Welkom terug, {{ name }}"
+    },
+    "activate": {
+      "submit": "Account activeren",
+      "title": "Activeer je account"
+    },
+    "addresses": {
+      "add": "Nieuw adres toevoegen",
+      "address1": "Adres",
+      "address2": "Appartement, toevoeging, etc.",
+      "city": "Plaats",
+      "confirm": "Dit adres verwijderen?",
+      "country": "Land",
+      "default": "Standaard",
+      "delete": "Verwijderen",
+      "edit": "Bewerken",
+      "phone": "Telefoon",
+      "save": "Adres opslaan",
+      "set_default": "Als standaardadres instellen",
+      "title": "Je adressen",
+      "zip": "Postcode"
+    },
+    "email": "E-mail",
+    "first_name": "Voornaam",
+    "last_name": "Achternaam",
+    "password": "Wachtwoord",
+    "password_confirm": "Bevestig wachtwoord",
+    "login": {
+      "create": "Account aanmaken",
+      "forgot": "Wachtwoord vergeten?",
+      "guest": "Doorgaan als gast",
+      "submit": "Inloggen",
+      "title": "Inloggen"
+    },
+    "order": {
+      "billing": "Factuuradres",
+      "cancelled": "Geannuleerd",
+      "date": "Datum",
+      "number": "Bestelling",
+      "product": "Product",
+      "quantity": "Aantal",
+      "shipping": "Verzendadres",
+      "status": "Status",
+      "subtotal": "Subtotaal",
+      "title": "Bestelling {{ name }}",
+      "total": "Totaal",
+      "track": "Zending volgen"
+    },
+    "recover": {
+      "submit": "Verstuur resetlink",
+      "success": "We hebben je een e-mail gestuurd met een link om je wachtwoord te resetten.",
+      "text": "We mailen je een link om je wachtwoord te resetten.",
+      "title": "Wachtwoord resetten"
+    },
+    "register": {
+      "have_account": "Heb je al een account? Inloggen",
+      "marketing": "Stuur me nieuwe stukken en recepten",
+      "submit": "Account aanmaken",
+      "title": "Maak je account aan"
+    },
+    "reset": {
+      "submit": "Wachtwoord resetten",
+      "title": "Kies een nieuw wachtwoord"
+    }
+  },
+  "footer": {
+    "address": "Adres",
+    "email": "Klantenservice",
+    "hours": "Openingstijden"
+  },
+  "general": {
+    "breadcrumbs": "Kruimelpad",
+    "close": "Sluiten",
+    "copied": "Link gekopieerd",
+    "countdown": {
+      "d": "d",
+      "days": "Dagen",
+      "h": "u",
+      "hours": "Uren",
+      "m": "m",
+      "minutes": "Minuten",
+      "s": "s",
+      "seconds": "Seconden"
+    },
+    "error": "Er ging iets mis.",
+    "home": "Home",
+    "loading": "Laden…",
+    "meta": {
+      "page": "Pagina {{ page }}",
+      "tags": "Getagd met \"{{ tags }}\""
+    },
+    "next": "Volgende",
+    "pagination": "Paginering",
+    "payment_methods": "Betaalmethoden",
+    "previous": "Vorige",
+    "share": "Delen",
+    "show_less": "Minder tonen",
+    "show_more": "Meer tonen"
+  },
+  "gift_cards": {
+    "issued": {
+      "add_to_apple_wallet": "Toevoegen aan Apple Wallet",
+      "copy_code": "Code kopiëren",
+      "expired": "Verlopen",
+      "expires_on": "Geldig tot {{ expires_on }}",
+      "initial_value": "Oorspronkelijke waarde {{ value }}",
+      "print": "Afdrukken",
+      "shop_link": "Begin met winkelen",
+      "subtext": "Je VOLKARA-cadeaukaart",
+      "title": "Je cadeaukaart van {{ value }} voor {{ shop }}"
+    }
+  },
+  "header": {
+    "account": "Account",
+    "cart": "Tas",
+    "cart_count": {
+      "one": "{{ count }} artikel",
+      "other": "{{ count }} artikelen"
+    },
+    "log_in": "Inloggen",
+    "main_navigation": "Hoofdnavigatie",
+    "menu": "Menu",
+    "search": "Zoeken"
+  },
+  "localization": {
+    "country_label": "Land / valuta",
+    "language_label": "Taal",
+    "update": "Bijwerken"
+  },
+  "newsletter": {
+    "button": "Aanmelden",
+    "error": "Dat e-mailadres lijkt niet te kloppen. Controleer het en probeer opnieuw.",
+    "label": "E-mailadres",
+    "placeholder": "Je e-mailadres",
+    "success": "Je bent erbij. Houd je inbox in de gaten — de eerste brief is onderweg."
+  },
+  "password": {
+    "admin_html": "Ben je de eigenaar van de winkel? <a href=\"{{ link }}\">Log hier in</a>.",
+    "enter": "Toegang met wachtwoord",
+    "label": "Wachtwoord",
+    "notify": "Houd me op de hoogte",
+    "submit": "Openen"
+  },
+  "products": {
+    "card": {
+      "add_variant": "{{ variant }} toevoegen aan tas",
+      "choose": "Kies {{ option }}",
+      "quick_add": "Snel toevoegen"
+    },
+    "product": {
+      "add_to_bag": "In mijn tas",
+      "add_to_bag_price": "In mijn tas — {{ price }}",
+      "add_to_cart": "In mijn tas",
+      "added": "Toegevoegd",
+      "adding": "Toevoegen…",
+      "bundle_save": "Je bespaart {{ amount }} ten opzichte van los kopen",
+      "choose_options": "Kies opties",
+      "media": {
+        "gallery": "Productgalerij",
+        "open": "Open afbeelding {{ index }} op volledig scherm",
+        "show": "Toon afbeelding {{ index }}"
+      },
+      "new": "Nieuw",
+      "price": {
+        "from": "Vanaf",
+        "regular_price": "Normale prijs",
+        "sale_price": "Actieprijs",
+        "save": "Bespaar {{ amount }}",
+        "save_percent": "Bespaar {{ percent }}%"
+      },
+      "quantity": {
+        "decrease": "Aantal verlagen",
+        "increase": "Aantal verhogen",
+        "label": "Aantal"
+      },
+      "rating": {
+        "aria": "Beoordeeld met {{ rating }} van 5 op basis van {{ count }} reviews",
+        "count": {
+          "one": "{{ count }} review",
+          "other": "{{ count }} reviews"
+        }
+      },
+      "shipping_calculated": "Verzendkosten worden bij het afrekenen berekend.",
+      "sold_out": "Uitverkocht",
+      "tax_included": "Inclusief btw.",
+      "unavailable": "Niet beschikbaar in deze maat"
+    }
+  },
+  "search": {
+    "journal": "Journal",
+    "label": "Zoeken",
+    "loading": "Zoeken…",
+    "more": "Meer",
+    "no_results": "Niets gevonden voor “{{ terms }}”.",
+    "no_results_generic": "Geen resultaten.",
+    "no_results_text": "Probeer “pan”, “wok” of “set” — of bekijk de volledige collectie.",
+    "page": "Pagina",
+    "placeholder": "Zoek pannen, woks, messen…",
+    "popular": "Populaire zoekopdrachten",
+    "products": "Producten",
+    "results_count": {
+      "one": "{{ count }} resultaat voor “{{ terms }}”",
+      "other": "{{ count }} resultaten voor “{{ terms }}”"
+    },
+    "submit": "Zoeken",
+    "suggestions": "Suggesties",
+    "view_all": "Zoek naar “{{ terms }}”"
+  },
+  "sections": {
+    "categories": {
+      "pieces": {
+        "one": "{{ count }} stuk",
+        "other": "{{ count }} stuks"
+      }
+    },
+    "comparison": {
+      "compare_with": "Vergelijk met",
+      "status_no": "Nee",
+      "status_partial": "Deels",
+      "status_yes": "Ja"
+    },
+    "faq": {
+      "filter_label": "Doorzoek de vragen",
+      "filter_placeholder": "Doorzoek de vragen…",
+      "no_results": "Geen vragen gevonden. Probeer een ander woord of neem contact op."
+    },
+    "featured": {
+      "placeholder_text": "Kies een collectie in de thema-editor.",
+      "placeholder_title": "Je product"
+    },
+    "hero": {
+      "scroll": "Scroll"
+    },
+    "problem": {
+      "failure": "Probleem"
+    },
+    "reviews": {
+      "all": "Alles",
+      "based_on": {
+        "one": "Op basis van {{ count }} review",
+        "other": "Op basis van {{ count }} reviews"
+      },
+      "filter": "Reviews filteren",
+      "five_stars": "5 sterren",
+      "show_more": "Meer reviews tonen",
+      "verified": "Geverifieerde koper",
+      "with_photos": "Met foto's"
+    },
+    "stories": {
+      "play": "Speel {{ title }} af"
+    },
+    "usp": {
+      "label": "Onze beloftes"
+    }
+  },
+  "templates": {
+    "password": {
+      "admin_link_html": "Ben je de eigenaar van de winkel? <a href=\"/admin\" class=\"vk-link\">Log hier in</a>",
+      "opening_soon": "Binnenkort open"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+{%- assign vk_words = article.content | strip_html | split: ' ' | size -%}
+{%- assign vk_minutes = vk_words | divided_by: 220 | at_least: 1 -%}
+<article id="vk-{{ section.id }}" class="vk-section vk-article color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <header class="vk-container vk-container--narrow vk-article__head">
+    <a href="{{ blog.url }}" class="vk-link vk-article__back">{% render 'vk-icon', name: 'arrow-left', size: 16 %}{{ blog.title }}</a>
+    <p class="vk-mono vk-article__meta">{% if article.tags.size > 0 %}{{ article.tags | join: ' · ' }} · {% endif %}{{ article.published_at | date: format: 'date' }} · {{ 'blogs.read_time' | t: count: vk_minutes }}</p>
+    <h1 class="vk-h1" data-split>{{ article.title | escape }}</h1>
+    <p class="vk-article__author">{{ 'blogs.by' | t: author: article.author }}</p>
+  </header>
+  {%- if article.image -%}
+    <div class="vk-container vk-article__hero" data-reveal="mask">{% render 'vk-image', image: article.image, sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: article.title %}</div>
+  {%- endif -%}
+  <div class="vk-container vk-container--narrow">
+    <div class="vk-rte vk-article__content">{{ article.content }}</div>
+    <footer class="vk-article__foot">
+      <button type="button" class="vk-chip" data-share-url="{{ shop.url }}{{ article.url }}" data-share-title="{{ article.title | escape }}">{% render 'vk-icon', name: 'share', size: 16 %}<span data-share-label>{{ 'general.share' | t }}</span></button>
+      <div class="vk-article__nav">
+        {%- if blog.previous_article %}<a href="{{ blog.previous_article }}" class="vk-link">{% render 'vk-icon', name: 'arrow-left', size: 16 %}{{ 'blogs.previous' | t }}</a>{% endif -%}
+        {%- if blog.next_article %}<a href="{{ blog.next_article }}" class="vk-link">{{ 'blogs.next' | t }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a>{% endif -%}
+      </div>
+    </footer>
+    {%- if blog.comments_enabled? -%}
+      <div class="vk-article__comments">
+        <h2 class="vk-h3">{{ 'blogs.comments' | t: count: article.comments_count }}</h2>
+        {%- for comment in article.comments -%}<div class="vk-article__comment"><p class="vk-mono vk-small">{{ comment.author }} · {{ comment.created_at | date: format: 'abbreviated_date' }}</p><div class="vk-rte">{{ comment.content }}</div></div>{%- endfor -%}
+        {%- form 'new_comment', article, class: 'vk-article__form' -%}
+          {%- if form.posted_successfully? %}<p class="vk-form-message vk-form-message--success">{{ 'blogs.comment_posted' | t }}</p>{% endif -%}
+          <div class="vk-contact__grid">
+            <div class="vk-field"><label class="vk-label" for="vk-cm-name">{{ 'contact.name' | t }}</label><input class="vk-input" id="vk-cm-name" name="comment[author]" required value="{{ form.author }}"></div>
+            <div class="vk-field"><label class="vk-label" for="vk-cm-email">{{ 'contact.email' | t }}</label><input class="vk-input" id="vk-cm-email" type="email" name="comment[email]" required value="{{ form.email }}"></div>
+            <div class="vk-field vk-contact__full"><label class="vk-label" for="vk-cm-body">{{ 'contact.message' | t }}</label><textarea class="vk-textarea" id="vk-cm-body" name="comment[body]" required>{{ form.body }}</textarea></div>
+          </div>
+          <button type="submit" class="vk-btn vk-btn--primary"><span class="vk-btn__label">{{ 'blogs.post_comment' | t }}</span></button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+</article>
+<script src="{{ 'vk-product.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ]
+}
+{% endschema %}

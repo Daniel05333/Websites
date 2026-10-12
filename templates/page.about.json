@@ -1,0 +1,284 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-hero",
+      "settings": {
+        "fallback": "vk-visual-forge.webp",
+        "image_alt": "An artisan's hammer striking a titanium pan blank in a shower of sparks",
+        "overlay": 45,
+        "parallax": 20,
+        "show_embers": true,
+        "height": "large",
+        "alignment": "left",
+        "show_scroll_cue": false,
+        "eyebrow": "Our story",
+        "heading": "A pan should outlive its <em>recipes</em>.",
+        "heading_tag": "auto",
+        "subheading": "VOLKARA began with a question every serious cook eventually asks: why does good cookware wear out? The answer took fire, five layers of metal and a refusal to compromise.",
+        "primary_label": "Shop the collection",
+        "primary_url": "/collections/all",
+        "secondary_label": "Discover VolcanicCore™",
+        "secondary_url": "/pages/technology",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "manifesto": {
+      "type": "vk-manifesto",
+      "settings": {
+        "eyebrow": "What we believe",
+        "statement": "Coatings fail. Trends fade. Fire, metal and good technique are <em>forever</em>.",
+        "text": "We design for the long horizon: fewer pieces, better made, kept for decades. Every decision — material, thickness, handle, warranty — answers one question: will this still be on your hob in thirty years?",
+        "show_image": false,
+        "fallback": "vk-visual-forge.webp",
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 160
+      },
+      "blocks": {
+        "counter-1": {
+          "type": "counter",
+          "settings": {
+            "prefix": "",
+            "number": 5,
+            "decimals": 0,
+            "suffix": "",
+            "label": "forged layers in every pan and pot"
+          }
+        },
+        "counter-2": {
+          "type": "counter",
+          "settings": {
+            "prefix": "",
+            "number": 1,
+            "decimals": 0,
+            "suffix": "",
+            "label": "construction across the whole collection"
+          }
+        },
+        "counter-3": {
+          "type": "counter",
+          "settings": {
+            "prefix": "",
+            "number": 13,
+            "decimals": 0,
+            "suffix": "",
+            "label": "pieces, and not one more than a kitchen needs"
+          }
+        },
+        "counter-4": {
+          "type": "counter",
+          "settings": {
+            "prefix": "",
+            "number": 0,
+            "decimals": 0,
+            "suffix": "",
+            "label": "coatings, PFAS or PTFE"
+          }
+        }
+      },
+      "block_order": [
+        "counter-1",
+        "counter-2",
+        "counter-3",
+        "counter-4"
+      ]
+    },
+    "craft": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-macro.webp",
+        "placeholder": "macro",
+        "image_alt": "Macro of the LavaCell™ titanium surface",
+        "image_position": "left",
+        "ratio": "portrait",
+        "index": "01",
+        "eyebrow": "Craft & engineering",
+        "heading": "Precision you can <em>hold</em>.",
+        "text": "<p>Each pan begins as layers of metal — titanium, a triple aluminium core and two grades of stainless steel — forged under pressure into a single body. The LavaCell™ surface is laser-etched hexagon by hexagon, so every peak sits at the same height and every valley holds the same film of oil.</p><p>The handle is forged, the rim flared for a clean pour, and every piece is checked for flatness before it is packed.</p>",
+        "button_label": "Explore VolcanicCore™",
+        "button_url": "/pages/technology",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "intent": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-chef.webp",
+        "placeholder": "chef",
+        "image_alt": "A chef flambéing in a VOLKARA pan",
+        "image_position": "right",
+        "ratio": "portrait",
+        "index": "02",
+        "eyebrow": "Fire & intent",
+        "heading": "Built by cooks, for the <em>long</em> run.",
+        "text": "<p>VOLKARA was founded by home cooks and product engineers who had replaced one coated pan too many. We wanted the sear of a professional kitchen, the ease of a modern hob and the permanence of an heirloom — in one piece, without a coating standing between the food and the metal.</p><p>So we set ourselves three rules. Make fewer things, and make them properly. Say only what we can prove. And stand behind every piece for as long as it's cooking.</p>",
+        "button_label": "Read our warranty",
+        "button_url": "/pages/warranty",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "technology": {
+      "type": "vk-technology",
+      "settings": {
+        "layout": "compact",
+        "index": "03",
+        "eyebrow": "VolcanicCore™ technology",
+        "heading": "Engineered like a <em>volcano</em>.",
+        "intro": "A volcano is layered rock and contained heat. VolcanicCore™ is built the same way: five forged layers, each with a single job, bonded into one 3.0 mm body that heats fast, holds steady and is built to stay flat for life.",
+        "show_background": true,
+        "button_label": "See it in the Forge Pan",
+        "button_url": "/products/forge-pan",
+        "footnote": "Specifications shown for the Forge Pan. Each product page lists its own dimensions and weight.",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "layer-1": {
+          "type": "layer",
+          "settings": {
+            "name": "LavaCell™ Surface",
+            "spec": "LAYER 01 · LAVACELL™ · Ti",
+            "texture": "lavacell",
+            "description": "<p>Laser-etched hexagonal titanium relief. Raised peaks shield the surface from utensils; valleys hold a micro-film of oil for natural release and a deeper sear.</p>"
+          }
+        },
+        "layer-2": {
+          "type": "layer",
+          "settings": {
+            "name": "Titanium Shield",
+            "spec": "LAYER 02 · TITANIUM SHIELD · Ti",
+            "texture": "titanium",
+            "description": "<p>A pure, non-reactive titanium cooking layer. No PFAS, no PTFE, no coating to wear off — nothing between your food and the metal.</p>"
+          }
+        },
+        "layer-3": {
+          "type": "layer",
+          "settings": {
+            "name": "Thermal Core",
+            "spec": "LAYER 03 · THERMAL CORE · Al ×3",
+            "texture": "thermal",
+            "description": "<p>A triple aluminium core that pulls heat from the centre to the rim in seconds. No hot spots, no cold edge.</p>"
+          }
+        },
+        "layer-4": {
+          "type": "layer",
+          "settings": {
+            "name": "Stainless Structure",
+            "spec": "LAYER 04 · STAINLESS STRUCTURE · 18/10",
+            "texture": "steel",
+            "description": "<p>An 18/10 stainless steel body that gives the pan its rigidity and resists warping under thermal shock.</p>"
+          }
+        },
+        "layer-5": {
+          "type": "layer",
+          "settings": {
+            "name": "Magnetic Base",
+            "spec": "LAYER 05 · MAGNETIC BASE · 18/0",
+            "texture": "magnetic",
+            "description": "<p>18/0 magnetic stainless steel: induction-ready and machined flat, so the pan sits true on every hob.</p>"
+          }
+        },
+        "stat-6": {
+          "type": "stat",
+          "settings": {
+            "number": 5,
+            "decimals": 0,
+            "suffix": "-PLY",
+            "label": "forged layers, bonded as one"
+          }
+        },
+        "stat-7": {
+          "type": "stat",
+          "settings": {
+            "number": 3,
+            "decimals": 1,
+            "suffix": " MM",
+            "label": "body thickness for steady heat"
+          }
+        },
+        "stat-8": {
+          "type": "stat",
+          "settings": {
+            "number": 260,
+            "decimals": 0,
+            "suffix": "°C",
+            "label": "oven- and grill-safe"
+          }
+        }
+      },
+      "block_order": [
+        "layer-1",
+        "layer-2",
+        "layer-3",
+        "layer-4",
+        "layer-5",
+        "stat-6",
+        "stat-7",
+        "stat-8"
+      ]
+    },
+    "cta": {
+      "type": "vk-cta",
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-forge.webp",
+        "show_embers": true,
+        "eyebrow": "Begin",
+        "heading": "Cook with it for 60 days. Keep it for <em>life</em>.",
+        "subheading": "Start with the Forge Pan, or build your kitchen as a set.",
+        "button_label": "Choose your pan",
+        "button_url": "/collections/pans",
+        "guarantee": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "icon": "shield",
+            "text": "Lifetime warranty"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "icon": "return",
+            "text": "60-day home trial"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Free shipping over €75"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "manifesto",
+    "craft",
+    "intent",
+    "technology",
+    "cta"
+  ]
+}

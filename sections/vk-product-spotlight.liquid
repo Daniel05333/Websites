@@ -22,7 +22,7 @@
         {%- elsif product.featured_media -%}
           {%- render 'vk-image', image: product.featured_media, sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title -%}
         {%- else -%}
-          {%- render 'vk-image', image: blank, fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'product', alt: product.title -%}
+          {%- render 'vk-image', fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'product', alt: product.title -%}
         {%- endif -%}
       </div>
     </div>

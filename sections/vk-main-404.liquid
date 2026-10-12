@@ -1,0 +1,35 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-404 color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <vk-embers count="40"></vk-embers>
+  <div class="vk-container vk-404__inner">
+    <p class="vk-404__code" aria-hidden="true">404</p>
+    <p class="vk-eyebrow">{{ s.eyebrow }}</p>
+    <h1 class="vk-h1" data-split>{{ s.heading }}</h1>
+    <p class="vk-lead">{{ s.text }}</p>
+    <div class="vk-btn-row">
+      {% render 'vk-button', label: s.primary_label, url: s.primary_url, icon: 'arrow-right', magnetic: true %}
+      {% render 'vk-button', label: s.secondary_label, url: routes.root_url, style: 'secondary' %}
+    </div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="vk-inline-form vk-404__search">
+      <label for="vk-404-q" class="vk-visually-hidden">{{ 'search.label' | t }}</label>
+      <input id="vk-404-q" type="search" name="q" class="vk-input" placeholder="{{ 'search.placeholder' | t }}">
+      <button type="submit" class="vk-btn vk-btn--secondary"><span class="vk-btn__label">{% render 'vk-icon', name: 'search', size: 16 %}{{ 'search.submit' | t }}</span></button>
+    </form>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Error 404" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "This page went up in <em>smoke</em>." },
+    { "type": "text", "id": "text", "label": "Text", "default": "The link may be old or the page may have moved. The fire is still burning everywhere else." },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Shop the collection" },
+    { "type": "url", "id": "primary_url", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Back to home" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }
+  ]
+}
+{% endschema %}

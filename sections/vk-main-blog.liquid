@@ -1,0 +1,41 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-blog color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <header class="vk-blog__head">
+      <p class="vk-eyebrow"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>
+      <h1 class="vk-h1" data-split>{{ blog.title | escape }}</h1>
+      {%- if blog.all_tags.size > 0 -%}
+        <nav class="vk-flex vk-blog__tags" aria-label="{{ 'blogs.tags' | t }}">
+          <a href="{{ blog.url }}" class="vk-chip{% if current_tags == blank %} is-active{% endif %}">{{ 'blogs.all' | t }}</a>
+          {%- for tag in blog.all_tags -%}<a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="vk-chip{% if current_tags contains tag %} is-active{% endif %}">{{ tag }}</a>{%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </header>
+    {%- paginate blog.articles by 9 -%}
+      <div class="vk-blog__grid">
+        {%- for article in blog.articles -%}
+          {%- if forloop.first and paginate.current_page == 1 -%}
+            {% render 'vk-article-card', article: article, size: 'lg' %}
+          {%- else -%}
+            {% render 'vk-article-card', article: article, index: forloop.index0 %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}<nav class="vk-pagination" aria-label="{{ 'general.pagination' | t }}">{{ paginate | default_pagination: next: '→', previous: '←' }}</nav>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The journal" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ]
+}
+{% endschema %}

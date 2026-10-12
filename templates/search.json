@@ -1,0 +1,21 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-search",
+      "settings": {
+        "eyebrow": "Search",
+        "heading": "Find your <em>instrument</em>.",
+        "popular": "Forge Pan, Wok, Sets, Knives, Glass lid",
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 120
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

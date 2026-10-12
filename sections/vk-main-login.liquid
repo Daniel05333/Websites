@@ -1,0 +1,33 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+<section id="vk-{{ section.id }}" class="vk-section vk-account color-{{ section.settings.color_scheme }}">
+  <div class="vk-container vk-account__narrow">
+    <div id="login" class="vk-account__card">
+      <h1 class="vk-h2" data-split>{{ 'customer.login.title' | t }}</h1>
+      {%- form 'customer_login', novalidate: 'novalidate', class: 'vk-account__form' -%}
+        {%- if form.errors %}<p class="vk-form-message vk-form-message--error" role="alert">{{ form.errors | default_errors }}</p>{% endif -%}
+        <div class="vk-field"><label class="vk-label" for="vk-login-email">{{ 'customer.email' | t }}</label><input class="vk-input" id="vk-login-email" type="email" name="customer[email]" autocomplete="email" required></div>
+        {%- if form.password_needed -%}
+          <div class="vk-field"><label class="vk-label" for="vk-login-pw">{{ 'customer.password' | t }}</label><input class="vk-input" id="vk-login-pw" type="password" name="customer[password]" autocomplete="current-password" required></div>
+          <a href="#recover" class="vk-link vk-small">{{ 'customer.login.forgot' | t }}</a>
+        {%- endif -%}
+        <button type="submit" class="vk-btn vk-btn--primary vk-btn--block"><span class="vk-btn__label">{{ 'customer.login.submit' | t }}</span></button>
+        <a href="{{ routes.account_register_url }}" class="vk-link">{{ 'customer.login.create' | t }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a>
+      {%- endform -%}
+    </div>
+    <div id="recover" class="vk-account__card vk-account__recover">
+      <h2 class="vk-h3">{{ 'customer.recover.title' | t }}</h2>
+      <p class="vk-muted">{{ 'customer.recover.text' | t }}</p>
+      {%- form 'recover_customer_password', class: 'vk-account__form' -%}
+        {%- if form.posted_successfully? %}<p class="vk-form-message vk-form-message--success" role="status">{{ 'customer.recover.success' | t }}</p>{% endif -%}
+        <div class="vk-field"><label class="vk-label" for="vk-recover-email">{{ 'customer.email' | t }}</label><input class="vk-input" id="vk-recover-email" type="email" name="email" autocomplete="email" required></div>
+        <button type="submit" class="vk-btn vk-btn--secondary"><span class="vk-btn__label">{{ 'customer.recover.submit' | t }}</span></button>
+      {%- endform -%}
+    </div>
+    {%- if shop.checkout.guest_login -%}
+      {%- form 'guest_login' -%}<button type="submit" class="vk-btn vk-btn--ghost"><span class="vk-btn__label">{{ 'customer.login.guest' | t }}</span></button>{%- endform -%}
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Login", "settings": [{ "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }] }
+{% endschema %}

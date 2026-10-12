@@ -1,0 +1,23 @@
+{%- doc -%}
+  Journal article card.
+  @param {object} article - Article.
+  @param {string} [size] - 'lg' for the featured card.
+  @param {number} [index] - Stagger index.
+  @example
+  {% render 'vk-article-card', article: article %}
+{%- enddoc -%}
+{%- assign vk_words = article.content | strip_html | split: ' ' | size -%}
+{%- assign vk_minutes = vk_words | divided_by: 220 | at_least: 1 -%}
+<article class="vk-article-card{% if size == 'lg' %} vk-article-card--lg{% endif %}" data-reveal style="--vk-i: {{ index | default: 0 }};">
+  <a href="{{ article.url }}" class="vk-article-card__link" data-glow>
+    <div class="vk-article-card__media">
+      {%- render 'vk-image', image: article.image, sizes: '(min-width: 990px) 50vw, 100vw', placeholder: 'lifestyle', alt: article.title -%}
+    </div>
+    <div class="vk-article-card__body">
+      <p class="vk-article-card__meta vk-mono">{% if article.tags.size > 0 %}{{ article.tags.first }} · {% endif %}{{ article.published_at | date: format: 'abbreviated_date' }} · {{ 'blogs.read_time' | t: count: vk_minutes }}</p>
+      <h3 class="vk-article-card__title">{{ article.title | escape }}</h3>
+      {%- if size == 'lg' %}<p class="vk-article-card__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 32 }}</p>{% endif -%}
+      <span class="vk-link">{{ 'blogs.read_more' | t }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</span>
+    </div>
+  </a>
+</article>

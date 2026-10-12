@@ -1,0 +1,511 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-hero",
+      "settings": {
+        "fallback": "vk-visual-macro.webp",
+        "image_alt": "Extreme macro of the LavaCell™ titanium surface, oil glinting in the hexagonal valleys",
+        "overlay": 45,
+        "parallax": 20,
+        "show_embers": true,
+        "height": "large",
+        "alignment": "left",
+        "show_scroll_cue": false,
+        "eyebrow": "VolcanicCore™ technology",
+        "heading": "Five layers. One <em>body</em>.",
+        "heading_tag": "auto",
+        "subheading": "VolcanicCore™ is how we build every VOLKARA pan and pot: a titanium surface with nothing to wear away, a triple aluminium core that heats edge to edge, and stainless steel that keeps it all rigid, flat and induction-ready.",
+        "primary_label": "Shop the Forge Pan",
+        "primary_url": "/products/forge-pan",
+        "secondary_label": "Explore all cookware",
+        "secondary_url": "/collections/all",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "trust-1": {
+          "type": "trust",
+          "settings": {
+            "icon": "flame",
+            "text": "5-ply · 3.0 mm"
+          }
+        },
+        "trust-2": {
+          "type": "trust",
+          "settings": {
+            "icon": "shield",
+            "text": "Oven-safe to 260°C"
+          }
+        },
+        "trust-3": {
+          "type": "trust",
+          "settings": {
+            "icon": "leaf",
+            "text": "PFAS- & PTFE-free"
+          }
+        },
+        "trust-4": {
+          "type": "trust",
+          "settings": {
+            "icon": "star",
+            "text": "Lifetime warranty"
+          }
+        }
+      },
+      "block_order": [
+        "trust-1",
+        "trust-2",
+        "trust-3",
+        "trust-4"
+      ]
+    },
+    "technology": {
+      "type": "vk-technology",
+      "settings": {
+        "layout": "cinematic",
+        "index": "01",
+        "eyebrow": "The layers",
+        "heading": "Engineered like a <em>volcano</em>.",
+        "intro": "Scroll through the stack. Each layer has a single job, and together they behave like one piece of metal: fast to heat, slow to cool, impossible to peel apart.",
+        "show_background": true,
+        "button_label": "See it in the Forge Pan",
+        "button_url": "/products/forge-pan",
+        "footnote": "Specifications shown for the Forge Pan. Each product page lists its own dimensions and weight.",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "layer-1": {
+          "type": "layer",
+          "settings": {
+            "name": "LavaCell™ Surface",
+            "spec": "LAYER 01 · LAVACELL™ · Ti",
+            "texture": "lavacell",
+            "description": "<p>Laser-etched hexagonal titanium relief. Raised peaks shield the surface from utensils; valleys hold a micro-film of oil for natural release and a deeper sear.</p>"
+          }
+        },
+        "layer-2": {
+          "type": "layer",
+          "settings": {
+            "name": "Titanium Shield",
+            "spec": "LAYER 02 · TITANIUM SHIELD · Ti",
+            "texture": "titanium",
+            "description": "<p>A pure, non-reactive titanium cooking layer. No PFAS, no PTFE, no coating to wear off — nothing between your food and the metal.</p>"
+          }
+        },
+        "layer-3": {
+          "type": "layer",
+          "settings": {
+            "name": "Thermal Core",
+            "spec": "LAYER 03 · THERMAL CORE · Al ×3",
+            "texture": "thermal",
+            "description": "<p>A triple aluminium core that pulls heat from the centre to the rim in seconds. No hot spots, no cold edge.</p>"
+          }
+        },
+        "layer-4": {
+          "type": "layer",
+          "settings": {
+            "name": "Stainless Structure",
+            "spec": "LAYER 04 · STAINLESS STRUCTURE · 18/10",
+            "texture": "steel",
+            "description": "<p>An 18/10 stainless steel body that gives the pan its rigidity and resists warping under thermal shock.</p>"
+          }
+        },
+        "layer-5": {
+          "type": "layer",
+          "settings": {
+            "name": "Magnetic Base",
+            "spec": "LAYER 05 · MAGNETIC BASE · 18/0",
+            "texture": "magnetic",
+            "description": "<p>18/0 magnetic stainless steel: induction-ready and machined flat, so the pan sits true on every hob.</p>"
+          }
+        },
+        "stat-6": {
+          "type": "stat",
+          "settings": {
+            "number": 5,
+            "decimals": 0,
+            "suffix": "-PLY",
+            "label": "forged layers, bonded as one"
+          }
+        },
+        "stat-7": {
+          "type": "stat",
+          "settings": {
+            "number": 3,
+            "decimals": 1,
+            "suffix": " MM",
+            "label": "body thickness for steady heat"
+          }
+        },
+        "stat-8": {
+          "type": "stat",
+          "settings": {
+            "number": 260,
+            "decimals": 0,
+            "suffix": "°C",
+            "label": "oven- and grill-safe"
+          }
+        }
+      },
+      "block_order": [
+        "layer-1",
+        "layer-2",
+        "layer-3",
+        "layer-4",
+        "layer-5",
+        "stat-6",
+        "stat-7",
+        "stat-8"
+      ]
+    },
+    "benefits": {
+      "type": "vk-benefits",
+      "settings": {
+        "index": "02",
+        "eyebrow": "What you'll feel",
+        "heading": "Performance you can <em>feel</em>.",
+        "subheading": "Engineering only matters at the hob. Here's where you'll notice it.",
+        "button_label": "Find your piece",
+        "button_url": "/collections/all",
+        "color_scheme": "scheme-5",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "tile-1": {
+          "type": "tile",
+          "settings": {
+            "size": "large",
+            "theme": "dark",
+            "icon": "flame",
+            "fallback": "vk-visual-sear.webp",
+            "stat": "3.0 MM HEAT-HOLDING BODY",
+            "title": "A sear with real crust",
+            "text": "<p>Peaks lift, valleys hold oil. The LavaCell™ relief gives steak, scallops and potatoes the contact they need for a deep, even crust.</p>"
+          }
+        },
+        "tile-2": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "theme": "light",
+            "icon": "thermometer",
+            "fallback": "none",
+            "stat": "AL ×3 THERMAL CORE",
+            "title": "Heat in seconds",
+            "text": "<p>The triple aluminium core answers the dial immediately — up for a sear, down for a sauce — without the long lag of cast iron.</p>"
+          }
+        },
+        "tile-3": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "theme": "light",
+            "icon": "utensils",
+            "fallback": "none",
+            "stat": "0 COATINGS TO SCRATCH",
+            "title": "Metal-utensil safe",
+            "text": "<p>Use the spatula you actually like. Titanium peaks take the contact, so whisks, tongs and fish slices are welcome.</p>"
+          }
+        },
+        "tile-4": {
+          "type": "tile",
+          "settings": {
+            "size": "wide",
+            "theme": "dark",
+            "icon": "oven",
+            "fallback": "vk-visual-chef.webp",
+            "stat": "260°C OVEN-SAFE",
+            "title": "Hob to oven to table",
+            "text": "<p>Start on the hob, finish in the oven, serve from the pan. Built for the whole recipe, not just the first step.</p>"
+          }
+        },
+        "tile-5": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "theme": "light",
+            "icon": "dishwasher",
+            "fallback": "none",
+            "stat": "DISHWASHER-SAFE",
+            "title": "Clean in a minute",
+            "text": "<p>Titanium and stainless steel have nothing to strip, so the dishwasher is fine. Most days, warm water and a soft sponge are quicker.</p>"
+          }
+        },
+        "tile-6": {
+          "type": "tile",
+          "settings": {
+            "size": "small",
+            "theme": "ember",
+            "icon": "award",
+            "fallback": "none",
+            "stat": "LIFETIME WARRANTY",
+            "title": "Built to be handed down",
+            "text": "<p>No coating to expire, a body that resists warping and a lifetime warranty in writing. Buy once. Pass it on.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tile-1",
+        "tile-2",
+        "tile-3",
+        "tile-4",
+        "tile-5",
+        "tile-6"
+      ]
+    },
+    "comparison": {
+      "type": "vk-comparison",
+      "settings": {
+        "index": "03",
+        "eyebrow": "The comparison",
+        "heading": "Not all pans are <em>created equal</em>.",
+        "subheading": "How VolcanicCore™ compares with the two pans most kitchens already own.",
+        "competitor_1": "Non-stick",
+        "competitor_2": "Cast iron",
+        "footnote": "Compared with typical PTFE-coated aluminium pans and traditional unenamelled cast iron. Individual products vary. Every VOLKARA piece is backed by a lifetime warranty.",
+        "button_label": "Choose your pan",
+        "button_url": "/collections/pans",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "group": "Performance",
+            "feature": "Searing",
+            "ours": "Deep, even crust",
+            "c1_status": "no",
+            "c1_text": "Coating limits high heat",
+            "c2_status": "yes",
+            "c2_text": "Excellent crust"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Heat response",
+            "ours": "Fast and even, edge to edge",
+            "c1_status": "partial",
+            "c1_text": "Fast, but thin bases build hot spots",
+            "c2_status": "partial",
+            "c2_text": "Slow to heat, slow to adjust"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "group": "Durability",
+            "feature": "Metal utensils",
+            "ours": "Welcome",
+            "c1_status": "no",
+            "c1_text": "Scratch the coating",
+            "c2_status": "yes",
+            "c2_text": "Welcome"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Working life",
+            "ours": "Built for decades, lifetime warranty",
+            "c1_status": "no",
+            "c1_text": "Replaced every few years",
+            "c2_status": "yes",
+            "c2_text": "Decades, with care"
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "group": "Health & purity",
+            "feature": "PFAS & PTFE",
+            "ours": "None — no coating at all",
+            "c1_status": "no",
+            "c1_text": "PTFE fluoropolymer coating",
+            "c2_status": "yes",
+            "c2_text": "None"
+          }
+        },
+        "row-6": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Acidic food",
+            "ours": "Non-reactive with tomato, wine and citrus",
+            "c1_status": "partial",
+            "c1_text": "Fine while the coating is intact",
+            "c2_status": "no",
+            "c2_text": "Reacts and can taste metallic"
+          }
+        },
+        "row-7": {
+          "type": "row",
+          "settings": {
+            "group": "Everyday life",
+            "feature": "Care",
+            "ours": "Dishwasher-safe, no ritual",
+            "c1_status": "partial",
+            "c1_text": "Hand-wash to protect the coating",
+            "c2_status": "no",
+            "c2_text": "Hand-wash, dry and oil every time"
+          }
+        },
+        "row-8": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Weight",
+            "ours": "Balanced — ≈ 1.3 kg at 28 cm",
+            "c1_status": "yes",
+            "c1_text": "Light",
+            "c2_status": "no",
+            "c2_text": "Heavy — often 2.5 kg or more"
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6",
+        "row-7",
+        "row-8"
+      ]
+    },
+    "faq": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "04",
+        "eyebrow": "Technical FAQ",
+        "heading": "The science, <em>simply</em>.",
+        "subheading": "For the cooks who want to know exactly what they're cooking on.",
+        "show_filter": false,
+        "contact_title": "Still curious?",
+        "contact_text": "Talk to a person — we reply within one working day.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Is the cooking surface really titanium, or a titanium coating?",
+            "answer": "<p>Titanium. The LavaCell™ surface is a solid titanium layer bonded into the pan's body — not a spray, a paint or a \"titanium-reinforced\" non-stick coating. There is nothing applied on top of it.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "What does \"5-ply\" mean?",
+            "answer": "<p>Five metal layers bonded into one body: titanium at the surface, then a titanium shield, a triple aluminium thermal core, an 18/10 stainless steel structure and an 18/0 magnetic stainless base. Each does one job; together they behave as a single sheet of metal.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "How does a surface release food without a coating?",
+            "answer": "<p>The hexagonal relief holds a micro-film of oil in its valleys, while the raised peaks reduce the area food can grip. Combined with a properly preheated pan, proteins form a crust and release on their own.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Why aluminium in the middle?",
+            "answer": "<p>Aluminium conducts heat more than ten times better than stainless steel. Three layers of it pull heat from the burner out to the rim quickly and evenly, so the whole base cooks — not just the centre.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "Can the layers separate over time?",
+            "answer": "<p>They're forged and bonded under pressure, not glued, and built to stay as one. Delamination under household use is covered by the lifetime warranty.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "Why is the pan safe at 260°C when coated pans aren't?",
+            "answer": "<p>There is no polymer to soften or break down. Titanium and stainless steel are stable far beyond any oven temperature; 260°C is the limit we rate for the handle and the whole assembly.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "question-6"
+      ]
+    },
+    "cta": {
+      "type": "vk-cta",
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-hero.webp",
+        "show_embers": true,
+        "eyebrow": "Feel the difference",
+        "heading": "Hear the first <em>sizzle</em>.",
+        "subheading": "Every VOLKARA pan and pot is built on VolcanicCore™. Choose yours and cook with it for 60 days.",
+        "button_label": "Choose your pan",
+        "button_url": "/collections/pans",
+        "guarantee": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "icon": "shield",
+            "text": "Lifetime warranty"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "icon": "return",
+            "text": "60-day home trial"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Free shipping over €75"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "technology",
+    "benefits",
+    "comparison",
+    "faq",
+    "cta"
+  ]
+}

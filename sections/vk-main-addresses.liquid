@@ -1,0 +1,35 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+<section id="vk-{{ section.id }}" class="vk-section vk-account color-{{ section.settings.color_scheme }}">
+  <div class="vk-container">
+    <a href="{{ routes.account_url }}" class="vk-link">{% render 'vk-icon', name: 'arrow-left', size: 16 %}{{ 'customer.account.back' | t }}</a>
+    <h1 class="vk-h2">{{ 'customer.addresses.title' | t }}</h1>
+    <div class="vk-account__addresses">
+      {%- paginate customer.addresses by 10 -%}
+        {%- for address in customer.addresses -%}
+          <div class="vk-account__card">
+            {%- if address == customer.default_address %}<p class="vk-badge vk-badge--outline">{{ 'customer.addresses.default' | t }}</p>{% endif -%}
+            {{ address | format_address }}
+            <details class="vk-account__edit">
+              <summary class="vk-link">{{ 'customer.addresses.edit' | t }}</summary>
+              {%- form 'customer_address', address, class: 'vk-account__form' -%}
+                {%- render 'vk-address-fields', form: form, id: address.id -%}
+                <button type="submit" class="vk-btn vk-btn--primary vk-btn--sm"><span class="vk-btn__label">{{ 'customer.addresses.save' | t }}</span></button>
+              {%- endform -%}
+            </details>
+            <form method="post" action="{{ address.url }}" class="vk-account__delete"><input type="hidden" name="_method" value="delete"><button type="submit" class="vk-link vk-small" onclick="return confirm('{{ 'customer.addresses.confirm' | t }}')">{{ 'customer.addresses.delete' | t }}</button></form>
+          </div>
+        {%- endfor -%}
+      {%- endpaginate -%}
+      <details class="vk-account__card vk-account__new">
+        <summary class="vk-btn vk-btn--secondary vk-btn--sm"><span class="vk-btn__label">{% render 'vk-icon', name: 'plus', size: 16 %}{{ 'customer.addresses.add' | t }}</span></summary>
+        {%- form 'customer_address', customer.new_address, class: 'vk-account__form' -%}
+          {%- render 'vk-address-fields', form: form, id: 'new' -%}
+          <button type="submit" class="vk-btn vk-btn--primary vk-btn--sm"><span class="vk-btn__label">{{ 'customer.addresses.save' | t }}</span></button>
+        {%- endform -%}
+      </details>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Addresses", "settings": [{ "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }] }
+{% endschema %}

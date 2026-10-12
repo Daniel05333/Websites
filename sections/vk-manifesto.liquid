@@ -1,8 +1,5 @@
 {{ 'vk-section-manifesto.css' | asset_url | stylesheet_tag }}
 {%- render 'vk-section-styles', section: section -%}
-{%- liquid
-  assign vk_words = section.settings.statement | strip_newlines
--%}
 <section id="vk-{{ section.id }}" class="vk-section vk-manifesto color-{{ section.settings.color_scheme }}{% if section.settings.show_image %} vk-manifesto--image{% endif %}" data-section-id="{{ section.id }}">
   {%- if section.settings.show_image -%}
     <div class="vk-manifesto__bg" data-parallax="0.12" aria-hidden="true">

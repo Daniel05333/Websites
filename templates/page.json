@@ -1,0 +1,70 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-page",
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 96
+      }
+    },
+    "newsletter": {
+      "type": "vk-newsletter",
+      "settings": {
+        "eyebrow": "The inner circle",
+        "heading": "Stay close to the <em>fire</em>.",
+        "subheading": "First access to new pieces, technique notes from serious home cooks and the occasional dispatch from the forge. One email a fortnight — never more.",
+        "placeholder": "Your email address",
+        "button_label": "Join",
+        "success_text": "You're in. Watch your inbox — the first letter is on its way.",
+        "error_text": "That email address doesn't look right. Please check it and try again.",
+        "consent": "<p>By joining, you agree to receive marketing emails from VOLKARA. Unsubscribe in one click, any time. Read our <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>",
+        "show_embers": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "perk-1": {
+          "type": "perk",
+          "settings": {
+            "text": "Early access to new releases"
+          }
+        },
+        "perk-2": {
+          "type": "perk",
+          "settings": {
+            "text": "Recipes and technique notes"
+          }
+        },
+        "perk-3": {
+          "type": "perk",
+          "settings": {
+            "text": "Care guides for a lifetime of use"
+          }
+        },
+        "perk-4": {
+          "type": "perk",
+          "settings": {
+            "text": "Invitations to members-only events"
+          }
+        }
+      },
+      "block_order": [
+        "perk-1",
+        "perk-2",
+        "perk-3",
+        "perk-4"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "newsletter"
+  ]
+}

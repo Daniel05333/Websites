@@ -24,7 +24,7 @@
           </li>
         {%- endfor -%}
       {%- else -%}
-        <li class="vk-gallery__slide is-active"><div class="vk-pmedia">{% render 'vk-image', image: blank, fallback: 'vk-visual-pan.webp', fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: product.title, loading: 'eager' %}</div></li>
+        <li class="vk-gallery__slide is-active"><div class="vk-pmedia">{% render 'vk-image', fallback: 'vk-visual-pan.webp', fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: product.title, loading: 'eager' %}</div></li>
       {%- endif -%}
     </ul>
     {%- if product.media.size > 1 -%}

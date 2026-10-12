@@ -1,0 +1,388 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-collection-hero",
+      "settings": {
+        "eyebrow": "The collection",
+        "show_description": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 48
+      },
+      "blocks": {
+        "link-1": {
+          "type": "link",
+          "settings": {
+            "collection": "all",
+            "label": "All"
+          }
+        },
+        "link-2": {
+          "type": "link",
+          "settings": {
+            "collection": "bestsellers",
+            "label": "Bestsellers"
+          }
+        },
+        "link-3": {
+          "type": "link",
+          "settings": {
+            "collection": "pans",
+            "label": "Pans"
+          }
+        },
+        "link-4": {
+          "type": "link",
+          "settings": {
+            "collection": "woks",
+            "label": "Woks"
+          }
+        },
+        "link-5": {
+          "type": "link",
+          "settings": {
+            "collection": "pots",
+            "label": "Pots"
+          }
+        },
+        "link-6": {
+          "type": "link",
+          "settings": {
+            "collection": "sets",
+            "label": "Sets"
+          }
+        },
+        "link-7": {
+          "type": "link",
+          "settings": {
+            "collection": "knives",
+            "label": "Knives"
+          }
+        },
+        "link-8": {
+          "type": "link",
+          "settings": {
+            "collection": "accessories",
+            "label": "Accessories"
+          }
+        }
+      },
+      "block_order": [
+        "link-1",
+        "link-2",
+        "link-3",
+        "link-4",
+        "link-5",
+        "link-6",
+        "link-7",
+        "link-8"
+      ]
+    },
+    "usp": {
+      "type": "vk-usp-bar",
+      "settings": {
+        "mobile_layout": "marquee",
+        "color_scheme": "scheme-2",
+        "padding_top": 24,
+        "padding_bottom": 24
+      },
+      "blocks": {
+        "usp-1": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "PFAS- & PTFE-free",
+            "subtitle": "Nothing between food and metal"
+          }
+        },
+        "usp-2": {
+          "type": "usp",
+          "settings": {
+            "icon": "warranty",
+            "title": "Lifetime warranty",
+            "subtitle": "Written into every piece"
+          }
+        },
+        "usp-3": {
+          "type": "usp",
+          "settings": {
+            "icon": "return",
+            "title": "60-day home trial",
+            "subtitle": "Cook first, decide later"
+          }
+        },
+        "usp-4": {
+          "type": "usp",
+          "settings": {
+            "icon": "fire-ring",
+            "title": "Every heat source",
+            "subtitle": "Induction, gas, oven, grill"
+          }
+        },
+        "usp-5": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping over €75",
+            "subtitle": "Tracked, 2–5 working days"
+          }
+        }
+      },
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3",
+        "usp-4",
+        "usp-5"
+      ]
+    },
+    "main": {
+      "type": "vk-main-collection",
+      "settings": {
+        "per_page": 24,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "enable_filtering": true,
+        "filter_layout": "drawer",
+        "color_scheme": "scheme-1",
+        "padding_top": 32,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "promo-1": {
+          "type": "promo",
+          "settings": {
+            "position": 5,
+            "fallback": "vk-visual-set.webp",
+            "eyebrow": "Build it as a set",
+            "title": "Save up to €243",
+            "text": "Every set costs less than its pieces bought separately — calculated against our own prices.",
+            "link_label": "Shop sets",
+            "link": "/collections/sets"
+          }
+        }
+      },
+      "block_order": [
+        "promo-1"
+      ]
+    },
+    "reviews": {
+      "type": "vk-reviews",
+      "settings": {
+        "index": "08",
+        "eyebrow": "Reviews",
+        "heading": "Trusted by kitchens that <em>cook daily</em>.",
+        "subheading": "Words from verified owners, unedited.",
+        "show_summary": true,
+        "average": "",
+        "autoplay": false,
+        "link_label": "Read all reviews",
+        "link": "/products/forge-pan#reviews",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "The crust I'd been chasing for years",
+            "text": "<p>I'd given up on a steakhouse sear at home. A proper preheat, a little oil, and the ribeye lifted on its own with a crust I've only had in restaurants. The coated pan went to recycling the same week.</p>",
+            "author": "Lotte V.",
+            "product_label": "Forge Pan · 28 cm",
+            "verified": true
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Bought one, then the set",
+            "text": "<p>Started with the 24 cm and ordered the Trio within a month. Eggs in the small one, everything else in the 28. Hob, oven, dishwasher — they still look new.</p>",
+            "author": "Jonas B.",
+            "product_label": "The Trio",
+            "verified": true
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": 4,
+            "title": "A learning curve, then love",
+            "text": "<p>My first eggs stuck, entirely my fault — I rushed the preheat. Once I used the water-droplet test it became the easiest pan I own. Heavier than my old one, in a good way.</p>",
+            "author": "Anouk de G.",
+            "product_label": "Forge Pan · 24 cm",
+            "verified": true
+          }
+        },
+        "review-4": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Real wok heat on induction",
+            "text": "<p>Induction and woks rarely get along. This one sits flat, heats fast and holds its temperature when the noodles go in. The helper handle makes tossing easy.</p>",
+            "author": "Marco R.",
+            "product_label": "Forge Wok · 34 cm",
+            "verified": true
+          }
+        },
+        "review-5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Balanced like it was made for me",
+            "text": "<p>Sharp out of the box, a beautiful pattern, and the red collar makes it look like part of the set. Onions, herbs, a whole chicken — effortless.</p>",
+            "author": "Rania K.",
+            "product_label": "Damascus Chef Knife",
+            "verified": true
+          }
+        },
+        "review-6": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Replaced an entire cupboard",
+            "text": "<p>We swapped eleven tired pans for seven pieces that actually work. The stockpot was the surprise: even heat across the base and nothing catching on long braises.</p>",
+            "author": "Erik S.",
+            "product_label": "The Chef's Collection",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3",
+        "review-4",
+        "review-5",
+        "review-6"
+      ]
+    },
+    "faq": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Buying guide",
+        "heading": "Before you <em>choose</em>.",
+        "subheading": "Quick answers to the questions we hear most at this stage.",
+        "show_filter": false,
+        "contact_title": "Still curious?",
+        "contact_text": "Talk to a person — we reply within one working day.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Which size should I choose?",
+            "answer": "<p>For one or two people, the 24 cm is the everyday all-rounder. For families or two steaks at once, choose 28 cm. 20 cm is perfect for eggs and sauces; 32 cm is for cooking for a crowd. Most kitchens end up with two sizes.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Pan, wok or sauté pan — which first?",
+            "answer": "<p>Start with the Forge Pan: it sears, fries and finishes in the oven. Add the Forge Wok if you stir-fry weekly, or the Sauté Pan for braises, sauces and one-pan dinners with a lid.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Are the sets better value?",
+            "answer": "<p>Yes, and transparently so. Every set is priced below the total of its pieces at our own single-piece prices: The Trio saves €38, The Chef's Collection €135 and The Signature Kitchen €243.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Do lids fit across pieces?",
+            "answer": "<p>Tempered glass lids come in 20, 24 and 28 cm and fit any VOLKARA pan or pot of the same diameter.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "Will it work on my hob?",
+            "answer": "<p>Yes — gas, induction, ceramic, electric and halogen, plus oven and grill to 260°C.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "What if it isn't right for me?",
+            "answer": "<p>Cook with it for 60 days. If it isn't the best pan you own, send it back and we'll refund the purchase price.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "question-6"
+      ]
+    },
+    "cta": {
+      "type": "vk-cta",
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-pan.webp",
+        "show_embers": true,
+        "eyebrow": "Not sure where to start?",
+        "heading": "Start with the <em>Forge Pan</em>.",
+        "subheading": "Most kitchens begin with the 28 cm. Cook with it for 60 days — then build around it.",
+        "button_label": "Shop the Forge Pan",
+        "button_url": "/products/forge-pan",
+        "guarantee": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "icon": "shield",
+            "text": "Lifetime warranty"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "icon": "return",
+            "text": "60-day home trial"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Free shipping over €75"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "usp",
+    "main",
+    "reviews",
+    "faq",
+    "cta"
+  ]
+}

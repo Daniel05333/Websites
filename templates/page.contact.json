@@ -1,0 +1,139 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-page",
+      "settings": {
+        "eyebrow": "Support",
+        "heading": "We're here to <em>help</em>.",
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 64
+      },
+      "blocks": {
+        "contact-1": {
+          "type": "contact",
+          "settings": {
+            "icon": "mail",
+            "label": "Email",
+            "value": "support@volkara.com",
+            "link": "mailto:support@volkara.com"
+          }
+        },
+        "contact-2": {
+          "type": "contact",
+          "settings": {
+            "icon": "clock",
+            "label": "Hours",
+            "value": "Mon–Fri, 09:00–17:00 CET",
+            "link": ""
+          }
+        },
+        "contact-3": {
+          "type": "contact",
+          "settings": {
+            "icon": "chat",
+            "label": "Response",
+            "value": "Within one working day",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "contact-1",
+        "contact-2",
+        "contact-3"
+      ]
+    },
+    "form": {
+      "type": "vk-contact-form",
+      "settings": {
+        "heading": "Send us a <em>message</em>.",
+        "subheading": "",
+        "topics": "Product advice, An existing order, Returns & home trial, Warranty claim, Press & partnerships, Something else",
+        "privacy": "We use your details only to answer this message. See our Privacy Policy.",
+        "success": "Thank you. Your message is with us — expect a reply within one working day.",
+        "error": "Something went wrong. Please check the highlighted fields and try again.",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 120
+      }
+    },
+    "faq": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Support FAQ",
+        "heading": "Support, <em>answered</em>.",
+        "subheading": "The fastest answers to the questions we hear after you order.",
+        "show_filter": false,
+        "contact_title": "Still curious?",
+        "contact_text": "Talk to a person — we reply within one working day.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Where is my order?",
+            "answer": "<p>You'll receive a tracking link by email as soon as your order is dispatched. You can also see its status in your account. If it hasn't moved for three working days, contact us and we'll chase it.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change or cancel my order?",
+            "answer": "<p>If it hasn't been dispatched yet, yes — contact us as soon as possible with your order number. Once it's on its way, you can use the home trial or your right of withdrawal instead.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I start a return or the home trial?",
+            "answer": "<p>Contact us with your order number within 60 days of delivery. We'll send return instructions; once the piece is back with us, we refund the purchase price to your original payment method.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "How do I withdraw from my purchase?",
+            "answer": "<p>Use \"Withdraw from a contract\" in the footer, or tell us by email within 14 days of delivery. We'll confirm receipt straight away. Your statutory right of withdrawal applies alongside our 60-day home trial.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "How do I make a warranty claim?",
+            "answer": "<p>Send your order number and a photo of the issue. If it's covered, we'll repair or replace the piece.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "Which countries do you ship to?",
+            "answer": "<p>We ship to the countries shown at checkout. Shipping is free over €75 to every listed destination.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "question-6"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "form",
+    "faq"
+  ]
+}

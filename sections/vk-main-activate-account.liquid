@@ -1,0 +1,17 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+<section id="vk-{{ section.id }}" class="vk-section vk-account color-{{ section.settings.color_scheme }}">
+  <div class="vk-container vk-account__narrow">
+    <div class="vk-account__card">
+      <h1 class="vk-h2">{{ 'customer.activate.title' | t }}</h1>
+      {%- form 'activate_customer_password', class: 'vk-account__form' -%}
+        {%- if form.errors %}<p class="vk-form-message vk-form-message--error" role="alert">{{ form.errors | default_errors }}</p>{% endif -%}
+        <div class="vk-field"><label class="vk-label" for="vk-activate-pw">{{ 'customer.password' | t }}</label><input class="vk-input" id="vk-activate-pw" type="password" name="customer[password]" autocomplete="new-password" required></div>
+        <div class="vk-field"><label class="vk-label" for="vk-activate-pw2">{{ 'customer.password_confirm' | t }}</label><input class="vk-input" id="vk-activate-pw2" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+        <button type="submit" class="vk-btn vk-btn--primary vk-btn--block"><span class="vk-btn__label">{{ 'customer.activate.submit' | t }}</span></button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Activate account", "settings": [{ "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }] }
+{% endschema %}

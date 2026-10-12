@@ -1,0 +1,48 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-contact color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container vk-container--narrow">
+    {%- render 'vk-heading', heading: s.heading, subheading: s.subheading -%}
+    {%- form 'contact', id: 'vk-contact-form', class: 'vk-contact__form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="vk-form-message vk-form-message--success" role="status" tabindex="-1" autofocus>{% render 'vk-icon', name: 'check-circle', size: 20 %}{{ s.success }}</p>
+      {%- elsif form.errors -%}
+        <p class="vk-form-message vk-form-message--error" role="alert">{% render 'vk-icon', name: 'alert', size: 20 %}{{ s.error }} {{ form.errors | default_errors }}</p>
+      {%- endif -%}
+      <div class="vk-contact__grid">
+        <div class="vk-field"><label class="vk-label" for="vk-c-name">{{ 'contact.name' | t }}</label><input class="vk-input" id="vk-c-name" name="contact[name]" autocomplete="name" value="{{ form.name }}"></div>
+        <div class="vk-field"><label class="vk-label" for="vk-c-email">{{ 'contact.email' | t }} *</label><input class="vk-input" id="vk-c-email" type="email" name="contact[email]" required autocomplete="email" value="{{ form.email }}"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}></div>
+        <div class="vk-field"><label class="vk-label" for="vk-c-order">{{ 'contact.order' | t }}</label><input class="vk-input" id="vk-c-order" name="contact[order_number]" placeholder="#1001"></div>
+        <div class="vk-field"><label class="vk-label" for="vk-c-topic">{{ 'contact.topic' | t }}</label>
+          <select class="vk-select" id="vk-c-topic" name="contact[topic]">
+            {%- assign vk_topics = s.topics | split: ',' -%}
+            {%- for t in vk_topics -%}<option>{{ t | strip }}</option>{%- endfor -%}
+          </select>
+        </div>
+        <div class="vk-field vk-contact__full"><label class="vk-label" for="vk-c-msg">{{ 'contact.message' | t }} *</label><textarea class="vk-textarea" id="vk-c-msg" name="contact[body]" required placeholder="{{ 'contact.message_placeholder' | t }}">{{ form.body }}</textarea></div>
+      </div>
+      <p class="vk-small vk-subtle">{{ s.privacy }}</p>
+      {%- assign vk_send = 'contact.send' | t -%}
+      {% render 'vk-button', label: vk_send, type: 'submit', icon: 'arrow-right', magnetic: true %}
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Send us a <em>message</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading" },
+    { "type": "text", "id": "topics", "label": "Topics (comma separated)", "default": "Product advice, An existing order, Returns & home trial, Warranty claim, Press & partnerships, Something else" },
+    { "type": "text", "id": "privacy", "label": "Privacy line", "default": "We use your details only to answer this message. See our Privacy Policy." },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you. Your message is with us — expect a reply within one working day." },
+    { "type": "text", "id": "error", "label": "Error message", "default": "Something went wrong. Please check the highlighted fields and try again." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "presets": [{ "name": "VOLKARA · Contact form" }]
+}
+{% endschema %}

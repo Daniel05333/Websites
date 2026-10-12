@@ -1,0 +1,36 @@
+{{ 'vk-section-pages.css' | asset_url | stylesheet_tag }}
+<section id="vk-{{ section.id }}" class="vk-section vk-account color-{{ section.settings.color_scheme }}">
+  <div class="vk-container">
+    <header class="vk-account__head">
+      <div><p class="vk-eyebrow">{{ 'customer.account.eyebrow' | t }}</p><h1 class="vk-h1" data-split>{{ 'customer.account.welcome' | t: name: customer.first_name }}</h1></div>
+      <a href="{{ routes.account_logout_url }}" class="vk-btn vk-btn--secondary vk-btn--sm"><span class="vk-btn__label">{{ 'customer.account.logout' | t }}</span></a>
+    </header>
+    <div class="vk-account__layout">
+      <div>
+        <h2 class="vk-h3">{{ 'customer.account.orders' | t }}</h2>
+        {%- paginate customer.orders by 20 -%}
+          {%- if customer.orders.size > 0 -%}
+            <table class="vk-account__table">
+              <thead><tr><th scope="col">{{ 'customer.order.number' | t }}</th><th scope="col">{{ 'customer.order.date' | t }}</th><th scope="col">{{ 'customer.order.status' | t }}</th><th scope="col">{{ 'customer.order.total' | t }}</th></tr></thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  <tr><td><a href="{{ order.customer_url }}" class="vk-link">{{ order.name }}</a></td><td>{{ order.created_at | time_tag: format: 'date' }}</td><td>{{ order.fulfillment_status_label }}</td><td>{{ order.total_net_amount | money_with_currency }}</td></tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          {%- else -%}
+            <p class="vk-muted">{{ 'customer.account.no_orders' | t }}</p>
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+      <aside class="vk-account__card">
+        <h2 class="vk-h4">{{ 'customer.account.details' | t }}</h2>
+        {{ customer.default_address | format_address }}
+        <a href="{{ routes.account_addresses_url }}" class="vk-link">{{ 'customer.account.addresses' | t: count: customer.addresses_count }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a>
+      </aside>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Account", "settings": [{ "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" }] }
+{% endschema %}
