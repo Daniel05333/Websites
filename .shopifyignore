@@ -1,0 +1,7 @@
+docs/
+tools/
+node_modules/
+package.json
+package-lock.json
+.theme-check.yml
+README.md

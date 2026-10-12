@@ -1,0 +1,20 @@
+{
+  "name": "volkara-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VOLKARA — premium performance cookware. Shopify Online Store 2.0 theme.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "preview": "node tools/preview/server.mjs",
+    "shoot": "node tools/preview/shoot.mjs",
+    "check": "node tools/check.mjs",
+    "locales": "node tools/merge-locales.mjs",
+    "templates": "node tools/assemble-templates.mjs"
+  },
+  "devDependencies": {
+    "@shopify/theme-check-node": "3.30.1",
+    "liquidjs": "10.30.0",
+    "playwright-core": "1.56.1"
+  }
+}
