@@ -1,0 +1,46 @@
+{%- doc -%}
+  Cart line item (drawer + cart page).
+  @param {object} item - Line item.
+  @param {number} index - forloop.index (1-based line number).
+  @param {string} [context] - 'drawer' | 'page'.
+  @example
+  {% render 'vk-cart-line-item', item: item, index: forloop.index %}
+{%- enddoc -%}
+<li class="vk-line" data-line="{{ index }}" data-key="{{ item.key }}" style="--vk-i: {{ index | minus: 1 }};">
+  <a href="{{ item.url }}" class="vk-line__media vk-media vk-ratio-square" tabindex="-1" aria-hidden="true">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120,240', sizes: '96px' }}
+    {%- else -%}
+      {%- render 'vk-placeholder', type: 'product' -%}
+    {%- endif -%}
+  </a>
+  <div class="vk-line__info">
+    <div class="vk-line__top">
+      <div>
+        <a href="{{ item.url }}" class="vk-line__title">{{ item.product.title | escape }}</a>
+        {%- unless item.product.has_only_default_variant -%}
+          <p class="vk-line__variant">{{ item.variant.title | escape }}</p>
+        {%- endunless -%}
+        {%- for prop in item.properties -%}
+          {%- unless prop.last == blank or prop.first contains '_' -%}<p class="vk-line__variant">{{ prop.first }}: {{ prop.last }}</p>{%- endunless -%}
+        {%- endfor -%}
+        {%- for discount in item.line_level_discount_allocations -%}
+          <p class="vk-line__discount">{% render 'vk-icon', name: 'sparkle', size: 12 %}{{ discount.discount_application.title }} (−{{ discount.amount | money }})</p>
+        {%- endfor -%}
+      </div>
+      <div class="vk-line__price">
+        {%- if item.original_line_price > item.final_line_price -%}<s class="vk-price__compare">{{ item.original_line_price | money }}</s>{%- endif -%}
+        <span>{{ item.final_line_price | money }}</span>
+      </div>
+    </div>
+    <div class="vk-line__actions">
+      <vk-quantity class="vk-quantity vk-quantity--sm">
+        <button type="button" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t }}">{% render 'vk-icon', name: 'minus', size: 14 %}</button>
+        <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" data-line-input="{{ index }}" aria-label="{{ 'cart.quantity_for' | t: title: item.product.title }}"{% if item.variant.inventory_management == 'shopify' and item.variant.inventory_policy == 'deny' %} max="{{ item.variant.inventory_quantity }}"{% endif %}>
+        <button type="button" name="plus" aria-label="{{ 'products.product.quantity.increase' | t }}">{% render 'vk-icon', name: 'plus', size: 14 %}</button>
+      </vk-quantity>
+      <a href="{{ item.url_to_remove }}" class="vk-line__remove" data-line-remove="{{ index }}">{{ 'cart.remove' | t }}<span class="vk-visually-hidden"> {{ item.product.title | escape }}</span></a>
+    </div>
+    <p class="vk-line__error" data-line-error role="alert" hidden></p>
+  </div>
+</li>

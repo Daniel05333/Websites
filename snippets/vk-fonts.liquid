@@ -1,0 +1,71 @@
+{%- doc -%}
+  Self-hosted VOLKARA typefaces (OFL licensed, see docs/licenses) + preload of the two
+  variable fonts that paint above the fold (Inter for body, Inter Tight for display).
+  Families: "Inter", "Inter Tight", "Instrument Serif" (normal + italic), "JetBrains Mono" (400, 500).
+
+  @example
+  {% render 'vk-fonts' %}
+{%- enddoc -%}
+{{ 'vk-inter-tight-var.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'vk-inter-var.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{%- style -%}
+  @font-face {
+    font-family: "Inter Tight";
+    src: url("{{ 'vk-inter-tight-var.woff2' | asset_url }}") format("woff2-variations"), url("{{ 'vk-inter-tight-var.woff2' | asset_url }}") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Inter";
+    src: url("{{ 'vk-inter-var.woff2' | asset_url }}") format("woff2-variations"), url("{{ 'vk-inter-var.woff2' | asset_url }}") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Instrument Serif";
+    src: url("{{ 'vk-instrument-serif.woff2' | asset_url }}") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Instrument Serif";
+    src: url("{{ 'vk-instrument-serif-italic.woff2' | asset_url }}") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("{{ 'vk-jetbrains-mono-400.woff2' | asset_url }}") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("{{ 'vk-jetbrains-mono-500.woff2' | asset_url }}") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  /* Metric-matched fallbacks keep layout stable while the web fonts swap in. */
+  @font-face {
+    font-family: "Inter Tight Fallback";
+    src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+    size-adjust: 101%;
+    ascent-override: 92%;
+    descent-override: 23%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: "Inter Fallback";
+    src: local("Arial"), local("Helvetica Neue"), local("Helvetica");
+    size-adjust: 107%;
+    ascent-override: 90%;
+    descent-override: 22.4%;
+    line-gap-override: 0%;
+  }
+{%- endstyle -%}

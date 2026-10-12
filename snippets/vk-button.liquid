@@ -1,0 +1,32 @@
+{%- doc -%}
+  VOLKARA button (link or <button>).
+
+  @param {string} label - Visible label.
+  @param {string} [url] - Link URL (renders <a>). Ignored when `type` is set.
+  @param {string} [style] - 'primary' (default) | 'secondary' | 'ghost' | 'light'.
+  @param {string} [icon] - vk-icon name rendered after the label.
+  @param {boolean} [magnetic] - Adds data-magnetic.
+  @param {string} [size] - 'sm' | 'md' (default) | 'lg'.
+  @param {string} [class] - Extra classes.
+  @param {string} [type] - Renders <button type="…">.
+  @param {string} [attrs] - Raw extra attributes.
+
+  @example
+  {% render 'vk-button', label: 'Shop now', url: '/collections/all', icon: 'arrow-right', magnetic: true %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_style = style | default: 'primary'
+  assign vk_classes = 'vk-btn vk-btn--' | append: vk_style
+  if size == 'sm' or size == 'lg'
+    assign vk_classes = vk_classes | append: ' vk-btn--' | append: size
+  endif
+  if class != blank
+    assign vk_classes = vk_classes | append: ' ' | append: class
+  endif
+-%}
+{%- capture vk_inner -%}<span class="vk-btn__label">{{ label }}{% if icon != blank %}{% render 'vk-icon', name: icon, size: 18 %}{% endif %}</span>{%- endcapture -%}
+{%- if type != blank -%}
+  <button type="{{ type }}" class="{{ vk_classes }}"{% if magnetic %} data-magnetic{% endif %} {{ attrs }}>{{ vk_inner }}</button>
+{%- elsif label != blank -%}
+  <a href="{{ url | default: '#' }}" class="{{ vk_classes }}"{% if magnetic %} data-magnetic{% endif %} {{ attrs }}>{{ vk_inner }}</a>
+{%- endif -%}

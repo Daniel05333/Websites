@@ -1,0 +1,80 @@
+{{ 'vk-section-cart.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign vk_total_money = cart.total_price | money -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-main-cart color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-main-cart__head">
+      <h1 class="vk-h1" data-split>{{ section.settings.heading }}</h1>
+      {%- if cart.item_count > 0 %}<p class="vk-mono vk-muted">{{ 'cart.item_count' | t: count: cart.item_count }}</p>{% endif -%}
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="vk-main-cart__layout">
+        <form action="{{ routes.cart_url }}" method="post" id="vk-cart-form" class="vk-main-cart__items" novalidate>
+          <vk-cart-items data-section="{{ section.id }}">
+            <ul class="vk-lines vk-lines--page" role="list">
+              {%- for item in cart.items -%}
+                {%- render 'vk-cart-line-item', item: item, index: forloop.index, context: 'page' -%}
+              {%- endfor -%}
+            </ul>
+          </vk-cart-items>
+          <noscript><button type="submit" name="update" class="vk-btn vk-btn--secondary">{{ 'cart.update' | t }}</button></noscript>
+          <a href="{{ routes.all_products_collection_url }}" class="vk-link vk-main-cart__continue">{% render 'vk-icon', name: 'arrow-left', size: 16 %}{{ 'cart.continue' | t }}</a>
+        </form>
+        <aside class="vk-main-cart__summary" aria-label="{{ 'cart.summary' | t }}">
+          <div class="vk-main-cart__card">
+            {% render 'vk-free-shipping-bar', cart: cart %}
+            {%- for discount in cart.cart_level_discount_applications -%}
+              <p class="vk-cart-summary__row vk-cart-summary__row--discount"><span>{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>
+            {%- endfor -%}
+            <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+            <p class="vk-cart-summary__note">{{ 'cart.taxes_shipping' | t }}</p>
+            {%- if section.settings.show_note -%}
+              <details class="vk-cart-note">
+                <summary>{% render 'vk-icon', name: 'gift', size: 16 %}{{ 'cart.note' | t }}</summary>
+                <label for="vk-cart-note-page" class="vk-visually-hidden">{{ 'cart.note' | t }}</label>
+                <textarea id="vk-cart-note-page" class="vk-textarea" name="note" form="vk-cart-form" data-cart-note>{{ cart.note }}</textarea>
+              </details>
+            {%- endif -%}
+            <button type="submit" name="checkout" form="vk-cart-form" class="vk-btn vk-btn--primary vk-btn--lg vk-btn--block">
+              <span class="vk-btn__label">{% render 'vk-icon', name: 'lock', size: 18 %}{{ 'cart.checkout_total' | t: total: vk_total_money }}</span>
+            </button>
+            {%- if additional_checkout_buttons and section.settings.show_dynamic_checkout -%}
+              <div class="vk-main-cart__dynamic">{{ content_for_additional_checkout_buttons }}</div>
+            {%- endif -%}
+            <ul class="vk-main-cart__promises" role="list">
+              {%- if settings.promise_warranty != blank %}<li>{% render 'vk-icon', name: 'shield', size: 16 %}{{ settings.promise_warranty }}</li>{% endif -%}
+              {%- if settings.promise_trial != blank %}<li>{% render 'vk-icon', name: 'return', size: 16 %}{{ settings.promise_trial }}</li>{% endif -%}
+              {%- if settings.promise_secure != blank %}<li>{% render 'vk-icon', name: 'lock', size: 16 %}{{ settings.promise_secure }}</li>{% endif -%}
+            </ul>
+            {% render 'vk-payment-icons' %}
+          </div>
+        </aside>
+      </div>
+    {%- else -%}
+      <div class="vk-cart-empty vk-cart-empty--page">
+        <p class="vk-h3">{{ 'cart.empty' | t }}</p>
+        <p class="vk-muted">{{ 'cart.empty_text' | t }}</p>
+        <div class="vk-btn-row">
+          {%- assign vk_p = 'cart.empty_primary' | t -%}{%- assign vk_s = 'cart.empty_secondary' | t -%}
+          {% render 'vk-button', label: vk_p, url: '/products/forge-pan', icon: 'arrow-right', magnetic: true %}
+          {% render 'vk-button', label: vk_s, url: routes.all_products_collection_url, style: 'secondary' %}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+<script src="{{ 'vk-cart.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Your <em>bag</em>" },
+    { "type": "checkbox", "id": "show_note", "label": "Show order note", "default": true },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show express checkout buttons", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ]
+}
+{% endschema %}

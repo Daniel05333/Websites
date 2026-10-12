@@ -1,0 +1,15 @@
+{%- doc -%}
+  Pill badge.
+  @param {string} text - Badge text.
+  @param {string} [style] - 'ember' (default) | 'outline' | 'dark' | 'light'.
+  @param {string} [icon] - vk-icon name.
+  @param {string} [class] - Extra classes.
+  @example
+  {% render 'vk-badge', text: 'Bestseller', style: 'ember' %}
+{%- enddoc -%}
+{%- if text != blank -%}
+  <span class="vk-badge vk-badge--{{ style | default: 'ember' }}{% if class %} {{ class }}{% endif %}">
+    {%- if icon != blank %}{% render 'vk-icon', name: icon, size: 12, stroke: 2 %}{% endif -%}
+    {{- text -}}
+  </span>
+{%- endif -%}

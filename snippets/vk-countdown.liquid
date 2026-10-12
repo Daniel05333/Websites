@@ -1,0 +1,24 @@
+{%- doc -%}
+  Countdown to a REAL merchant-set end date. Renders nothing when blank or expired.
+  @param {string} end - ISO datetime, e.g. 2026-12-01T23:59:00+01:00.
+  @param {string} [label] - Text before the timer.
+  @param {string} [class] - Extra classes.
+  @example
+  {% render 'vk-countdown', end: block.settings.end, label: block.settings.label %}
+{%- enddoc -%}
+{%- if end != blank -%}
+  {%- assign vk_end_ts = end | date: '%s' | plus: 0 -%}
+  {%- assign vk_now_ts = 'now' | date: '%s' | plus: 0 -%}
+  {%- if vk_end_ts > vk_now_ts -%}
+    <div class="vk-countdown{% if class %} {{ class }}{% endif %}" data-countdown-wrapper>
+      {%- render 'vk-icon', name: 'clock', size: 16 -%}
+      {%- if label != blank %}<span class="vk-countdown__label">{{ label }}</span>{% endif -%}
+      <vk-countdown data-end="{{ end | escape }}" role="timer">
+        <span><span data-days>00</span>{{ 'general.countdown.d' | t }}</span>
+        <span><span data-hours>00</span>{{ 'general.countdown.h' | t }}</span>
+        <span><span data-minutes>00</span>{{ 'general.countdown.m' | t }}</span>
+        <span><span data-seconds>00</span>{{ 'general.countdown.s' | t }}</span>
+      </vk-countdown>
+    </div>
+  {%- endif -%}
+{%- endif -%}

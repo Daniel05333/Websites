@@ -1,0 +1,19 @@
+{%- doc -%}
+  Quantity stepper.
+  @param {string} [id] - Input id.
+  @param {string} [name] - Input name. Default 'quantity'.
+  @param {number} [value] - Default 1.
+  @param {number} [min] - Default 1.
+  @param {number} [max] - Optional max.
+  @param {string} [form] - Form attribute.
+  @param {string} [size] - 'sm' for compact.
+  @param {string} [label] - Accessible label.
+  @example
+  {% render 'vk-quantity', id: 'qty', form: form_id %}
+{%- enddoc -%}
+{%- assign vk_qty_label = label | default: '' -%}{%- if vk_qty_label == blank %}{% assign vk_qty_label = 'products.product.quantity.label' | t %}{% endif -%}
+<vk-quantity class="vk-quantity{% if size == 'sm' %} vk-quantity--sm{% endif %}">
+  <button type="button" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t }}">{% render 'vk-icon', name: 'minus', size: 16 %}</button>
+  <input type="number" inputmode="numeric" {% if id %}id="{{ id }}"{% endif %} name="{{ name | default: 'quantity' }}" value="{{ value | default: 1 }}" min="{{ min | default: 1 }}"{% if max %} max="{{ max }}"{% endif %}{% if form %} form="{{ form }}"{% endif %} aria-label="{{ vk_qty_label | escape }}">
+  <button type="button" name="plus" aria-label="{{ 'products.product.quantity.increase' | t }}">{% render 'vk-icon', name: 'plus', size: 16 %}</button>
+</vk-quantity>

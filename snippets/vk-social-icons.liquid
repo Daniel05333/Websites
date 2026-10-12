@@ -1,0 +1,20 @@
+{%- doc -%}
+  Social profile links from theme settings.
+  @param {string} [class] - Extra classes.
+  @example
+  {% render 'vk-social-icons' %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_networks = 'instagram,tiktok,youtube,facebook,pinterest,x' | split: ','
+-%}
+<ul class="vk-social{% if class %} {{ class }}{% endif %}" role="list">
+  {%- for net in vk_networks -%}
+    {%- assign vk_key = 'social_' | append: net | append: '_link' -%}
+    {%- assign vk_url = settings[vk_key] -%}
+    {%- if vk_url != blank -%}
+      {%- assign vk_icon = net -%}
+      {%- if net == 'x' %}{% assign vk_icon = 'x-twitter' %}{% endif -%}
+      <li><a href="{{ vk_url }}" class="vk-icon-btn" target="_blank" rel="noopener">{% render 'vk-icon', name: vk_icon, size: 18 %}<span class="vk-visually-hidden">{{ net | capitalize }}</span></a></li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

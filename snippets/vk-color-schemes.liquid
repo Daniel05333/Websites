@@ -1,0 +1,85 @@
+{%- doc -%}
+  Prints one CSS rule per theme color scheme (settings.color_schemes).
+  Each `.color-<scheme id>` class exposes the VOLKARA scheme tokens consumed by vk-base.css:
+  --vk-bg, --vk-bg-rgb, --vk-fg, --vk-fg-rgb, --vk-fg-muted, --vk-fg-subtle, --vk-border, --vk-border-strong,
+  --vk-surface, --vk-surface-2, --vk-accent, --vk-accent-rgb, --vk-btn-bg, --vk-btn-fg,
+  --vk-btn-primary (ember gradient on dark schemes, solid button color otherwise), --vk-btn-primary-shadow,
+  --vk-em-bg / --vk-em-color (accent <em> fill), --vk-overlay.
+  The first scheme is also applied to :root so the page always has a sane base.
+  *-rgb tokens are comma separated: use them as rgba(var(--vk-fg-rgb), .5).
+
+  @example
+  {% render 'vk-color-schemes' %}
+{%- enddoc -%}
+{%- style -%}
+  {%- for scheme in settings.color_schemes -%}
+    {%- liquid
+      assign c = scheme.settings
+      assign bg_r = c.background | color_extract: 'red'
+      assign bg_g = c.background | color_extract: 'green'
+      assign bg_b = c.background | color_extract: 'blue'
+      assign fg_r = c.text | color_extract: 'red'
+      assign fg_g = c.text | color_extract: 'green'
+      assign fg_b = c.text | color_extract: 'blue'
+      assign ac_r = c.accent | color_extract: 'red'
+      assign ac_g = c.accent | color_extract: 'green'
+      assign ac_b = c.accent | color_extract: 'blue'
+      assign bg_brightness = c.background | color_brightness
+      assign bg_saturation = c.background | color_extract: 'saturation'
+
+      assign tone = 'light'
+      if bg_brightness < 70
+        assign tone = 'dark'
+      elsif bg_saturation > 40 and bg_brightness < 170
+        assign tone = 'vivid'
+      endif
+    -%}
+    {% if forloop.first %}:root, {% endif %}.color-{{ scheme.id }} {
+      --vk-bg: {{ c.background }};
+      --vk-bg-rgb: {{ bg_r }}, {{ bg_g }}, {{ bg_b }};
+      --vk-fg: {{ c.text }};
+      --vk-fg-rgb: {{ fg_r }}, {{ fg_g }}, {{ fg_b }};
+      --vk-accent: {{ c.accent }};
+      --vk-accent-rgb: {{ ac_r }}, {{ ac_g }}, {{ ac_b }};
+      --vk-btn-bg: {{ c.button }};
+      --vk-btn-fg: {{ c.button_label }};
+      --vk-surface: {{ c.surface | default: c.background }};
+      --vk-surface-2: color-mix(in srgb, var(--vk-fg) 7%, var(--vk-bg));
+      --vk-border: rgba(var(--vk-fg-rgb), .12);
+      --vk-border-strong: rgba(var(--vk-fg-rgb), .26);
+      --vk-overlay: rgba({{ bg_r }}, {{ bg_g }}, {{ bg_b }}, .72);
+      {%- case tone -%}
+        {%- when 'dark' %}
+      --vk-fg-muted: rgba(var(--vk-fg-rgb), .72);
+      --vk-fg-subtle: rgba(var(--vk-fg-rgb), .52);
+      --vk-btn-primary: linear-gradient(115deg, var(--vk-btn-bg) 0%, var(--vk-accent) 60%, color-mix(in srgb, var(--vk-accent) 80%, #FFA06A) 100%);
+      --vk-btn-primary-shadow: 0 0 0 1px rgba(var(--vk-accent-rgb), .35), 0 12px 40px -12px color-mix(in srgb, var(--vk-btn-bg) 65%, transparent);
+      --vk-em-bg: var(--vk-ember);
+      --vk-em-color: transparent;
+      color-scheme: dark;
+        {%- when 'vivid' %}
+      --vk-fg-muted: rgba(var(--vk-fg-rgb), .88);
+      --vk-fg-subtle: rgba(var(--vk-fg-rgb), .72);
+      --vk-btn-primary: var(--vk-btn-bg);
+      --vk-btn-primary-shadow: 0 14px 34px -14px rgba(0, 0, 0, .6);
+      --vk-em-bg: none;
+      --vk-em-color: var(--vk-fg);
+      color-scheme: dark;
+        {%- else %}
+      --vk-fg-muted: rgba(var(--vk-fg-rgb), .74);
+      --vk-fg-subtle: rgba(var(--vk-fg-rgb), .56);
+      --vk-btn-primary: var(--vk-btn-bg);
+      --vk-btn-primary-shadow: 0 14px 30px -16px rgba(var(--vk-fg-rgb), .55);
+      --vk-em-bg: linear-gradient(115deg, color-mix(in srgb, var(--vk-accent) 78%, #000) 0%, var(--vk-accent) 58%, color-mix(in srgb, var(--vk-accent) 85%, #FF6A3D) 100%);
+      --vk-em-color: transparent;
+      color-scheme: light;
+      {%- endcase %}
+    }
+  {% endfor -%}
+  {%- for scheme in settings.color_schemes -%}
+    .color-{{ scheme.id }}{% unless forloop.last %},{% endunless %}
+  {%- endfor %} {
+    background-color: var(--vk-bg);
+    color: var(--vk-fg);
+  }
+{%- endstyle -%}

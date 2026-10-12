@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <script>document.documentElement.className=document.documentElement.className.replace('no-js','js'){% if settings.enable_animations %}+(window.matchMedia('(prefers-reduced-motion: reduce)').matches?'':' vk-motion'){% endif %};</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#080808">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
+    {%- else %}
+      <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080808'/%3E%3Cpath d='M16 4.6l9.9 5.7v11.4L16 27.4 6.1 21.7V10.3z' fill='none' stroke='%23F7F5F2' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M10 21.5l4.2-7.2h3.6L22 21.5' fill='none' stroke='%23F7F5F2' stroke-width='1.6' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M16 8.6c1.4 1.5 1.9 2.7 0 4.4-1.9-1.7-1.4-2.9 0-4.4z' fill='%23FF4B32'/%3E%3C/svg%3E">
+    {%- endif %}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %}{% assign vk_meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: vk_meta_tags }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {%- if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif %}
+
+    {% render 'vk-meta-tags' %}
+    {% render 'vk-fonts' %}
+    {% render 'vk-color-schemes' %}
+
+    {{ content_for_header }}
+
+    {{ 'vk-base.css' | asset_url | stylesheet_tag }}
+    {{ 'vk-motion.css' | asset_url | stylesheet_tag }}
+    {{ 'vk-product-card.css' | asset_url | stylesheet_tag }}
+
+    {%- style -%}
+      :root {
+        --vk-container: {{ settings.page_width | default: 1440 }}px;
+        --vk-heading-scale: {{ settings.heading_scale | default: 100 | divided_by: 100.0 }};
+        --vk-body-scale: {{ settings.body_scale | default: 100 | divided_by: 100.0 }};
+        --vk-logo-width: {{ settings.logo_width | default: 140 }}px;
+      }
+      {%- if settings.enable_page_transitions %}
+        @view-transition { navigation: auto; }
+      {%- endif %}
+    {%- endstyle -%}
+  </head>
+
+  <body class="template-{{ template.name | handle }}{% if template.suffix != blank %} template-{{ template.name | handle }}--{{ template.suffix | handle }}{% endif %}{% if settings.enable_film_grain %} vk-grain{% endif %}">
+    <a class="vk-skip-link" href="#MainContent">{{ 'accessibility.skip_to_text' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="vk-main" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- if settings.cart_type == 'drawer' -%}
+      {% section 'vk-cart-drawer' %}
+    {%- endif -%}
+
+    {%- liquid
+      comment
+        Literal double-brace amount / current / total placeholders for vk-global.js string interpolation.
+      endcomment
+      assign vk_amount_token = '{' | append: '{ amount }' | append: '}'
+      assign vk_current_token = '{' | append: '{ current }' | append: '}'
+      assign vk_total_token = '{' | append: '{ total }' | append: '}'
+      assign vk_free_shipping_cents = settings.free_shipping_threshold | default: 0 | times: 100 | round
+    -%}
+    <script type="application/json" id="vk-config">
+      {
+        "routes": {
+          "root_url": {{ routes.root_url | json }},
+          "cart_url": {{ routes.cart_url | json }},
+          "cart_add_url": {{ routes.cart_add_url | json }},
+          "cart_change_url": {{ routes.cart_change_url | json }},
+          "cart_update_url": {{ routes.cart_update_url | json }},
+          "cart_clear_url": {{ routes.cart_clear_url | json }},
+          "predictive_search_url": {{ routes.predictive_search_url | json }},
+          "product_recommendations_url": {{ routes.product_recommendations_url | json }},
+          "search_url": {{ routes.search_url | json }},
+          "collections_url": {{ routes.collections_url | json }}
+        },
+        "moneyFormat": {{ shop.money_format | json }},
+        "moneyWithCurrencyFormat": {{ shop.money_with_currency_format | json }},
+        "currency": {{ cart.currency.iso_code | json }},
+        "locale": {{ request.locale.iso_code | json }},
+        "cartType": {{ settings.cart_type | default: 'drawer' | json }},
+        "freeShippingThreshold": {{ vk_free_shipping_cents | json }},
+        "enableAnimations": {{ settings.enable_animations | json }},
+        "enablePageTransitions": {{ settings.enable_page_transitions | json }},
+        "enableMagnetic": {{ settings.enable_magnetic | json }},
+        "enableEmbers": {{ settings.enable_embers | json }},
+        "predictiveSearch": {{ settings.predictive_search_enabled | json }},
+        "designMode": {{ request.design_mode | json }},
+        "strings": {
+          "addToCart": {{ 'products.product.add_to_cart' | t | json }},
+          "adding": {{ 'products.product.adding' | t | json }},
+          "added": {{ 'products.product.added' | t | json }},
+          "soldOut": {{ 'products.product.sold_out' | t | json }},
+          "unavailable": {{ 'products.product.unavailable' | t | json }},
+          "chooseOptions": {{ 'products.product.choose_options' | t | json }},
+          "error": {{ 'general.error' | t | json }},
+          "cartError": {{ 'cart.error' | t | json }},
+          "quantityError": {{ 'cart.quantity_error_generic' | t | json }},
+          "close": {{ 'general.close' | t | json }},
+          "loading": {{ 'general.loading' | t | json }},
+          "previous": {{ 'general.previous' | t | json }},
+          "next": {{ 'general.next' | t | json }},
+          "slideOf": {{ 'accessibility.slide_of' | t: current: vk_current_token, total: vk_total_token | json }},
+          "shippingAway": {{ 'cart.free_shipping.away' | t: amount: vk_amount_token | json }},
+          "shippingReached": {{ 'cart.free_shipping.reached' | t | json }},
+          "itemAdded": {{ 'cart.item_added' | t | json }},
+          "viewCart": {{ 'cart.view_cart' | t | json }},
+          "checkout": {{ 'cart.checkout' | t | json }},
+          "remove": {{ 'cart.remove' | t | json }},
+          "cartEmpty": {{ 'cart.empty' | t | json }},
+          "from": {{ 'products.product.price.from' | t | json }},
+          "save": {{ 'products.product.price.save' | t: amount: vk_amount_token | json }},
+          "copied": {{ 'general.copied' | t | json }},
+          "showMore": {{ 'general.show_more' | t | json }},
+          "showLess": {{ 'general.show_less' | t | json }},
+          "searchLoading": {{ 'search.loading' | t | json }},
+          "searchNoResults": {{ 'search.no_results_generic' | t | json }},
+          "playVideo": {{ 'accessibility.play_video' | t | json }},
+          "pauseVideo": {{ 'accessibility.pause_video' | t | json }},
+          "countdownDays": {{ 'general.countdown.days' | t | json }},
+          "countdownHours": {{ 'general.countdown.hours' | t | json }},
+          "countdownMinutes": {{ 'general.countdown.minutes' | t | json }},
+          "countdownSeconds": {{ 'general.countdown.seconds' | t | json }}
+        }
+      }
+    </script>
+
+    <script src="{{ 'vk-global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vk-motion.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vk-product-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'vk-cart.js' | asset_url }}" defer="defer"></script>
+  </body>
+</html>

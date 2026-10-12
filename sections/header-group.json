@@ -1,0 +1,26 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "vk-announcement-bar",
+      "blocks": {
+        "msg-1": { "type": "message", "settings": { "text": "Free shipping on orders over €75", "link": "/policies/shipping-policy", "icon": "truck" } },
+        "msg-2": { "type": "message", "settings": { "text": "60-day home trial — cook with it, then decide", "link": "/policies/refund-policy", "icon": "return" } },
+        "msg-3": { "type": "message", "settings": { "text": "Lifetime warranty on every VolcanicCore™ piece", "link": "/pages/warranty", "icon": "shield" } }
+      },
+      "block_order": ["msg-1", "msg-2", "msg-3"],
+      "settings": { "color_scheme": "scheme-2", "interval": 5 }
+    },
+    "header": {
+      "type": "vk-header",
+      "blocks": {
+        "feature-pan": { "type": "mega_feature", "settings": { "menu_item": "Shop", "fallback": "vk-visual-pan.webp", "eyebrow": "THE ICON", "title": "The Forge Pan", "text": "Four sizes, one construction. The pan most VOLKARA kitchens start with.", "link_label": "Shop the Forge Pan", "link": "/products/forge-pan" } },
+        "feature-trio": { "type": "mega_feature", "settings": { "menu_item": "Sets", "fallback": "vk-visual-set.webp", "eyebrow": "THE TRIO", "title": "Three sizes. Save €38.", "text": "20, 24 and 28 cm Forge Pans for €379 — €38 less than buying them one by one.", "link_label": "Shop The Trio", "link": "/products/the-trio" } }
+      },
+      "block_order": ["feature-pan", "feature-trio"],
+      "settings": { "color_scheme": "scheme-1", "menu": "main-menu", "logo_position": "center", "sticky_behavior": "on_scroll_up", "transparent_on_home": true, "popular_searches": "Forge Pan, Wok, The Trio, Santoku, Care guide" }
+    }
+  },
+  "order": ["announcement", "header"]
+}

@@ -1,0 +1,32 @@
+{%- doc -%}
+  Free-shipping progress (settings.free_shipping_threshold, in shop currency units).
+  @param {object} cart - Cart.
+  @example
+  {% render 'vk-free-shipping-bar', cart: cart %}
+{%- enddoc -%}
+{%- if settings.free_shipping_threshold > 0 -%}
+  {%- liquid
+    assign vk_threshold = settings.free_shipping_threshold | times: 100 | round
+    assign vk_remaining = vk_threshold | minus: cart.total_price
+    assign vk_pct = cart.total_price | times: 100.0 | divided_by: vk_threshold
+    assign vk_threshold_money = vk_threshold | money_without_trailing_zeros
+    assign vk_remaining_money = vk_remaining | money
+    if vk_pct > 100
+      assign vk_pct = 100
+    endif
+  -%}
+  <div class="vk-shipping-bar{% if vk_remaining <= 0 %} is-unlocked{% endif %}" data-free-shipping>
+    <p class="vk-shipping-bar__text">
+      {%- if cart.item_count == 0 -%}
+        {{ 'cart.free_shipping.empty' | t: amount: vk_threshold_money }}
+      {%- elsif vk_remaining > 0 -%}
+        {{ 'cart.free_shipping.away_html' | t: amount: vk_remaining_money }}
+      {%- else -%}
+        {% render 'vk-icon', name: 'check-circle', size: 16 %}{{ 'cart.free_shipping.reached' | t }}
+      {%- endif -%}
+    </p>
+    <div class="vk-shipping-bar__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ vk_pct | round }}" aria-label="{{ 'cart.free_shipping.label' | t }}">
+      <span class="vk-shipping-bar__fill" style="--vk-pct: {{ vk_pct | round: 2 }}%;"></span>
+    </div>
+  </div>
+{%- endif -%}

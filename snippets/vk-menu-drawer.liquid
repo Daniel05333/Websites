@@ -1,0 +1,66 @@
+{%- doc -%}
+  Mobile navigation drawer.
+  @param {object} menu - link_list.
+  @param {string} scheme - Color scheme id.
+  @param {array} [blocks] - Header blocks (mega features shown as tiles).
+  @example
+  {% render 'vk-menu-drawer', menu: section.settings.menu, scheme: section.settings.color_scheme %}
+{%- enddoc -%}
+<vk-drawer id="vk-menu-drawer" side="left" class="vk-menu-drawer color-{{ scheme }}" role="dialog" aria-modal="true" aria-label="{{ 'header.menu' | t }}">
+  <div class="vk-drawer__overlay"></div>
+  <div class="vk-drawer__panel">
+    <div class="vk-drawer__header">
+      {% render 'vk-logo', size: 'sm' %}
+      <button type="button" class="vk-icon-btn vk-icon-btn--plain" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 22 %}</button>
+    </div>
+    <div class="vk-drawer__body">
+      <nav aria-label="{{ 'header.main_navigation' | t }}">
+        <vk-accordion class="vk-menu-drawer__list" data-single>
+          {%- for link in menu.links -%}
+            <div class="vk-menu-drawer__item" style="--vk-i: {{ forloop.index0 }};">
+              {%- if link.links.size > 0 -%}
+                <details>
+                  <summary class="vk-menu-drawer__link">{{ link.title | escape }}<span class="vk-accordion__icon" aria-hidden="true"></span></summary>
+                  <div class="vk-menu-drawer__sub">
+                    {%- for child in link.links -%}
+                      <a href="{{ child.url }}" class="vk-menu-drawer__sublink{% if child.links.size > 0 %} vk-menu-drawer__sublink--title{% endif %}">{{ child.title | escape }}</a>
+                      {%- for grandchild in child.links -%}
+                        <a href="{{ grandchild.url }}" class="vk-menu-drawer__sublink">{{ grandchild.title | escape }}</a>
+                      {%- endfor -%}
+                    {%- endfor -%}
+                  </div>
+                </details>
+              {%- else -%}
+                <a href="{{ link.url }}" class="vk-menu-drawer__link"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </vk-accordion>
+      </nav>
+      {%- assign vk_tiles = blocks | where: 'type', 'mega_feature' -%}
+      {%- if vk_tiles.size > 0 -%}
+        <div class="vk-menu-drawer__tiles">
+          {%- for tile in vk_tiles limit: 2 -%}
+            <a href="{{ tile.settings.link }}" class="vk-menu-drawer__tile">
+              <div class="vk-media vk-ratio-square">{% render 'vk-image', image: tile.settings.image, sizes: '45vw', fallback: tile.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: tile.settings.title %}</div>
+              <span>{{ tile.settings.title }}</span>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="vk-drawer__footer vk-menu-drawer__footer">
+      <ul class="vk-menu-drawer__promises" role="list">
+        {%- if settings.promise_warranty != blank %}<li>{% render 'vk-icon', name: 'shield', size: 16 %}{{ settings.promise_warranty }}</li>{% endif -%}
+        {%- if settings.promise_trial != blank %}<li>{% render 'vk-icon', name: 'return', size: 16 %}{{ settings.promise_trial }}</li>{% endif -%}
+      </ul>
+      <div class="vk-flex" style="justify-content: space-between;">
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="vk-link">{% render 'vk-icon', name: 'user', size: 18 %}{{ 'header.account' | t }}</a>
+        {%- endif -%}
+        {% render 'vk-localization', id: 'drawer' %}
+      </div>
+      {% render 'vk-social-icons' %}
+    </div>
+  </div>
+</vk-drawer>

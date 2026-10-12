@@ -1,0 +1,17 @@
+{%- doc -%}
+  Section spacing tokens. Prints the section's top/bottom padding as custom properties on #vk-<section.id>;
+  `.vk-section` in vk-base.css consumes them (scaled to 60 % below 750 px).
+
+  @param {object} section - The section object (pass `section`).
+
+  @example
+  {%- render 'vk-section-styles', section: section -%}
+{%- enddoc -%}
+{%- if section.settings.padding_top != nil or section.settings.padding_bottom != nil -%}
+  {%- style -%}
+    #vk-{{ section.id }} {
+      {%- if section.settings.padding_top != nil %}--vk-pt: {{ section.settings.padding_top }}px;{% endif -%}
+      {%- if section.settings.padding_bottom != nil %}--vk-pb: {{ section.settings.padding_bottom }}px;{% endif -%}
+    }
+  {%- endstyle -%}
+{%- endif -%}

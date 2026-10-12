@@ -1,0 +1,55 @@
+{%- comment -%} Rendered by /search/suggest?section_id=vk-predictive-search — results markup only. {%- endcomment -%}
+{%- if predictive_search.performed -%}
+  {%- liquid
+    assign vk_res = predictive_search.resources
+    assign vk_total = vk_res.products.size | plus: vk_res.collections.size | plus: vk_res.pages.size | plus: vk_res.articles.size
+  -%}
+  <div class="vk-psearch" data-predictive-search-results data-count="{{ vk_total }}">
+    {%- if vk_res.queries.size > 0 -%}
+      <div class="vk-psearch__group">
+        <p class="vk-eyebrow">{{ 'search.suggestions' | t }}</p>
+        <ul class="vk-psearch__queries" role="list">
+          {%- for q in vk_res.queries -%}
+            <li><a href="{{ q.url }}" class="vk-chip" role="option" aria-selected="false">{{ q.styled_text }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+    {%- if vk_res.products.size > 0 -%}
+      <div class="vk-psearch__group">
+        <p class="vk-eyebrow">{{ 'search.products' | t }}</p>
+        <ul class="vk-psearch__products" role="list">
+          {%- for product in vk_res.products limit: 6 -%}
+            <li>
+              <a href="{{ product.url }}" class="vk-psearch__product" role="option" aria-selected="false">
+                <span class="vk-psearch__thumb vk-media vk-ratio-square">
+                  {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'vk-placeholder', type: 'product' %}{%- endif -%}
+                </span>
+                <span class="vk-psearch__meta">
+                  <span class="vk-psearch__title">{{ product.title | escape }}</span>
+                  {% render 'vk-price', product: product, show_save: false %}
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+    {%- if vk_res.collections.size > 0 or vk_res.pages.size > 0 or vk_res.articles.size > 0 -%}
+      <div class="vk-psearch__group">
+        <p class="vk-eyebrow">{{ 'search.more' | t }}</p>
+        <ul class="vk-psearch__rows" role="list">
+          {%- for c in vk_res.collections limit: 3 -%}<li><a href="{{ c.url }}" class="vk-psearch__row" role="option" aria-selected="false">{% render 'vk-icon', name: 'grid', size: 16 %}{{ c.title | escape }}</a></li>{%- endfor -%}
+          {%- for p in vk_res.pages limit: 3 -%}<li><a href="{{ p.url }}" class="vk-psearch__row" role="option" aria-selected="false">{% render 'vk-icon', name: 'info', size: 16 %}{{ p.title | escape }}</a></li>{%- endfor -%}
+          {%- for a in vk_res.articles limit: 3 -%}<li><a href="{{ a.url }}" class="vk-psearch__row" role="option" aria-selected="false">{% render 'vk-icon', name: 'list', size: 16 %}{{ a.title | escape }}</a></li>{%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+    {%- if vk_total == 0 and vk_res.queries.size == 0 -%}
+      <p class="vk-psearch__empty">{{ 'search.no_results' | t: terms: predictive_search.terms }}</p>
+    {%- endif -%}
+    <a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}" class="vk-psearch__all vk-link" role="option" aria-selected="false">
+      {{- 'search.view_all' | t: terms: predictive_search.terms -}}{% render 'vk-icon', name: 'arrow-right', size: 16 %}
+    </a>
+  </div>
+{%- endif -%}

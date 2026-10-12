@@ -1,0 +1,420 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "VOLKARA",
+    "theme_version": "1.0.0",
+    "theme_author": "VOLKARA",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes/customizing-themes",
+    "theme_support_url": "https://help.shopify.com/manual/online-store/themes"
+  },
+  {
+    "name": "Logo & favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Leave empty to use the built-in VOLKARA hex-volcano mark and wordmark. Use a transparent PNG or SVG in a light color."
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 80,
+        "max": 280,
+        "step": 4,
+        "unit": "px",
+        "default": 140,
+        "info": "Applies to an uploaded logo image."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Square PNG, at least 64 × 64 px. Leave empty to use the VOLKARA hexagon."
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "VOLKARA ships five schemes: Volcanic, Obsidian and Graphite (dark), Ember (lava red) and Porcelain (soft white). Primary buttons render the ember gradient on dark schemes and the solid button color on light or vivid schemes."
+      },
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          {
+            "type": "header",
+            "content": "Base"
+          },
+          {
+            "type": "color",
+            "id": "background",
+            "label": "Background",
+            "default": "#080808"
+          },
+          {
+            "type": "color",
+            "id": "text",
+            "label": "Text",
+            "default": "#F7F5F2"
+          },
+          {
+            "type": "color",
+            "id": "surface",
+            "label": "Card surface",
+            "default": "#121212"
+          },
+          {
+            "type": "header",
+            "content": "Accent & buttons"
+          },
+          {
+            "type": "color",
+            "id": "accent",
+            "label": "Accent (eyebrows, icons, links)",
+            "default": "#FF4B32"
+          },
+          {
+            "type": "color",
+            "id": "button",
+            "label": "Primary button",
+            "default": "#D7261E"
+          },
+          {
+            "type": "color",
+            "id": "button_label",
+            "label": "Primary button label",
+            "default": "#F7F5F2"
+          }
+        ],
+        "role": {
+          "background": "background",
+          "text": "text",
+          "primary_button": "button",
+          "on_primary_button": "button_label",
+          "primary_button_border": "button",
+          "secondary_button": "background",
+          "on_secondary_button": "text",
+          "secondary_button_border": "text",
+          "links": "accent",
+          "icons": "text"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Fonts are self-hosted for speed and privacy: Inter Tight (display), Inter (body), Instrument Serif italic (accent word) and JetBrains Mono (technical labels)."
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading size",
+        "min": 80,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Body text size",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1200,
+        "max": 1600,
+        "step": 40,
+        "unit": "px",
+        "default": 1440
+      }
+    ]
+  },
+  {
+    "name": "Animations",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Visitors who prefer reduced motion in their system settings always get a calm, static experience."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_animations",
+        "label": "Enable scroll reveals and motion",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_page_transitions",
+        "label": "Enable page transitions",
+        "info": "Smooth cross-fade between pages in supporting browsers.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_film_grain",
+        "label": "Enable film grain texture",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_embers",
+        "label": "Enable ember particles",
+        "info": "Shown in sections that support it, such as the hero and final call to action.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_magnetic",
+        "label": "Enable magnetic buttons",
+        "info": "Buttons gently follow the cursor on desktop.",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "select",
+        "id": "card_ratio",
+        "label": "Image ratio",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "landscape",
+            "label": "Landscape"
+          }
+        ],
+        "default": "square"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_secondary_image",
+        "label": "Show second image on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_quick_add",
+        "label": "Enable quick add",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_rating",
+        "label": "Show product rating",
+        "info": "Reads the reviews.rating and reviews.rating_count metafields written by your reviews app.",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Demo ratings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_demo_ratings",
+        "label": "Show demo rating when a product has none",
+        "info": "For previews only. Turn this off before launch so every rating your customers see is real.",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "demo_rating",
+        "label": "Demo rating",
+        "default": "4.9",
+        "visible_if": "{{ settings.show_demo_ratings }}"
+      },
+      {
+        "type": "number",
+        "id": "demo_rating_count",
+        "label": "Demo review count",
+        "default": 1280,
+        "visible_if": "{{ settings.show_demo_ratings }}"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "info": "In your store currency, without symbol. Shows a progress bar in the cart. Set to 0 to hide it. Match this to your shipping rates.",
+        "default": 75
+      },
+      {
+        "type": "product",
+        "id": "cart_upsell_product",
+        "label": "Cart upsell product",
+        "info": "Suggested in the cart when it is not already added."
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_note",
+        "label": "Enable order note",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Brand promises",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Reused across the cart, product page and trust bars. Make sure every promise matches your actual policies."
+      },
+      {
+        "type": "text",
+        "id": "promise_warranty",
+        "label": "Warranty",
+        "default": "Lifetime warranty"
+      },
+      {
+        "type": "text",
+        "id": "promise_trial",
+        "label": "Trial",
+        "default": "60-day home trial"
+      },
+      {
+        "type": "text",
+        "id": "promise_shipping",
+        "label": "Shipping",
+        "default": "Free shipping over €75"
+      },
+      {
+        "type": "text",
+        "id": "promise_secure",
+        "label": "Checkout",
+        "default": "Secure checkout"
+      }
+    ]
+  },
+  {
+    "name": "Visuals",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "use_bundled_visuals",
+        "label": "Use bundled VOLKARA visuals",
+        "default": false,
+        "info": "Fills empty image slots with the ten VOLKARA campaign visuals. Download them first by running node tools/visuals/fetch-visuals.mjs from the theme folder; it saves them to assets/ and switches this on. When off, empty slots show the built-in VOLKARA artwork."
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "placeholder": "https://instagram.com/volkara"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "placeholder": "https://tiktok.com/@volkara"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "placeholder": "https://youtube.com/@volkara"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "placeholder": "https://facebook.com/volkara"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest",
+        "placeholder": "https://pinterest.com/volkara"
+      },
+      {
+        "type": "text",
+        "id": "social_x_link",
+        "label": "X",
+        "placeholder": "https://x.com/volkara"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "Enable search suggestions",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Localization",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_currency_selector",
+        "label": "Show country/currency selector",
+        "info": "Add countries in Settings › Markets.",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_language_selector",
+        "label": "Show language selector",
+        "info": "Add languages in Settings › Languages.",
+        "default": true
+      }
+    ]
+  }
+]

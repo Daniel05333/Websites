@@ -1,0 +1,178 @@
+{
+  "current": {
+    "logo_width": 140,
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#080808",
+          "text": "#F7F5F2",
+          "surface": "#121212",
+          "accent": "#FF4B32",
+          "button": "#D7261E",
+          "button_label": "#F7F5F2"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#111111",
+          "text": "#F7F5F2",
+          "surface": "#1A1A1A",
+          "accent": "#FF4B32",
+          "button": "#D7261E",
+          "button_label": "#F7F5F2"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#202020",
+          "text": "#F7F5F2",
+          "surface": "#292928",
+          "accent": "#FF4B32",
+          "button": "#D7261E",
+          "button_label": "#F7F5F2"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "#D7261E",
+          "text": "#F7F5F2",
+          "surface": "#C8221B",
+          "accent": "#080808",
+          "button": "#080808",
+          "button_label": "#F7F5F2"
+        }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "#F7F5F2",
+          "text": "#080808",
+          "surface": "#FFFFFF",
+          "accent": "#D7261E",
+          "button": "#080808",
+          "button_label": "#F7F5F2"
+        }
+      }
+    },
+    "heading_scale": 100,
+    "body_scale": 100,
+    "page_width": 1440,
+    "enable_animations": true,
+    "enable_page_transitions": true,
+    "enable_film_grain": true,
+    "enable_embers": true,
+    "enable_magnetic": true,
+    "card_ratio": "square",
+    "card_show_secondary_image": true,
+    "card_show_quick_add": true,
+    "card_show_rating": true,
+    "show_demo_ratings": false,
+    "demo_rating": "4.9",
+    "demo_rating_count": 1280,
+    "cart_type": "drawer",
+    "free_shipping_threshold": 75,
+    "cart_show_note": true,
+    "promise_warranty": "Lifetime warranty",
+    "promise_trial": "60-day home trial",
+    "promise_shipping": "Free shipping over €75",
+    "promise_secure": "Secure checkout",
+    "use_bundled_visuals": false,
+    "social_instagram_link": "",
+    "social_tiktok_link": "",
+    "social_youtube_link": "",
+    "social_facebook_link": "",
+    "social_pinterest_link": "",
+    "social_x_link": "",
+    "predictive_search_enabled": true,
+    "show_currency_selector": true,
+    "show_language_selector": true
+  },
+  "presets": {
+    "VOLKARA": {
+      "logo_width": 140,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#080808",
+            "text": "#F7F5F2",
+            "surface": "#121212",
+            "accent": "#FF4B32",
+            "button": "#D7261E",
+            "button_label": "#F7F5F2"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#111111",
+            "text": "#F7F5F2",
+            "surface": "#1A1A1A",
+            "accent": "#FF4B32",
+            "button": "#D7261E",
+            "button_label": "#F7F5F2"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#202020",
+            "text": "#F7F5F2",
+            "surface": "#292928",
+            "accent": "#FF4B32",
+            "button": "#D7261E",
+            "button_label": "#F7F5F2"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "#D7261E",
+            "text": "#F7F5F2",
+            "surface": "#C8221B",
+            "accent": "#080808",
+            "button": "#080808",
+            "button_label": "#F7F5F2"
+          }
+        },
+        "scheme-5": {
+          "settings": {
+            "background": "#F7F5F2",
+            "text": "#080808",
+            "surface": "#FFFFFF",
+            "accent": "#D7261E",
+            "button": "#080808",
+            "button_label": "#F7F5F2"
+          }
+        }
+      },
+      "heading_scale": 100,
+      "body_scale": 100,
+      "page_width": 1440,
+      "enable_animations": true,
+      "enable_page_transitions": true,
+      "enable_film_grain": true,
+      "enable_embers": true,
+      "enable_magnetic": true,
+      "card_ratio": "square",
+      "card_show_secondary_image": true,
+      "card_show_quick_add": true,
+      "card_show_rating": true,
+      "show_demo_ratings": false,
+      "demo_rating": "4.9",
+      "demo_rating_count": 1280,
+      "cart_type": "drawer",
+      "free_shipping_threshold": 75,
+      "cart_show_note": true,
+      "promise_warranty": "Lifetime warranty",
+      "promise_trial": "60-day home trial",
+      "promise_shipping": "Free shipping over €75",
+      "promise_secure": "Secure checkout",
+      "use_bundled_visuals": false,
+      "social_instagram_link": "",
+      "social_tiktok_link": "",
+      "social_youtube_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_x_link": "",
+      "predictive_search_enabled": true,
+      "show_currency_selector": true,
+      "show_language_selector": true
+    }
+  }
+}

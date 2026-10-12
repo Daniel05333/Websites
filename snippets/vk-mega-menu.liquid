@@ -1,0 +1,41 @@
+{%- doc -%}
+  Mega menu panel for a top-level link with children.
+  @param {object} link - Menu link with child links.
+  @param {number} id - Unique index.
+  @param {object} [feature] - mega_feature block.
+  @example
+  {% render 'vk-mega-menu', link: link, id: forloop.index, feature: block %}
+{%- enddoc -%}
+<div id="vk-mega-{{ id }}" class="vk-mega" data-mega-panel>
+  <div class="vk-mega__inner">
+    <div class="vk-mega__columns">
+      {%- for child in link.links -%}
+        <div class="vk-mega__col" style="--vk-i: {{ forloop.index0 }};">
+          {%- if child.links.size > 0 -%}
+            <a href="{{ child.url }}" class="vk-mega__title">{{ child.title | escape }}</a>
+            <ul class="vk-mega__links" role="list">
+              {%- for grandchild in child.links -%}
+                <li style="--vk-j: {{ forloop.index0 }};"><a href="{{ grandchild.url }}" class="vk-mega__link{% if grandchild.active %} is-active{% endif %}">{{ grandchild.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- else -%}
+            <a href="{{ child.url }}" class="vk-mega__link vk-mega__link--top{% if child.active %} is-active{% endif %}">{{ child.title | escape }}{% render 'vk-icon', name: 'arrow-up-right', size: 14 %}</a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if feature -%}
+      <a href="{{ feature.settings.link | default: link.url }}" class="vk-mega__feature" {{ feature.shopify_attributes }} data-glow>
+        <div class="vk-mega__feature-media">
+          {%- render 'vk-image', image: feature.settings.image, sizes: '360px', fallback: feature.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: feature.settings.title -%}
+        </div>
+        <div class="vk-mega__feature-body">
+          <p class="vk-eyebrow">{{ feature.settings.eyebrow }}</p>
+          <p class="vk-mega__feature-title">{{ feature.settings.title }}</p>
+          <p class="vk-mega__feature-text">{{ feature.settings.text }}</p>
+          <span class="vk-link">{{ feature.settings.link_label }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</span>
+        </div>
+      </a>
+    {%- endif -%}
+  </div>
+</div>

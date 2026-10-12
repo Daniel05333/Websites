@@ -1,0 +1,28 @@
+{%- doc -%}
+  VOLKARA logo: merchant logo image when set, otherwise hex-volcano mark + wordmark.
+  @param {string} [class] - Extra classes.
+  @param {string} [size] - 'sm' | 'md' (default) | 'lg'.
+  @example
+  {% render 'vk-logo' %}
+{%- enddoc -%}
+<span class="vk-logo vk-logo--{{ size | default: 'md' }}{% if class %} {{ class }}{% endif %}">
+  {%- if settings.logo != blank -%}
+    {%- assign vk_logo_w = settings.logo_width | default: 140 -%}
+    {{ settings.logo | image_url: width: 600 | image_tag: width: vk_logo_w, class: 'vk-logo__image', alt: shop.name, widths: '200,300,400,600', sizes: '200px' }}
+  {%- else -%}
+    <svg class="vk-logo__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M16 3.4l10.9 6.3v12.6L16 28.6 5.1 22.3V9.7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M9.6 21.6l4.6-8h3.6l4.6 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M16 7.6c1.6 1.7 2.1 3 0 4.9-2.1-1.9-1.6-3.2 0-4.9z" fill="#FF4B32"/>
+    </svg>
+    <span class="vk-logo__word">VOLKARA</span>
+  {%- endif -%}
+</span>
+{%- style -%}
+  .vk-logo { display: inline-flex; align-items: center; gap: .6rem; color: var(--vk-fg); line-height: 1; }
+  .vk-logo__mark { width: 30px; height: 30px; flex: none; }
+  .vk-logo__word { font-family: var(--vk-font-display); font-weight: 600; font-size: 1.125rem; letter-spacing: .32em; margin-right: -.32em; }
+  .vk-logo--sm .vk-logo__mark { width: 24px; height: 24px; } .vk-logo--sm .vk-logo__word { font-size: .9375rem; }
+  .vk-logo--lg .vk-logo__mark { width: 40px; height: 40px; } .vk-logo--lg .vk-logo__word { font-size: 1.5rem; }
+  .vk-logo__image { width: var(--vk-logo-width, 140px); height: auto; }
+{%- endstyle -%}

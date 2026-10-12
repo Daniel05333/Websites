@@ -1,0 +1,40 @@
+{%- doc -%}
+  Responsive image with premium fallbacks.
+  Order: image → bundled Higgsfield visual (when settings.use_bundled_visuals) → vk-placeholder art.
+
+  @param {object} [image] - Image object (or media with preview_image).
+  @param {string} [sizes] - sizes attribute. Default '100vw'.
+  @param {string} [widths] - srcset widths. Default '375,550,750,1100,1500,1780,2000'.
+  @param {string} [class] - Class for the <img>.
+  @param {string} [loading] - 'lazy' (default) or 'eager'.
+  @param {string} [fetchpriority] - 'high' | 'auto'.
+  @param {string} [alt] - Alt text override.
+  @param {string} [placeholder] - vk-placeholder type when nothing else is available.
+  @param {string} [fallback] - Bundled asset filename, e.g. 'vk-visual-hero.webp'.
+  @param {number} [fallback_width] - Intrinsic width of the bundled visual. Default 1280.
+  @param {number} [fallback_height] - Intrinsic height of the bundled visual. Default 720.
+
+  @example
+  {% render 'vk-image', image: section.settings.image, sizes: '100vw', fallback: 'vk-visual-hero.webp', placeholder: 'hero' %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_img = image
+  if vk_img.preview_image
+    assign vk_img = vk_img.preview_image
+  endif
+  assign vk_loading = loading | default: 'lazy'
+  assign vk_sizes = sizes | default: '100vw'
+  assign vk_widths = widths | default: '375,550,750,1100,1500,1780,2000'
+-%}
+{%- if vk_img != blank -%}
+  {%- assign vk_alt = alt | default: vk_img.alt | escape -%}
+  {%- if vk_loading == 'eager' -%}
+    {{ vk_img | image_url: width: 2000 | image_tag: sizes: vk_sizes, widths: vk_widths, class: class, loading: 'eager', fetchpriority: fetchpriority, alt: vk_alt, preload: true }}
+  {%- else -%}
+    {{ vk_img | image_url: width: 2000 | image_tag: sizes: vk_sizes, widths: vk_widths, class: class, loading: 'lazy', alt: vk_alt }}
+  {%- endif -%}
+{%- elsif settings.use_bundled_visuals and fallback != blank -%}
+  <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" width="{{ fallback_width | default: 1280 }}" height="{{ fallback_height | default: 720 }}" class="{{ class }}" loading="{{ vk_loading }}"{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %} decoding="async">
+{%- else -%}
+  {%- render 'vk-placeholder', type: placeholder, class: class, label: alt -%}
+{%- endif -%}

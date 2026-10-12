@@ -1,0 +1,65 @@
+{{ 'vk-section-newsletter.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-newsletter color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.show_embers %}<vk-embers count="28"></vk-embers>{% endif -%}
+  <div class="vk-glow-orb vk-newsletter__orb" aria-hidden="true"></div>
+  <div class="vk-container vk-container--narrow">
+    <div class="vk-newsletter__card" data-reveal="scale">
+      {%- render 'vk-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading, align: 'center' -%}
+      {%- assign vk_form_id = 'vk-newsletter-' | append: section.id -%}
+      {%- form 'customer', id: vk_form_id, class: 'vk-newsletter__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <p class="vk-form-message vk-form-message--success vk-newsletter__success" role="status" tabindex="-1" autofocus>
+            {% render 'vk-icon', name: 'check-circle', size: 20 %}{{ section.settings.success_text }}
+          </p>
+        {%- else -%}
+          <div class="vk-inline-form">
+            <label for="{{ vk_form_id }}-email" class="vk-visually-hidden">{{ 'newsletter.label' | t }}</label>
+            <input id="{{ vk_form_id }}-email" type="email" name="contact[email]" class="vk-input" required autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="{{ section.settings.placeholder | escape }}"{% if form.errors %} aria-invalid="true" aria-describedby="{{ vk_form_id }}-error"{% endif %}>
+            {%- render 'vk-button', label: section.settings.button_label, type: 'submit', icon: 'arrow-right', magnetic: true -%}
+          </div>
+          {%- if form.errors -%}
+            <p id="{{ vk_form_id }}-error" class="vk-form-message vk-form-message--error" role="alert">{% render 'vk-icon', name: 'alert', size: 18 %}{{ section.settings.error_text }}</p>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="vk-newsletter__perks" role="list" data-reveal-stagger>
+          {%- for block in section.blocks -%}
+            <li data-reveal {{ block.shopify_attributes }}>{% render 'vk-icon', name: 'check', size: 16 %}{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.consent != blank -%}
+        <div class="vk-newsletter__consent">{{ section.settings.consent }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "div",
+  "class": "vk-newsletter-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The inner circle" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Italicise the accent word.", "default": "Stay close to the <em>fire</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "First access to new pieces, technique notes from serious home cooks and the occasional dispatch from the forge. One email a fortnight — never more." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Your email address" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Join" },
+    { "type": "text", "id": "success_text", "label": "Success message", "default": "You're in. Watch your inbox — the first letter is on its way." },
+    { "type": "text", "id": "error_text", "label": "Error message", "default": "That email address doesn't look right. Please check it and try again." },
+    { "type": "richtext", "id": "consent", "label": "Consent text", "default": "<p>By joining, you agree to receive marketing emails from VOLKARA. Unsubscribe in one click, any time. Read our <a href=\"/policies/privacy-policy\">Privacy Policy</a>.</p>" },
+    { "type": "checkbox", "id": "show_embers", "label": "Ember particles", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "perk", "name": "Perk", "limit": 6, "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Early access to new releases" }] }
+  ],
+  "presets": [{ "name": "VOLKARA · Newsletter", "blocks": [{ "type": "perk" }, { "type": "perk", "settings": { "text": "Recipes and technique notes" } }, { "type": "perk", "settings": { "text": "Care guides for a lifetime of use" } }, { "type": "perk", "settings": { "text": "Invitations to members-only events" } }] }]
+}
+{% endschema %}

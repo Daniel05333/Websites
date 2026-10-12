@@ -1,0 +1,40 @@
+{%- doc -%}
+  Section heading: numbered mono eyebrow + display heading (word-split reveal) + subheading.
+
+  @param {string} [eyebrow] - Eyebrow label.
+  @param {string} [index] - Chapter number, e.g. '01'.
+  @param {string} [heading] - Heading HTML (inline richtext, <em> = accent word).
+  @param {string} [subheading] - Subheading HTML.
+  @param {string} [align] - 'center' | 'left' (default).
+  @param {string} [tag] - Heading tag. Default 'h2'.
+  @param {string} [size] - 'h2' (default) | 'h1' | 'display' | 'h3'.
+  @param {string} [class] - Extra wrapper classes.
+  @param {boolean} [split] - Word reveal. Default true.
+
+  @example
+  {% render 'vk-heading', index: '02', eyebrow: 'The problem', heading: section.settings.heading, align: 'center' %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_tag = tag | default: 'h2'
+  assign vk_size = size | default: 'h2'
+  assign vk_split = true
+  if split == false
+    assign vk_split = false
+  endif
+-%}
+{%- if eyebrow != blank or heading != blank or subheading != blank -%}
+  <div class="vk-heading{% if align == 'center' %} vk-heading--center{% endif %}{% if class %} {{ class }}{% endif %}">
+    {%- if eyebrow != blank -%}
+      <p class="vk-eyebrow" data-reveal="fade">
+        {%- if index != blank -%}<span class="vk-eyebrow__index">{{ index }}</span><span class="vk-eyebrow__line" aria-hidden="true"></span>{%- endif -%}
+        <span>{{ eyebrow }}</span>
+      </p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <{{ vk_tag }} class="vk-heading__title vk-{{ vk_size }}"{% if vk_split %} data-split{% else %} data-reveal{% endif %}>{{ heading }}</{{ vk_tag }}>
+    {%- endif -%}
+    {%- if subheading != blank -%}
+      <div class="vk-heading__sub" data-reveal data-reveal-delay="250">{{ subheading }}</div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

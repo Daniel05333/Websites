@@ -1,0 +1,109 @@
+{%- doc -%}
+  VOLKARA product card: dark media stage, secondary image crossfade, smart badge, rating, price,
+  pointer hover light and quick add (single variant → add; multi variant → size chips).
+
+  @param {object} product - Product.
+  @param {number} [index] - Position for staggered reveal.
+  @param {boolean} [show_quick_add] - Default settings.card_show_quick_add.
+  @param {boolean} [show_rating] - Default settings.card_show_rating.
+  @param {boolean} [show_secondary_image] - Default settings.card_show_secondary_image.
+  @param {string} [ratio] - 'square' | 'portrait' | 'landscape'. Default settings.card_ratio.
+  @param {string} [loading] - 'lazy' (default) | 'eager'.
+  @param {string} [sizes] - Image sizes.
+  @param {string} [class] - Extra classes.
+
+  @example
+  {% render 'vk-product-card', product: product, index: forloop.index %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_quick = settings.card_show_quick_add
+  if show_quick_add == false
+    assign vk_quick = false
+  endif
+  assign vk_rate = settings.card_show_rating
+  if show_rating == false
+    assign vk_rate = false
+  endif
+  assign vk_second = settings.card_show_secondary_image
+  if show_secondary_image == false
+    assign vk_second = false
+  endif
+  assign vk_ratio = ratio | default: settings.card_ratio | default: 'square'
+  assign vk_sizes = sizes | default: '(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw'
+  assign vk_first = product.featured_media.preview_image | default: product.featured_image
+  assign vk_hover = nil
+  if vk_second and product.media.size > 1
+    assign vk_hover = product.media[1].preview_image
+  endif
+
+  assign vk_badge = product.metafields.custom.badge.value | default: product.metafields.custom.badge
+  assign vk_badge_style = 'dark'
+  if product.available == false
+    assign vk_badge = 'products.product.sold_out' | t
+    assign vk_badge_style = 'outline'
+  elsif vk_badge != blank
+    assign vk_badge_style = 'ember'
+  elsif product.compare_at_price > product.price
+    assign vk_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+    assign vk_badge = 'products.product.price.save_percent' | t: percent: vk_pct
+    assign vk_badge_style = 'ember'
+  elsif product.tags contains 'new'
+    assign vk_badge = 'products.product.new' | t
+  endif
+
+  assign vk_placeholder = 'product'
+  case product.type
+    when 'Wok'
+      assign vk_placeholder = 'wok'
+    when 'Set', 'Cookware Set'
+      assign vk_placeholder = 'set'
+    when 'Knife'
+      assign vk_placeholder = 'knife'
+  endcase
+  assign vk_single = product.has_only_default_variant
+  assign vk_v = product.selected_or_first_available_variant
+-%}
+<article class="vk-product-card vk-product-card--{{ vk_ratio }}{% unless product.available %} is-sold-out{% endunless %}{% if class %} {{ class }}{% endif %}" data-reveal style="--vk-i: {{ index | default: 1 | minus: 1 | modulo: 8 }};" data-glow>
+  <div class="vk-product-card__media vk-ratio-{{ vk_ratio }}">
+    {%- if vk_first != blank -%}
+      {%- render 'vk-image', image: vk_first, sizes: vk_sizes, class: 'vk-product-card__img', loading: loading, alt: product.title -%}
+      {%- if vk_hover != blank -%}
+        {%- render 'vk-image', image: vk_hover, sizes: vk_sizes, class: 'vk-product-card__img vk-product-card__img--hover', alt: '' -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- render 'vk-placeholder', type: vk_placeholder, class: 'vk-product-card__img', label: product.title -%}
+    {%- endif -%}
+    {%- if vk_badge != blank -%}
+      <div class="vk-product-card__badges">{% render 'vk-badge', text: vk_badge, style: vk_badge_style %}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="vk-product-card__body">
+    <h3 class="vk-product-card__title">
+      <a href="{{ product.url }}" class="vk-product-card__link">{{ product.title | escape }}</a>
+    </h3>
+    {%- if vk_rate -%}{%- render 'vk-product-rating', product: product -%}{%- endif -%}
+    {%- render 'vk-price', product: product -%}
+  </div>
+
+  {%- if vk_quick and product.available -%}
+    <vk-product-form class="vk-product-card__quick">
+      {%- form 'product', product, class: 'vk-product-card__form', novalidate: 'novalidate' -%}
+        {%- if vk_single -%}
+          <input type="hidden" name="id" value="{{ vk_v.id }}">
+          <button type="submit" class="vk-btn vk-btn--secondary vk-btn--sm vk-btn--block vk-product-card__add">
+            <span class="vk-btn__label">{% render 'vk-icon', name: 'plus', size: 16 %}{{ 'products.card.quick_add' | t }}</span>
+          </button>
+        {%- else -%}
+          <p class="vk-product-card__quick-label">{{ 'products.card.choose' | t: option: product.options.first }}</p>
+          <div class="vk-product-card__chips" role="group" aria-label="{{ product.options.first | escape }}">
+            {%- for variant in product.variants limit: 6 -%}
+              <button type="submit" name="id" value="{{ variant.id }}" class="vk-product-card__chip"{% unless variant.available %} disabled{% endunless %} aria-label="{{ 'products.card.add_variant' | t: variant: variant.title }}">{{ variant.option1 }}</button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <p class="vk-product-card__error" data-form-error role="alert" hidden></p>
+      {%- endform -%}
+    </vk-product-form>
+  {%- endif -%}
+</article>

@@ -1,0 +1,139 @@
+{{ 'vk-section-header.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign vk_menu = section.settings.menu
+  assign vk_transparent = false
+  if section.settings.transparent_on_home and template.name == 'index'
+    assign vk_transparent = true
+  endif
+  assign vk_features = section.blocks | where: 'type', 'mega_feature'
+-%}
+<div class="vk-header-wrapper{% if vk_transparent %} is-transparent{% endif %}" data-sticky="{{ section.settings.sticky_behavior }}">
+  <header id="vk-{{ section.id }}" class="vk-header color-{{ section.settings.color_scheme }} vk-header--logo-{{ section.settings.logo_position }}" data-section-id="{{ section.id }}">
+    <div class="vk-header__bar">
+      <div class="vk-header__left">
+        <button type="button" class="vk-header__icon vk-header__burger vk-hide-large" data-drawer-open="vk-menu-drawer" aria-controls="vk-menu-drawer" aria-expanded="false" aria-label="{{ 'header.menu' | t }}">
+          <span class="vk-burger" aria-hidden="true"><span></span><span></span></span>
+        </button>
+        {%- if vk_menu != blank -%}
+          <nav class="vk-nav vk-hide-tablet-down" aria-label="{{ 'header.main_navigation' | t }}">
+            <ul class="vk-nav__list" role="list">
+              {%- for link in vk_menu.links -%}
+                {%- assign vk_feature = nil -%}
+                {%- for f in vk_features -%}{%- if f.settings.menu_item == link.title -%}{%- assign vk_feature = f -%}{%- break -%}{%- endif -%}{%- endfor -%}
+                {%- if link.links.size > 0 -%}
+                  <li class="vk-nav__item vk-nav__item--mega" data-mega>
+                    <button type="button" class="vk-nav__link{% if link.child_active or link.active %} is-active{% endif %}" aria-expanded="false" aria-controls="vk-mega-{{ forloop.index }}">
+                      {{ link.title | escape }}{% render 'vk-icon', name: 'chevron-down', size: 14 %}
+                    </button>
+                    {%- render 'vk-mega-menu', link: link, id: forloop.index, feature: vk_feature -%}
+                  </li>
+                {%- else -%}
+                  <li class="vk-nav__item">
+                    <a href="{{ link.url }}" class="vk-nav__link{% if link.active %} is-active{% endif %}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </nav>
+        {%- endif -%}
+      </div>
+
+      <div class="vk-header__logo">
+        {%- if template.name == 'index' -%}<h1 class="vk-header__logo-heading">{%- endif -%}
+        <a href="{{ routes.root_url }}" class="vk-header__logo-link" aria-label="{{ shop.name | escape }}">{% render 'vk-logo' %}</a>
+        {%- if template.name == 'index' -%}</h1>{%- endif -%}
+      </div>
+
+      <div class="vk-header__right">
+        <div class="vk-hide-tablet-down">{% render 'vk-localization', id: 'header' %}</div>
+        <button type="button" class="vk-header__icon" data-drawer-open="vk-search-drawer" aria-controls="vk-search-drawer" aria-expanded="false" aria-label="{{ 'header.search' | t }}">
+          {% render 'vk-icon', name: 'search', size: 20 %}
+        </button>
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="vk-header__icon vk-hide-mobile" aria-label="{% if customer %}{{ 'header.account' | t }}{% else %}{{ 'header.log_in' | t }}{% endif %}">
+            {% render 'vk-icon', name: 'user', size: 20 %}
+          </a>
+        {%- endif -%}
+        <a href="{{ routes.cart_url }}" class="vk-header__icon vk-header__cart"{% if settings.cart_type == 'drawer' %} data-drawer-open="vk-cart-drawer" aria-controls="vk-cart-drawer" aria-expanded="false"{% endif %}>
+          {% render 'vk-icon', name: 'bag', size: 20 %}
+          <span class="vk-visually-hidden">{{ 'header.cart' | t }} ({{ 'header.cart_count' | t: count: cart.item_count }})</span>
+          <span id="vk-cart-icon-bubble" class="vk-cart-icon-bubble"><span class="vk-cart-count{% if cart.item_count == 0 %} is-empty{% endif %}" data-cart-count aria-hidden="true">{{ cart.item_count }}</span></span>
+        </a>
+      </div>
+    </div>
+  </header>
+</div>
+
+{%- comment -%} Mobile menu drawer {%- endcomment -%}
+{%- render 'vk-menu-drawer', menu: vk_menu, scheme: section.settings.color_scheme, blocks: section.blocks -%}
+
+{%- comment -%} Search overlay {%- endcomment -%}
+<vk-drawer id="vk-search-drawer" side="top" class="vk-search color-{{ section.settings.color_scheme }}" role="dialog" aria-modal="true" aria-label="{{ 'header.search' | t }}">
+  <div class="vk-drawer__overlay"></div>
+  <div class="vk-drawer__panel vk-search__panel">
+    <div class="vk-container">
+      <vk-predictive-search class="vk-search__inner" data-enabled="{{ settings.predictive_search_enabled }}">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="vk-search__form">
+          <label for="vk-search-input" class="vk-visually-hidden">{{ 'search.label' | t }}</label>
+          {% render 'vk-icon', name: 'search', size: 22, class: 'vk-search__icon' %}
+          <input id="vk-search-input" type="search" name="q" class="vk-search__input" placeholder="{{ 'search.placeholder' | t }}" autocomplete="off" data-drawer-autofocus
+            role="combobox" aria-expanded="false" aria-owns="vk-predictive-results" aria-controls="vk-predictive-results" aria-autocomplete="list">
+          <input type="hidden" name="options[prefix]" value="last">
+          <button type="button" class="vk-icon-btn vk-icon-btn--plain" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 20 %}</button>
+        </form>
+        {%- if section.settings.popular_searches != blank -%}
+          <div class="vk-search__popular" data-search-popular>
+            <p class="vk-eyebrow">{{ 'search.popular' | t }}</p>
+            <div class="vk-flex">
+              {%- assign vk_terms = section.settings.popular_searches | split: ',' -%}
+              {%- for term in vk_terms -%}
+                <a class="vk-chip" href="{{ routes.search_url }}?q={{ term | strip | url_encode }}">{{ term | strip }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+        <div id="vk-predictive-results" class="vk-search__results" data-search-results role="listbox" aria-live="polite"></div>
+      </vk-predictive-search>
+    </div>
+  </div>
+</vk-drawer>
+
+<script src="{{ 'vk-header.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "div",
+  "class": "vk-header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "select", "id": "logo_position", "label": "Logo position (desktop)", "default": "center", "options": [{ "value": "center", "label": "Center" }, { "value": "left", "label": "Left" }] },
+    { "type": "select", "id": "sticky_behavior", "label": "Sticky header", "default": "on_scroll_up", "options": [
+      { "value": "always", "label": "Always" }, { "value": "on_scroll_up", "label": "On scroll up" }, { "value": "none", "label": "None" }
+    ] },
+    { "type": "checkbox", "id": "transparent_on_home", "label": "Transparent over the homepage hero", "default": true },
+    { "type": "text", "id": "popular_searches", "label": "Popular searches", "info": "Comma separated.", "default": "Forge Pan, Wok, Sets, Santoku, Care guide" }
+  ],
+  "blocks": [
+    {
+      "type": "mega_feature",
+      "name": "Mega menu feature",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "menu_item", "label": "Menu item title", "info": "Shown in the dropdown of the menu item with this exact title.", "default": "Shop" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "fallback", "label": "Fallback visual", "default": "vk-visual-pan.webp", "options": [
+          { "value": "vk-visual-pan.webp", "label": "Forge Pan" }, { "value": "vk-visual-set.webp", "label": "The Trio" }, { "value": "vk-visual-wok.webp", "label": "Wok" }, { "value": "vk-visual-knife.webp", "label": "Knife" }
+        ] },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE ICON" },
+        { "type": "text", "id": "title", "label": "Title", "default": "The Forge Pan" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Four sizes, one construction. The pan most VOLKARA kitchens start with." },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop the Forge Pan" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ]
+}
+{% endschema %}

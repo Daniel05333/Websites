@@ -1,0 +1,66 @@
+/* ==========================================================================
+   VOLKARA — Motion system
+   Hidden-until-revealed states apply ONLY under html.js.vk-motion, so no-JS
+   visitors and reduced-motion users always see content immediately.
+   ========================================================================== */
+
+/* Page intro */
+html.js.vk-motion body { animation: vk-page-in 900ms var(--vk-ease-out) both; }
+@keyframes vk-page-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* View transitions (enabled by layout when settings.enable_page_transitions) */
+::view-transition-old(root) { animation: 380ms var(--vk-ease-in-out) both vk-vt-out; }
+::view-transition-new(root) { animation: 620ms var(--vk-ease-out) both vk-vt-in; }
+@keyframes vk-vt-out { to { opacity: 0; transform: translateY(-12px) scale(.995); } }
+@keyframes vk-vt-in { from { opacity: 0; transform: translateY(18px); } }
+
+/* ---------- Reveal ---------- */
+html.js.vk-motion [data-reveal] {
+  --vk-reveal-delay: calc(var(--vk-i, 0) * 70ms + var(--vk-delay, 0ms));
+  transition:
+    opacity var(--vk-dur-4) var(--vk-ease-out) var(--vk-reveal-delay),
+    transform var(--vk-dur-4) var(--vk-ease-out) var(--vk-reveal-delay),
+    clip-path var(--vk-dur-4) var(--vk-ease-out) var(--vk-reveal-delay),
+    filter var(--vk-dur-4) var(--vk-ease-out) var(--vk-reveal-delay);
+}
+html.js.vk-motion [data-reveal]:not(.is-revealed) { opacity: 0; }
+html.js.vk-motion [data-reveal=""]:not(.is-revealed),
+html.js.vk-motion [data-reveal="up"]:not(.is-revealed) { transform: translate3d(0, 36px, 0); }
+html.js.vk-motion [data-reveal="scale"]:not(.is-revealed) { transform: scale(.94); }
+html.js.vk-motion [data-reveal="left"]:not(.is-revealed) { transform: translate3d(-40px, 0, 0); }
+html.js.vk-motion [data-reveal="right"]:not(.is-revealed) { transform: translate3d(40px, 0, 0); }
+html.js.vk-motion [data-reveal="blur"]:not(.is-revealed) { filter: blur(14px); transform: translate3d(0, 16px, 0); }
+html.js.vk-motion [data-reveal="mask"] { opacity: 1; }
+html.js.vk-motion [data-reveal="mask"]:not(.is-revealed) { opacity: 1; clip-path: inset(18% 0 18% 0 round var(--vk-radius-lg)); transform: scale(1.04); }
+html.js.vk-motion [data-reveal="mask"].is-revealed { clip-path: inset(0 0 0 0 round 0); }
+
+/* ---------- Split headline ---------- */
+.vk-split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.vk-split-inner { display: inline-block; will-change: transform; }
+html.js.vk-motion [data-split] .vk-split-inner {
+  transform: translate3d(0, 105%, 0);
+  transition: transform 1100ms var(--vk-ease-out) calc(var(--vk-w, 0) * 55ms + var(--vk-delay, 0ms));
+}
+html.js.vk-motion [data-split].is-revealed .vk-split-inner { transform: none; }
+html.js.vk-motion [data-split][data-reveal] { opacity: 1; transform: none; }
+
+/* ---------- Magnetic ---------- */
+[data-magnetic] { transform: translate3d(var(--vk-mag-x, 0), var(--vk-mag-y, 0), 0); }
+[data-magnetic] .vk-btn__label { transform: translate3d(var(--vk-mag-lx, 0), var(--vk-mag-ly, 0), 0); }
+[data-magnetic].is-magnet-release { transition: transform 700ms var(--vk-ease-spring); }
+
+/* ---------- Tilt ---------- */
+[data-tilt] { transform: perspective(900px) rotateX(var(--vk-tilt-x, 0deg)) rotateY(var(--vk-tilt-y, 0deg)); transition: transform 500ms var(--vk-ease-out); transform-style: preserve-3d; }
+
+/* ---------- Embers canvas ---------- */
+vk-embers { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: block; }
+vk-embers canvas { width: 100%; height: 100%; }
+
+/* ---------- Header scroll state hooks ---------- */
+html.vk-scroll-down.vk-scrolled-far .vk-header-wrapper[data-sticky="on_scroll_up"] { transform: translateY(calc(-100% - 20px)); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  [data-magnetic], [data-tilt], [data-parallax] { transform: none !important; }
+}

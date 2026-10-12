@@ -1,0 +1,63 @@
+{{ 'vk-section-cart.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign vk_total_money = cart.total_price | money
+  assign vk_empty_primary = 'cart.empty_primary' | t
+  assign vk_empty_secondary = 'cart.empty_secondary' | t
+-%}
+<vk-cart-drawer id="vk-cart-drawer" class="vk-cart-drawer color-scheme-2" role="dialog" aria-modal="true" aria-labelledby="vk-cart-drawer-title" side="right">
+  <div class="vk-drawer__overlay"></div>
+  <div class="vk-drawer__panel">
+    <div class="vk-drawer__header">
+      <h2 id="vk-cart-drawer-title" class="vk-drawer__title">{{ 'cart.title' | t }} <span class="vk-cart-drawer__count vk-mono">({{ cart.item_count }})</span></h2>
+      <button type="button" class="vk-icon-btn vk-icon-btn--plain" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 22 %}</button>
+    </div>
+    <div class="vk-cart-drawer__content" data-cart-content>
+      {%- if cart.item_count > 0 -%}
+        <div class="vk-cart-drawer__shipping">{% render 'vk-free-shipping-bar', cart: cart %}</div>
+        <div class="vk-drawer__body">
+          <vk-cart-items>
+            <ul class="vk-lines" role="list">
+              {%- for item in cart.items -%}
+                {%- render 'vk-cart-line-item', item: item, index: forloop.index, context: 'drawer' -%}
+              {%- endfor -%}
+            </ul>
+          </vk-cart-items>
+          {% render 'vk-cart-upsell', cart: cart %}
+          {%- if settings.cart_show_note -%}
+            <details class="vk-cart-note">
+              <summary>{% render 'vk-icon', name: 'gift', size: 16 %}{{ 'cart.note' | t }}</summary>
+              <label for="vk-cart-note" class="vk-visually-hidden">{{ 'cart.note' | t }}</label>
+              <textarea id="vk-cart-note" class="vk-textarea" name="note" data-cart-note maxlength="500">{{ cart.note }}</textarea>
+            </details>
+          {%- endif -%}
+        </div>
+        <div class="vk-drawer__footer vk-cart-drawer__footer">
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <p class="vk-cart-summary__row vk-cart-summary__row--discount"><span>{% render 'vk-icon', name: 'sparkle', size: 14 %}{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>
+          {%- endfor -%}
+          <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+          <p class="vk-cart-summary__note">{{ 'cart.taxes_shipping' | t }}</p>
+          <form action="{{ routes.cart_url }}" method="post" class="vk-cart-drawer__checkout">
+            <button type="submit" name="checkout" class="vk-btn vk-btn--primary vk-btn--lg vk-btn--block">
+              <span class="vk-btn__label">{% render 'vk-icon', name: 'lock', size: 18 %}{{ 'cart.checkout_total' | t: total: vk_total_money }}</span>
+            </button>
+          </form>
+          <p class="vk-cart-drawer__trust">{{ settings.promise_warranty }} · {{ settings.promise_trial }} · {{ settings.promise_secure }}</p>
+          {% render 'vk-payment-icons', class: 'vk-cart-drawer__payments' %}
+        </div>
+      {%- else -%}
+        <div class="vk-drawer__body vk-cart-empty">
+          <div class="vk-cart-empty__icon">{% render 'vk-icon', name: 'bag', size: 28 %}</div>
+          <p class="vk-h3">{{ 'cart.empty' | t }}</p>
+          <p class="vk-muted">{{ 'cart.empty_text' | t }}</p>
+          <div class="vk-btn-row vk-cart-empty__actions">
+            {% render 'vk-button', label: vk_empty_primary, url: '/products/forge-pan', icon: 'arrow-right' %}
+            {% render 'vk-button', label: vk_empty_secondary, url: routes.all_products_collection_url, style: 'secondary' %}
+          </div>
+          {% render 'vk-free-shipping-bar', cart: cart %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</vk-cart-drawer>
+<script src="{{ 'vk-cart.js' | asset_url }}" defer="defer"></script>

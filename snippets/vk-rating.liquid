@@ -1,0 +1,23 @@
+{%- doc -%}
+  Star rating with fractional fill.
+  @param {number} rating - 0–5.
+  @param {number} [count] - Review count.
+  @param {string} [size] - 'sm' (default) | 'md'.
+  @param {boolean} [show_text] - Show "4.9 · 1,280 reviews". Default true.
+  @param {string} [class] - Extra classes.
+  @example
+  {% render 'vk-rating', rating: 4.9, count: 1280 %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_rating = rating | default: 0 | times: 1.0
+  assign vk_pct = vk_rating | divided_by: 5.0 | times: 100 | round: 1
+  assign vk_rating_text = vk_rating | round: 1
+-%}
+{%- if vk_rating > 0 -%}
+  <span class="vk-rating vk-rating--{{ size | default: 'sm' }}{% if class %} {{ class }}{% endif %}" role="img" aria-label="{{ 'products.product.rating.aria' | t: rating: vk_rating_text, count: count | default: 0 }}">
+    <span class="vk-rating__stars" style="--vk-rating: {{ vk_pct }}%;" aria-hidden="true"></span>
+    {%- unless show_text == false -%}
+      <span aria-hidden="true"><span class="vk-rating__value">{{ vk_rating_text }}</span>{% if count %} · {{ 'products.product.rating.count' | t: count: count }}{% endif %}</span>
+    {%- endunless -%}
+  </span>
+{%- endif -%}

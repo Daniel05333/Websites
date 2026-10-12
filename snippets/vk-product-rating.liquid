@@ -1,0 +1,20 @@
+{%- doc -%}
+  Product rating from the standard reviews.rating / reviews.rating_count metafields
+  (written by review apps). Falls back to demo values only when settings.show_demo_ratings is on.
+  @param {object} product - Product.
+  @param {string} [size] - 'sm' | 'md'.
+  @param {boolean} [show_text] - Default true.
+  @example
+  {% render 'vk-product-rating', product: product %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_r = product.metafields.reviews.rating.value.rating
+  assign vk_c = product.metafields.reviews.rating_count.value
+  if vk_r == blank and settings.show_demo_ratings
+    assign vk_r = settings.demo_rating | times: 1.0
+    assign vk_c = settings.demo_rating_count
+  endif
+-%}
+{%- if vk_r != blank -%}
+  {%- render 'vk-rating', rating: vk_r, count: vk_c, size: size, show_text: show_text -%}
+{%- endif -%}

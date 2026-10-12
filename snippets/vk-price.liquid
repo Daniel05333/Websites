@@ -1,0 +1,44 @@
+{%- doc -%}
+  Price block: current price, "From" prefix, compare-at, honest "Save €X" chip, unit price.
+  @param {object} product - Product.
+  @param {object} [variant] - Variant (default selected_or_first_available_variant).
+  @param {string} [class] - Extra classes.
+  @param {boolean} [show_compare] - Default true.
+  @param {boolean} [show_save] - Default true.
+  @param {string} [size] - 'md' (default) | 'lg'.
+  @example
+  {% render 'vk-price', product: product, size: 'lg' %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_v = variant | default: product.selected_or_first_available_variant
+  if variant == blank and product.price_varies
+    assign vk_price = product.price_min
+    assign vk_compare = product.compare_at_price_min
+    assign vk_from = true
+  else
+    assign vk_price = vk_v.price
+    assign vk_compare = vk_v.compare_at_price
+    assign vk_from = false
+  endif
+  assign vk_on_sale = false
+  if vk_compare > vk_price
+    assign vk_on_sale = true
+    assign vk_saving = vk_compare | minus: vk_price | money
+  endif
+-%}
+<div class="vk-price{% if size == 'lg' %} vk-price--lg{% endif %}{% if class %} {{ class }}{% endif %}" data-price>
+  <span class="vk-price__current">
+    {%- if vk_from %}<span class="vk-price__from">{{ 'products.product.price.from' | t }}</span>{% endif -%}
+    <span class="vk-visually-hidden">{% if vk_on_sale %}{{ 'products.product.price.sale_price' | t }}{% else %}{{ 'products.product.price.regular_price' | t }}{% endif %}</span>
+    <span data-price-current>{{ vk_price | money }}</span>
+  </span>
+  {%- if vk_on_sale and show_compare != false -%}
+    <s class="vk-price__compare"><span class="vk-visually-hidden">{{ 'products.product.price.regular_price' | t }}</span><span data-price-compare>{{ vk_compare | money }}</span></s>
+    {%- if show_save != false -%}
+      <span class="vk-price__save" data-price-save>{{ 'products.product.price.save' | t: amount: vk_saving }}</span>
+    {%- endif -%}
+  {%- endif -%}
+  {%- if vk_v.unit_price_measurement -%}
+    <span class="vk-price__unit">{{ vk_v.unit_price | money }}/{% if vk_v.unit_price_measurement.reference_value != 1 %}{{ vk_v.unit_price_measurement.reference_value }}{% endif %}{{ vk_v.unit_price_measurement.reference_unit }}</span>
+  {%- endif -%}
+</div>
