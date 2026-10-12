@@ -180,7 +180,7 @@
       const max = this.track.scrollWidth - this.track.clientWidth; const x = this.track.scrollLeft;
       const ratio = this.track.scrollWidth ? Math.min(1, this.track.clientWidth / this.track.scrollWidth) : 1;
       const p = max > 0 ? x / max : 1;
-      this.progress?.style.setProperty('--vk-slider-progress', String(ratio + (1 - ratio) * p));
+      this.progress?.style.setProperty('--vk-slider-progress', String(ratio + (1 - ratio) * p)); this.progress?.style.setProperty('transform', `scaleX(${ratio + (1 - ratio) * p})`);
       if (this.prev) this.prev.disabled = x <= 4; if (this.next) this.next.disabled = x >= max - 4;
       this.toggleAttribute('data-scrollable', max > 4);
       if (this.count) { const s = this.slides; const idx = Math.min(s.length, Math.round(x / (this.step() || 1)) + 1); this.count.textContent = `${String(idx).padStart(2, '0')} / ${String(s.length).padStart(2, '0')}`; }

@@ -1,0 +1,29 @@
+{%- doc -%}
+  Review card (slider + wall).
+  @param {object} block - Review block.
+  @param {string} [variant] - 'slider' (default) | 'wall'.
+  @example
+  {% render 'vk-review-card', block: block %}
+{%- enddoc -%}
+{%- assign r = block.settings -%}
+<article class="vk-review vk-review--{{ variant | default: 'slider' }}" {{ block.shopify_attributes }} data-rating="{{ r.rating }}"{% if r.image != blank %} data-has-photo{% endif %}>
+  {%- if r.image != blank -%}
+    <div class="vk-review__photo">{{ r.image | image_url: width: 640 | image_tag: loading: 'lazy', widths: '320,480,640', sizes: '(min-width: 990px) 25vw, 80vw', alt: r.title }}</div>
+  {%- endif -%}
+  <div class="vk-review__body">
+    <span class="vk-review__quote" aria-hidden="true">&ldquo;</span>
+    {%- render 'vk-rating', rating: r.rating, show_text: false -%}
+    {%- if r.title != blank %}<h3 class="vk-review__title">{{ r.title }}</h3>{% endif -%}
+    <div class="vk-review__text" data-review-text>{{ r.text }}</div>
+    <footer class="vk-review__foot">
+      <span class="vk-review__avatar" aria-hidden="true">{{ r.author | slice: 0 }}</span>
+      <span class="vk-review__who">
+        <span class="vk-review__author">{{ r.author }}</span>
+        <span class="vk-review__meta">
+          {%- if r.product_label != blank %}<span>{{ r.product_label }}</span>{% endif -%}
+          {%- if r.verified %}<span class="vk-review__verified">{% render 'vk-icon', name: 'check-circle', size: 13 %}{{ 'sections.reviews.verified' | t }}</span>{% endif -%}
+        </span>
+      </span>
+    </footer>
+  </div>
+</article>

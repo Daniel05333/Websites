@@ -1,0 +1,84 @@
+{{ 'vk-section-story.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign vk_points = section.blocks | where: 'type', 'point'
+  assign vk_spots = section.blocks | where: 'type', 'hotspot'
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-solution color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <vk-solution class="vk-container vk-solution__grid">
+    <div class="vk-solution__copy">
+      {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading -%}
+      <vk-accordion class="vk-accordion vk-solution__list" data-single>
+        {%- for block in vk_points -%}
+          <details class="vk-solution__point" data-point="{{ block.settings.hotspot }}" {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %} data-reveal style="--vk-i: {{ forloop.index0 }};">
+            <summary>
+              <span class="vk-solution__check" aria-hidden="true">{% render 'vk-icon', name: 'check', size: 14, stroke: 2 %}</span>
+              <span class="vk-solution__point-title">{{ block.settings.title }}</span>
+              <span class="vk-accordion__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="vk-accordion__content vk-solution__point-text">{{ block.settings.text }}</div>
+          </details>
+        {%- endfor -%}
+      </vk-accordion>
+      {%- if section.settings.button_label != blank -%}
+        <div data-reveal>{% render 'vk-button', label: section.settings.button_label, url: section.settings.button_url, icon: 'arrow-right', magnetic: true %}</div>
+      {%- endif -%}
+    </div>
+    <div class="vk-solution__visual" data-reveal="scale">
+      <div class="vk-solution__glow" aria-hidden="true"></div>
+      <div class="vk-solution__stage" data-tilt="4">
+        <div class="vk-solution__media">
+          {%- render 'vk-image', image: section.settings.image, sizes: '(min-width: 990px) 50vw, 100vw', fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: section.settings.image_alt -%}
+        </div>
+        {%- for block in vk_spots -%}
+          <div class="vk-hotspot{% if block.settings.label_side == 'left' %} vk-hotspot--left{% endif %}" style="--x: {{ block.settings.x }}%; --y: {{ block.settings.y }}%;" data-hotspot="{{ block.settings.number }}" {{ block.shopify_attributes }}>
+            <button type="button" class="vk-hotspot__dot" aria-expanded="false" aria-describedby="vk-hs-{{ block.id }}" aria-label="{{ block.settings.label | escape }}"><span>{{ block.settings.number }}</span></button>
+            <div class="vk-hotspot__label" id="vk-hs-{{ block.id }}" role="tooltip">
+              <span class="vk-hotspot__name vk-mono">{{ block.settings.label }}</span>
+              <span class="vk-hotspot__text">{{ block.settings.text }}</span>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </vk-solution>
+</section>
+<script src="{{ 'vk-solution.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Solution & hotspots",
+  "tag": "div",
+  "class": "vk-solution-section",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "03" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The VOLKARA difference" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "One pan. <em>For life.</em>" },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Every material earns its place. Nothing is sprayed on, nothing wears off." },
+    { "type": "image_picker", "id": "image", "label": "Product image", "info": "Square product shot on black works best." },
+    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-pan.webp", "options": [{ "value": "vk-visual-pan.webp", "label": "Forge Pan" }, { "value": "vk-visual-wok.webp", "label": "Wok" }, { "value": "vk-visual-set.webp", "label": "Set" }] },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "VOLKARA Forge Pan with its LavaCell™ titanium surface" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the Forge Pan" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "point", "name": "Checklist item", "limit": 6, "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "No PFAS. No PTFE. No coating." },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>The cooking surface is pure titanium, bonded into the body of the pan.</p>" },
+      { "type": "range", "id": "hotspot", "label": "Linked hotspot number", "min": 0, "max": 6, "step": 1, "default": 1, "info": "0 = none" }
+    ] },
+    { "type": "hotspot", "name": "Hotspot", "limit": 6, "settings": [
+      { "type": "range", "id": "number", "label": "Number", "min": 1, "max": 6, "step": 1, "default": 1 },
+      { "type": "range", "id": "x", "label": "Horizontal position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+      { "type": "range", "id": "y", "label": "Vertical position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+      { "type": "select", "id": "label_side", "label": "Label side", "default": "right", "options": [{ "value": "right", "label": "Right" }, { "value": "left", "label": "Left" }] },
+      { "type": "text", "id": "label", "label": "Label", "default": "LavaCell™ surface" },
+      { "type": "text", "id": "text", "label": "Detail", "default": "Laser-etched titanium hexagons: peaks protect, valleys hold oil." }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Solution & hotspots", "blocks": [{ "type": "point" }, { "type": "hotspot" }] }]
+}
+{% endschema %}

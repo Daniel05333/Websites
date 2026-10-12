@@ -1,0 +1,63 @@
+/* VOLKARA — shared merch: section head, category cards, featured tabs, spotlight, pills */
+.vk-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: clamp(2.5rem, 2rem + 2.5vw, 4.5rem); }
+.vk-section-head .vk-heading + * { margin-top: 0; }
+.vk-section-head__link { flex: none; }
+
+/* category cards */
+.vk-categories__track { --vk-slide-w: 78%; --vk-slide-gap: clamp(.75rem, .4rem + 1vw, 1.25rem); }
+@media (min-width: 750px) { .vk-categories__track { --vk-slide-w: calc((100% - var(--vk-slide-gap) * 2) / 2.4); } }
+@media (min-width: 1200px) { .vk-categories__track { --vk-slide-w: calc((100% - var(--vk-slide-gap) * 3) / 4.3); } }
+.vk-cat-card { list-style: none; }
+.vk-cat-card__link { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: var(--vk-radius-lg); overflow: hidden; isolation: isolate; box-shadow: inset 0 0 0 1px var(--vk-border); background: #0b0b0b; }
+.vk-cat-card__media { position: absolute; inset: 0; z-index: -1; }
+.vk-cat-card__media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--vk-ease-out); }
+.vk-cat-card__link:hover .vk-cat-card__media > * { transform: scale(1.06); }
+.vk-cat-card__link::after { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(8,8,8,0) 35%, rgba(8,8,8,.92) 100%); pointer-events: none; }
+.vk-cat-card__body { position: absolute; inset: auto 0 0; z-index: 2; display: grid; gap: .35rem; padding: 1.5rem; }
+.vk-cat-card__count { position: static; justify-self: start; font-size: .625rem; letter-spacing: .18em; text-transform: uppercase; padding: .3rem .6rem; border-radius: var(--vk-radius-pill); background: rgba(8,8,8,.55); box-shadow: inset 0 0 0 1px rgba(247,245,242,.14); color: var(--vk-ash-light); margin-bottom: .5rem; }
+.vk-cat-card__title { font-size: clamp(1.75rem, 1.4rem + 1vw, 2.5rem); color: var(--vk-white); }
+.vk-cat-card__sub { color: rgba(247,245,242,.72); font-size: .9375rem; }
+.vk-cat-card__cta { display: flex; align-items: center; justify-content: space-between; margin-top: .9rem; padding-top: .9rem; border-top: 1px solid rgba(247,245,242,.14); color: var(--vk-white); font-size: .875rem; font-weight: 500; }
+.vk-cat-card__arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(247,245,242,.3); transition: background var(--vk-dur-2), transform var(--vk-dur-3) var(--vk-ease-out), box-shadow var(--vk-dur-2); }
+.vk-cat-card__link:hover .vk-cat-card__arrow { background: var(--vk-ember); box-shadow: none; transform: rotate(45deg); }
+
+/* featured */
+.vk-featured__tablist { margin-bottom: 2rem; }
+.vk-featured__track { --vk-slide-w: 72%; --vk-slide-gap: clamp(.75rem, .4rem + 1vw, 1.25rem); list-style: none; }
+@media (min-width: 750px) { .vk-featured__track { --vk-slide-w: calc((100% - var(--vk-slide-gap) * 2) / 2.5); } }
+@media (min-width: 1200px) { .vk-featured__track { --vk-slide-w: calc((100% - var(--vk-slide-gap) * 3) / 4); } }
+.vk-featured__track > li { display: flex; } .vk-featured__track .vk-product-card { width: 100%; }
+.vk-featured__foot { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; }
+.vk-featured__foot .vk-slider__controls { flex: 1; margin: 0; }
+.vk-featured__ghost { opacity: .6; }
+
+/* spotlight */
+.vk-spotlight { overflow: hidden; }
+.vk-spotlight__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 1rem + 5vw, 6rem); align-items: center; }
+.vk-spotlight__visual { position: relative; }
+.vk-spotlight__glow { position: absolute; inset: 10%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,75,50,.45), rgba(215,38,30,.15) 55%, transparent); filter: blur(40px); transform: scale(calc(.85 + var(--vk-progress, .5) * .3)) rotate(calc(var(--vk-progress, .5) * 60deg)); }
+.vk-spotlight__media { position: relative; aspect-ratio: 1; border-radius: var(--vk-radius-lg); overflow: hidden; box-shadow: inset 0 0 0 1px var(--vk-border), 0 60px 120px -50px rgba(215,38,30,.45); }
+.vk-spotlight__media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.08 - var(--vk-progress, .5) * .08)); }
+.vk-spotlight__info { display: grid; gap: 1.75rem; }
+.vk-spotlight__info .vk-heading + * { margin-top: 0; }
+.vk-spotlight__meta { display: grid; gap: .75rem; }
+.vk-spotlight__bullets { font-size: .9375rem; }
+.vk-spotlight__options { border: 0; margin: 0; padding: 0; display: grid; gap: .85rem; }
+.vk-spotlight__options legend { margin-bottom: .85rem; padding: 0; }
+.vk-spotlight__helper { margin-top: .25rem; }
+.vk-spotlight__buy { display: flex; gap: .75rem; margin-top: 1.25rem; }
+.vk-spotlight__atc { flex: 1; }
+.vk-spotlight__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--vk-border); }
+.vk-spotlight__promises { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.25rem; font-size: .8125rem; color: var(--vk-fg-muted); }
+.vk-spotlight__promises li { display: inline-flex; align-items: center; gap: .4rem; }
+.vk-spotlight__promises svg { color: var(--vk-accent); }
+@media (max-width: 989px) { .vk-spotlight__grid { grid-template-columns: 1fr; } }
+
+/* pills (variant radios) */
+.vk-pill { position: relative; display: inline-flex; cursor: pointer; }
+.vk-pill input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+.vk-pill span { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; min-width: 64px; padding: 0 1.1rem; border-radius: var(--vk-radius-pill); box-shadow: inset 0 0 0 1px var(--vk-border-strong); font-family: var(--vk-font-mono); font-size: .875rem; transition: background-color var(--vk-dur-2), color var(--vk-dur-2), box-shadow var(--vk-dur-2); }
+.vk-pill:hover span { box-shadow: inset 0 0 0 1px var(--vk-fg); }
+.vk-pill input:checked + span { background: var(--vk-fg); color: var(--vk-bg); box-shadow: none; }
+.vk-pill input:focus-visible + span { outline: 2px solid var(--vk-molten); outline-offset: 3px; }
+.vk-pill.is-disabled span { opacity: .4; text-decoration: line-through; }

@@ -1,0 +1,64 @@
+{{ 'vk-section-story.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-problem color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading, align: 'center' -%}
+    <vk-slider class="vk-problem__slider">
+      <ul class="vk-slider__track vk-problem__grid" data-slider-track role="list" tabindex="0">
+        {%- for block in section.blocks -%}
+          <li class="vk-problem__card" data-reveal style="--vk-i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+            <div class="vk-problem__media">
+              {%- render 'vk-image', image: block.settings.image, sizes: '(min-width: 990px) 33vw, 85vw', fallback: block.settings.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'problem', alt: block.settings.title -%}
+              <span class="vk-problem__tag vk-mono">{{ 'sections.problem.failure' | t }} 0{{ forloop.index }}</span>
+              <span class="vk-problem__scan" aria-hidden="true"></span>
+            </div>
+            <div class="vk-problem__body">
+              {%- if block.settings.stat != blank -%}
+                <p class="vk-problem__stat"><span class="vk-problem__stat-value">{{ block.settings.stat }}</span><span class="vk-problem__stat-label vk-mono">{{ block.settings.stat_label }}</span></p>
+              {%- endif -%}
+              <h3 class="vk-problem__title">{{ block.settings.title }}</h3>
+              <div class="vk-problem__text">{{ block.settings.text }}</div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="vk-hide-desktop">{% render 'vk-slider-controls' %}</div>
+    </vk-slider>
+    {%- if section.settings.transition_text != blank -%}
+      <a href="#vk-{{ section.id }}-next" class="vk-problem__transition" data-reveal>
+        <span>{{ section.settings.transition_text }}</span>
+        <span class="vk-problem__transition-icon">{% render 'vk-icon', name: 'arrow-down', size: 18 %}</span>
+      </a>
+    {%- endif -%}
+  </div>
+  <span id="vk-{{ section.id }}-next" class="vk-anchor"></span>
+</section>
+
+{% schema %}
+{
+  "name": "Problem",
+  "tag": "div",
+  "class": "vk-problem-section",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "02" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The problem" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Your pan is quietly <em>failing</em> you." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Most cookware is designed around a coating — and coatings are designed to wear out. The evidence is already in your kitchen." },
+    { "type": "text", "id": "transition_text", "label": "Transition line", "default": "There is a better way" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    { "type": "card", "name": "Problem card", "limit": 4, "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "none", "options": [{ "value": "none", "label": "None (placeholder art)" }, { "value": "vk-visual-problem-coating.webp", "label": "Flaking coating" }] },
+      { "type": "text", "id": "stat", "label": "Stat", "default": "1 SCRATCH" },
+      { "type": "text", "id": "stat_label", "label": "Stat label", "default": "is all it takes to breach a coating" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Coatings that flake" },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>One slip of a metal spatula and the damage is done. A scratched coating loses its release — and whatever flakes away has to go somewhere.</p>" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Problem", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+}
+{% endschema %}

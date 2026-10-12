@@ -1,0 +1,75 @@
+{{ 'vk-section-merch.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-categories color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-section-head">
+      {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading -%}
+      {%- if section.settings.link_label != blank -%}
+        <a href="{{ section.settings.link | default: routes.all_products_collection_url }}" class="vk-link vk-section-head__link" data-reveal="fade">{{ section.settings.link_label }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a>
+      {%- endif -%}
+    </div>
+    <vk-slider class="vk-categories__slider">
+      <ul class="vk-slider__track vk-categories__track" data-slider-track role="list" tabindex="0" aria-label="{{ section.settings.eyebrow | escape }}">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign c = block.settings.collection
+            assign vk_title = block.settings.title | default: c.title
+            assign vk_img = block.settings.image | default: c.featured_image
+            assign vk_url = c.url | default: block.settings.link | default: routes.all_products_collection_url
+          -%}
+          <li class="vk-cat-card" {{ block.shopify_attributes }} data-reveal style="--vk-i: {{ forloop.index0 }};">
+            <a href="{{ vk_url }}" class="vk-cat-card__link" data-glow>
+              <div class="vk-cat-card__media">
+                {%- render 'vk-image', image: vk_img, sizes: '(min-width: 990px) 25vw, 80vw', fallback: block.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: block.settings.placeholder, alt: vk_title -%}
+              </div>
+              <div class="vk-cat-card__body">
+                {%- if c.products_count > 0 -%}<span class="vk-cat-card__count vk-mono">{{ 'sections.categories.pieces' | t: count: c.products_count }}</span>{%- endif -%}
+                <h3 class="vk-cat-card__title">{{ vk_title }}</h3>
+                {%- if block.settings.subtitle != blank -%}<p class="vk-cat-card__sub">{{ block.settings.subtitle }}</p>{%- endif -%}
+                <span class="vk-cat-card__cta"><span class="vk-cat-card__cta-label">{{ block.settings.cta_label }}</span><span class="vk-cat-card__arrow">{% render 'vk-icon', name: 'arrow-up-right', size: 18 %}</span></span>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- render 'vk-slider-controls' -%}
+    </vk-slider>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category slider",
+  "tag": "div",
+  "class": "vk-categories-section",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "01" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The collection" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Choose your <em>instrument</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "One construction, one standard, six ways to cook. Choose by what you make most." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "View all cookware" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "category", "name": "Category", "limit": 10, "settings": [
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "url", "id": "link", "label": "Link (if no collection)" },
+      { "type": "image_picker", "id": "image", "label": "Image override" },
+      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-pan.webp", "options": [
+        { "value": "vk-visual-pan.webp", "label": "Pan" }, { "value": "vk-visual-wok.webp", "label": "Wok" }, { "value": "vk-visual-set.webp", "label": "Set" },
+        { "value": "vk-visual-knife.webp", "label": "Knife" }, { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }
+      ] },
+      { "type": "select", "id": "placeholder", "label": "Placeholder art", "default": "product", "options": [
+        { "value": "product", "label": "Pan" }, { "value": "wok", "label": "Wok" }, { "value": "set", "label": "Set" }, { "value": "knife", "label": "Knife" }, { "value": "macro", "label": "Texture" }
+      ] },
+      { "type": "text", "id": "title", "label": "Title override" },
+      { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "The everyday icon" },
+      { "type": "text", "id": "cta_label", "label": "Link label", "default": "Explore" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Category slider", "blocks": [{ "type": "category" }, { "type": "category" }, { "type": "category" }, { "type": "category" }] }]
+}
+{% endschema %}

@@ -1,0 +1,116 @@
+{{ 'vk-section-hero.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_eager = false
+  if section.index == 1 or section.index == 2
+    assign vk_eager = true
+  endif
+  assign vk_load = 'lazy'
+  if vk_eager
+    assign vk_load = 'eager'
+  endif
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-hero vk-hero--{{ s.height }} vk-hero--{{ s.alignment }} color-{{ s.color_scheme }}" data-section-id="{{ section.id }}" style="--vk-hero-overlay: {{ s.overlay | divided_by: 100.0 }};">
+  <div class="vk-hero__media" data-parallax="{{ s.parallax | divided_by: 100.0 }}" data-parallax-mobile>
+    <div class="vk-hero__media-inner">
+      {%- if s.video != blank -%}
+        <vk-video class="vk-hero__video">
+          {{ s.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
+        </vk-video>
+      {%- elsif s.mobile_image != blank -%}
+        <picture>
+          <source media="(max-width: 749px)" srcset="{{ s.mobile_image | image_url: width: 750 }} 750w, {{ s.mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
+          {%- render 'vk-image', image: s.image, sizes: '100vw', loading: vk_load, fetchpriority: 'high', fallback: s.fallback, placeholder: 'hero', alt: s.image_alt -%}
+        </picture>
+      {%- else -%}
+        {%- render 'vk-image', image: s.image, sizes: '100vw', loading: vk_load, fetchpriority: 'high', fallback: s.fallback, placeholder: 'hero', alt: s.image_alt -%}
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="vk-hero__shade" aria-hidden="true"></div>
+  <div class="vk-hero__light" data-hero-light aria-hidden="true"></div>
+  {%- if s.show_embers %}<vk-embers count="44"></vk-embers>{% endif -%}
+
+  <div class="vk-container vk-hero__container">
+    <div class="vk-hero__content" data-hero-content>
+      {%- if s.eyebrow != blank -%}
+        <p class="vk-eyebrow vk-hero__eyebrow"><span class="vk-eyebrow__line vk-hero__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>
+      {%- endif -%}
+      {%- if s.heading != blank -%}
+        {%- if section.index == 1 or s.heading_tag == 'h1' -%}
+          <h1 class="vk-display vk-hero__title" data-split>{{ s.heading }}</h1>
+        {%- else -%}
+          <h2 class="vk-display vk-hero__title" data-split>{{ s.heading }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if s.subheading != blank -%}<div class="vk-lead vk-hero__sub" data-reveal data-reveal-delay="500">{{ s.subheading }}</div>{%- endif -%}
+      {%- if s.primary_label != blank or s.secondary_label != blank -%}
+        <div class="vk-btn-row vk-btn-row--stack vk-hero__ctas" data-reveal data-reveal-delay="700">
+          {%- render 'vk-button', label: s.primary_label, url: s.primary_url, icon: 'arrow-right', magnetic: true, size: 'lg' -%}
+          {%- render 'vk-button', label: s.secondary_label, url: s.secondary_url, style: 'secondary', size: 'lg' -%}
+        </div>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="vk-hero__trust" role="list" data-reveal data-reveal-delay="900">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{% render 'vk-icon', name: block.settings.icon, size: 16 %}{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if s.show_scroll_cue -%}
+    <a href="#vk-{{ section.id }}-end" class="vk-hero__cue" aria-label="{{ 'sections.hero.scroll' | t }}"><span class="vk-mono">{{ 'sections.hero.scroll' | t }}</span><span class="vk-hero__cue-line" aria-hidden="true"></span></a>
+  {%- endif -%}
+  <span id="vk-{{ section.id }}-end" class="vk-hero__end"></span>
+</section>
+<script src="{{ 'vk-hero.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "class": "vk-hero-section",
+  "settings": [
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, 2400 px wide. Keep the product on the right for left-aligned text." },
+    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image", "info": "Optional portrait crop." },
+    { "type": "video", "id": "video", "label": "Background video", "info": "Muted loop. Overrides the image." },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "VOLKARA Forge Pan suspended above a ring of gas flame, embers rising in the dark" },
+    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-hero.webp", "info": "Used until you upload an image (requires Theme settings → Visuals).", "options": [
+      { "value": "vk-visual-hero.webp", "label": "Pan over flame" }, { "value": "vk-visual-forge.webp", "label": "Forge & sparks" },
+      { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }
+    ] },
+    { "type": "range", "id": "overlay", "label": "Overlay strength", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 45 },
+    { "type": "range", "id": "parallax", "label": "Parallax", "min": 0, "max": 40, "step": 5, "unit": "%", "default": 20 },
+    { "type": "checkbox", "id": "show_embers", "label": "Ember particles", "default": true },
+    { "type": "header", "content": "Layout" },
+    { "type": "select", "id": "height", "label": "Height", "default": "full", "options": [{ "value": "full", "label": "Full screen" }, { "value": "large", "label": "Large" }, { "value": "medium", "label": "Medium" }] },
+    { "type": "select", "id": "alignment", "label": "Content alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }] },
+    { "type": "checkbox", "id": "show_scroll_cue", "label": "Scroll cue", "default": true },
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Forged titanium cookware" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Italicise the accent word.", "default": "Forged by fire. Built for <em>forever</em>." },
+    { "type": "select", "id": "heading_tag", "label": "Heading tag", "default": "auto", "options": [{ "value": "auto", "label": "Automatic" }, { "value": "h1", "label": "H1" }, { "value": "h2", "label": "H2" }] },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Five forged layers around a pure titanium surface. No coating to flake, nothing to replace — just a deeper sear, faster heat and a pan that outlasts every one you've owned." },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Shop the collection" },
+    { "type": "url", "id": "primary_url", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Discover VolcanicCore™" },
+    { "type": "url", "id": "secondary_url", "label": "Secondary link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    { "type": "trust", "name": "Trust item", "limit": 4, "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "shield", "options": [
+        { "value": "shield", "label": "Shield" }, { "value": "return", "label": "Return" }, { "value": "leaf", "label": "Leaf" }, { "value": "truck", "label": "Truck" }, { "value": "star", "label": "Star" }, { "value": "flame", "label": "Flame" }
+      ] },
+      { "type": "text", "id": "text", "label": "Text", "default": "Lifetime warranty" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Hero", "blocks": [{ "type": "trust" }, { "type": "trust", "settings": { "icon": "return", "text": "60-day home trial" } }, { "type": "trust", "settings": { "icon": "leaf", "text": "PFAS- & PTFE-free" } }] }]
+}
+{% endschema %}

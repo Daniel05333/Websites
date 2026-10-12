@@ -1,0 +1,89 @@
+{{ 'vk-section-proof.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_has_c2 = false
+  if s.competitor_2 != blank
+    assign vk_has_c2 = true
+  endif
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-compare color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    {%- render 'vk-heading', index: s.index, eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: 'center' -%}
+    <vk-compare class="vk-compare__wrap{% if vk_has_c2 %} has-c2{% endif %}" data-show="1" data-reveal>
+      {%- if vk_has_c2 -%}
+        <div class="vk-compare__switch vk-hide-desktop" role="group" aria-label="{{ 'sections.comparison.compare_with' | t }}">
+          <span class="vk-mono vk-subtle">{{ 'sections.comparison.compare_with' | t }}</span>
+          <button type="button" class="vk-chip is-active" aria-pressed="true" data-compare-show="1">{{ s.competitor_1 }}</button>
+          <button type="button" class="vk-chip" aria-pressed="false" data-compare-show="2">{{ s.competitor_2 }}</button>
+        </div>
+      {%- endif -%}
+      <table class="vk-compare__table">
+        <caption class="vk-visually-hidden">{{ s.eyebrow }}</caption>
+        <thead>
+          <tr>
+            <td class="vk-compare__corner"></td>
+            <th scope="col" class="vk-compare__head vk-compare__head--ours">{% render 'vk-logo', size: 'sm' %}</th>
+            <th scope="col" class="vk-compare__head vk-compare__c1">{{ s.competitor_1 }}</th>
+            {%- if vk_has_c2 %}<th scope="col" class="vk-compare__head vk-compare__c2">{{ s.competitor_2 }}</th>{% endif -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            {%- assign b = block.settings -%}
+            {%- if b.group != blank -%}
+              <tr class="vk-compare__group"><th scope="rowgroup" colspan="{% if vk_has_c2 %}4{% else %}3{% endif %}" class="vk-mono">{{ b.group }}</th></tr>
+            {%- endif -%}
+            <tr class="vk-compare__row" style="--vk-i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+              <th scope="row" class="vk-compare__feature">{{ b.feature }}</th>
+              <td class="vk-compare__cell vk-compare__cell--ours"><span class="vk-compare__status vk-compare__status--yes">{% render 'vk-compare-icon', status: 'yes' %}</span><span>{{ b.ours }}</span></td>
+              <td class="vk-compare__cell vk-compare__c1"><span class="vk-compare__status vk-compare__status--{{ b.c1_status }}">{% render 'vk-compare-icon', status: b.c1_status %}</span><span>{{ b.c1_text }}</span></td>
+              {%- if vk_has_c2 -%}
+                <td class="vk-compare__cell vk-compare__c2"><span class="vk-compare__status vk-compare__status--{{ b.c2_status }}">{% render 'vk-compare-icon', status: b.c2_status %}</span><span>{{ b.c2_text }}</span></td>
+              {%- endif -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <div class="vk-compare__foot">
+        <p class="vk-compare__promise">{% render 'vk-icon', name: 'shield', size: 18 %}<span>{{ s.footnote }}</span></p>
+        {%- render 'vk-button', label: s.button_label, url: s.button_url, icon: 'arrow-right', size: 'sm' -%}
+      </div>
+    </vk-compare>
+  </div>
+</section>
+<script src="{{ 'vk-proof.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Comparison",
+  "tag": "div",
+  "class": "vk-compare-section",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "07" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The comparison" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Not all pans are <em>created equal</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "How VolcanicCore™ compares with the two pans most kitchens already own." },
+    { "type": "text", "id": "competitor_1", "label": "Competitor 1", "default": "Non-stick" },
+    { "type": "text", "id": "competitor_2", "label": "Competitor 2", "info": "Leave empty for a two-column comparison.", "default": "Cast iron" },
+    { "type": "textarea", "id": "footnote", "label": "Footnote", "default": "Compared with typical PTFE-coated aluminium pans and traditional unenamelled cast iron. Individual products vary." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Choose your pan" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "row", "name": "Row", "limit": 14, "settings": [
+      { "type": "text", "id": "group", "label": "Group heading (optional)", "info": "Starts a new group above this row." },
+      { "type": "text", "id": "feature", "label": "Feature", "default": "Searing" },
+      { "type": "text", "id": "ours", "label": "VOLKARA", "default": "Deep, even crust" },
+      { "type": "select", "id": "c1_status", "label": "Competitor 1 status", "default": "no", "options": [{ "value": "yes", "label": "Yes" }, { "value": "partial", "label": "Partial" }, { "value": "no", "label": "No" }] },
+      { "type": "text", "id": "c1_text", "label": "Competitor 1 text", "default": "Coating limits high heat" },
+      { "type": "select", "id": "c2_status", "label": "Competitor 2 status", "default": "yes", "options": [{ "value": "yes", "label": "Yes" }, { "value": "partial", "label": "Partial" }, { "value": "no", "label": "No" }] },
+      { "type": "text", "id": "c2_text", "label": "Competitor 2 text", "default": "Excellent crust" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Comparison", "blocks": [{ "type": "row", "settings": { "group": "Performance" } }, { "type": "row" }] }]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+{%- doc -%}
+  VolcanicCore™ exploded layer stack — pure CSS 3D discs, no image dependency.
+  @param {array} layers - Section blocks of type 'layer' (top → bottom).
+  @example
+  {% render 'vk-layer-stack', layers: vk_layers %}
+{%- enddoc -%}
+<div class="vk-stack" aria-hidden="true">
+  <div class="vk-stack__glow"></div>
+  <div class="vk-stack__inner">
+    {%- for layer in layers -%}
+      <div class="vk-layer vk-layer--{{ layer.settings.texture }}" data-i="{{ forloop.index }}" style="--i: {{ forloop.index0 }}; --n: {{ layers.size }};">
+        <span class="vk-layer__face"></span>
+        <span class="vk-layer__tag vk-mono">{{ forloop.index | prepend: '0' }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+  <div class="vk-stack__shadow"></div>
+</div>

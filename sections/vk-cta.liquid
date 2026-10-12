@@ -1,0 +1,61 @@
+{{ 'vk-section-proof.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-cta vk-cta--{{ s.layout }} color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-cta__panel">
+      <div class="vk-cta__media" data-parallax="0.1" aria-hidden="true">
+        {%- if s.image != blank or settings.use_bundled_visuals -%}
+          {%- render 'vk-image', image: s.image, sizes: '100vw', fallback: s.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'hero', alt: '' -%}
+        {%- endif -%}
+      </div>
+      <div class="vk-cta__shade" aria-hidden="true"></div>
+      {%- if s.show_embers %}<vk-embers count="40"></vk-embers>{% endif -%}
+      <div class="vk-cta__content">
+        {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: 'center', size: 'h1' -%}
+        <div class="vk-cta__button" data-reveal data-reveal-delay="300">
+          <span class="vk-cta__ring" aria-hidden="true"></span>
+          {%- render 'vk-button', label: s.button_label, url: s.button_url, icon: 'arrow-right', magnetic: true, size: 'lg' -%}
+        </div>
+        {%- if section.blocks.size > 0 -%}
+          <ul class="vk-cta__chips" role="list" data-reveal data-reveal-delay="450">
+            {%- for block in section.blocks -%}
+              <li class="vk-cta__chip" {{ block.shopify_attributes }}>{% render 'vk-icon', name: block.settings.icon, size: 16 %}{{ block.settings.text }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if s.guarantee != blank -%}<p class="vk-cta__guarantee" data-reveal data-reveal-delay="550">{% render 'vk-icon', name: 'shield', size: 16 %}{{ s.guarantee }}</p>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Call to action",
+  "tag": "div",
+  "class": "vk-cta-section",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "inset", "options": [{ "value": "inset", "label": "Inset card" }, { "value": "full", "label": "Full bleed" }] },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-sear.webp", "options": [{ "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-hero.webp", "label": "Pan over flame" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-forge.webp", "label": "Forge & sparks" }] },
+    { "type": "checkbox", "id": "show_embers", "label": "Ember particles", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Your last pan" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "The last pan you'll ever <em>buy</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Choose your size. Cook with it for 60 days. Keep it for life." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Choose your pan" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "text", "id": "guarantee", "label": "Guarantee line" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "chip", "name": "Promise chip", "limit": 4, "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "shield", "options": [{ "value": "shield", "label": "Shield" }, { "value": "return", "label": "Return" }, { "value": "truck", "label": "Truck" }, { "value": "lock", "label": "Lock" }, { "value": "leaf", "label": "Leaf" }] },
+      { "type": "text", "id": "text", "label": "Text", "default": "Lifetime warranty" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Call to action", "blocks": [{ "type": "chip" }, { "type": "chip", "settings": { "icon": "return", "text": "60-day home trial" } }, { "type": "chip", "settings": { "icon": "truck", "text": "Free shipping over €75" } }] }]
+}
+{% endschema %}

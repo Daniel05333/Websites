@@ -1,0 +1,107 @@
+{{ 'vk-section-technology.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign vk_layers = section.blocks | where: 'type', 'layer'
+  assign vk_stats = section.blocks | where: 'type', 'stat'
+  assign vk_layout = section.settings.layout
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-tech vk-tech--{{ vk_layout }} color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.show_background -%}
+    <div class="vk-tech__bg" aria-hidden="true">{% render 'vk-image', image: section.settings.image, sizes: '100vw', fallback: 'vk-visual-macro.webp', placeholder: 'macro', alt: '' %}</div>
+  {%- endif -%}
+  <div class="vk-container">
+    <div class="vk-tech__intro">
+      {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.intro -%}
+    </div>
+  </div>
+
+  <vk-technology class="vk-tech__scroller" data-layout="{{ vk_layout }}" data-active="1"{% if vk_layout == 'cinematic' %} data-scrub="sticky"{% endif %} style="--vk-layers: {{ vk_layers.size }};">
+    <div class="vk-tech__sticky">
+      <div class="vk-container vk-tech__grid">
+        <div class="vk-tech__visual">
+          {%- render 'vk-layer-stack', layers: vk_layers -%}
+          <p class="vk-tech__readout vk-mono" aria-hidden="true">
+            {%- for layer in vk_layers -%}<span data-readout="{{ forloop.index }}">{{ layer.settings.spec }}</span>{%- endfor -%}
+          </p>
+        </div>
+        <ol class="vk-tech__steps" role="list">
+          {%- for layer in vk_layers -%}
+            <li class="vk-tech__step" data-step="{{ forloop.index }}" tabindex="0" {{ layer.shopify_attributes }}>
+              <p class="vk-tech__spec vk-mono">{{ layer.settings.spec }}</p>
+              <h3 class="vk-tech__name">{{ layer.settings.name }}</h3>
+              <div class="vk-tech__desc">{{ layer.settings.description }}</div>
+            </li>
+          {%- endfor -%}
+          <li class="vk-tech__rail" aria-hidden="true"><span></span></li>
+        </ol>
+      </div>
+    </div>
+  </vk-technology>
+
+  <div class="vk-container">
+    {%- if vk_stats.size > 0 -%}
+      <dl class="vk-tech__stats" data-reveal-stagger>
+        {%- for block in vk_stats -%}
+          <div class="vk-tech__stat" data-reveal {{ block.shopify_attributes }}>
+            <dt class="vk-tech__stat-label">{{ block.settings.label }}</dt>
+            <dd class="vk-tech__stat-value"><span data-count-to="{{ block.settings.number }}" data-count-decimals="{{ block.settings.decimals }}">{{ block.settings.number }}</span><span class="vk-tech__stat-suffix">{{ block.settings.suffix }}</span></dd>
+          </div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank or section.settings.footnote != blank -%}
+      <div class="vk-tech__foot" data-reveal>
+        {%- render 'vk-button', label: section.settings.button_label, url: section.settings.button_url, icon: 'arrow-right', style: 'secondary' -%}
+        {%- if section.settings.footnote != blank %}<p class="vk-small vk-subtle">{{ section.settings.footnote }}</p>{% endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+<script src="{{ 'vk-technology.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VolcanicCore™ technology",
+  "tag": "div",
+  "class": "vk-tech-section",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "cinematic", "options": [{ "value": "cinematic", "label": "Cinematic (sticky scroll story)" }, { "value": "compact", "label": "Compact (interactive)" }] },
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "04" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "VolcanicCore™ technology" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Engineered like a <em>volcano</em>." },
+    { "type": "inline_richtext", "id": "intro", "label": "Intro", "default": "A volcano is layered rock and contained heat. VolcanicCore™ is built the same way: five forged layers, each with a single job, bonded into one body." },
+    { "type": "checkbox", "id": "show_background", "label": "Macro texture background", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "See it in the Forge Pan" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "text", "id": "footnote", "label": "Footnote", "default": "Specifications shown for the Forge Pan. Each product page lists its own dimensions and weight." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "layer", "name": "Layer", "limit": 6, "settings": [
+      { "type": "text", "id": "name", "label": "Name", "default": "LavaCell™ Surface" },
+      { "type": "text", "id": "spec", "label": "Spec label", "default": "LAYER 01 · LAVACELL™ · Ti" },
+      { "type": "richtext", "id": "description", "label": "Description", "default": "<p>Laser-etched hexagonal titanium relief.</p>" },
+      { "type": "select", "id": "texture", "label": "Texture", "default": "lavacell", "options": [
+        { "value": "lavacell", "label": "LavaCell™ hexagons" }, { "value": "titanium", "label": "Titanium" }, { "value": "thermal", "label": "Thermal core (heat)" }, { "value": "steel", "label": "Brushed steel" }, { "value": "magnetic", "label": "Magnetic base" }
+      ] }
+    ] },
+    { "type": "stat", "name": "Stat", "limit": 4, "settings": [
+      { "type": "number", "id": "number", "label": "Number", "default": 5 },
+      { "type": "range", "id": "decimals", "label": "Decimals", "min": 0, "max": 2, "step": 1, "default": 0 },
+      { "type": "text", "id": "suffix", "label": "Suffix", "default": "-PLY" },
+      { "type": "text", "id": "label", "label": "Label", "default": "forged layers, bonded as one" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · VolcanicCore™", "blocks": [
+    { "type": "layer" },
+    { "type": "layer", "settings": { "name": "Titanium Shield", "spec": "LAYER 02 · TITANIUM SHIELD · Ti", "texture": "titanium" } },
+    { "type": "layer", "settings": { "name": "Thermal Core", "spec": "LAYER 03 · THERMAL CORE · Al ×3", "texture": "thermal" } },
+    { "type": "layer", "settings": { "name": "Stainless Structure", "spec": "LAYER 04 · STAINLESS STRUCTURE · 18/10", "texture": "steel" } },
+    { "type": "layer", "settings": { "name": "Magnetic Base", "spec": "LAYER 05 · MAGNETIC BASE · 18/0", "texture": "magnetic" } },
+    { "type": "stat" }
+  ] }]
+}
+{% endschema %}

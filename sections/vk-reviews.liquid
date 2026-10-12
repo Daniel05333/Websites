@@ -1,0 +1,81 @@
+{{ 'vk-section-social.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_avg = s.average | times: 1.0
+  assign vk_count = s.count
+  if template.name == 'product' and product.metafields.reviews.rating.value != blank
+    assign vk_avg = product.metafields.reviews.rating.value.rating | times: 1.0
+    assign vk_count = product.metafields.reviews.rating_count.value
+  endif
+  assign vk_reviews = section.blocks | where: 'type', 'review'
+  assign vk_apps = section.blocks | where: 'type', '@app'
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-reviews color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-section-head">
+      {%- render 'vk-heading', index: s.index, eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}
+      {%- if vk_avg > 0 and s.show_summary -%}
+        <div class="vk-reviews__summary" data-reveal="fade">
+          <p class="vk-reviews__avg">{{ vk_avg | round: 1 }}</p>
+          <div>
+            {%- render 'vk-rating', rating: vk_avg, size: 'md', show_text: false -%}
+            {%- if vk_count > 0 %}<p class="vk-small vk-muted">{{ 'sections.reviews.based_on' | t: count: vk_count }}</p>{% endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- for block in vk_apps -%}<div class="vk-reviews__app" {{ block.shopify_attributes }}>{% render block %}</div>{%- endfor -%}
+    {%- if vk_reviews.size > 0 -%}
+      <vk-slider class="vk-reviews__slider"{% if s.autoplay %} data-autoplay="7000"{% endif %}>
+        <ul class="vk-slider__track vk-reviews__track" data-slider-track role="list" tabindex="0" aria-label="{{ s.eyebrow | escape }}">
+          {%- for block in vk_reviews -%}
+            <li data-reveal style="--vk-i: {{ forloop.index0 | modulo: 4 }};">{% render 'vk-review-card', block: block %}</li>
+          {%- endfor -%}
+        </ul>
+        <div class="vk-featured__foot">
+          {%- render 'vk-slider-controls' -%}
+          {%- if s.link_label != blank -%}{% render 'vk-button', label: s.link_label, url: s.link, style: 'secondary', size: 'sm', icon: 'arrow-right' %}{%- endif -%}
+        </div>
+      </vk-slider>
+    {%- endif -%}
+  </div>
+</section>
+<script src="{{ 'vk-social.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Reviews slider",
+  "tag": "div",
+  "class": "vk-reviews-section",
+  "settings": [
+    { "type": "paragraph", "content": "Sample reviews are for layout only. Replace them with real, verified reviews (or a reviews app block) before launch — publishing invented reviews is prohibited under EU consumer law." },
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "08" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reviews" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Trusted by kitchens that <em>cook daily</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "What home cooks say after the first sear — and the hundredth." },
+    { "type": "checkbox", "id": "show_summary", "label": "Show rating summary", "default": true, "info": "On product pages the summary uses the product's reviews metafields." },
+    { "type": "text", "id": "average", "label": "Average rating (non-product pages)", "info": "Only enter a figure your reviews platform can substantiate. Leave empty to hide." },
+    { "type": "number", "id": "count", "label": "Review count (non-product pages)" },
+    { "type": "checkbox", "id": "autoplay", "label": "Auto-advance", "default": false },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Read all reviews" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    { "type": "review", "name": "Review", "settings": [
+      { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "text", "id": "title", "label": "Title", "default": "The crust I'd been chasing for years" },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Sample review — replace with a real customer review.</p>" },
+      { "type": "text", "id": "author", "label": "Author", "default": "Lotte V." },
+      { "type": "text", "id": "product_label", "label": "Product purchased", "default": "Forge Pan · 28 cm" },
+      { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
+      { "type": "image_picker", "id": "image", "label": "Customer photo" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Reviews slider", "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }] }]
+}
+{% endschema %}

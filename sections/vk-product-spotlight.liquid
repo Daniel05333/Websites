@@ -1,0 +1,104 @@
+{{ 'vk-section-merch.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign product = section.settings.product
+  if product == blank
+    assign product = all_products['forge-pan']
+  endif
+  if product == blank
+    assign product = collections.all.products.first
+  endif
+  assign vk_v = product.selected_or_first_available_variant
+  assign vk_form_id = 'vk-spotlight-form-' | append: section.id
+  assign vk_qty_id = vk_form_id | append: '-qty'
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-spotlight color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container vk-spotlight__grid">
+    <div class="vk-spotlight__visual" data-scrub>
+      <div class="vk-spotlight__glow" aria-hidden="true"></div>
+      <div class="vk-spotlight__media" data-tilt="5" data-reveal="scale">
+        {%- if section.settings.image != blank -%}
+          {%- render 'vk-image', image: section.settings.image, sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title -%}
+        {%- elsif product.featured_media -%}
+          {%- render 'vk-image', image: product.featured_media, sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title -%}
+        {%- else -%}
+          {%- render 'vk-image', image: blank, fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'product', alt: product.title -%}
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="vk-spotlight__info">
+      {%- render 'vk-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.text -%}
+      {%- if product != blank -%}
+        <div class="vk-spotlight__meta" data-reveal>
+          {%- render 'vk-product-rating', product: product, size: 'md' -%}
+          <div data-spotlight-price>{% render 'vk-price', product: product, variant: vk_v, size: 'lg' %}</div>
+        </div>
+        {%- assign vk_bullets = section.blocks | where: 'type', 'bullet' -%}
+        {%- if vk_bullets.size > 0 -%}
+          <ul class="vk-check-list vk-spotlight__bullets" role="list" data-reveal-stagger>
+            {%- for block in vk_bullets -%}<li data-reveal {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <vk-product-form class="vk-spotlight__form" data-reveal>
+          {%- form 'product', product, id: vk_form_id, novalidate: 'novalidate' -%}
+            <input type="hidden" name="id" value="{{ vk_v.id }}" data-spotlight-id>
+            {%- unless product.has_only_default_variant -%}
+              <fieldset class="vk-spotlight__options">
+                <legend class="vk-eyebrow">{{ product.options.first }}</legend>
+                <div class="vk-flex">
+                  {%- for variant in product.variants -%}
+                    <label class="vk-pill{% unless variant.available %} is-disabled{% endunless %}">
+                      <input type="radio" name="vk-spotlight-{{ section.id }}" value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare="{{ variant.compare_at_price }}" data-available="{{ variant.available }}"{% if variant.id == vk_v.id %} checked{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                      <span>{{ variant.title }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+                {%- if section.settings.size_helper != blank -%}<p class="vk-spotlight__helper vk-small vk-muted">{{ section.settings.size_helper }}</p>{%- endif -%}
+              </fieldset>
+            {%- endunless -%}
+            <div class="vk-spotlight__buy">
+              {%- render 'vk-quantity', id: vk_qty_id -%}
+              <button type="submit" class="vk-btn vk-btn--primary vk-btn--lg vk-spotlight__atc" data-magnetic{% unless vk_v.available %} disabled{% endunless %}>
+                <span class="vk-btn__label" data-atc-label>{% if vk_v.available %}{{ 'products.product.add_to_cart' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+              </button>
+            </div>
+            <p class="vk-form-message vk-form-message--error" data-form-error role="alert" hidden></p>
+          {%- endform -%}
+        </vk-product-form>
+        <div class="vk-spotlight__foot" data-reveal>
+          <a href="{{ product.url }}" class="vk-link">{{ section.settings.link_label }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a>
+          <ul class="vk-spotlight__promises" role="list">
+            {%- if settings.promise_warranty != blank %}<li>{% render 'vk-icon', name: 'shield', size: 16 %}{{ settings.promise_warranty }}</li>{% endif -%}
+            {%- if settings.promise_trial != blank %}<li>{% render 'vk-icon', name: 'return', size: 16 %}{{ settings.promise_trial }}</li>{% endif -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+<script src="{{ 'vk-spotlight.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Product spotlight",
+  "tag": "div",
+  "class": "vk-spotlight-section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "image_picker", "id": "image", "label": "Image override" },
+    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-sear.webp", "options": [{ "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-pan.webp", "label": "Forge Pan" }, { "value": "vk-visual-set.webp", "label": "Set" }] },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Forge Pan" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "The only pan you'll <em>reach for</em>." },
+    { "type": "inline_richtext", "id": "text", "label": "Text", "default": "Four sizes, one obsession. The Forge Pan is VolcanicCore™ in its purest form: a fast, even, ferocious sear on any hob, and a titanium surface that only improves with use." },
+    { "type": "text", "id": "size_helper", "label": "Size helper", "default": "20 cm — eggs & sauces · 24 cm — the everyday all-rounder · 28 cm — family meals · 32 cm — cooking for a crowd" },
+    { "type": "text", "id": "link_label", "label": "Details link label", "default": "Explore the Forge Pan" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "bullet", "name": "Bullet", "limit": 6, "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "LavaCell™ titanium surface — no coating, ever" }] }
+  ],
+  "presets": [{ "name": "VOLKARA · Product spotlight", "blocks": [{ "type": "bullet" }] }]
+}
+{% endschema %}

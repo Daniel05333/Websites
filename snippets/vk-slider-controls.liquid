@@ -1,0 +1,14 @@
+{%- doc -%}
+  Slider progress + counter + prev/next buttons for vk-slider.
+  @param {string} [class] - Extra classes.
+  @example
+  {% render 'vk-slider-controls' %}
+{%- enddoc -%}
+<div class="vk-slider__controls{% if class %} {{ class }}{% endif %}">
+  <span class="vk-slider__count" data-slider-count aria-hidden="true"></span>
+  <div class="vk-slider__progress" aria-hidden="true"><span class="vk-slider__progress-bar" data-slider-progress></span></div>
+  <div class="vk-slider__buttons">
+    <button type="button" class="vk-icon-btn" data-slider-prev aria-label="{{ 'general.previous' | t }}">{% render 'vk-icon', name: 'arrow-left', size: 18 %}</button>
+    <button type="button" class="vk-icon-btn" data-slider-next aria-label="{{ 'general.next' | t }}">{% render 'vk-icon', name: 'arrow-right', size: 18 %}</button>
+  </div>
+</div>

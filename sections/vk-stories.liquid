@@ -1,0 +1,89 @@
+{{ 'vk-section-social.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-stories color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-section-head">
+      {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}
+      {%- if s.link_label != blank %}<a href="{{ s.link }}" class="vk-link" data-reveal="fade">{{ s.link_label }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a>{% endif -%}
+    </div>
+    <vk-slider>
+      <ul class="vk-slider__track vk-stories__track" data-slider-track role="list" tabindex="0">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <li class="vk-story" data-reveal style="--vk-i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>
+            <div class="vk-story__media">
+              {%- if b.video != blank -%}
+                <vk-video data-hover-only class="vk-story__video">
+                  {{ b.video | video_tag: muted: true, loop: true, playsinline: true, preload: 'none', image_size: '720x' }}
+                </vk-video>
+              {%- elsif b.poster != blank or settings.use_bundled_visuals -%}
+                {%- render 'vk-image', image: b.poster, sizes: '(min-width: 990px) 22vw, 70vw', fallback: b.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'chef', alt: b.title -%}
+              {%- else -%}
+                {%- render 'vk-placeholder', type: 'chef', label: b.title -%}
+              {%- endif -%}
+              {%- if b.video != blank -%}
+                <button type="button" class="vk-story__play" data-story-open aria-label="{{ 'sections.stories.play' | t: title: b.title }}">{% render 'vk-icon', name: 'play', size: 22 %}</button>
+              {%- endif -%}
+              <div class="vk-story__overlay">
+                {%- if b.handle != blank %}<span class="vk-story__handle vk-mono">{{ b.handle }}</span>{% endif -%}
+                <p class="vk-story__title">{{ b.title }}</p>
+                <p class="vk-story__caption">{{ b.caption }}</p>
+              </div>
+            </div>
+            {%- if b.product != blank -%}
+              <a href="{{ b.product.url }}" class="vk-story__product">
+                <span class="vk-story__thumb vk-media vk-ratio-square">{%- if b.product.featured_image -%}{{ b.product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'vk-placeholder', type: 'product' %}{%- endif -%}</span>
+                <span class="vk-story__product-info"><span class="vk-story__product-title">{{ b.product.title | escape }}</span>{% render 'vk-price', product: b.product, show_save: false %}</span>
+                {% render 'vk-icon', name: 'arrow-up-right', size: 16 %}
+              </a>
+            {%- elsif b.product_label != blank -%}
+              <p class="vk-story__tag vk-mono">{{ b.product_label }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- render 'vk-slider-controls' -%}
+    </vk-slider>
+  </div>
+  <vk-drawer id="vk-stories-{{ section.id }}" side="bottom" class="vk-story-modal" role="dialog" aria-modal="true" aria-label="{{ s.eyebrow | escape }}">
+    <div class="vk-drawer__overlay"></div>
+    <div class="vk-drawer__panel vk-story-modal__panel">
+      <button type="button" class="vk-icon-btn vk-story-modal__close" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 20 %}</button>
+      <div class="vk-story-modal__stage" data-story-stage></div>
+    </div>
+  </vk-drawer>
+</section>
+<script src="{{ 'vk-social.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Customer stories",
+  "tag": "div",
+  "class": "vk-stories-section",
+  "settings": [
+    { "type": "paragraph", "content": "Only show customer content you have permission to use. Label brand-made films as 'From our kitchen'." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "From our kitchen" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Real cooks. Real <em>results</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Share yours with #VOLKARAKITCHEN and we may feature it here." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop the Forge Pan" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "story", "name": "Story", "limit": 10, "settings": [
+      { "type": "video", "id": "video", "label": "Video (vertical 9:16)" },
+      { "type": "image_picker", "id": "poster", "label": "Poster image" },
+      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-sear.webp", "options": [{ "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-forge.webp", "label": "Forge" }, { "value": "vk-visual-wok.webp", "label": "Wok" }] },
+      { "type": "text", "id": "title", "label": "Title", "default": "The egg test" },
+      { "type": "text", "id": "caption", "label": "Caption", "default": "Preheat, oil, wait for the shimmer. It slides." },
+      { "type": "text", "id": "handle", "label": "Credit / handle" },
+      { "type": "product", "id": "product", "label": "Product" },
+      { "type": "text", "id": "product_label", "label": "Product label (if no product)", "default": "Forge Pan · 24 cm" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Customer stories", "blocks": [{ "type": "story" }, { "type": "story" }, { "type": "story" }, { "type": "story" }] }]
+}
+{% endschema %}

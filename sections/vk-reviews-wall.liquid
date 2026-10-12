@@ -1,0 +1,83 @@
+{{ 'vk-section-social.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_avg = s.average | times: 1.0
+  assign vk_count = s.count
+  if product.metafields.reviews.rating.value != blank
+    assign vk_avg = product.metafields.reviews.rating.value.rating | times: 1.0
+    assign vk_count = product.metafields.reviews.rating_count.value
+  endif
+  assign vk_reviews = section.blocks | where: 'type', 'review'
+  assign vk_apps = section.blocks | where: 'type', '@app'
+-%}
+<section id="reviews" class="vk-section vk-wall color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div id="vk-{{ section.id }}" class="vk-container">
+    <div class="vk-wall__head">
+      {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading -%}
+      <div class="vk-wall__score" data-reveal>
+        {%- if vk_avg > 0 -%}
+          <p class="vk-reviews__avg">{{ vk_avg | round: 1 }}</p>
+          <div class="vk-wall__score-meta">
+            {%- render 'vk-rating', rating: vk_avg, size: 'md', show_text: false -%}
+            {%- if vk_count > 0 %}<p class="vk-small vk-muted">{{ 'sections.reviews.based_on' | t: count: vk_count }}</p>{% endif -%}
+          </div>
+        {%- endif -%}
+        {%- if s.write_url != blank %}{% render 'vk-button', label: s.write_label, url: s.write_url, style: 'secondary', size: 'sm' %}{% endif -%}
+      </div>
+    </div>
+    {%- for block in vk_apps -%}<div class="vk-reviews__app" {{ block.shopify_attributes }}>{% render block %}</div>{%- endfor -%}
+    {%- if vk_reviews.size > 0 -%}
+      <vk-reviews-wall data-page-size="{{ s.page_size }}">
+        <div class="vk-wall__filters" role="group" aria-label="{{ 'sections.reviews.filter' | t }}">
+          <button type="button" class="vk-chip is-active" aria-pressed="true" data-wall-filter="all">{{ 'sections.reviews.all' | t }}</button>
+          <button type="button" class="vk-chip" aria-pressed="false" data-wall-filter="photos">{{ 'sections.reviews.with_photos' | t }}</button>
+          <button type="button" class="vk-chip" aria-pressed="false" data-wall-filter="5">{{ 'sections.reviews.five_stars' | t }}</button>
+        </div>
+        <div class="vk-wall__grid" data-wall-grid>
+          {%- for block in vk_reviews -%}
+            <div class="vk-wall__item"{% if forloop.index > s.page_size %} hidden data-wall-more{% endif %}>{% render 'vk-review-card', block: block, variant: 'wall' %}</div>
+          {%- endfor -%}
+        </div>
+        {%- if vk_reviews.size > s.page_size -%}
+          <div class="vk-center"><button type="button" class="vk-btn vk-btn--secondary" data-wall-more-btn><span class="vk-btn__label">{{ 'sections.reviews.show_more' | t }}</span></button></div>
+        {%- endif -%}
+      </vk-reviews-wall>
+    {%- endif -%}
+  </div>
+</section>
+<script src="{{ 'vk-social.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Reviews wall",
+  "tag": "div",
+  "class": "vk-wall-section",
+  "settings": [
+    { "type": "paragraph", "content": "Add your reviews app block here, or replace the sample reviews with real, verified ones before launch." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reviews" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "In their <em>kitchens</em>." },
+    { "type": "text", "id": "average", "label": "Fallback average rating", "info": "Used only when the product has no reviews metafields." },
+    { "type": "number", "id": "count", "label": "Fallback review count" },
+    { "type": "text", "id": "write_label", "label": "Write review label", "default": "Write a review" },
+    { "type": "url", "id": "write_url", "label": "Write review link" },
+    { "type": "range", "id": "page_size", "label": "Reviews shown before 'Show more'", "min": 3, "max": 18, "step": 3, "default": 9 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    { "type": "review", "name": "Review", "settings": [
+      { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+      { "type": "text", "id": "title", "label": "Title" },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Sample review — replace with a real customer review.</p>" },
+      { "type": "text", "id": "author", "label": "Author", "default": "Customer" },
+      { "type": "text", "id": "product_label", "label": "Product purchased" },
+      { "type": "checkbox", "id": "verified", "label": "Verified buyer", "default": true },
+      { "type": "image_picker", "id": "image", "label": "Customer photo" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Reviews wall", "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }] }]
+}
+{% endschema %}

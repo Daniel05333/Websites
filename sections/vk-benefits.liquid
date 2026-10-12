@@ -1,0 +1,75 @@
+{{ 'vk-section-benefits.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-benefits color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-section-head">
+      {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading -%}
+      {%- if section.settings.button_label != blank -%}
+        <div data-reveal="fade">{% render 'vk-button', label: section.settings.button_label, url: section.settings.button_url, style: 'secondary', icon: 'arrow-right' %}</div>
+      {%- endif -%}
+    </div>
+    <ul class="vk-bento" role="list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign b = block.settings
+          assign vk_has_img = false
+          if b.image != blank or b.fallback != 'none'
+            assign vk_has_img = true
+          endif
+        -%}
+        <li class="vk-bento__tile vk-bento__tile--{{ b.size }} vk-bento__tile--{{ b.theme }}{% if vk_has_img %} has-image{% endif %}" data-reveal style="--vk-i: {{ forloop.index0 }};" data-glow {{ block.shopify_attributes }}>
+          {%- if vk_has_img -%}
+            <div class="vk-bento__media" aria-hidden="true">
+              {%- if b.image != blank or settings.use_bundled_visuals -%}
+                {%- render 'vk-image', image: b.image, sizes: '(min-width: 990px) 50vw, 100vw', fallback: b.fallback, fallback_width: 1280, fallback_height: 720, placeholder: 'lifestyle', alt: '' -%}
+              {%- else -%}
+                {%- render 'vk-placeholder', type: 'macro' -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          <div class="vk-bento__content">
+            {%- if b.icon != 'none' -%}<span class="vk-bento__icon">{% render 'vk-icon', name: b.icon, size: 22 %}</span>{%- endif -%}
+            {%- if b.stat != blank -%}<p class="vk-bento__stat vk-mono">{{ b.stat }}</p>{%- endif -%}
+            <h3 class="vk-bento__title">{{ b.title }}</h3>
+            <div class="vk-bento__text">{{ b.text }}</div>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Benefits bento",
+  "tag": "div",
+  "class": "vk-benefits-section",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "06" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why chefs switch" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Performance you can <em>feel</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "The difference shows up in the first week — and keeps showing up for decades." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Find your piece" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-5" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "tile", "name": "Tile", "limit": 8, "settings": [
+      { "type": "select", "id": "size", "label": "Size", "default": "small", "options": [{ "value": "small", "label": "Small" }, { "value": "wide", "label": "Wide" }, { "value": "tall", "label": "Tall" }, { "value": "large", "label": "Large" }] },
+      { "type": "select", "id": "theme", "label": "Tile style", "default": "light", "options": [{ "value": "light", "label": "Light" }, { "value": "dark", "label": "Dark" }, { "value": "ember", "label": "Ember" }] },
+      { "type": "select", "id": "icon", "label": "Icon", "default": "flame", "options": [
+        { "value": "none", "label": "None" }, { "value": "flame", "label": "Flame" }, { "value": "thermometer", "label": "Thermometer" }, { "value": "utensils", "label": "Utensils" }, { "value": "oven", "label": "Oven" },
+        { "value": "dishwasher", "label": "Dishwasher" }, { "value": "award", "label": "Award" }, { "value": "layers", "label": "Layers" }, { "value": "shield", "label": "Shield" }, { "value": "induction", "label": "Induction" }
+      ] },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "none", "options": [{ "value": "none", "label": "None" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }] },
+      { "type": "text", "id": "stat", "label": "Stat", "default": "3.0 MM" },
+      { "type": "text", "id": "title", "label": "Title", "default": "A sear with real crust" },
+      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Peaks lift, valleys hold oil.</p>" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Benefits bento", "blocks": [{ "type": "tile", "settings": { "size": "large", "theme": "dark" } }, { "type": "tile" }, { "type": "tile" }, { "type": "tile", "settings": { "size": "wide", "theme": "ember" } }] }]
+}
+{% endschema %}

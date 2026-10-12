@@ -1,0 +1,80 @@
+{{ 'vk-section-proof.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-faq vk-faq--{{ s.layout }} color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container{% if s.layout == 'centered' %} vk-container--narrow{% endif %} vk-faq__grid">
+    <div class="vk-faq__aside">
+      {%- assign vk_align = 'left' -%}{%- if s.layout == 'centered' %}{% assign vk_align = 'center' %}{% endif -%}
+      {%- render 'vk-heading', index: s.index, eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: vk_align -%}
+      {%- if s.layout == 'split' and s.contact_text != blank -%}
+        <a href="{{ s.contact_url | default: '/pages/contact' }}" class="vk-faq__contact" data-reveal data-glow>
+          <span class="vk-faq__contact-icon">{% render 'vk-icon', name: 'chat', size: 22 %}</span>
+          <span><span class="vk-faq__contact-title">{{ s.contact_title }}</span><span class="vk-faq__contact-text">{{ s.contact_text }}</span></span>
+          {% render 'vk-icon', name: 'arrow-up-right', size: 18 %}
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="vk-faq__main">
+      {%- if s.show_filter -%}
+        <div class="vk-faq__filter" data-reveal>
+          <label for="vk-faq-filter-{{ section.id }}" class="vk-visually-hidden">{{ 'sections.faq.filter_label' | t }}</label>
+          {% render 'vk-icon', name: 'search', size: 18 %}
+          <input id="vk-faq-filter-{{ section.id }}" type="search" class="vk-input" placeholder="{{ 'sections.faq.filter_placeholder' | t }}" data-faq-filter autocomplete="off">
+        </div>
+      {%- endif -%}
+      <vk-accordion class="vk-accordion vk-faq__list" data-single data-faq-list>
+        {%- for block in section.blocks -%}
+          <details class="vk-faq__item" {{ block.shopify_attributes }} data-reveal style="--vk-i: {{ forloop.index0 | modulo: 6 }};">
+            <summary><span class="vk-faq__q">{{ block.settings.question }}</span><span class="vk-accordion__icon" aria-hidden="true"></span></summary>
+            <div class="vk-accordion__content vk-rte">{{ block.settings.answer }}</div>
+          </details>
+        {%- endfor -%}
+      </vk-accordion>
+      <p class="vk-faq__empty vk-muted" data-faq-empty hidden>{{ 'sections.faq.no_results' | t }}</p>
+      {%- if s.layout == 'centered' and s.contact_text != blank -%}
+        <p class="vk-faq__more">{{ s.contact_title }} <a href="{{ s.contact_url | default: '/pages/contact' }}" class="vk-link">{{ s.contact_text }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for block in section.blocks -%}
+          { "@type": "Question", "name": {{ block.settings.question | strip_html | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+</section>
+<script src="{{ 'vk-proof.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "div",
+  "class": "vk-faq-section",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "split", "options": [{ "value": "split", "label": "Split (sticky heading)" }, { "value": "centered", "label": "Centered" }] },
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "09" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "FAQ" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Questions, <em>answered</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Everything worth knowing before your first sear." },
+    { "type": "checkbox", "id": "show_filter", "label": "Show instant search", "default": true },
+    { "type": "text", "id": "contact_title", "label": "Contact title", "default": "Still curious?" },
+    { "type": "text", "id": "contact_text", "label": "Contact text", "default": "Talk to a person — we reply within one working day." },
+    { "type": "url", "id": "contact_url", "label": "Contact link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "question", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "Is VOLKARA really PFAS-free?" },
+      { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes. There is no synthetic coating of any kind.</p>" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · FAQ", "blocks": [{ "type": "question" }, { "type": "question" }, { "type": "question" }] }]
+}
+{% endschema %}

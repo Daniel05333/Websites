@@ -33,7 +33,7 @@
   {%- else -%}
     {{ vk_img | image_url: width: 2000 | image_tag: sizes: vk_sizes, widths: vk_widths, class: class, loading: 'lazy', alt: vk_alt }}
   {%- endif -%}
-{%- elsif settings.use_bundled_visuals and fallback != blank -%}
+{%- elsif settings.use_bundled_visuals and fallback != blank and fallback != 'none' -%}
   <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" width="{{ fallback_width | default: 1280 }}" height="{{ fallback_height | default: 720 }}" class="{{ class }}" loading="{{ vk_loading }}"{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %} decoding="async">
 {%- else -%}
   {%- render 'vk-placeholder', type: placeholder, class: class, label: alt -%}

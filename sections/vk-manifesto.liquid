@@ -1,0 +1,61 @@
+{{ 'vk-section-manifesto.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign vk_words = section.settings.statement | strip_newlines
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-manifesto color-{{ section.settings.color_scheme }}{% if section.settings.show_image %} vk-manifesto--image{% endif %}" data-section-id="{{ section.id }}">
+  {%- if section.settings.show_image -%}
+    <div class="vk-manifesto__bg" data-parallax="0.12" aria-hidden="true">
+      {%- render 'vk-image', image: section.settings.image, sizes: '100vw', fallback: section.settings.fallback, fallback_width: 768, fallback_height: 1024, placeholder: 'lifestyle', alt: '' -%}
+    </div>
+  {%- endif -%}
+  <div class="vk-container">
+    {%- if section.settings.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <div class="vk-manifesto__scrub" data-scrub="center">
+      <p class="vk-manifesto__statement" data-manifesto>{{ section.settings.statement }}</p>
+    </div>
+    {%- if section.settings.text != blank -%}
+      <div class="vk-manifesto__text vk-lead" data-reveal>{{ section.settings.text }}</div>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <dl class="vk-manifesto__counters" data-reveal-stagger>
+        {%- for block in section.blocks -%}
+          <div class="vk-manifesto__counter" data-reveal {{ block.shopify_attributes }}>
+            <dt class="vk-manifesto__label">{{ block.settings.label }}</dt>
+            <dd class="vk-manifesto__value"><span data-count-to="{{ block.settings.number }}" data-count-decimals="{{ block.settings.decimals }}" data-count-prefix="{{ block.settings.prefix | escape }}">{{ block.settings.prefix }}{{ block.settings.number }}</span><span class="vk-manifesto__suffix">{{ block.settings.suffix }}</span></dd>
+          </div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+  </div>
+</section>
+<script src="{{ 'vk-manifesto.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Manifesto",
+  "tag": "div",
+  "class": "vk-manifesto-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The VOLKARA manifesto" },
+    { "type": "inline_richtext", "id": "statement", "label": "Statement", "info": "Words light up as visitors scroll. Italicise the accent word.", "default": "Most pans are made to be replaced. VOLKARA is made to be <em>inherited</em>." },
+    { "type": "inline_richtext", "id": "text", "label": "Supporting line", "default": "We started with one frustration: good cookware should get better every year, not worse. So we removed the coating, forged five layers of metal into one body and wrote a lifetime warranty to prove we meant it." },
+    { "type": "checkbox", "id": "show_image", "label": "Background image", "default": true },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-forge.webp", "options": [{ "value": "vk-visual-forge.webp", "label": "Forge & sparks" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }] },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 }
+  ],
+  "blocks": [
+    { "type": "counter", "name": "Counter", "limit": 4, "settings": [
+      { "type": "text", "id": "prefix", "label": "Prefix" },
+      { "type": "number", "id": "number", "label": "Number", "default": 5 },
+      { "type": "range", "id": "decimals", "label": "Decimals", "min": 0, "max": 2, "step": 1, "default": 0 },
+      { "type": "text", "id": "suffix", "label": "Suffix" },
+      { "type": "text", "id": "label", "label": "Label", "default": "forged layers in every pan" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Manifesto", "blocks": [{ "type": "counter" }] }]
+}
+{% endschema %}

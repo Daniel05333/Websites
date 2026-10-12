@@ -1,0 +1,70 @@
+{{ 'vk-section-merch.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign vk_tabs = section.blocks | where: 'type', 'tab' -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-featured color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-section-head">
+      {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading -%}
+    </div>
+    <vk-tabs class="vk-featured__tabs">
+      {%- if vk_tabs.size > 1 -%}
+        <div class="vk-tabs__list vk-featured__tablist" role="tablist" aria-label="{{ section.settings.eyebrow | escape }}" data-reveal="fade">
+          {%- for block in vk_tabs -%}
+            <button type="button" role="tab" id="vk-tab-{{ block.id }}" class="vk-chip{% if forloop.first %} is-active{% endif %}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="vk-panel-{{ block.id }}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.collection.title }}</button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- for block in vk_tabs -%}
+        {%- assign c = block.settings.collection -%}
+        <div id="vk-panel-{{ block.id }}" class="vk-tabs__panel" role="{% if vk_tabs.size > 1 %}tabpanel{% else %}region{% endif %}" aria-labelledby="vk-tab-{{ block.id }}"{% unless forloop.first %} hidden{% endunless %}>
+          <vk-slider>
+            <ul class="vk-slider__track vk-featured__track" data-slider-track role="list" tabindex="0">
+              {%- if c.products.size > 0 -%}
+                {%- for product in c.products limit: section.settings.limit -%}
+                  <li>{% render 'vk-product-card', product: product, index: forloop.index %}</li>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for i in (1..4) -%}
+                  <li><div class="vk-product-card vk-featured__ghost"><div class="vk-ratio-square">{% render 'vk-placeholder', type: 'product' %}</div><div class="vk-product-card__body"><p class="vk-product-card__title">{{ 'sections.featured.placeholder_title' | t }}</p><p class="vk-muted vk-small">{{ 'sections.featured.placeholder_text' | t }}</p></div></div></li>
+                {%- endfor -%}
+              {%- endif -%}
+            </ul>
+            <div class="vk-featured__foot">
+              {%- render 'vk-slider-controls' -%}
+              {%- if section.settings.link_label != blank -%}
+                {%- assign vk_url = c.url | default: routes.all_products_collection_url -%}
+                {%- render 'vk-button', label: section.settings.link_label, url: vk_url, style: 'secondary', icon: 'arrow-right', size: 'sm' -%}
+              {%- endif -%}
+            </div>
+          </vk-slider>
+        </div>
+      {%- endfor -%}
+    </vk-tabs>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "tag": "div",
+  "class": "vk-featured-section",
+  "settings": [
+    { "type": "text", "id": "index", "label": "Chapter number", "default": "05" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bestsellers" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "The <em>icons</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "The pieces most kitchens start with — and build around." },
+    { "type": "range", "id": "limit", "label": "Products per tab", "min": 3, "max": 12, "step": 1, "default": 8 },
+    { "type": "text", "id": "link_label", "label": "Button label", "default": "View all" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "tab", "name": "Tab", "limit": 6, "settings": [
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "collection", "id": "collection", "label": "Collection" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Featured collection", "blocks": [{ "type": "tab", "settings": { "label": "Bestsellers" } }] }]
+}
+{% endschema %}

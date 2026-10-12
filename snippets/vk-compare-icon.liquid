@@ -1,0 +1,21 @@
+{%- doc -%}
+  Comparison status icon (stroke draws in when the row reveals).
+  @param {string} status - 'yes' | 'partial' | 'no'.
+  @example
+  {% render 'vk-compare-icon', status: 'yes' %}
+{%- enddoc -%}
+<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+  <circle cx="12" cy="12" r="11" fill="currentColor" opacity=".14"/>
+  {%- case status -%}
+    {%- when 'yes' -%}<path class="vk-draw" d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    {%- when 'partial' -%}<path class="vk-draw" d="M7.5 12h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    {%- else -%}<path class="vk-draw" d="M8.5 8.5l7 7M15.5 8.5l-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  {%- endcase -%}
+</svg>
+<span class="vk-visually-hidden">
+  {%- case status -%}
+    {%- when 'yes' -%}{{ 'sections.comparison.status_yes' | t }}
+    {%- when 'partial' -%}{{ 'sections.comparison.status_partial' | t }}
+    {%- else -%}{{ 'sections.comparison.status_no' | t }}
+  {%- endcase -%}
+</span>

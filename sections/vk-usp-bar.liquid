@@ -1,0 +1,43 @@
+{{ 'vk-section-proof.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- capture vk_items -%}
+  {%- for block in section.blocks -%}
+    <li class="vk-usp__item" {{ block.shopify_attributes }}>
+      <span class="vk-usp__icon">{% render 'vk-icon', name: block.settings.icon, size: 20 %}</span>
+      <span class="vk-usp__copy"><span class="vk-usp__title">{{ block.settings.title }}</span>{% if block.settings.subtitle != blank %}<span class="vk-usp__sub">{{ block.settings.subtitle }}</span>{% endif %}</span>
+    </li>
+  {%- endfor -%}
+{%- endcapture -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-usp vk-usp--mobile-{{ section.settings.mobile_layout }} color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}" aria-label="{{ 'sections.usp.label' | t }}">
+  <div class="vk-container">
+    <ul class="vk-usp__list" role="list">{{ vk_items }}</ul>
+  </div>
+  {%- if section.settings.mobile_layout == 'marquee' -%}
+    <vk-marquee speed="30" class="vk-usp__marquee"><div class="vk-marquee__track"><ul class="vk-marquee__group vk-usp__list" role="list">{{ vk_items }}</ul></div></vk-marquee>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "USP bar",
+  "tag": "div",
+  "class": "vk-usp-section",
+  "settings": [
+    { "type": "select", "id": "mobile_layout", "label": "Mobile layout", "default": "marquee", "options": [{ "value": "marquee", "label": "Moving marquee" }, { "value": "grid", "label": "2 × 2 grid" }] },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 24 }
+  ],
+  "blocks": [
+    { "type": "usp", "name": "USP", "limit": 6, "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [
+        { "value": "leaf", "label": "Leaf" }, { "value": "shield", "label": "Shield" }, { "value": "warranty", "label": "Warranty" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return" },
+        { "value": "induction", "label": "Induction" }, { "value": "fire-ring", "label": "Fire ring" }, { "value": "hexagon", "label": "Hexagon" }, { "value": "lock", "label": "Lock" }, { "value": "dishwasher", "label": "Dishwasher" }
+      ] },
+      { "type": "text", "id": "title", "label": "Title", "default": "PFAS- & PTFE-free" },
+      { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "No coating, no chemicals" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · USP bar", "blocks": [{ "type": "usp" }, { "type": "usp" }, { "type": "usp" }, { "type": "usp" }] }]
+}
+{% endschema %}
