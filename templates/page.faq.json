@@ -1,0 +1,308 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-page",
+      "settings": {
+        "eyebrow": "Klantenservice",
+        "heading": "Veelgestelde <em>vragen</em>.",
+        "color_scheme": "scheme-1",
+        "padding_top": 160,
+        "padding_bottom": 32
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "faq_product": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Het product",
+        "heading": "Over Volkara en <em>titanium</em>.",
+        "subheading": "Wat Volkara anders maakt dan een gewone pan met antiaanbaklaag.",
+        "show_filter": false,
+        "contact_title": "",
+        "contact_text": "",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Is Volkara echt PFAS-vrij?",
+            "answer": "<p>Ja. Volkara-pannen hebben geen antiaanbaklaag, dus het kookoppervlak bevat geen PFAS, PTFE of PFOA. Je eten komt in contact met titanium: een metaal dat niet reageert met je eten en de smaak niet beïnvloedt.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Wat is het verschil met andere titanium- of hybridepannen?",
+            "answer": "<p>Veel \"titanium\"- en hybridepannen zijn in werkelijkheid rvs met een verstopte coating: een verhoogd stalen patroon gevuld met antiaanbaklaag, of een coating die met titanium is versterkt maar toch slijt. VolcanicCore™ heeft helemaal geen coating. Het kookoppervlak is titanium met een LavaCell™-reliëf, vastgezet in een gelaagde pan. Er is dus niets dat kan doorslijten.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Is de pan zwaar?",
+            "answer": "<p>Hij is steviger dan een dunne pan met coating, maar duidelijk lichter dan gietijzer van hetzelfde formaat. De gesmede steel zorgt voor een goede balans in je hand.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Wat is het verschil met een gewone antiaanbakpan?",
+            "answer": "<p>Een antiaanbakpan heeft een coating die het eten laat loslaten. Die laag slijt door hitte, schuren en afwassen, en daarna plakt alles. Volkara heeft geen coating: je kookt op titanium. Loslaten doe je met de juiste temperatuur en een beetje vet, en er is geen laag die kan opraken.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-4",
+        "question-1",
+        "question-2",
+        "question-3"
+      ]
+    },
+    "faq_use": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Koken en onderhoud",
+        "heading": "Zo kook je ermee.",
+        "subheading": "De eerste keren is het even wennen. Daarna wil je niet meer terug.",
+        "show_filter": false,
+        "contact_title": "",
+        "contact_text": "",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Blijft eten niet plakken?",
+            "answer": "<p>Dit is geen pan met coating, dus de eerste keren draait het om techniek. Verwarm de pan twee tot drie minuten voor op middelhoog vuur, tot een druppel water over het oppervlak danst. Voeg een dun laagje olie toe, laat het even warm worden en leg je eten erin. Laat het liggen tot het vanzelf loslaat. Plakt er toch iets? Dan was de pan nog niet heet genoeg of verplaatste je het eten te vroeg. Het weekt binnen een paar minuten los.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Moet ik de pan inbranden?",
+            "answer": "<p>Nee. Na een eerste afwasbeurt kun je direct koken. Wil je toch, dan kun je de pan kort voorbereiden: verwarm hem, wrijf er een theelepel neutrale olie in, laat de olie even warm worden, laat afkoelen en veeg de pan uit. Een vast onderhoudsritueel zoals bij gietijzer is niet nodig.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Mag ik metalen keukengerei gebruiken?",
+            "answer": "<p>Ja. De toppen van het LavaCell™-reliëf vangen het contact op en beschermen het titanium in de dalen. Spatels, gardes en tangen zijn dus welkom. Na verloop van tijd worden de toppen iets glanzender. Dat is patina, geen schade, en het heeft geen invloed op hoe de pan kookt.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Op welke warmtebronnen werkt de pan?",
+            "answer": "<p>Op alle gangbare: gas, inductie, keramisch, elektrisch, halogeen en in de oven. De magnetische bodem ligt vlak op inductie. Op gas houd je de vlam het best binnen de bodem voor de meest gelijkmatige warmte.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "Mag de pan in de vaatwasser?",
+            "answer": "<p>Ja, er is geen coating die de vaatwasser kan aantasten. Toch raden we warm water en een zachte spons aan: dat is sneller en houdt de buitenkant mooi. Zit er iets hardnekkigs aan? Laat een bodem water een minuutje koken en veeg de pan daarna schoon.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "Kan de pan in de oven?",
+            "answer": "<p>Ja, de pannen zijn ovenbestendig. De maximale temperatuur per product vind je in de specificaties op de productpagina. Glazen deksels kunnen minder hitte aan dan de pan zelf. De steel wordt heet in de oven, dus gebruik altijd een ovenwant of doek.</p>"
+          }
+        },
+        "question-7": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe krijg ik aangekoekte resten of verkleuring weg?",
+            "answer": "<p>Laat een bodem water een minuutje koken en veeg de pan schoon met een zachte spons. Regenboogkleurige hittevlekken haal je weg met een scheutje witte azijn. Een schuursponsje op de gepolijste buitenkant kun je beter vermijden.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5",
+        "question-6",
+        "question-7"
+      ]
+    },
+    "faq_order": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Bestellen en verzenden",
+        "heading": "Bestellen en <em>bezorgen</em>.",
+        "subheading": "Alles over je bestelling, van betalen tot bezorging.",
+        "show_filter": false,
+        "contact_title": "",
+        "contact_text": "",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Wat kost verzending en hoe snel is het?",
+            "answer": "<p>Vanaf €75 verzenden we gratis. Bij een kleinere bestelling zie je de verzendkosten en de verwachte levertijd bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe kan ik betalen?",
+            "answer": "<p>Je ziet alle beschikbare betaalmethoden bij het afrekenen. De betaling loopt via een beveiligde checkout.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe volg ik mijn bestelling?",
+            "answer": "<p>Zodra je pakket onderweg is, krijg je een e-mail met een track-and-tracelink. Meer lees je op de pagina <a href=\"/pages/bestelling-volgen\">Bestelling volgen</a>.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Kan ik mijn bestelling nog wijzigen of annuleren?",
+            "answer": "<p>Zolang je bestelling nog niet is verzonden, kun je contact met ons opnemen met je ordernummer. Is ze al onderweg, dan kun je gebruikmaken van je 14 dagen bedenktijd.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4"
+      ]
+    },
+    "faq_returns": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Retour en garantie",
+        "heading": "Retourneren en <em>garantie</em>.",
+        "subheading": "Duidelijke afspraken, voor en na je aankoop.",
+        "show_filter": false,
+        "contact_title": "Staat je vraag er niet bij?",
+        "contact_text": "Stuur ons een bericht. We helpen je graag verder.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Kan ik mijn bestelling retourneren?",
+            "answer": "<p>Ja. Je hebt 14 dagen bedenktijd vanaf het moment dat je je bestelling ontvangt. Laat het ons binnen die termijn weten en stuur het product compleet terug. Je krijgt dan het aankoopbedrag terug.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Welke garantie krijg ik?",
+            "answer": "<p>Je hebt altijd recht op de wettelijke garantie: een pan moet doen wat je er redelijkerwijs van mag verwachten. Is er iets mis met het materiaal of de afwerking? Neem contact met ons op, dan zoeken we samen naar een oplossing. Meer lees je op de <a href=\"/pages/warranty\">garantiepagina</a>.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe meld ik een retour of herroeping?",
+            "answer": "<p>Laat het ons binnen 14 dagen na ontvangst weten via de <a href=\"/pages/contact\">contactpagina</a> of met het <a href=\"/pages/herroepen\">herroepingsformulier</a>. Je krijgt daarna de retourinstructies.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Mijn pakket kwam beschadigd aan. Wat nu?",
+            "answer": "<p>Maak foto's van de verpakking en het product en neem zo snel mogelijk contact met ons op, met je ordernummer. We zoeken samen naar een oplossing.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4"
+      ]
+    },
+    "cta": {
+      "type": "vk-cta",
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-sear.webp",
+        "show_embers": true,
+        "eyebrow": "Alles duidelijk?",
+        "heading": "Kies de pan die <em>blijft</em>.",
+        "subheading": "Begin met de Forge Pan, of kies een set voor je hele keuken.",
+        "button_label": "Bekijk de collectie",
+        "button_url": "/collections/all",
+        "guarantee": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "icon": "leaf",
+            "text": "PFAS- en PTFE-vrij"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "icon": "return",
+            "text": "14 dagen bedenktijd"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Gratis verzending vanaf €75"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "faq_product",
+    "faq_use",
+    "faq_order",
+    "faq_returns",
+    "cta"
+  ]
+}

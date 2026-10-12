@@ -28,6 +28,16 @@ De website noemt alleen de kern van het product als vaststaand feit. Alles hiero
 
 Bewust **verwijderd** omdat ze niet bevestigd zijn: "levenslange garantie", "60 dagen thuis testen", "verzonden binnen 1–2 werkdagen", "reactie binnen één werkdag", openingstijden van de klantenservice, testrapporten "op aanvraag", "elke pan wordt gecontroleerd op vlakheid".
 
+### Nieuwe pagina's (verzenden, retourneren, herroepen)
+
+| Punt | Actie |
+|---|---|
+| Wie betaalt de retourkosten? | Wettelijk moet je dit vóór de aankoop melden. Vul het aan op `/pages/verzenden-en-retourneren` (nu niet genoemd) |
+| Adres op het herroepingsformulier | Het modelformulier noemt nu alleen het e-mailadres. Voeg je bedrijfsadres toe |
+| Landen en levertijden | Komen nu uit de checkout. Controleer of ze daar kloppen |
+
+Voor de claims die Okura gebruikt maar Volkara (nog) niet, zie `docs/10-okura-referentie.md`, paragraaf 4.
+
 ## 3. Sociale bewijskracht
 
 - Alle voorbeeldreviews, sterren, reviewaantallen en "klantmomenten" zijn verwijderd uit de pagina's en de productdata.

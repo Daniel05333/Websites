@@ -372,11 +372,24 @@
             "c2_status": "no",
             "c2_text": "Zwaar"
           }
+        },
+        "row-oven": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Oven en grill",
+            "ours": "Ja, ook onder de grill",
+            "c1_status": "partial",
+            "c1_text": "Vaak beperkt door coating of greep",
+            "c2_status": "yes",
+            "c2_text": "Ja"
+          }
         }
       },
       "block_order": [
         "row-1",
         "row-2",
+        "row-oven",
         "row-3",
         "row-4",
         "row-5",

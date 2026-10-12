@@ -223,7 +223,7 @@ function baseContext(req, url, cart) {
   const settings = themeSettings();
   const all = allProducts();
   return {
-    shop: { name: 'VOLKARA', url: `http://localhost:${PORT}`, currency: 'EUR', money_format: '€{{amount_with_comma_separator}}', money_with_currency_format: '€{{amount_with_comma_separator}} EUR', enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'ideal', 'klarna'], customer_accounts_enabled: true, policies: [], shipping_policy: { body: 'x', url: '/policies/shipping-policy' } },
+    shop: { name: 'VOLKARA', url: `http://localhost:${PORT}`, currency: 'EUR', money_format: '€{{amount_with_comma_separator}}', money_with_currency_format: '€{{amount_with_comma_separator}} EUR', enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'ideal', 'klarna'], customer_accounts_enabled: true, policies: [], shipping_policy: { body: 'x', url: '/pages/verzenden-en-retourneren' } },
     settings, cart: cartObject(cart), customer: null, current_page: Number(url.searchParams.get('page')) || 1,
     request: { locale: { iso_code: 'nl' }, design_mode: false, path: url.pathname, url: url.pathname + url.search, host: 'localhost' },
     routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', cart_update_url: '/cart/update', cart_clear_url: '/cart/clear', predictive_search_url: '/search/suggest', product_recommendations_url: '/recommendations/products', search_url: '/search', collections_url: '/collections', all_products_collection_url: '/collections/all', account_url: '/account', account_login_url: '/account/login', account_logout_url: '/account/logout', account_register_url: '/account/register', account_addresses_url: '/account/addresses' },
