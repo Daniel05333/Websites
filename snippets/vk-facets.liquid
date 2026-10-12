@@ -1,0 +1,63 @@
+{%- doc -%}
+  Storefront filtering form groups (list, boolean, price_range).
+  @param {array} filters - collection.filters or search.filters.
+  @param {string} form_id - Form id.
+  @param {string} [sort_by] - Current sort value.
+  @param {string} [terms] - Search terms (search page).
+  @example
+  {% render 'vk-facets', filters: collection.filters, form_id: 'vk-facets-form' %}
+{%- enddoc -%}
+<form id="{{ form_id }}" class="vk-facets" data-facets-form>
+  {%- if terms != blank %}<input type="hidden" name="q" value="{{ terms | escape }}">{% endif -%}
+  {%- if sort_by != blank %}<input type="hidden" name="sort_by" value="{{ sort_by }}" data-sort-hidden>{% endif -%}
+  {%- for filter in filters -%}
+    {%- assign vk_active = filter.active_values.size -%}
+    {%- if filter.type == 'price_range' and filter.min_value.value != nil or filter.type == 'price_range' and filter.max_value.value != nil -%}{%- assign vk_active = 1 -%}{%- endif -%}
+    <details class="vk-facet" {% if forloop.index <= 3 or vk_active > 0 %}open{% endif %} data-facet="{{ filter.param_name | default: filter.label | handle }}">
+      <summary class="vk-facet__summary">
+        <span>{{ filter.label | escape }}{% if vk_active > 0 and filter.type != 'price_range' %} <span class="vk-facet__badge">{{ vk_active }}</span>{% endif %}</span>
+        {% render 'vk-icon', name: 'chevron-down', size: 16 %}
+      </summary>
+      <fieldset class="vk-facet__body">
+        <legend class="vk-visually-hidden">{{ filter.label | escape }}</legend>
+        {%- case filter.type -%}
+          {%- when 'price_range' -%}
+            {%- liquid
+              assign vk_max = filter.range_max | divided_by: 100.0 | ceil
+              assign vk_min_val = filter.min_value.value | divided_by: 100.0
+              assign vk_max_val = filter.max_value.value | divided_by: 100.0
+              if filter.min_value.value == nil
+                assign vk_min_val = ''
+              endif
+              if filter.max_value.value == nil
+                assign vk_max_val = ''
+              endif
+            -%}
+            <vk-price-range class="vk-price-range" data-max="{{ vk_max }}">
+              <div class="vk-price-range__slider" aria-hidden="true">
+                <input type="range" min="0" max="{{ vk_max }}" step="1" value="{{ vk_min_val | default: 0 }}" data-range-min tabindex="-1">
+                <input type="range" min="0" max="{{ vk_max }}" step="1" value="{{ vk_max_val | default: vk_max }}" data-range-max tabindex="-1">
+              </div>
+              <div class="vk-price-range__inputs">
+                <label class="vk-field"><span class="vk-label">{{ 'collections.price_from' | t }}</span><input class="vk-input" type="number" inputmode="numeric" min="0" max="{{ vk_max }}" name="{{ filter.min_value.param_name }}" value="{{ vk_min_val }}" placeholder="0" data-price-min></label>
+                <label class="vk-field"><span class="vk-label">{{ 'collections.price_to' | t }}</span><input class="vk-input" type="number" inputmode="numeric" min="0" max="{{ vk_max }}" name="{{ filter.max_value.param_name }}" value="{{ vk_max_val }}" placeholder="{{ vk_max }}" data-price-max></label>
+              </div>
+            </vk-price-range>
+          {%- else -%}
+            <ul class="vk-facet__list" role="list">
+              {%- for value in filter.values -%}
+                <li>
+                  <label class="vk-checkbox{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                    <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                    <span class="vk-facet__label">{{ value.label | escape }}</span>
+                    <span class="vk-facet__count vk-mono">{{ value.count }}</span>
+                  </label>
+                </li>
+              {%- endfor -%}
+            </ul>
+        {%- endcase -%}
+      </fieldset>
+    </details>
+  {%- endfor -%}
+  <noscript><button type="submit" class="vk-btn vk-btn--primary vk-btn--block">{{ 'collections.apply' | t }}</button></noscript>
+</form>

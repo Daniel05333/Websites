@@ -1,0 +1,22 @@
+{%- doc -%}
+  Specs table from the custom.specs metafield (JSON list of {label, value}) or a multi-line text "Label: value".
+  @param {object} product - Product.
+  @example
+  {% render 'vk-product-specs', product: product %}
+{%- enddoc -%}
+{%- assign vk_specs = product.metafields.custom.specs -%}
+{%- if vk_specs != blank -%}
+  <table class="vk-specs">
+    <tbody>
+      {%- if vk_specs.type == 'json' -%}
+        {%- for row in vk_specs.value -%}<tr><th scope="row">{{ row.label }}</th><td>{{ row.value }}</td></tr>{%- endfor -%}
+      {%- else -%}
+        {%- assign vk_lines = vk_specs.value | newline_to_br | split: '<br />' -%}
+        {%- for line in vk_lines -%}
+          {%- assign vk_parts = line | split: ':' -%}
+          {%- if vk_parts.size > 1 -%}<tr><th scope="row">{{ vk_parts.first | strip }}</th><td>{{ line | remove_first: vk_parts.first | remove_first: ':' | strip }}</td></tr>{%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </tbody>
+  </table>
+{%- endif -%}

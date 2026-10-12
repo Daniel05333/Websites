@@ -1,0 +1,156 @@
+{{ 'vk-section-collection.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_form_id = 'vk-facets-' | append: section.id
+  assign vk_sort = collection.sort_by | default: collection.default_sort_by
+  assign vk_promos = section.blocks | where: 'type', 'promo'
+  assign vk_has_filters = false
+  if s.enable_filtering and collection.filters.size > 0
+    assign vk_has_filters = true
+  endif
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-collection vk-collection--{{ s.filter_layout }} color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- paginate collection.products by s.per_page -%}
+  <vk-facets class="vk-container vk-collection__inner" data-section-id="{{ section.id }}" data-density-key="vk-density">
+    <div class="vk-toolbar" data-toolbar>
+      <div class="vk-toolbar__left">
+        {%- if vk_has_filters -%}
+          <button type="button" class="vk-chip vk-toolbar__filter" data-drawer-open="vk-filters-{{ section.id }}" aria-controls="vk-filters-{{ section.id }}" aria-expanded="false">
+            {% render 'vk-icon', name: 'sliders', size: 16 %}{{ 'collections.filter' | t }}
+          </button>
+        {%- endif -%}
+        <div class="vk-toolbar__active" data-active-filters>
+          {%- for filter in collection.filters -%}
+            {%- for value in filter.active_values -%}
+              <a href="{{ value.url_to_remove }}" class="vk-chip vk-chip--remove" data-facet-remove>{{ value.label | escape }}{% render 'vk-icon', name: 'close', size: 14 %}<span class="vk-visually-hidden">{{ 'collections.remove_filter' | t }}</span></a>
+            {%- endfor -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                <a href="{{ filter.url_to_remove }}" class="vk-chip vk-chip--remove" data-facet-remove>{{ filter.min_value.value | default: 0 | money_without_trailing_zeros }}–{{ filter.max_value.value | default: filter.range_max | money_without_trailing_zeros }}{% render 'vk-icon', name: 'close', size: 14 %}</a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- liquid
+            assign vk_any_active = false
+            for filter in collection.filters
+              if filter.active_values.size > 0 or filter.min_value.value != nil or filter.max_value.value != nil
+                assign vk_any_active = true
+              endif
+            endfor
+          -%}
+          {%- if vk_any_active -%}<a href="{{ collection.url }}?sort_by={{ vk_sort }}" class="vk-toolbar__clear" data-facet-remove>{{ 'collections.clear_all' | t }}</a>{%- endif -%}
+        </div>
+      </div>
+      <div class="vk-toolbar__right">
+        <p class="vk-toolbar__count vk-mono" data-facet-count aria-live="polite">{{ 'collections.count' | t: count: collection.products_count }}</p>
+        <label class="vk-toolbar__sort">
+          <span class="vk-visually-hidden">{{ 'collections.sort' | t }}</span>
+          <select name="sort_by" class="vk-select vk-select--sm" form="{{ vk_form_id }}" data-sort>
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}"{% if option.value == vk_sort %} selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </label>
+        <div class="vk-density vk-hide-mobile" role="group" aria-label="{{ 'collections.density' | t }}">
+          <button type="button" class="vk-density__btn" data-density="3" aria-label="{{ 'collections.columns' | t: count: 3 }}">{% render 'vk-icon', name: 'grid', size: 18 %}</button>
+          <button type="button" class="vk-density__btn" data-density="4" aria-label="{{ 'collections.columns' | t: count: 4 }}">{% render 'vk-icon', name: 'grid-2', size: 18 %}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="vk-collection__layout">
+      {%- if vk_has_filters -%}
+        <vk-drawer id="vk-filters-{{ section.id }}" side="left" class="vk-filters color-{{ s.color_scheme }}" role="dialog" aria-modal="true" aria-label="{{ 'collections.refine' | t }}">
+          <div class="vk-drawer__overlay"></div>
+          <div class="vk-drawer__panel vk-filters__panel">
+            <div class="vk-drawer__header vk-filters__header">
+              <h2 class="vk-drawer__title">{{ 'collections.refine' | t }}</h2>
+              <button type="button" class="vk-icon-btn vk-icon-btn--plain" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 20 %}</button>
+            </div>
+            <div class="vk-drawer__body vk-filters__body" data-facets-body>
+              {%- render 'vk-facets', filters: collection.filters, form_id: vk_form_id -%}
+            </div>
+            <div class="vk-drawer__footer vk-filters__footer">
+              <a href="{{ collection.url }}" class="vk-btn vk-btn--secondary" data-facet-remove><span class="vk-btn__label">{{ 'collections.clear_all' | t }}</span></a>
+              <button type="button" class="vk-btn vk-btn--primary" data-drawer-close><span class="vk-btn__label" data-facet-apply>{{ 'collections.show_results' | t: count: collection.products_count }}</span></button>
+            </div>
+          </div>
+        </vk-drawer>
+      {%- endif -%}
+
+      <div class="vk-collection__results" data-results>
+        {%- if collection.products.size > 0 -%}
+          <ul class="vk-product-grid vk-collection__grid" role="list" data-grid style="--vk-cols-lg: {{ s.columns_desktop }}; --vk-cols-sm: {{ s.columns_mobile }};">
+            {%- for product in collection.products -%}
+              {%- assign vk_pos = forloop.index | plus: paginate.current_offset -%}
+              {%- for promo in vk_promos -%}
+                {%- if promo.settings.position == vk_pos and paginate.current_page == 1 -%}
+                  <li class="vk-collection__promo-cell" {{ promo.shopify_attributes }}>{% render 'vk-collection-promo', block: promo %}</li>
+                {%- endif -%}
+              {%- endfor -%}
+              <li data-grid-item>{% render 'vk-product-card', product: product, index: forloop.index, loading: 'lazy' %}</li>
+            {%- endfor -%}
+          </ul>
+          {%- if paginate.pages > 1 -%}
+            {%- assign vk_shown = paginate.current_offset | plus: collection.products.size -%}
+            {%- assign vk_pct = vk_shown | times: 100.0 | divided_by: paginate.items -%}
+            <div class="vk-loadmore" data-loadmore>
+              <p class="vk-loadmore__text vk-mono">{{ 'collections.showing' | t: shown: vk_shown, total: paginate.items }}</p>
+              <div class="vk-loadmore__bar" aria-hidden="true"><span style="width: {{ vk_pct }}%;"></span></div>
+              {%- if paginate.next -%}
+                <a href="{{ paginate.next.url }}" class="vk-btn vk-btn--secondary" data-loadmore-btn><span class="vk-btn__label">{{ 'collections.show_more' | t }}</span></a>
+              {%- endif -%}
+              {%- if paginate.previous -%}<noscript><a href="{{ paginate.previous.url }}" class="vk-link">{{ 'general.previous' | t }}</a></noscript>{%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          <div class="vk-empty">
+            {%- if vk_any_active -%}
+              <p class="vk-h3">{{ 'collections.empty_filters' | t }}</p>
+              <p class="vk-muted">{{ 'collections.empty_filters_text' | t }}</p>
+              <a href="{{ collection.url }}" class="vk-btn vk-btn--secondary" data-facet-remove><span class="vk-btn__label">{{ 'collections.clear_all' | t }}</span></a>
+            {%- else -%}
+              <p class="vk-h3">{{ 'collections.empty' | t }}</p>
+              <p class="vk-muted">{{ 'collections.empty_text' | t }}</p>
+              {%- assign vk_all = 'collections.view_all' | t -%}
+              {% render 'vk-button', label: vk_all, url: routes.all_products_collection_url, icon: 'arrow-right' %}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </vk-facets>
+  {%- endpaginate -%}
+</section>
+<script src="{{ 'vk-facets.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "tag": "div",
+  "class": "vk-collection-section",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "range", "id": "columns_desktop", "label": "Columns on desktop", "min": 2, "max": 5, "step": 1, "default": 4 },
+    { "type": "select", "id": "columns_mobile", "label": "Columns on mobile", "default": "2", "options": [{ "value": "1", "label": "1" }, { "value": "2", "label": "2" }] },
+    { "type": "checkbox", "id": "enable_filtering", "label": "Enable filtering", "default": true, "info": "Configure filters with the Shopify Search & Discovery app." },
+    { "type": "select", "id": "filter_layout", "label": "Desktop filter layout", "default": "drawer", "options": [{ "value": "drawer", "label": "Slide-in drawer" }, { "value": "sidebar", "label": "Sidebar" }] },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    { "type": "promo", "name": "Promo tile", "limit": 3, "settings": [
+      { "type": "range", "id": "position", "label": "Grid position", "min": 1, "max": 24, "step": 1, "default": 5 },
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-set.webp", "options": [{ "value": "vk-visual-set.webp", "label": "Set" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-chef.webp", "label": "Chef" }] },
+      { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Build it as a set" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Save up to €243" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Every set costs less than its pieces bought separately — calculated against our own prices." },
+      { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop sets" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ] }
+  ]
+}
+{% endschema %}

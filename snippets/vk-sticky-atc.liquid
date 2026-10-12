@@ -1,0 +1,36 @@
+{%- doc -%}
+  Sticky add-to-cart bar: appears when the main ATC leaves the viewport.
+  @param {object} product - Product.
+  @param {object} variant - Selected variant.
+  @param {string} section_id - Section id.
+  @param {string} form_id - Main product form id (submits it).
+  @example
+  {% render 'vk-sticky-atc', product: product, variant: vk_v, section_id: section.id, form_id: vk_form_id %}
+{%- enddoc -%}
+<vk-sticky-atc class="vk-sticky-atc" data-section="{{ section_id }}" aria-hidden="true">
+  <div class="vk-container vk-sticky-atc__inner">
+    <div class="vk-sticky-atc__product">
+      <span class="vk-sticky-atc__thumb vk-media vk-ratio-square">
+        {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'vk-placeholder', type: 'product' %}{%- endif -%}
+      </span>
+      <span class="vk-sticky-atc__meta">
+        <span class="vk-sticky-atc__title">{{ product.title | escape }}</span>
+        {%- render 'vk-product-rating', product: product -%}
+      </span>
+    </div>
+    <div class="vk-sticky-atc__actions">
+      {%- unless product.has_only_default_variant -%}
+        <label class="vk-visually-hidden" for="vk-sticky-variant-{{ section_id }}">{{ product.options.first }}</label>
+        <select id="vk-sticky-variant-{{ section_id }}" class="vk-select vk-select--sm vk-sticky-atc__select vk-hide-mobile" data-sticky-variant tabindex="-1">
+          {%- for v in product.variants -%}
+            <option value="{{ v.id }}"{% if v.id == variant.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }}</option>
+          {%- endfor -%}
+        </select>
+      {%- endunless -%}
+      <span class="vk-sticky-atc__price" data-sticky-price>{{ variant.price | money }}</span>
+      <button type="submit" form="{{ form_id }}" class="vk-btn vk-btn--primary vk-sticky-atc__btn" data-sticky-btn tabindex="-1"{% unless variant.available %} disabled{% endunless %}>
+        <span class="vk-btn__label">{% render 'vk-icon', name: 'bag', size: 16 %}<span data-sticky-label>{% if variant.available %}{{ 'products.product.add_to_bag' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span></span>
+      </button>
+    </div>
+  </div>
+</vk-sticky-atc>

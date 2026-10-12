@@ -1,0 +1,62 @@
+{%- doc -%}
+  Product gallery: swipe stage + thumbnails + lightbox.
+  @param {object} product - Product.
+  @param {string} section_id - Section id.
+  @param {string} [chip] - Overlay chip text.
+  @example
+  {% render 'vk-product-gallery', product: product, section_id: section.id %}
+{%- enddoc -%}
+{%- assign vk_featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+<vk-product-gallery class="vk-gallery" data-section="{{ section_id }}">
+  <div class="vk-gallery__stage">
+    {%- if chip != blank %}<span class="vk-gallery__chip vk-badge vk-badge--dark">{% render 'vk-icon', name: 'shield', size: 12 %}{{ chip }}</span>{% endif -%}
+    <ul class="vk-gallery__track" data-gallery-track role="list" aria-label="{{ 'products.product.media.gallery' | t }}">
+      {%- if product.media.size > 0 -%}
+        {%- for media in product.media -%}
+          <li class="vk-gallery__slide{% if media.id == vk_featured.id %} is-active{% endif %}" data-media-id="{{ media.id }}" data-index="{{ forloop.index0 }}">
+            {%- assign vk_load = 'lazy' -%}{%- if forloop.first %}{% assign vk_load = 'eager' %}{% endif -%}
+            <div class="vk-pmedia vk-pmedia--{{ media.media_type }}">
+              {%- render 'vk-product-media', media: media, loading: vk_load, sizes: '(min-width: 990px) 56vw, 100vw' -%}
+              {%- if media.media_type == 'image' -%}
+                <button type="button" class="vk-gallery__zoom" data-gallery-open="{{ forloop.index0 }}" aria-label="{{ 'products.product.media.open' | t: index: forloop.index }}">{% render 'vk-icon', name: 'zoom', size: 18 %}</button>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        <li class="vk-gallery__slide is-active"><div class="vk-pmedia">{% render 'vk-image', image: blank, fallback: 'vk-visual-pan.webp', fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: product.title, loading: 'eager' %}</div></li>
+      {%- endif -%}
+    </ul>
+    {%- if product.media.size > 1 -%}
+      <button type="button" class="vk-icon-btn vk-gallery__nav vk-gallery__nav--prev" data-gallery-prev aria-label="{{ 'general.previous' | t }}">{% render 'vk-icon', name: 'arrow-left', size: 18 %}</button>
+      <button type="button" class="vk-icon-btn vk-gallery__nav vk-gallery__nav--next" data-gallery-next aria-label="{{ 'general.next' | t }}">{% render 'vk-icon', name: 'arrow-right', size: 18 %}</button>
+      <span class="vk-gallery__counter vk-mono" data-gallery-counter aria-hidden="true">01 / {{ product.media.size | prepend: '0' | slice: -2, 2 }}</span>
+      <div class="vk-gallery__progress vk-hide-desktop" aria-hidden="true"><span data-gallery-progress></span></div>
+    {%- endif -%}
+  </div>
+  {%- if product.media.size > 1 -%}
+    <ul class="vk-gallery__thumbs vk-hide-mobile" role="list">
+      {%- for media in product.media -%}
+        <li>
+          <button type="button" class="vk-gallery__thumb{% if media.id == vk_featured.id %} is-active{% endif %}" data-gallery-thumb="{{ forloop.index0 }}" aria-label="{{ 'products.product.media.show' | t: index: forloop.index }}"{% if media.id == vk_featured.id %} aria-current="true"{% endif %}>
+            {{ media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '', widths: '100,200', sizes: '96px' }}
+            {%- if media.media_type == 'video' or media.media_type == 'external_video' %}<span class="vk-gallery__thumb-icon">{% render 'vk-icon', name: 'play', size: 14 %}</span>{% endif -%}
+          </button>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+  <vk-drawer id="vk-lightbox-{{ section_id }}" side="bottom" class="vk-lightbox" role="dialog" aria-modal="true" aria-label="{{ 'products.product.media.gallery' | t }}">
+    <div class="vk-drawer__overlay"></div>
+    <div class="vk-drawer__panel vk-lightbox__panel">
+      <button type="button" class="vk-icon-btn vk-lightbox__close" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 20 %}</button>
+      <ul class="vk-lightbox__track" data-lightbox-track role="list">
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' -%}
+            <li class="vk-lightbox__slide" data-index="{{ forloop.index0 }}"><img src="{{ media | image_url: width: 2400 }}" alt="{{ media.alt | escape }}" loading="lazy" width="{{ media.width }}" height="{{ media.height }}" data-zoomable></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </vk-drawer>
+</vk-product-gallery>

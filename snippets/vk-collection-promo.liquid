@@ -1,0 +1,17 @@
+{%- doc -%}
+  Editorial promo tile inside the product grid.
+  @param {object} block - Promo block.
+  @example
+  {% render 'vk-collection-promo', block: block %}
+{%- enddoc -%}
+<a href="{{ block.settings.link | default: '/collections/sets' }}" class="vk-promo" data-reveal data-glow>
+  <div class="vk-promo__media" aria-hidden="true">
+    {%- render 'vk-image', image: block.settings.image, sizes: '(min-width: 990px) 25vw, 50vw', fallback: block.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'set', alt: '' -%}
+  </div>
+  <div class="vk-promo__body">
+    <p class="vk-eyebrow">{{ block.settings.eyebrow }}</p>
+    <p class="vk-promo__title">{{ block.settings.title }}</p>
+    <p class="vk-promo__text">{{ block.settings.text }}</p>
+    <span class="vk-link">{{ block.settings.link_label }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</span>
+  </div>
+</a>

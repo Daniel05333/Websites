@@ -1,0 +1,80 @@
+{{ 'vk-section-collection.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_heading = collection.metafields.custom.hero_heading.value | default: collection.title
+  assign vk_eyebrow = collection.metafields.custom.eyebrow.value | default: s.eyebrow
+  assign vk_sub = collection.metafields.custom.subtitle.value
+  assign vk_img = s.image | default: collection.featured_image
+  assign vk_fallback = 'vk-visual-macro.webp'
+  assign vk_ph = 'macro'
+  case collection.handle
+    when 'pans'
+      assign vk_fallback = 'vk-visual-pan.webp'
+    when 'woks'
+      assign vk_fallback = 'vk-visual-wok.webp'
+    when 'sets'
+      assign vk_fallback = 'vk-visual-set.webp'
+    when 'knives'
+      assign vk_fallback = 'vk-visual-knife.webp'
+    when 'bestsellers'
+      assign vk_fallback = 'vk-visual-sear.webp'
+  endcase
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-col-hero color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-col-hero__media" data-parallax="0.12" aria-hidden="true">
+    {%- render 'vk-image', image: vk_img, sizes: '100vw', loading: 'eager', fetchpriority: 'high', fallback: vk_fallback, fallback_width: 1280, fallback_height: 720, placeholder: vk_ph, alt: '' -%}
+  </div>
+  <div class="vk-col-hero__shade" aria-hidden="true"></div>
+  <div class="vk-container vk-col-hero__inner">
+    <nav class="vk-breadcrumb vk-mono" aria-label="{{ 'general.breadcrumbs' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span aria-hidden="true">/</span>
+      <a href="{{ routes.collections_url }}">{{ 'collections.title' | t }}</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{ collection.title }}</span>
+    </nav>
+    <p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ vk_eyebrow }}</p>
+    <h1 class="vk-h1 vk-col-hero__title" data-split>{{ vk_heading }}</h1>
+    {%- if vk_sub != blank -%}<p class="vk-col-hero__sub vk-mono">{{ vk_sub }}</p>{%- endif -%}
+    {%- if collection.description != blank and s.show_description -%}
+      <div class="vk-col-hero__desc vk-lead" data-reveal>{{ collection.description }}</div>
+    {%- endif -%}
+    <p class="vk-col-hero__count vk-mono" data-reveal>{{ 'collections.count' | t: count: collection.all_products_count }}</p>
+  </div>
+  {%- if section.blocks.size > 0 -%}
+    <div class="vk-container">
+      <nav class="vk-col-pills" aria-label="{{ 'collections.categories' | t }}">
+        {%- for block in section.blocks -%}
+          {%- assign c = block.settings.collection -%}
+          {%- assign vk_label = block.settings.label | default: c.title -%}
+          {%- assign vk_href = c.url | default: block.settings.link -%}
+          <a href="{{ vk_href }}" class="vk-chip{% if c.handle == collection.handle %} is-active{% endif %}"{% if c.handle == collection.handle %} aria-current="page"{% endif %} {{ block.shopify_attributes }}>{{ vk_label }}</a>
+        {%- endfor -%}
+      </nav>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Collection hero",
+  "tag": "div",
+  "class": "vk-col-hero-section",
+  "settings": [
+    { "type": "paragraph", "content": "Uses the collection title and description. Optional metafields: custom.hero_heading (accented heading, use <em>), custom.eyebrow, custom.subtitle." },
+    { "type": "text", "id": "eyebrow", "label": "Default eyebrow", "default": "The collection" },
+    { "type": "image_picker", "id": "image", "label": "Image override" },
+    { "type": "checkbox", "id": "show_description", "label": "Show description", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    { "type": "link", "name": "Category pill", "limit": 12, "settings": [
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "text", "id": "label", "label": "Label" },
+      { "type": "url", "id": "link", "label": "Link (if no collection)" }
+    ] }
+  ],
+  "presets": [{ "name": "VOLKARA · Collection hero" }]
+}
+{% endschema %}

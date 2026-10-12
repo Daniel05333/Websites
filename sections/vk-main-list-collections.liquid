@@ -1,0 +1,36 @@
+{{ 'vk-section-merch.css' | asset_url | stylesheet_tag }}
+{{ 'vk-section-collection.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+<section id="vk-{{ section.id }}" class="vk-section color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    {%- render 'vk-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, tag: 'h1', size: 'h1' -%}
+    <ul class="vk-collections-grid" role="list">
+      {%- for c in collections -%}
+        {%- if c.handle == 'frontpage' %}{% continue %}{% endif -%}
+        <li class="vk-cat-card" data-reveal style="--vk-i: {{ forloop.index0 | modulo: 8 }};">
+          <a href="{{ c.url }}" class="vk-cat-card__link" data-glow>
+            <div class="vk-cat-card__media">{% render 'vk-image', image: c.featured_image, sizes: '(min-width: 990px) 25vw, 50vw', placeholder: 'collection', alt: c.title %}</div>
+            <div class="vk-cat-card__body">
+              <span class="vk-cat-card__count vk-mono">{{ 'sections.categories.pieces' | t: count: c.products_count }}</span>
+              <h2 class="vk-cat-card__title">{{ c.title }}</h2>
+              <span class="vk-cat-card__cta"><span>{{ 'collections.explore' | t }}</span><span class="vk-cat-card__arrow">{% render 'vk-icon', name: 'arrow-up-right', size: 18 %}</span></span>
+            </div>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Every <em>collection</em>." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ]
+}
+{% endschema %}

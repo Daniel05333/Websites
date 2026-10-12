@@ -1,0 +1,44 @@
+{{ 'vk-section-merch.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+{%- assign vk_pid = product.id | default: cart.items.first.product_id -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-recs color-{{ s.color_scheme }}" data-section-id="{{ section.id }}" data-recs-section>
+  <div class="vk-container">
+    <vk-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ vk_pid }}&limit={{ s.limit }}&intent={{ s.intent }}">
+      {%- if recommendations.performed and recommendations.products_count > 0 -%}
+        <div class="vk-section-head">{%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}</div>
+        <vk-slider>
+          <ul class="vk-slider__track vk-featured__track" data-slider-track data-recs-list role="list" tabindex="0">
+            {%- for rec in recommendations.products -%}<li>{% render 'vk-product-card', product: rec, index: forloop.index %}</li>{%- endfor -%}
+          </ul>
+          {%- render 'vk-slider-controls' -%}
+        </vk-slider>
+      {%- elsif vk_pid == blank -%}
+        <div class="vk-section-head">{%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}</div>
+        <ul class="vk-product-grid" role="list">
+          {%- for p in collections['bestsellers'].products limit: s.limit -%}<li>{% render 'vk-product-card', product: p, index: forloop.index %}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </vk-recommendations>
+  </div>
+</section>
+<script src="{{ 'vk-product.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "tag": "div",
+  "class": "vk-recs-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Complete the set" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Made to work <em>together</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Pieces that share the same construction — and the same lifetime warranty." },
+    { "type": "select", "id": "intent", "label": "Recommendation type", "default": "related", "options": [{ "value": "related", "label": "Related" }, { "value": "complementary", "label": "Complementary" }] },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 10, "step": 1, "default": 6 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "presets": [{ "name": "VOLKARA · Product recommendations" }]
+}
+{% endschema %}
