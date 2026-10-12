@@ -11,7 +11,8 @@
     "check": "node tools/check.mjs",
     "locales": "node tools/merge-locales.mjs",
     "templates": "node tools/assemble-templates.mjs",
-    "products:csv": "node tools/export-products-csv.mjs"
+    "products:csv": "node tools/export-products-csv.mjs",
+    "export:static": "node tools/preview/export-static.mjs preview-static"
   },
   "devDependencies": {
     "@shopify/theme-check-node": "3.30.1",
