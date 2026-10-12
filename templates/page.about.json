@@ -255,14 +255,14 @@
           "type": "chip",
           "settings": {
             "icon": "return",
-            "text": "14 dagen bedenktijd"
+            "text": "30 dagen retour"
           }
         },
         "chip-3": {
           "type": "chip",
           "settings": {
             "icon": "truck",
-            "text": "Gratis verzending vanaf €75"
+            "text": "Gratis verzending"
           }
         }
       },

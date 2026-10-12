@@ -69,14 +69,14 @@
           "type": "question",
           "settings": {
             "question": "Kan ik mijn bestelling wijzigen of annuleren?",
-            "answer": "<p>Is je bestelling nog niet verzonden, neem dan zo snel mogelijk contact met ons op met je ordernummer. Is ze al onderweg, dan kun je gebruikmaken van je 14 dagen bedenktijd.</p>"
+            "answer": "<p>Is je bestelling nog niet verzonden, neem dan zo snel mogelijk contact met ons op met je ordernummer. Is ze al onderweg, dan kun je haar binnen 30 dagen na ontvangst retourneren.</p>"
           }
         },
         "question-3": {
           "type": "question",
           "settings": {
             "question": "Hoe retourneer ik iets?",
-            "answer": "<p>Laat het ons binnen 14 dagen na ontvangst weten, met je ordernummer. Je krijgt dan de retourinstructies. Zodra het product compleet bij ons terug is, betalen we het aankoopbedrag terug via je oorspronkelijke betaalmethode.</p>"
+            "answer": "<p>Laat het ons binnen 30 dagen na ontvangst weten, met je ordernummer. Je krijgt dan de retourinstructies. Zodra het product compleet bij ons terug is, betalen we het aankoopbedrag terug via je oorspronkelijke betaalmethode.</p>"
           }
         },
         "question-4": {
@@ -90,7 +90,7 @@
           "type": "question",
           "settings": {
             "question": "Naar welke landen verzenden jullie?",
-            "answer": "<p>Bij het afrekenen zie je naar welke landen we verzenden. Vanaf €75 is de verzending gratis.</p>"
+            "answer": "<p>Bij het afrekenen zie je naar welke landen we verzenden. Verzending is altijd gratis.</p>"
           }
         }
       },

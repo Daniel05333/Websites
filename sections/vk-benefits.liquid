@@ -45,31 +45,258 @@
   "tag": "div",
   "class": "vk-benefits-section",
   "settings": [
-    { "type": "text", "id": "index", "label": "Chapter number", "default": "06" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Waarom titanium" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Het verschil <em>proef</em> je." },
-    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Je merkt het verschil de eerste keer dat je bakt. En daarna elke dag weer." },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Kies je pan" },
-    { "type": "url", "id": "button_url", "label": "Button link" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-5" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+    {
+      "type": "text",
+      "id": "index",
+      "label": "Chapter number",
+      "default": "06"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Waarom titanium"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Het verschil <em>proef</em> je."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Je merkt het verschil de eerste keer dat je bakt. En daarna elke dag weer."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Kies je pan"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    }
   ],
   "blocks": [
-    { "type": "tile", "name": "Tile", "limit": 8, "settings": [
-      { "type": "select", "id": "size", "label": "Size", "default": "small", "options": [{ "value": "small", "label": "Small" }, { "value": "wide", "label": "Wide" }, { "value": "tall", "label": "Tall" }, { "value": "large", "label": "Large" }] },
-      { "type": "select", "id": "theme", "label": "Tile style", "default": "light", "options": [{ "value": "light", "label": "Light" }, { "value": "dark", "label": "Dark" }, { "value": "ember", "label": "Ember" }] },
-      { "type": "select", "id": "icon", "label": "Icon", "default": "flame", "options": [
-        { "value": "none", "label": "None" }, { "value": "flame", "label": "Flame" }, { "value": "thermometer", "label": "Thermometer" }, { "value": "utensils", "label": "Utensils" }, { "value": "oven", "label": "Oven" },
-        { "value": "dishwasher", "label": "Dishwasher" }, { "value": "award", "label": "Award" }, { "value": "layers", "label": "Layers" }, { "value": "shield", "label": "Shield" }, { "value": "induction", "label": "Induction" }
-      ] },
-      { "type": "image_picker", "id": "image", "label": "Image" },
-      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "none", "options": [{ "value": "none", "label": "None" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }] },
-      { "type": "text", "id": "stat", "label": "Stat", "default": "3,0 MM" },
-      { "type": "text", "id": "title", "label": "Title", "default": "Een korst die loslaat" },
-      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>De toppen dragen je eten, in de dalen blijft de olie staan.</p>" }
-    ] }
+    {
+      "type": "tile",
+      "name": "Tile",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "default": "small",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "wide",
+              "label": "Wide"
+            },
+            {
+              "value": "tall",
+              "label": "Tall"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "theme",
+          "label": "Tile style",
+          "default": "light",
+          "options": [
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "ember",
+              "label": "Ember"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "flame",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "flame",
+              "label": "Flame"
+            },
+            {
+              "value": "thermometer",
+              "label": "Thermometer"
+            },
+            {
+              "value": "utensils",
+              "label": "Utensils"
+            },
+            {
+              "value": "oven",
+              "label": "Oven"
+            },
+            {
+              "value": "dishwasher",
+              "label": "Dishwasher"
+            },
+            {
+              "value": "award",
+              "label": "Award"
+            },
+            {
+              "value": "layers",
+              "label": "Layers"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "induction",
+              "label": "Induction"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "fallback",
+          "label": "Bundled visual",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "vk-visual-sear.webp",
+              "label": "Steak sear"
+            },
+            {
+              "value": "vk-visual-chef.webp",
+              "label": "Chef flambé"
+            },
+            {
+              "value": "vk-visual-macro.webp",
+              "label": "LavaCell™ macro"
+            },
+            {
+              "value": "vk-visual-pan.webp",
+              "label": "Gehamerde pan (foto)"
+            },
+            {
+              "value": "vk-visual-pan-angle.webp",
+              "label": "Gehamerde pan, schuin (video-still)"
+            },
+            {
+              "value": "vk-visual-handle.webp",
+              "label": "Handgreep, close-up"
+            },
+            {
+              "value": "vk-visual-hero.webp",
+              "label": "Gehamerde pan, breed (video-still)"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "stat",
+          "label": "Stat",
+          "default": "3,0 MM"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Een korst die loslaat"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>De toppen dragen je eten, in de dalen blijft de olie staan.</p>"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "VOLKARA · Benefits bento", "blocks": [{ "type": "tile", "settings": { "size": "large", "theme": "dark" } }, { "type": "tile" }, { "type": "tile" }, { "type": "tile", "settings": { "size": "wide", "theme": "ember" } }] }]
+  "presets": [
+    {
+      "name": "VOLKARA · Benefits bento",
+      "blocks": [
+        {
+          "type": "tile",
+          "settings": {
+            "size": "large",
+            "theme": "dark"
+          }
+        },
+        {
+          "type": "tile"
+        },
+        {
+          "type": "tile"
+        },
+        {
+          "type": "tile",
+          "settings": {
+            "size": "wide",
+            "theme": "ember"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

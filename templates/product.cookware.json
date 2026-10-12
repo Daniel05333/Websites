@@ -103,7 +103,7 @@
             "heading": "Verzenden, retourneren en garantie",
             "icon": "truck",
             "source": "custom",
-            "content": "<p><strong>Verzenden.</strong> Vanaf €75 verzenden we gratis. Bij een kleinere bestelling zie je de verzendkosten en de verwachte levertijd bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je hebt 14 dagen bedenktijd vanaf het moment dat je je bestelling ontvangt. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je hebt altijd recht op de wettelijke garantie. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "content": "<p><strong>Verzenden.</strong> We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je krijgt 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
             "open": false
           }
         },
@@ -546,21 +546,21 @@
           "type": "question",
           "settings": {
             "question": "Kan ik mijn bestelling retourneren?",
-            "answer": "<p>Ja. Je hebt 14 dagen bedenktijd vanaf het moment dat je je bestelling ontvangt. Laat het ons binnen die termijn weten en stuur het product compleet terug. Je krijgt dan het aankoopbedrag terug.</p>"
+            "answer": "<p>Ja. Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug. Je krijgt dan het aankoopbedrag terug.</p>"
           }
         },
         "question-7": {
           "type": "question",
           "settings": {
             "question": "Wat kost verzending en hoe snel is het?",
-            "answer": "<p>Vanaf €75 verzenden we gratis. Bij een kleinere bestelling zie je de verzendkosten en de verwachte levertijd bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p>"
+            "answer": "<p>We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p>"
           }
         },
         "question-8": {
           "type": "question",
           "settings": {
             "question": "Welke garantie krijg ik?",
-            "answer": "<p>Je hebt altijd recht op de wettelijke garantie: een pan moet doen wat je er redelijkerwijs van mag verwachten. Is er iets mis met het materiaal of de afwerking? Neem contact met ons op, dan zoeken we samen naar een oplossing. Meer lees je op de <a href=\"/pages/warranty\">garantiepagina</a>.</p>"
+            "answer": "<p>Op Volkara pannen krijg je 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik, bovenop je wettelijke rechten. Is er iets mis met het materiaal of de afwerking? Neem contact met ons op, dan zoeken we samen naar een oplossing. Meer lees je op de <a href=\"/pages/warranty\">garantiepagina</a>.</p>"
           }
         }
       },
@@ -580,7 +580,7 @@
       "settings": {
         "eyebrow": "Maak het compleet",
         "heading": "Werkt goed <em>samen</em>.",
-        "subheading": "Producten met dezelfde opbouw en dezelfde lavarode details.",
+        "subheading": "Producten in dezelfde stijl en kwaliteit.",
         "intent": "related",
         "limit": 6,
         "color_scheme": "scheme-2",
@@ -596,7 +596,7 @@
         "show_embers": true,
         "eyebrow": "Klaar om over te stappen?",
         "heading": "Kies de pan die <em>blijft</em>.",
-        "subheading": "Kies je maat en ontdek hoe koken zonder coating voelt. Twijfel je? Je hebt 14 dagen bedenktijd.",
+        "subheading": "Kies je maat en ontdek hoe koken zonder coating voelt. Twijfel je? Je hebt 30 dagen om te retourneren.",
         "button_label": "Kies je maat",
         "button_url": "#buy",
         "guarantee": "",
@@ -616,14 +616,14 @@
           "type": "chip",
           "settings": {
             "icon": "return",
-            "text": "14 dagen bedenktijd"
+            "text": "30 dagen retour"
           }
         },
         "chip-3": {
           "type": "chip",
           "settings": {
             "icon": "truck",
-            "text": "Gratis verzending vanaf €75"
+            "text": "Gratis verzending"
           }
         }
       },

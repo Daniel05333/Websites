@@ -43,7 +43,8 @@ function makeVariant(v, p) {
 const productCache = new Map();
 function makeProduct(raw) {
   if (productCache.has(raw.handle)) return productCache.get(raw.handle);
-  const p = { ...raw, url: `/products/${raw.handle}`, media: [], images: [], featured_image: null, featured_media: null, content: raw.description, available: true, has_only_default_variant: raw.variants.length === 1 && raw.variants[0].title === 'Default Title' };
+  const imgs = (raw.imageFiles || []).map((f, i) => { const im = { id: 9000 + i, src: `/assets/${f}`, alt: raw.title, width: 1024, height: 1024, aspect_ratio: 1, media_type: 'image', position: i + 1 }; im.preview_image = im; return im; });
+  const p = { ...raw, url: `/products/${raw.handle}`, media: imgs, images: imgs, featured_image: imgs[0] || null, featured_media: imgs[0] || null, content: raw.description, available: true, has_only_default_variant: raw.variants.length === 1 && raw.variants[0].title === 'Default Title' };
   p.variants = raw.variants.map((v) => makeVariant(v, p));
   p.price = Math.min(...p.variants.map((v) => v.price)); p.price_min = p.price; p.price_max = Math.max(...p.variants.map((v) => v.price));
   p.price_varies = p.price_min !== p.price_max;

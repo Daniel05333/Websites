@@ -40,25 +40,152 @@
   "tag": "div",
   "class": "vk-problem-section",
   "settings": [
-    { "type": "text", "id": "index", "label": "Chapter number", "default": "02" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Het probleem" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Je pan wordt <em>ongemerkt</em> slechter." },
-    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Veel pannen draaien om een antiaanbaklaag, en zo'n laag slijt. Het bewijs staat waarschijnlijk al in je keuken." },
-    { "type": "text", "id": "transition_text", "label": "Transition line", "default": "Het kan anders" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+    {
+      "type": "text",
+      "id": "index",
+      "label": "Chapter number",
+      "default": "02"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Het probleem"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Je pan wordt <em>ongemerkt</em> slechter."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Veel pannen draaien om een antiaanbaklaag, en zo'n laag slijt. Het bewijs staat waarschijnlijk al in je keuken."
+    },
+    {
+      "type": "text",
+      "id": "transition_text",
+      "label": "Transition line",
+      "default": "Het kan anders"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
   ],
   "blocks": [
-    { "type": "card", "name": "Problem card", "limit": 4, "settings": [
-      { "type": "image_picker", "id": "image", "label": "Image" },
-      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "none", "options": [{ "value": "none", "label": "None (placeholder art)" }, { "value": "vk-visual-problem-coating.webp", "label": "Flaking coating" }] },
-      { "type": "text", "id": "stat", "label": "Stat", "default": "1 KRAS" },
-      { "type": "text", "id": "stat_label", "label": "Stat label", "default": "kan een coating al beschadigen" },
-      { "type": "text", "id": "title", "label": "Title", "default": "Coatings die afbladderen" },
-      { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Eén keer uitschieten met een metalen spatel en de laag is beschadigd. Een gekraste coating laat minder goed los, en wat eraf bladdert, moet ergens heen.</p>" }
-    ] }
+    {
+      "type": "card",
+      "name": "Problem card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "fallback",
+          "label": "Bundled visual",
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "None (placeholder art)"
+            },
+            {
+              "value": "vk-visual-problem-coating.webp",
+              "label": "Flaking coating"
+            },
+            {
+              "value": "vk-visual-pan.webp",
+              "label": "Gehamerde pan (foto)"
+            },
+            {
+              "value": "vk-visual-pan-angle.webp",
+              "label": "Gehamerde pan, schuin (video-still)"
+            },
+            {
+              "value": "vk-visual-macro.webp",
+              "label": "Gehamerd oppervlak, close-up"
+            },
+            {
+              "value": "vk-visual-handle.webp",
+              "label": "Handgreep, close-up"
+            },
+            {
+              "value": "vk-visual-hero.webp",
+              "label": "Gehamerde pan, breed (video-still)"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "stat",
+          "label": "Stat",
+          "default": "1 KRAS"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Stat label",
+          "default": "kan een coating al beschadigen"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Coatings die afbladderen"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Eén keer uitschieten met een metalen spatel en de laag is beschadigd. Een gekraste coating laat minder goed los, en wat eraf bladdert, moet ergens heen.</p>"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "VOLKARA · Problem", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+  "presets": [
+    {
+      "name": "VOLKARA · Problem",
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

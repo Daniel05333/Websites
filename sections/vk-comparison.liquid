@@ -45,10 +45,12 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <div class="vk-compare__foot">
-        <p class="vk-compare__promise">{% render 'vk-icon', name: 'shield', size: 18 %}<span>{{ s.footnote }}</span></p>
-        {%- render 'vk-button', label: s.button_label, url: s.button_url, icon: 'arrow-right', size: 'sm' -%}
-      </div>
+      {%- if s.footnote != blank or s.button_label != blank -%}
+        <div class="vk-compare__foot">
+          {%- if s.footnote != blank -%}<p class="vk-compare__promise">{% render 'vk-icon', name: 'shield', size: 18 %}<span>{{ s.footnote }}</span></p>{%- endif -%}
+          {%- if s.button_label != blank -%}{%- render 'vk-button', label: s.button_label, url: s.button_url, icon: 'arrow-right', size: 'sm' -%}{%- endif -%}
+        </div>
+      {%- endif -%}
     </vk-compare>
   </div>
 </section>

@@ -61,3 +61,8 @@
   .vk-hotspot:not(.is-active) .vk-hotspot__label { opacity: 0; }
   .vk-solution__point-text { padding-left: 0; }
 }
+@media (max-width: 749px) {
+  .vk-hotspot--left .vk-hotspot__label { left: auto; right: -10px; transform: translate(0, -4px); }
+  .vk-hotspot--left.is-active .vk-hotspot__label { transform: translate(0, 0); }
+  .vk-solution { overflow-x: clip; }
+}

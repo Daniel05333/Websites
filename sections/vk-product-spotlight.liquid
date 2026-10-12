@@ -84,21 +84,133 @@
   "tag": "div",
   "class": "vk-spotlight-section",
   "settings": [
-    { "type": "product", "id": "product", "label": "Product" },
-    { "type": "image_picker", "id": "image", "label": "Image override" },
-    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-sear.webp", "options": [{ "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-pan.webp", "label": "Forge Pan" }, { "value": "vk-visual-set.webp", "label": "Set" }] },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "De Forge Pan" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "De pan die je elke dag <em>pakt</em>." },
-    { "type": "inline_richtext", "id": "text", "label": "Text", "default": "Vier maten, één opbouw. De Forge Pan is VolcanicCore™ in zijn eenvoudigste vorm: een gelijkmatige korst op elke kookplaat en een titanium kookoppervlak zonder coating." },
-    { "type": "text", "id": "size_helper", "label": "Size helper", "default": "20 cm: eieren en sauzen · 24 cm: voor elke dag · 28 cm: voor het hele gezin · 32 cm: voor grote groepen" },
-    { "type": "text", "id": "link_label", "label": "Details link label", "default": "Bekijk de Forge Pan" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image override"
+    },
+    {
+      "type": "select",
+      "id": "fallback",
+      "label": "Bundled visual",
+      "default": "vk-visual-sear.webp",
+      "options": [
+        {
+          "value": "vk-visual-sear.webp",
+          "label": "Steak sear"
+        },
+        {
+          "value": "vk-visual-pan.webp",
+          "label": "Forge Pan"
+        },
+        {
+          "value": "vk-visual-set.webp",
+          "label": "Set"
+        },
+        {
+          "value": "vk-visual-pan-angle.webp",
+          "label": "Gehamerde pan, schuin (video-still)"
+        },
+        {
+          "value": "vk-visual-macro.webp",
+          "label": "Gehamerd oppervlak, close-up"
+        },
+        {
+          "value": "vk-visual-handle.webp",
+          "label": "Handgreep, close-up"
+        },
+        {
+          "value": "vk-visual-hero.webp",
+          "label": "Gehamerde pan, breed (video-still)"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "De Forge Pan"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "De pan die je elke dag <em>pakt</em>."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "Vier maten, één opbouw. De Forge Pan is VolcanicCore™ in zijn eenvoudigste vorm: een gelijkmatige korst op elke kookplaat en een titanium kookoppervlak zonder coating."
+    },
+    {
+      "type": "text",
+      "id": "size_helper",
+      "label": "Size helper",
+      "default": "20 cm: eieren en sauzen · 24 cm: voor elke dag · 28 cm: voor het hele gezin · 32 cm: voor grote groepen"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Details link label",
+      "default": "Bekijk de Forge Pan"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    }
   ],
   "blocks": [
-    { "type": "bullet", "name": "Bullet", "limit": 6, "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "LavaCell™-kookoppervlak van titanium, zonder coating" }] }
+    {
+      "type": "bullet",
+      "name": "Bullet",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "LavaCell™-kookoppervlak van titanium, zonder coating"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "VOLKARA · Product spotlight", "blocks": [{ "type": "bullet" }] }]
+  "presets": [
+    {
+      "name": "VOLKARA · Product spotlight",
+      "blocks": [
+        {
+          "type": "bullet"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

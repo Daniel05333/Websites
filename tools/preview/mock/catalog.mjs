@@ -6,14 +6,13 @@ const sizes = (handle, list, sku) => list.map(([title, price, compare = null]) =
 const single = (price, compare, sku) => [{ id: ++vid, title: 'Default Title', options: ['Default Title'], price, compare_at_price: compare, available: true, sku }];
 
 // Specificaties per soort product. Exacte cijfers staan alleen hier, niet in de omschrijvingen.
-const WARRANTY = { label: 'Garantie', value: 'Wettelijke garantie' };
+const WARRANTY = { label: 'Garantie', value: '25 jaar garantie' };
 const COOKWARE_SPECS = [
-  { label: 'Constructie', value: 'VolcanicCore™, 5 lagen, gesmeed en verbonden' },
-  { label: 'Kookoppervlak', value: 'LavaCell™ lasergeëtst titanium, zonder antiaanbaklaag' },
-  { label: 'Coating', value: 'Geen — PFAS- en PTFE-vrij' },
-  { label: 'Kern', value: 'Drievoudige aluminium kern' },
+  { label: 'Kookoppervlak', value: 'Massief titanium, handgehamerde afwerking' },
+  { label: 'Coating', value: 'Geen chemische coating — zonder PFAS, PFOA en PTFE' },
+  { label: 'Constructie', value: 'VolcanicCore™, gelaagd en samengesmeed' },
   { label: 'Warmtebronnen', value: 'Gas, inductie, keramisch, elektrisch, oven en grill' },
-  { label: 'Oven/grill', value: 'Ovenbestendig tot 260 °C' },
+  { label: 'Hittebestendig', value: 'Tot 540 °C' },
   { label: 'Vaatwasser', value: 'Vaatwasserbestendig' },
   { label: 'Keukengerei', value: 'Metalen spatels en gardes toegestaan' },
   WARRANTY,
@@ -23,7 +22,7 @@ const specs = {
   knife: (length) => [
     { label: 'Lemmet', value: 'Gelaagd damascusstaal' },
     { label: 'Lengte lemmet', value: length },
-    { label: 'Afwerking', value: 'Lavarode kraag' },
+    { label: 'Afwerking', value: 'Gepolijste afwerking' },
     { label: 'Onderhoud', value: 'Met de hand afwassen en direct afdrogen' },
     WARRANTY,
   ],
@@ -33,7 +32,7 @@ const specs = {
     WARRANTY,
   ],
   utensils: () => [
-    { label: 'Materiaal', value: 'Roestvrij staal (rvs) met lavarode kraag' },
+    { label: 'Materiaal', value: 'Roestvrij staal (rvs)' },
     { label: 'Inhoud', value: '5 delen' },
     { label: 'Geschikt voor', value: 'Titanium kookoppervlakken' },
     WARRANTY,
@@ -52,28 +51,30 @@ const P = (id, handle, title, type, tags, collections, variants, meta) => ({
   id, handle, title, type, vendor: 'VOLKARA', tags, collections, variants,
   options: variants[0].title === 'Default Title' ? ['Title'] : ['Maat'],
   description: meta.description,
+  imageFiles: meta.images || [],
   metafields: {
     custom: { subtitle: meta.subtitle, badge: meta.badge || null, specs: { type: 'json', value: meta.specs } },
-    // Bewust leeg: geen verzonnen beoordelingen. Een reviews-app vult deze metafields later.
-    reviews: { rating: null, rating_count: null },
+    // Alleen gevuld waar de opdrachtgever de cijfers heeft bevestigd (zie docs/09-claims-controle.md).
+    reviews: { rating: meta.rating || null, rating_count: meta.rating_count || null },
   },
   created_at: `2026-0${(id % 9) + 1}-12T10:00:00Z`,
 });
 
 export const products = [
-  P(1001, 'forge-pan', 'Volkara Forge Pan', 'Koekenpan', ['bestseller'], ['pans', 'bestsellers'],
-    sizes('forge-pan', [['20 cm', 11900], ['24 cm', 13900], ['28 cm', 15900], ['32 cm', 18900]], 'VK-FP'),
-    { subtitle: 'De koekenpan voor elke dag.', badge: 'Bestseller', specs: specs.cookware(),
-      description: html('De Volkara Forge Pan is de pan die je elke dag pakt: voor een gebakken ei, groenten uit de oven of een steak met een mooie korst. Het kookoppervlak is van titanium, zonder antiaanbaklaag. Voor wie één pan zoekt waarmee je bijna alles kunt.', [
-        'Titanium kookoppervlak zonder coating, dus PFAS- en PTFE-vrij',
-        'VolcanicCore™-opbouw verdeelt de warmte gelijkmatig tot aan de rand',
-        'Geschikt voor inductie, gas, keramisch, elektrisch en de oven',
-        'Metalen spatels mogen gewoon, en hij kan in de vaatwasser',
+  P(1001, 'forge-pan', 'Gehamerde Titanium Pan', 'Koekenpan', ['bestseller'], ['pans', 'bestsellers'],
+    sizes('forge-pan', [['20 cm', 8495, 28000], ['24 cm', 8995], ['28 cm', 9495], ['32 cm', 10495]], 'VK-FP'),
+    { subtitle: 'Japans vakmanschap. Gebouwd voor generaties.', badge: 'Bestseller', specs: specs.cookware(), images: ['vk-visual-pan.webp', 'vk-visual-pan-angle.webp', 'vk-visual-macro.webp', 'vk-visual-handle.webp'], rating: 4.8, rating_count: 15500,
+      description: html('De Gehamerde Titanium Pan is de pan die je elke dag pakt. Puur titanium, met een handgehamerde afwerking en zonder chemische coating: geen laag die kan afbladderen, wel een stevige korst, gelijkmatige warmte en een pan die gemaakt is om lang mee te gaan. Voor wie geen genoegen neemt met minder.', [
+        'Massief titanium kookoppervlak, zonder PFAS, PFOA of PTFE',
+        'Handgehamerde structuur voor een natuurlijke loslating',
+        'Bestand tegen hitte tot 540 °C, ook geschikt voor oven en grill',
+        'Werkt op gas, inductie, keramisch en elektrisch',
+        'Metalen keukengerei mag, en hij kan in de vaatwasser',
       ]) }),
-  P(1002, 'forge-wok', 'Volkara Forge Wok', 'Wok', [], ['woks', 'bestsellers'],
+  P(1002, 'forge-wok', 'Gehamerde Titanium Wok', 'Wok', [], ['woks', 'bestsellers'],
     sizes('forge-wok', [['30 cm', 18900], ['34 cm', 21900]], 'VK-FW'),
     { subtitle: 'Gemaakt voor felle hitte.', specs: specs.cookware(),
-      description: html('Met de Volkara Forge Wok roerbak je op hoog vuur, zoals het hoort: snel, heet en met groenten die knapperig blijven. De vlakke bodem staat stevig op inductie, de diepe kom geeft ruimte om te omscheppen. Voor iedereen die vaak Aziatisch kookt of gewoon graag op hoog vuur werkt.', [
+      description: html('Met de Gehamerde Titanium Wok roerbak je op hoog vuur, zoals het hoort: snel, heet en met groenten die knapperig blijven. De vlakke bodem staat stevig op inductie, de diepe kom geeft ruimte om te omscheppen. Voor iedereen die vaak Aziatisch kookt of gewoon graag op hoog vuur werkt.', [
         'Vlakke bodem voor goed contact met inductie en keramisch',
         'Diepe, ruime kom om ingrediënten makkelijk om te scheppen',
         'Titanium kookoppervlak zonder coating: hoog vuur is geen probleem',
@@ -106,14 +107,23 @@ export const products = [
         'Geschikt voor inductie en alle andere warmtebronnen',
         'Titanium kookoppervlak zonder coating, vaatwasserbestendig',
       ]) }),
-  P(1006, 'the-trio', 'Het Trio — set van drie Forge Pans', 'Set', ['bestseller'], ['sets', 'bestsellers'],
-    single(37900, 41700, 'VK-SET-3'),
-    { subtitle: '20, 24 en 28 cm.', badge: 'Bespaar €38', specs: specs.cookware([{ label: 'Inhoud', value: 'Forge Pan 20, 24 en 28 cm' }]),
-      description: html('Het Trio is de Volkara Forge Pan in drie maten: een kleine voor een ei of een saus, een middelste voor elke dag en een grote voor als je voor meer mensen kookt. Voor wie zijn pannen in één keer goed wil vervangen.', [
-        'Drie Forge Pans voor minder dan je los zou betalen',
-        'Titanium kookoppervlak zonder coating, PFAS- en PTFE-vrij',
-        'Geschikt voor inductie, alle warmtebronnen en de oven',
-        'Metalen keukengerei toegestaan, vaatwasserbestendig',
+  P(1006, 'the-trio', 'Complete set — 3 gehamerde pannen', 'Set', ['bestseller'], ['sets', 'bestsellers'],
+    single(24287, 26985, 'VK-SET-3'),
+    { subtitle: '20, 24 en 28 cm — 10% voordeliger dan los.', badge: 'Bespaar 10%', specs: specs.cookware([{ label: 'Inhoud', value: 'Gehamerde Titanium Pan 20, 24 en 28 cm' }]),
+      description: html('De complete set: de Gehamerde Titanium Pan in drie maten. Een kleine voor een ei of een saus, een middelste voor elke dag en een grote voor als je voor meer mensen kookt. Je betaalt 10% minder dan voor drie losse pannen.', [
+        'Drie pannen: 20, 24 en 28 cm',
+        '10% voordeliger dan los gekocht (€269,85 los, €242,87 als set)',
+        'Massief titanium, zonder PFAS, PFOA of PTFE',
+        'Geschikt voor alle warmtebronnen, oven en grill',
+      ]) }),
+  P(1014, 'duo-set', 'Set — 2 gehamerde pannen', 'Set', [], ['sets'],
+    single(16616, 17490, 'VK-SET-2'),
+    { subtitle: '20 en 24 cm — 5% voordeliger dan los.', badge: 'Bespaar 5%', specs: specs.cookware([{ label: 'Inhoud', value: 'Gehamerde Titanium Pan 20 en 24 cm' }]),
+      description: html('Twee gehamerde titanium pannen voor meer flexibiliteit in de keuken: de 20 cm voor ontbijt en sauzen, de 24 cm voor elke dag. Je betaalt 5% minder dan voor twee losse pannen.', [
+        'Twee pannen: 20 en 24 cm',
+        '5% voordeliger dan los gekocht (€174,90 los, €166,16 als set)',
+        'Massief titanium, zonder PFAS, PFOA of PTFE',
+        'Geschikt voor alle warmtebronnen, oven en grill',
       ]) }),
   P(1007, 'chefs-collection', "Chef's Collectie — 7-delig", 'Set', [], ['sets'],
     single(89900, 103400, 'VK-SET-7'),
@@ -137,22 +147,21 @@ export const products = [
   P(1009, 'damascus-chef-knife', 'Damascus koksmes 21 cm', 'Mes', [], ['knives'],
     single(16900, null, 'VK-KN-CH'),
     { subtitle: 'Je allrounder op de snijplank.', specs: specs.knife('21 cm'),
-      description: html('Het Volkara damascus koksmes is het mes dat je voor bijna alles gebruikt: uien snipperen, kruiden hakken, vlees portioneren. Het lemmet van gelaagd damascusstaal heeft het kenmerkende golvende patroon, afgewerkt met een lavarode kraag.', [
+      description: html('Het Volkara damascus koksmes is het mes dat je voor bijna alles gebruikt: uien snipperen, kruiden hakken, vlees portioneren. Het lemmet van gelaagd damascusstaal heeft het kenmerkende golvende patroon, afgewerkt', [
         'Gelaagd damascusstaal met een herkenbaar golfpatroon',
         'Een lang lemmet voor wiegend hakken en lange sneden',
-        'Lavarode kraag die past bij je Volkara pannen',
         'Met de hand afwassen en direct afdrogen, zo blijft het mes mooi',
       ]) }),
   P(1010, 'santoku-knife', 'Damascus santoku 18 cm', 'Mes', [], ['knives'],
     single(14900, null, 'VK-KN-SA'),
     { subtitle: 'Licht, wendbaar en precies.', specs: specs.knife('18 cm'),
       description: html('De Volkara damascus santoku is het Japanse allroundmes voor groenten, vis en vlees. Het kortere, brede lemmet ligt licht in de hand en is fijn voor dunne plakjes en precies snijwerk. Voor wie liever snijdt dan hakt.', [
-        'Gelaagd damascusstaal met lavarode kraag',
+        'Gelaagd damascusstaal',
         'Breed lemmet om gesneden ingrediënten makkelijk op te scheppen',
         'Compact en wendbaar, ook voor kleinere handen',
         'Met de hand afwassen en direct afdrogen',
       ]) }),
-  P(1011, 'titanium-board', 'Titanium snijplank', 'Accessoire', [], ['accessories'],
+  P(1011, 'titanium-board', 'Titanium snijplank', 'Accessoire', [], ['accessories', 'cutting-boards'],
     sizes('titanium-board', [['M', 8900], ['L', 11900]], 'VK-BRD'),
     { subtitle: 'Een strak, niet-poreus snijvlak.', specs: specs.board(),
       description: html('De Volkara titanium snijplank geeft je een glad, niet-poreus snijvlak dat je eenvoudig schoonmaakt. Vocht en geuren trekken niet in het oppervlak. Handig voor rauw vlees en vis, en mooi genoeg om op het aanrecht te laten liggen.', [
@@ -164,16 +173,16 @@ export const products = [
   P(1012, 'utensil-set', 'Set keukengerei — 5-delig', 'Accessoire', [], ['accessories'],
     single(9900, null, 'VK-UT-5'),
     { subtitle: 'Gereedschap dat bij je pannen past.', specs: specs.utensils(),
-      description: html('Vijf stuks keukengerei van roestvrij staal, met dezelfde lavarode kraag als onze messen. Omdat het kookoppervlak van Volkara pannen van titanium is en geen coating heeft, kun je ze daar gewoon mee gebruiken. Voor wie zijn keuken compleet en in één stijl wil hebben.', [
+      description: html('Vijf stuks keukengerei van roestvrij staal, met dezelfde, kun je ze daar gewoon mee gebruiken. Voor wie zijn keuken compleet en in één stijl wil hebben.', [
         'Vijf delen van roestvrij staal (rvs) voor dagelijks kookwerk',
         'Te gebruiken in Volkara pannen: metaal op titanium mag',
-        'Lavarode kraag, in dezelfde stijl als de messen',
+        ', in dezelfde stijl als de messen',
         'Stevig in de hand, makkelijk schoon te maken',
       ]) }),
   P(1013, 'glass-lid', 'Glazen deksel', 'Accessoire', [], ['accessories'],
     sizes('glass-lid', [['20 cm', 3900], ['24 cm', 4500], ['28 cm', 4900]], 'VK-LID'),
     { subtitle: 'Passend bij je pan.', specs: specs.lid(),
-      description: html('Met de glazen deksel van Volkara zie je wat er in de pan gebeurt zonder de deksel op te tillen. Zo blijven warmte en vocht in de pan, terwijl je toch kunt zien of je saus inkookt of je groenten gaar zijn. Kies de maat van je Forge Pan of hapjespan.', [
+      description: html('Met de glazen deksel van Volkara zie je wat er in de pan gebeurt zonder de deksel op te tillen. Zo blijven warmte en vocht in de pan, terwijl je toch kunt zien of je saus inkookt of je groenten gaar zijn. Kies de maat van je Gehamerde Titanium Pan of hapjespan.', [
         'Gehard glas: meekijken zonder de deksel op te tillen',
         'Houdt warmte en vocht in de pan bij smoren en stoven',
         'Verkrijgbaar in de maten van de Volkara pannen',
@@ -183,11 +192,12 @@ export const products = [
 
 export const collections = [
   ['all', 'Hele collectie', 'Alles volgens één <em>standaard</em>.', 'Pannen, woks, kookpannen, messen en keukengerei. Allemaal gemaakt vanuit hetzelfde idee: kookgerei zonder coating dat je elke dag met plezier gebruikt.'],
-  ['pans', 'Pannen', 'De pan voor <em>elke dag</em>.', 'De Forge Pan in vier maten, en de hapjespan voor alles wat een hogere rand nodig heeft.'],
+  ['pans', 'Professionele pannen', 'De pan voor <em>elke dag</em>.', 'De Gehamerde Titanium Pan in vier maten, en de hapjespan voor alles wat een hogere rand nodig heeft.'],
+  ['cutting-boards', 'Snijplanken', 'Een plank die <em>blijft</em>.', 'Hygiënische titanium snijplanken die niet splijten of trekken.'],
   ['woks', 'Woks', 'Gemaakt voor <em>felle</em> hitte.', 'Een vlakke bodem voor inductie en een diepe kom om ruim in om te scheppen.'],
   ['pots', 'Kookpannen', 'Rustig garen, <em>gelijkmatig</em> warm.', 'Steelpannen, een hapjespan en een kookpan, met goed sluitende deksels.'],
   ['sets', 'Sets', 'Je keuken in één keer <em>compleet</em>.', 'Samengestelde sets die voordeliger zijn dan dezelfde delen los.'],
-  ['knives', 'Messen', 'Een snede om <em>zuinig</em> op te zijn.', 'Messen van gelaagd damascusstaal, met een lavarode kraag.'],
+  ['knives', 'Messen', 'Een snede om <em>zuinig</em> op te zijn.', 'Messen van gelaagd damascusstaal'],
   ['accessories', 'Accessoires', 'De <em>details</em> die het afmaken.', 'Een titanium snijplank, keukengerei van rvs en glazen deksels in de maten van je pannen.'],
   ['bestsellers', 'Bestsellers', 'Hier <em>begin</em> je mee.', 'De stukken waarmee je een Volkara keuken begint.'],
 ].map(([handle, title, hero, description], i) => ({ id: 500 + i, handle, title, hero, description: `<p>${description}</p>` }));
@@ -196,27 +206,44 @@ const L = (title, url, links = []) => ({ title, url, links });
 export const menus = {
   'main-menu': [
     L('Collectie', '/collections/all', [
-      L('Pannen', '/collections/pans', [L('Forge Pan', '/products/forge-pan'), L('Forge Wok', '/products/forge-wok'), L('Hapjespan', '/products/saute-pan'), L('Steelpan', '/products/saucepan'), L('Kookpan', '/products/stockpot')]),
-      L('Sets', '/collections/sets', [L('Het Trio', '/products/the-trio'), L("Chef's Collectie", '/products/chefs-collection'), L('Signature Keuken', '/products/signature-kitchen')]),
+      L('Pannen', '/collections/pans', [L('Gehamerde Titanium Pan', '/products/forge-pan'), L('Gehamerde Titanium Wok', '/products/forge-wok'), L('Hapjespan', '/products/saute-pan'), L('Steelpan', '/products/saucepan'), L('Kookpan', '/products/stockpot')]),
+      L('Sets', '/collections/sets', [L('Set — 2 pannen', '/products/duo-set'), L('Complete set — 3 pannen', '/products/the-trio'), L("Chef's Collectie", '/products/chefs-collection'), L('Signature Keuken', '/products/signature-kitchen')]),
       L('Messen & accessoires', '/collections/knives', [L('Damascus koksmes', '/products/damascus-chef-knife'), L('Damascus santoku', '/products/santoku-knife'), L('Titanium snijplank', '/products/titanium-board'), L('Keukengerei', '/products/utensil-set'), L('Glazen deksel', '/products/glass-lid')]),
     ]),
     L('VolcanicCore™', '/pages/technology'), L('Ons verhaal', '/pages/about'), L('Vragen', '/pages/veelgestelde-vragen'), L('Contact', '/pages/contact'),
   ],
   'footer-shop': [L('Hele collectie', '/collections/all'), L('Pannen', '/collections/pans'), L('Woks', '/collections/woks'), L('Kookpannen', '/collections/pots'), L('Sets', '/collections/sets'), L('Messen', '/collections/knives'), L('Accessoires', '/collections/accessories')],
-  'footer-help': [L('Veelgestelde vragen', '/pages/veelgestelde-vragen'), L('Verzenden en retourneren', '/pages/verzenden-en-retourneren'), L('Bestelling volgen', '/pages/bestelling-volgen'), L('Garantie', '/pages/warranty'), L('Contact', '/pages/contact')],
+  'footer-help': [L('Veelgestelde vragen', '/pages/veelgestelde-vragen'), L('Verzenden en retourneren', '/pages/verzenden-en-retourneren'), L('Bestelling volgen', '/pages/bestelling-volgen'), L('Titanium Kookgids', '/pages/titanium-kookgids'), L('Garantie', '/pages/warranty'), L('Contact', '/pages/contact')],
   'footer-legal': [L('Algemene voorwaarden', '/policies/terms-of-service'), L('Privacyverklaring', '/policies/privacy-policy'), L('Herroepingsformulier', '/pages/herroepen')],
 };
 
 export const pages = [
+  { handle: 'titanium-kookgids', title: 'De Volkara Titanium Kookgids', template_suffix: null, content: [
+    '<p>Koken op titanium is anders dan op een pan met antiaanbaklaag. Niet moeilijker, wel anders. Met deze gids haal je vanaf de eerste keer het beste uit je Volkara pan.</p>',
+    '<h2>1. Voor het eerste gebruik</h2>',
+    '<p>Was de pan met warm water en een beetje afwasmiddel en droog hem goed af. Wil je, dan kun je de pan kort voorbereiden: verwarm hem op middelhoog vuur, wrijf er een theelepel neutrale olie in, laat afkoelen en veeg hem uit.</p>',
+    '<h2>2. Voorverwarmen is alles</h2>',
+    '<p>Verwarm de lege pan twee tot drie minuten op middelhoog vuur. Doe de watertest: een druppel water die als een balletje over het oppervlak danst, betekent dat de pan klaar is. Voeg dan pas olie of boter toe.</p>',
+    '<h2>3. Laat het eten los laten</h2>',
+    '<p>Leg je eten in de pan en laat het liggen. Eiwitten plakken eerst even vast en laten vanzelf los zodra er een korst is gevormd. Ga je te vroeg schuiven, dan plakt het. Geduld geeft de mooiste korst.</p>',
+    '<h2>4. Eieren, vis en pannenkoeken</h2>',
+    '<p>Gebruik iets meer vet en een iets lager vuur dan bij vlees. Voor eieren: verwarm voor, voeg boter toe tot die schuimt en wacht tot het eiwit stolt voordat je schept.</p>',
+    '<h2>5. Hoog vuur, oven en grill</h2>',
+    '<p>Titanium kan hoge hitte aan. Schroei vlees dicht op hoog vuur en maak het af in de oven. Let op: de handgreep wordt in de oven heet, gebruik altijd een ovenwant.</p>',
+    '<h2>6. Schoonmaken</h2>',
+    '<p>Laat de pan iets afkoelen en spoel hem met warm water. Een zachte spons is meestal genoeg; de vaatwasser mag ook. Zit er iets aangekoekt, laat dan een bodem water een minuutje koken en veeg de pan schoon. Regenboogkleurige hittevlekken haal je weg met een scheutje witte azijn.</p>',
+    '<h2>7. Patina is normaal</h2>',
+    '<p>Na verloop van tijd krijgt het oppervlak een lichte patina en wat gebruikssporen. Dat is geen slijtage van een coating, want die is er niet. Het heeft geen invloed op hoe de pan kookt.</p>',
+  ].join('') },
   { handle: 'veelgestelde-vragen', title: 'Veelgestelde vragen', template_suffix: 'faq', content: '' },
   { handle: 'verzenden-en-retourneren', title: 'Verzenden en retourneren', template_suffix: null, content: [
     '<h2>Verzenden</h2>',
-    '<p><strong>Verzendkosten.</strong> Vanaf €75 verzenden we gratis. Bij een kleinere bestelling zie je de verzendkosten bij het afrekenen, voordat je betaalt. Er komen achteraf geen kosten bij.</p>',
+    '<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Er komen achteraf geen kosten bij.</p>',
     '<p><strong>Levertijd.</strong> De verwachte levertijd zie je bij het afrekenen. Zodra je pakket onderweg is, krijg je een e-mail met een track-and-tracelink, zodat je precies weet wanneer het komt.</p>',
     '<p><strong>Landen.</strong> Bij het afrekenen zie je naar welke landen we verzenden.</p>',
     '<h2>Retourneren</h2>',
-    '<p><strong>14 dagen bedenktijd.</strong> Je hebt 14 dagen bedenktijd vanaf de dag dat je je bestelling ontvangt. In die periode kun je zonder opgaaf van reden van je aankoop afzien.</p>',
-    '<p><strong>Zo werkt het.</strong> Laat het ons binnen de bedenktijd weten via de <a href="/pages/contact">contactpagina</a> of met het <a href="/pages/herroepen">herroepingsformulier</a>, met je ordernummer. Je krijgt de retourinstructies van ons. Stuur het product daarna binnen 14 dagen compleet en goed verpakt terug.</p>',
+    '<p><strong>30 dagen retour.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren, zonder opgaaf van reden. Daarmee krijg je meer tijd dan de wettelijke bedenktijd van 14 dagen.</p>',
+    '<p><strong>Zo werkt het.</strong> Laat het ons binnen 30 dagen weten via de <a href="/pages/contact">contactpagina</a> of met het <a href="/pages/herroepen">herroepingsformulier</a>, met je ordernummer. Je krijgt de retourinstructies van ons. Stuur het product daarna compleet en goed verpakt terug.</p>',
     '<p><strong>Uitproberen.</strong> Je mag het product uitpakken en bekijken zoals je dat in een winkel zou doen. Gebruik je het meer dan nodig is om het te beoordelen, dan kunnen we een eventuele waardevermindering verrekenen.</p>',
     '<p><strong>Terugbetaling.</strong> We betalen het aankoopbedrag, inclusief de oorspronkelijke verzendkosten, binnen 14 dagen nadat je de herroeping hebt gemeld terug via je oorspronkelijke betaalmethode. We mogen wachten met terugbetalen tot we het product hebben ontvangen.</p>',
     '<h2>Beschadigd of niet in orde?</h2>',
@@ -246,9 +273,9 @@ export const pages = [
   { handle: 'technology', title: 'VolcanicCore™-technologie', template_suffix: 'technology', content: '' },
   { handle: 'contact', title: 'Contact', template_suffix: 'contact', content: '<p>Een vraag over maten, onderhoud of je bestelling? Stuur ons een bericht. We lezen alles zelf en reageren zo snel mogelijk op werkdagen.</p>' },
   { handle: 'warranty', title: 'Garantie en retourneren', template_suffix: null, content: [
-    '<p><strong>Wettelijke garantie.</strong> Op elk Volkara product heb je de wettelijke garantie: een product moet doen wat je er redelijkerwijs van mag verwachten. Is er iets mis met het materiaal of de afwerking, dan zorgen we voor een passende oplossing, zoals herstel of vervanging.</p>',
+    '<p><strong>25 jaar garantie.</strong> Op Volkara pannen krijg je 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Normale gebruikssporen, zoals patina of kleine krasjes, en schade door onjuist gebruik vallen hier niet onder. Je wettelijke rechten blijven daarnaast altijd gelden.</p>',
     '<p><strong>Een garantieverzoek indienen.</strong> Neem contact met ons op via de <a href="/pages/contact">contactpagina</a>. Vermeld je bestelnummer, beschrijf wat er aan de hand is en stuur als het kan een paar foto\'s mee. We laten je weten wat de volgende stap is.</p>',
-    '<p><strong>14 dagen bedenktijd.</strong> Bestel je online, dan mag je je aankoop binnen 14 dagen na ontvangst zonder opgaaf van reden herroepen. Daarna heb je nog 14 dagen om het product terug te sturen. Hoe dat werkt, lees je op de pagina <a href="/pages/verzenden-en-retourneren">Verzenden en retourneren</a>.</p>',
+    '<p><strong>30 dagen retour.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren, zonder opgaaf van reden. Hoe dat werkt, lees je op de pagina <a href="/pages/verzenden-en-retourneren">Verzenden en retourneren</a>.</p>',
   ].join('') },
 ];
 

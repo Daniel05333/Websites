@@ -25,6 +25,8 @@
   assign vk_loading = loading | default: 'lazy'
   assign vk_sizes = sizes | default: '100vw'
   assign vk_widths = widths | default: '375,550,750,1100,1500,1780,2000'
+  # Bundled photography that actually ships with the theme (assets/). Other fallbacks render the SVG art.
+  assign vk_bundled = 'vk-visual-pan.webp,vk-visual-hero.webp,vk-visual-macro.webp,vk-visual-handle.webp,vk-visual-pan-angle.webp' | split: ','
 -%}
 {%- if vk_img != blank -%}
   {%- assign vk_alt = alt | default: vk_img.alt | escape -%}
@@ -33,7 +35,7 @@
   {%- else -%}
     {{ vk_img | image_url: width: 2000 | image_tag: sizes: vk_sizes, widths: vk_widths, class: class, loading: 'lazy', alt: vk_alt }}
   {%- endif -%}
-{%- elsif settings.use_bundled_visuals and fallback != blank and fallback != 'none' -%}
+{%- elsif settings.use_bundled_visuals and fallback != blank and fallback != 'none' and vk_bundled contains fallback -%}
   <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" width="{{ fallback_width | default: 1280 }}" height="{{ fallback_height | default: 720 }}" class="{{ class }}" loading="{{ vk_loading }}"{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %} decoding="async">
 {%- else -%}
   {%- render 'vk-placeholder', type: placeholder, class: class, label: alt -%}

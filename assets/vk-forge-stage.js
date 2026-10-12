@@ -1,7 +1,6 @@
 /* ==========================================================================
    VOLKARA — Forge stage
-   A cinematic scroll scene: a procedural 3D Forge Pan (titanium LavaCell™
-   surface, lava-red collar) in WebGL, molten sparks, a liquid-metal wave
+   A cinematic scroll scene: a procedural 3D hammered titanium pan in WebGL, molten sparks, a liquid-metal wave
    shader that shifts from lava to titanium, and an editorial overlay whose
    slides reveal per letter. Three.js is self-hosted (vk-three.module.min.js)
    and only loaded when the stage approaches the viewport.
@@ -153,12 +152,11 @@ function buildPan(THREE, renderer) {
   const ring = new THREE.Mesh(new THREE.TorusGeometry(0.05, 0.012, 12, 32), new THREE.MeshStandardMaterial({ color: '#111', metalness: 0.4, roughness: 0.6 }));
   ring.position.copy(curve.getPoint(0.94)).add(new THREE.Vector3(0, 0.04, 0)); ring.rotation.x = Math.PI / 2; group.add(ring);
 
-  // lava-red collar ring: the Volkara signature
-  const lava = new THREE.MeshStandardMaterial({ color: '#d7261e', metalness: 0.55, roughness: 0.32, emissive: '#7a1008', emissiveIntensity: 0.9 });
-  const tP = 0.22, at = curve.getPoint(tP), tan = curve.getTangent(tP);
-  const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.082, 0.082, 0.11, 40, 1, true), lava);
-  collar.position.copy(at); collar.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan); collar.scale.z = 0.85;
-  group.add(collar);
+  // polished steel ferrule where the handle meets the pan
+  const tP = 0.12, at = curve.getPoint(tP), tan = curve.getTangent(tP);
+  const ferrule = new THREE.Mesh(new THREE.CylinderGeometry(0.078, 0.07, 0.1, 40, 1, false), new THREE.MeshStandardMaterial({ color: '#d9d6d1', metalness: 1, roughness: 0.18 }));
+  ferrule.position.copy(at); ferrule.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tan); ferrule.scale.z = 0.85;
+  group.add(ferrule);
 
   // rivets
   for (const z of [-0.075, 0.075]) {

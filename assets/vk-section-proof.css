@@ -104,3 +104,11 @@ html.js.vk-motion .vk-compare__wrap.is-revealed .vk-draw { stroke-dashoffset: 0;
 .vk-imgtext__stats dd { margin: 0 0 .35rem; font-family: var(--vk-font-display); font-size: 1.75rem; font-weight: 500; letter-spacing: -0.03em; }
 .vk-imgtext__stats div { display: flex; flex-direction: column-reverse; }
 @media (max-width: 989px) { .vk-imgtext__grid { grid-template-columns: minmax(0, 1fr); } .vk-imgtext--right .vk-imgtext__media { order: 0; } }
+
+.vk-usp__heading { justify-content: center; text-align: center; margin: 0 auto 1.5rem; }
+.vk-usp__heading::before { display: none; }
+.vk-imgtext__text ul { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: .9rem; }
+.vk-imgtext__text li { position: relative; padding-left: 2.25rem; }
+.vk-imgtext__text li::before { content: ""; position: absolute; left: 0; top: .1em; width: 1.4rem; height: 1.4rem; border-radius: 7px; background: var(--vk-ember) center / 12px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+.vk-imgtext__text li strong { display: block; color: var(--vk-fg); }
+.vk-compare__foot:has(> .vk-btn:only-child) { justify-content: flex-end; }

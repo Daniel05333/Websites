@@ -18,6 +18,11 @@
         <vk-video class="vk-hero__video">
           {{ s.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
         </vk-video>
+      {%- elsif s.video_asset != blank and settings.use_bundled_visuals -%}
+        <video class="vk-hero__video vk-hero__video--asset" autoplay muted loop playsinline preload="metadata" poster="{{ s.fallback | asset_url }}" aria-hidden="true">
+          <source src="{{ s.video_asset | replace: '.mp4', '.webm' | asset_url }}" type="video/webm">
+          <source src="{{ s.video_asset | asset_url }}" type="video/mp4">
+        </video>
       {%- elsif s.mobile_image != blank -%}
         <picture>
           <source media="(max-width: 749px)" srcset="{{ s.mobile_image | image_url: width: 750 }} 750w, {{ s.mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
@@ -74,43 +79,326 @@
   "tag": "div",
   "class": "vk-hero-section",
   "settings": [
-    { "type": "header", "content": "Media" },
-    { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, 2400 px wide. Keep the product on the right for left-aligned text." },
-    { "type": "image_picker", "id": "mobile_image", "label": "Mobile image", "info": "Optional portrait crop." },
-    { "type": "video", "id": "video", "label": "Background video", "info": "Muted loop. Overrides the image." },
-    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Volkara Forge Pan boven een ring van gasvlammen, met opstijgende vonken in het donker" },
-    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-hero.webp", "info": "Used until you upload an image (requires Theme settings → Visuals).", "options": [
-      { "value": "vk-visual-hero.webp", "label": "Pan over flame" }, { "value": "vk-visual-forge.webp", "label": "Forge & sparks" },
-      { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }
-    ] },
-    { "type": "range", "id": "overlay", "label": "Overlay strength", "min": 0, "max": 90, "step": 5, "unit": "%", "default": 45 },
-    { "type": "range", "id": "parallax", "label": "Parallax", "min": 0, "max": 40, "step": 5, "unit": "%", "default": 20 },
-    { "type": "checkbox", "id": "show_embers", "label": "Ember particles", "default": true },
-    { "type": "header", "content": "Layout" },
-    { "type": "select", "id": "height", "label": "Height", "default": "full", "options": [{ "value": "full", "label": "Full screen" }, { "value": "large", "label": "Large" }, { "value": "medium", "label": "Medium" }] },
-    { "type": "select", "id": "alignment", "label": "Content alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }] },
-    { "type": "checkbox", "id": "show_scroll_cue", "label": "Scroll cue", "default": true },
-    { "type": "header", "content": "Content" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Titanium kookgerei" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Italicise the accent word.", "default": "Gemaakt voor hoge <em>hitte</em>." },
-    { "type": "select", "id": "heading_tag", "label": "Heading tag", "default": "auto", "options": [{ "value": "auto", "label": "Automatic" }, { "value": "h1", "label": "H1" }, { "value": "h2", "label": "H2" }] },
-    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Een kookoppervlak van titanium, zonder antiaanbaklaag. Niets dat kan afbladderen, wel een mooie korst op elke kookplaat." },
-    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Bekijk de collectie" },
-    { "type": "url", "id": "primary_url", "label": "Primary link" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Ontdek VolcanicCore™" },
-    { "type": "url", "id": "secondary_url", "label": "Secondary link" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 }
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Landscape, 2400 px wide. Keep the product on the right for left-aligned text."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "Optional portrait crop."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Muted loop. Overrides the image."
+    },
+    {
+      "type": "select",
+      "id": "video_asset",
+      "label": "Bundled video",
+      "default": "",
+      "info": "Product film shipped with the theme. Used when no video is uploaded (requires Theme settings → Visuals).",
+      "options": [
+        {
+          "value": "",
+          "label": "None"
+        },
+        {
+          "value": "vk-video-pan.mp4",
+          "label": "Gehamerde pan (studio)"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "Volkara Forge Pan boven een ring van gasvlammen, met opstijgende vonken in het donker"
+    },
+    {
+      "type": "select",
+      "id": "fallback",
+      "label": "Bundled visual",
+      "default": "vk-visual-hero.webp",
+      "info": "Used until you upload an image (requires Theme settings → Visuals).",
+      "options": [
+        {
+          "value": "vk-visual-hero.webp",
+          "label": "Pan over flame"
+        },
+        {
+          "value": "vk-visual-forge.webp",
+          "label": "Forge & sparks"
+        },
+        {
+          "value": "vk-visual-macro.webp",
+          "label": "LavaCell™ macro"
+        },
+        {
+          "value": "vk-visual-chef.webp",
+          "label": "Chef flambé"
+        },
+        {
+          "value": "vk-visual-sear.webp",
+          "label": "Steak sear"
+        },
+        {
+          "value": "vk-visual-pan.webp",
+          "label": "Gehamerde pan (foto)"
+        },
+        {
+          "value": "vk-visual-pan-angle.webp",
+          "label": "Gehamerde pan, schuin (video-still)"
+        },
+        {
+          "value": "vk-visual-handle.webp",
+          "label": "Handgreep, close-up"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "label": "Overlay strength",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "parallax",
+      "label": "Parallax",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "show_embers",
+      "label": "Ember particles",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "default": "full",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full screen"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Content alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_cue",
+      "label": "Scroll cue",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Titanium kookgerei"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Italicise the accent word.",
+      "default": "Gemaakt voor hoge <em>hitte</em>."
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatic"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        }
+      ]
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Een kookoppervlak van titanium, zonder antiaanbaklaag. Niets dat kan afbladderen, wel een mooie korst op elke kookplaat."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Bekijk de collectie"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button",
+      "default": "Ontdek VolcanicCore™"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    }
   ],
   "blocks": [
-    { "type": "trust", "name": "Trust item", "limit": 4, "settings": [
-      { "type": "select", "id": "icon", "label": "Icon", "default": "shield", "options": [
-        { "value": "shield", "label": "Shield" }, { "value": "return", "label": "Return" }, { "value": "leaf", "label": "Leaf" }, { "value": "truck", "label": "Truck" }, { "value": "star", "label": "Star" }, { "value": "flame", "label": "Flame" }
-      ] },
-      { "type": "text", "id": "text", "label": "Text", "default": "Wettelijke garantie" }
-    ] }
+    {
+      "type": "trust",
+      "name": "Trust item",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "shield",
+          "options": [
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "flame",
+              "label": "Flame"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Wettelijke garantie"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "VOLKARA · Hero", "blocks": [{ "type": "trust" }, { "type": "trust", "settings": { "icon": "return", "text": "14 dagen bedenktijd" } }, { "type": "trust", "settings": { "icon": "leaf", "text": "PFAS- en PTFE-vrij" } }] }]
+  "presets": [
+    {
+      "name": "VOLKARA · Hero",
+      "blocks": [
+        {
+          "type": "trust"
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "icon": "return",
+            "text": "14 dagen bedenktijd"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "icon": "leaf",
+            "text": "PFAS- en PTFE-vrij"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

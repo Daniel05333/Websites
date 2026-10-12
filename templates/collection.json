@@ -110,7 +110,7 @@
           "type": "usp",
           "settings": {
             "icon": "return",
-            "title": "14 dagen bedenktijd",
+            "title": "30 dagen retour",
             "subtitle": "Niet tevreden? Stuur het terug"
           }
         },
@@ -119,7 +119,7 @@
           "settings": {
             "icon": "truck",
             "title": "Gratis verzending",
-            "subtitle": "Bij bestellingen vanaf €75"
+            "subtitle": "Op elke bestelling"
           }
         }
       },
@@ -216,7 +216,7 @@
           "type": "question",
           "settings": {
             "question": "Wat als het toch niet bevalt?",
-            "answer": "<p>Je hebt 14 dagen bedenktijd vanaf het moment dat je je bestelling ontvangt. Laat het ons weten, stuur het product compleet terug en je krijgt het aankoopbedrag terug.</p>"
+            "answer": "<p>Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten, stuur het product compleet terug en je krijgt het aankoopbedrag terug.</p>"
           }
         }
       },
@@ -257,14 +257,14 @@
           "type": "chip",
           "settings": {
             "icon": "return",
-            "text": "14 dagen bedenktijd"
+            "text": "30 dagen retour"
           }
         },
         "chip-3": {
           "type": "chip",
           "settings": {
             "icon": "truck",
-            "text": "Gratis verzending vanaf €75"
+            "text": "Gratis verzending"
           }
         }
       },

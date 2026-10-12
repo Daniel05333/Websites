@@ -6,7 +6,7 @@
     "main": {
       "type": "vk-main-product",
       "settings": {
-        "gallery_chip": "PFAS- en PTFE-vrij",
+        "gallery_chip": "25 jaar garantie",
         "show_sticky_atc": true,
         "color_scheme": "scheme-1",
         "padding_top": 120,
@@ -16,13 +16,13 @@
         "badge-1": {
           "type": "badge",
           "settings": {
-            "text": ""
+            "text": "Best beoordeelde titanium pan"
           }
         },
         "title-2": {
           "type": "title",
           "settings": {
-            "subtitle": ""
+            "subtitle": "Japans vakmanschap. Gebouwd voor generaties."
           }
         },
         "rating-3": {
@@ -33,64 +33,67 @@
           "type": "price",
           "settings": {}
         },
-        "text-5": {
-          "type": "text",
-          "settings": {
-            "text": "<p>De pan waar je mee begint. Een titanium LavaCell™-oppervlak voor een mooie korst die vanzelf loslaat, een aluminium kern voor gelijkmatige warmte tot aan de rand en een stevige, gelaagde opbouw zonder coating.</p>"
-          }
-        },
-        "usp_tiles-6": {
+        "usp_tiles-5": {
           "type": "usp_tiles",
           "settings": {
             "icon_1": "shield",
-            "title_1": "PFAS- en PTFE-vrij",
-            "text_1": "Titanium kookoppervlak",
-            "icon_2": "fire-ring",
-            "title_2": "Elke warmtebron",
-            "text_2": "Ook inductie en oven",
-            "icon_3": "utensils",
-            "title_3": "Metalen spatel mag",
-            "text_3": "Geen coating om te krassen",
-            "icon_4": "dishwasher",
-            "title_4": "Vaatwasserbestendig",
-            "text_4": "Snel weer schoon"
+            "title_1": "100% PFAS-vrij",
+            "text_1": "Geen schadelijke chemicaliën",
+            "icon_2": "warranty",
+            "title_2": "25 jaar garantie",
+            "text_2": "Gebouwd om dagelijks te presteren",
+            "icon_3": "dishwasher",
+            "title_3": "Vaatwasserbestendig",
+            "text_3": "Snel schoon, klaar voor de volgende maaltijd",
+            "icon_4": "fire-ring",
+            "title_4": "Alle warmtebronnen",
+            "text_4": "Gas, inductie, oven en grill"
           }
         },
-        "variant_picker-7": {
+        "variant_picker-6": {
           "type": "variant_picker",
           "settings": {
             "size_help": "20 cm — eieren en sauzen · 24 cm — de alleskunner · 28 cm — gezinsmaaltijden · 32 cm — koken voor een groep"
           }
         },
-        "bundle_picker-8": {
+        "bundle_picker-7": {
           "type": "bundle_picker",
           "settings": {
-            "label": "Kies je uitvoering",
-            "t1_title": "Alleen de pan",
-            "t1_text": "Eén Forge Pan in de gekozen maat.",
-            "t2_title": "Pan met deksel",
-            "t2_text": "Je Forge Pan met het bijpassende glazen deksel in dezelfde maat.",
-            "t2_tag": "Handig",
-            "t2_addon": "glass-lid",
-            "t3_title": "Het Trio",
-            "t3_text": "De Forge Pan in 20, 24 en 28 cm, voordeliger dan drie losse pannen.",
-            "t3_tag": "Voordeligst",
+            "label": "Magazijnuitverkoop deal",
+            "t1_title": "Enkel",
+            "t1_text": "De perfecte titanium pan voor dagelijks koken.",
+            "t2_title": "Set",
+            "t2_text": "Twee pannen (20 + 24 cm) voor meer flexibiliteit in de keuken.",
+            "t2_tag": "Aanbevolen · 5% korting",
+            "t2_product": "duo-set",
+            "t2_addon": "",
+            "t3_title": "Complete set",
+            "t3_text": "Drie pannen (20, 24 + 28 cm): de volledige collectie met de grootste besparing.",
+            "t3_tag": "10% korting",
             "t3_product": "the-trio"
           }
         },
-        "countdown-9": {
+        "countdown-8": {
           "type": "countdown",
           "settings": {
-            "label": "Actie eindigt over",
+            "label": "Magazijnuitverkoop eindigt over",
             "end": ""
           }
         },
-        "buy_buttons-10": {
+        "buy_buttons-9": {
           "type": "buy_buttons",
           "settings": {
             "show_quantity": true,
             "show_dynamic_checkout": true,
             "dispatch_text": ""
+          }
+        },
+        "gift-10": {
+          "type": "gift",
+          "settings": {
+            "title": "Gratis Titanium Kookgids inbegrepen",
+            "text": "Leer alles uit jouw titanium kookgerei halen.",
+            "link": "/pages/titanium-kookgids"
           }
         },
         "trust-11": {
@@ -102,7 +105,7 @@
         "collapsible_tab-12": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Beschrijving",
+            "heading": "Details",
             "icon": "list",
             "source": "description",
             "content": "",
@@ -122,20 +125,20 @@
         "collapsible_tab-14": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Verzenden, retourneren en garantie",
+            "heading": "Verzending & retour",
             "icon": "truck",
             "source": "custom",
-            "content": "<p><strong>Verzenden.</strong> Vanaf €75 verzenden we gratis. Bij een kleinere bestelling zie je de verzendkosten en de verwachte levertijd bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je hebt 14 dagen bedenktijd vanaf het moment dat je je bestelling ontvangt. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je hebt altijd recht op de wettelijke garantie. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "content": "<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>30 dagen retour.</strong> Niet tevreden? Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer.</p><p><strong>25 jaar garantie.</strong> Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Je wettelijke rechten blijven daarnaast gelden.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
             "open": false
           }
         },
         "collapsible_tab-15": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Gebruik en onderhoud",
+            "heading": "Onderhoudstips",
             "icon": "drop",
             "source": "care",
-            "content": "<p><strong>Voor het eerste gebruik.</strong> Was de pan met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Elke dag.</strong> Verwarm de pan twee tot drie minuten voor op middelhoog vuur, tot een druppel water over het oppervlak danst. Voeg olie toe, laat die even warm worden en begin met koken.</p><p><strong>Schoonmaken.</strong> Warm water en een zachte spons, of de vaatwasser. Zit er iets aangekoekt? Laat een bodem water een minuutje koken en veeg de pan schoon. Een scheutje witte azijn haalt regenboogkleurige hittevlekken weg.</p><p><strong>Liever niet.</strong> Een lege pan lang op hoog vuur laten staan, een hete pan in koud water dompelen of de buitenkant schuren met een schuursponsje.</p>",
+            "content": "<p><strong>Voor het eerste gebruik.</strong> Was de pan met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Elke dag.</strong> Verwarm de pan twee tot drie minuten voor op middelhoog vuur, tot een druppel water over het oppervlak danst. Voeg olie toe, laat die even warm worden en begin met koken.</p><p><strong>Schoonmaken.</strong> Warm water en een zachte spons, of de vaatwasser. Zit er iets aangekoekt? Laat een bodem water een minuutje koken en veeg de pan schoon.</p><p>Meer tips in de gratis <a href=\"/pages/titanium-kookgids\">Titanium Kookgids</a>.</p>",
             "open": false
           }
         },
@@ -156,12 +159,12 @@
         "title-2",
         "rating-3",
         "price-4",
-        "text-5",
-        "usp_tiles-6",
-        "variant_picker-7",
-        "bundle_picker-8",
-        "countdown-9",
-        "buy_buttons-10",
+        "usp_tiles-5",
+        "variant_picker-6",
+        "bundle_picker-7",
+        "countdown-8",
+        "buy_buttons-9",
+        "gift-10",
         "trust-11",
         "collapsible_tab-12",
         "collapsible_tab-13",
@@ -171,15 +174,65 @@
         "share-17"
       ]
     },
+    "problem": {
+      "type": "vk-problem",
+      "settings": {
+        "index": "",
+        "eyebrow": "Het probleem",
+        "heading": "Waarom je huidige pan niet <em>voldoet</em>.",
+        "subheading": "Traditionele pannen verliezen hun kracht. Veel standaard pannen gebruiken coatings die na verloop van tijd slijten, beschadigen of minder goed presteren.",
+        "transition_text": "Het kan anders",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "card-1": {
+          "type": "card",
+          "settings": {
+            "fallback": "none",
+            "stat": "COATING SLIJT",
+            "stat_label": "door hitte, schuren en afwassen",
+            "title": "Coating slijt snel",
+            "text": "<p>Elke keer bakken, schuren en afwassen tast de antiaanbaklaag verder aan. Daarna plakt alles en is de pan aan vervanging toe.</p>"
+          }
+        },
+        "card-2": {
+          "type": "card",
+          "settings": {
+            "fallback": "vk-visual-problem-coating.webp",
+            "stat": "HOTSPOTS",
+            "stat_label": "het midden te heet, de rand te koud",
+            "title": "Ongelijke warmteverdeling",
+            "text": "<p>Dunne bodems geven hete en koude plekken. Het midden brandt aan terwijl de rand achterblijft, waardoor je resultaat onvoorspelbaar is.</p>"
+          }
+        },
+        "card-3": {
+          "type": "card",
+          "settings": {
+            "fallback": "none",
+            "stat": "VERVANGEN",
+            "stat_label": "steeds weer een nieuwe pan",
+            "title": "Beperkte levensduur",
+            "text": "<p>Een pan met coating is eigenlijk een verbruiksartikel. Na een paar jaar sta je weer in de winkel.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3"
+      ]
+    },
     "solution": {
       "type": "vk-solution",
       "settings": {
         "index": "",
         "eyebrow": "Het Volkara-verschil",
-        "heading": "Geen coating. Gewoon <em>titanium</em>.",
-        "subheading": "Bij Volkara kook je direct op titanium. Er is niets opgespoten, dus er is niets dat kan afslijten. Elk detail is ontworpen voor hoe je thuis echt kookt.",
+        "heading": "Eén pan. <em>Voor altijd.</em>",
+        "subheading": "Elk detail is gekozen op prestatie én veiligheid.",
         "fallback": "vk-visual-pan.webp",
-        "image_alt": "Volkara Forge Pan met het titanium LavaCell™-oppervlak",
+        "image_alt": "Gehamerde titanium pan van Volkara",
         "button_label": "",
         "button_url": "",
         "color_scheme": "scheme-1",
@@ -190,77 +243,77 @@
         "point-1": {
           "type": "point",
           "settings": {
-            "title": "Geen PFAS. Geen PTFE. Geen coating.",
+            "title": "Geen PFAS. Geen chemische coating.",
             "hotspot": 1,
-            "text": "<p>Het kookoppervlak is titanium en zit vast in de pan zelf. Er zit geen synthetische laag tussen je eten en het metaal, dus er is niets dat kan krassen, afbladderen of vervangen moet worden.</p>"
+            "text": "<p>Gemaakt zonder PFAS, PFOA of PTFE. Je kookt puur op titanium.</p>"
           }
         },
         "point-2": {
           "type": "point",
           "settings": {
-            "title": "Loslaten doe je met techniek.",
+            "title": "Massief titanium oppervlak.",
             "hotspot": 1,
-            "text": "<p>Het LavaCell™-reliëf houdt een dun laagje olie vast in de dalen. Verwarm de pan voor, voeg wat vet toe en je eten laat vanzelf los — met een mooie korst.</p>"
+            "text": "<p>Geen laag die kan afbladderen: het oppervlak is het titanium zelf.</p>"
           }
         },
         "point-3": {
           "type": "point",
           "settings": {
-            "title": "Warmte tot aan de rand.",
+            "title": "Bestand tegen extreme hitte.",
             "hotspot": 4,
-            "text": "<p>De aluminium kern verdeelt de warmte gelijkmatig over de hele bodem. Geen aangebrand midden, geen bleke rand en geen gegok.</p>"
+            "text": "<p>Tot 540°C: van dichtschroeien op hoog vuur tot de oven en de grill.</p>"
           }
         },
         "point-4": {
           "type": "point",
           "settings": {
-            "title": "Elke kookplaat. Elke spatel.",
-            "hotspot": 3,
-            "text": "<p>Gas, inductie, keramisch, elektrisch en de oven. Een metalen spatel of garde mag gewoon, en op drukke avonden kan de pan in de vaatwasser.</p>"
+            "title": "Handgehamerde afwerking.",
+            "hotspot": 2,
+            "text": "<p>Een oppervlak met karakter en een natuurlijke loslating.</p>"
           }
         },
-        "hotspot-5": {
+        "hotspot-1": {
           "type": "hotspot",
           "settings": {
             "number": 1,
             "x": 42,
-            "y": 46,
+            "y": 60,
             "label_side": "right",
-            "label": "LavaCell™-oppervlak",
-            "text": "Titanium reliëf: de toppen beschermen, de dalen houden olie vast."
+            "label": "Gehamerd titanium",
+            "text": "Massief titanium kookoppervlak met een handgehamerde afwerking."
           }
         },
-        "hotspot-6": {
+        "hotspot-2": {
           "type": "hotspot",
           "settings": {
             "number": 2,
-            "x": 22,
-            "y": 30,
+            "x": 14,
+            "y": 50,
             "label_side": "right",
-            "label": "Schenkrand",
-            "text": "Een uitlopende rand, zodat saus en vet netjes uitschenken."
+            "label": "Uitlopende rand",
+            "text": "Voor netjes uitschenken van saus en vet."
           }
         },
-        "hotspot-7": {
+        "hotspot-3": {
           "type": "hotspot",
           "settings": {
             "number": 3,
-            "x": 80,
-            "y": 78,
+            "x": 86,
+            "y": 12,
             "label_side": "left",
-            "label": "Gesmede steel",
-            "text": "Ligt stevig in de hand. De lavarode ring herken je aan elk Volkara-product."
+            "label": "Gepolijste handgreep",
+            "text": "Stevig in de hand, ook bij een volle pan."
           }
         },
-        "hotspot-8": {
+        "hotspot-4": {
           "type": "hotspot",
           "settings": {
             "number": 4,
-            "x": 50,
-            "y": 70,
+            "x": 70,
+            "y": 80,
             "label_side": "left",
-            "label": "Inductiebodem",
-            "text": "Magnetische rvs-bodem, vlak afgewerkt voor goed contact met de kookplaat."
+            "label": "Hittebestendig",
+            "text": "Bestand tegen hitte tot 540°C, ook in de oven."
           }
         }
       },
@@ -269,111 +322,68 @@
         "point-2",
         "point-3",
         "point-4",
-        "hotspot-5",
-        "hotspot-6",
-        "hotspot-7",
-        "hotspot-8"
+        "hotspot-1",
+        "hotspot-2",
+        "hotspot-3",
+        "hotspot-4"
       ]
     },
-    "technology": {
-      "type": "vk-technology",
+    "reviews": {
+      "type": "vk-reviews",
       "settings": {
-        "layout": "compact",
         "index": "",
-        "eyebrow": "VolcanicCore™-technologie",
-        "heading": "Opgebouwd als een <em>vulkaan</em>.",
-        "intro": "Vijf lagen metaal, elk met één taak, samengesmeed tot één stevige pan.",
-        "show_background": true,
-        "button_label": "",
-        "button_url": "",
-        "footnote": "Opbouw zoals in de Forge Pan. Op elke productpagina vind je de maten en specificaties van dat product.",
-        "color_scheme": "scheme-1",
+        "eyebrow": "Reviews",
+        "heading": "Dit zeggen onze <em>klanten</em>.",
+        "subheading": "",
+        "show_summary": true,
+        "average": "",
+        "count": "",
+        "autoplay": false,
+        "link_label": "",
+        "link": "",
+        "color_scheme": "scheme-2",
         "padding_top": 120,
         "padding_bottom": 120
       },
       "blocks": {
-        "layer-1": {
-          "type": "layer",
+        "review-1": {
+          "type": "review",
           "settings": {
-            "name": "LavaCell™-oppervlak",
-            "spec": "LAAG 01 · LAVACELL™ · Ti",
-            "texture": "lavacell",
-            "description": "<p>Een titanium reliëf van zeshoekjes. De toppen beschermen het oppervlak tegen keukengerei, de dalen houden een dun laagje olie vast voor een natuurlijke loslating en een mooie korst.</p>"
+            "rating": 5,
+            "title": "Voelt echt anders",
+            "text": "<p>Ik heb veel pannen geprobeerd, maar deze voelt echt anders. Stevig, mooi en kookt fantastisch.</p>",
+            "author": "Anna M.",
+            "product_label": "Gehamerde Titanium Pan",
+            "verified": true
           }
         },
-        "layer-2": {
-          "type": "layer",
+        "review-2": {
+          "type": "review",
           "settings": {
-            "name": "Titanium kooklaag",
-            "spec": "LAAG 02 · TITANIUM · Ti",
-            "texture": "titanium",
-            "description": "<p>Een kooklaag van titanium die niet reageert met je eten. Geen PFAS, geen PTFE en geen coating die kan slijten: niets tussen je eten en het metaal.</p>"
+            "rating": 5,
+            "title": "Eindelijk een pan die blijft",
+            "text": "<p>Eindelijk een pan die niet na een paar maanden vervangen hoeft te worden.</p>",
+            "author": "Sarah J.",
+            "product_label": "Gehamerde Titanium Pan",
+            "verified": true
           }
         },
-        "layer-3": {
-          "type": "layer",
+        "review-3": {
+          "type": "review",
           "settings": {
-            "name": "Thermische kern",
-            "spec": "LAAG 03 · THERMISCHE KERN · Al",
-            "texture": "thermal",
-            "description": "<p>Een aluminium kern die de warmte snel van het midden naar de rand brengt. Geen hete plekken, geen koude rand.</p>"
-          }
-        },
-        "layer-4": {
-          "type": "layer",
-          "settings": {
-            "name": "Rvs-structuur",
-            "spec": "LAAG 04 · RVS-STRUCTUUR · 18/10",
-            "texture": "steel",
-            "description": "<p>Een romp van roestvrij staal die de pan stevigheid geeft en helpt kromtrekken te voorkomen.</p>"
-          }
-        },
-        "layer-5": {
-          "type": "layer",
-          "settings": {
-            "name": "Magnetische bodem",
-            "spec": "LAAG 05 · MAGNETISCHE BODEM · 18/0",
-            "texture": "magnetic",
-            "description": "<p>Magnetisch rvs, geschikt voor inductie en vlak afgewerkt, zodat de pan op elke kookplaat goed contact maakt.</p>"
-          }
-        },
-        "stat-6": {
-          "type": "stat",
-          "settings": {
-            "number": 5,
-            "decimals": 0,
-            "suffix": " LAGEN",
-            "label": "samengesmeed tot één geheel"
-          }
-        },
-        "stat-7": {
-          "type": "stat",
-          "settings": {
-            "number": 0,
-            "decimals": 0,
-            "suffix": " COATING",
-            "label": "dus niets dat kan afbladderen"
-          }
-        },
-        "stat-8": {
-          "type": "stat",
-          "settings": {
-            "number": 6,
-            "decimals": 0,
-            "suffix": " WARMTEBRONNEN",
-            "label": "van gas en inductie tot de oven"
+            "rating": 5,
+            "title": "Je merkt direct het verschil",
+            "text": "<p>De warmteverdeling is geweldig. Je merkt direct het verschil.</p>",
+            "author": "Jan K.",
+            "product_label": "Gehamerde Titanium Pan",
+            "verified": true
           }
         }
       },
       "block_order": [
-        "layer-1",
-        "layer-2",
-        "layer-3",
-        "layer-4",
-        "layer-5",
-        "stat-6",
-        "stat-7",
-        "stat-8"
+        "review-1",
+        "review-2",
+        "review-3"
       ]
     },
     "comparison": {
@@ -381,13 +391,13 @@
       "settings": {
         "index": "",
         "eyebrow": "De vergelijking",
-        "heading": "Niet elke pan is <em>gelijk</em>.",
-        "subheading": "Zo verhoudt VolcanicCore™ zich tot de twee pannen die de meeste keukens al hebben.",
-        "competitor_1": "Antiaanbak",
-        "competitor_2": "Gietijzer",
-        "footnote": "Vergeleken met gangbare aluminium pannen met PTFE-coating en traditioneel, niet-geëmailleerd gietijzer. Afzonderlijke producten kunnen verschillen.",
-        "button_label": "Kies jouw pan",
-        "button_url": "/collections/pans",
+        "heading": "Volkara vs. gewone <em>pannen</em>.",
+        "subheading": "Zo verhoudt de Gehamerde Titanium Pan zich tot een gewone pan.",
+        "competitor_1": "Gewone pannen",
+        "competitor_2": "",
+        "footnote": "",
+        "button_label": "",
+        "button_url": "",
         "color_scheme": "scheme-1",
         "padding_top": 120,
         "padding_bottom": 120
@@ -396,122 +406,70 @@
         "row-1": {
           "type": "row",
           "settings": {
-            "group": "Prestaties",
-            "feature": "Aanbraden",
-            "ours": "Diepe, egale korst",
+            "group": "",
+            "feature": "Materiaal",
+            "ours": "Massief titanium",
             "c1_status": "no",
-            "c1_text": "Coating verdraagt geen hoge hitte",
-            "c2_status": "yes",
-            "c2_text": "Uitstekende korst"
+            "c1_text": "Gemengde metalen",
+            "c2_status": "no",
+            "c2_text": ""
           }
         },
         "row-2": {
           "type": "row",
           "settings": {
             "group": "",
-            "feature": "Warmte",
-            "ours": "Snel en gelijkmatig, tot aan de rand",
-            "c1_status": "partial",
-            "c1_text": "Snel, maar dunne bodems vormen hotspots",
-            "c2_status": "partial",
-            "c2_text": "Warmt langzaam op, reageert traag"
+            "feature": "Coating",
+            "ours": "Geen chemische coating",
+            "c1_status": "no",
+            "c1_text": "Vaak een coating",
+            "c2_status": "no",
+            "c2_text": ""
           }
         },
         "row-3": {
           "type": "row",
           "settings": {
-            "group": "Duurzaamheid",
-            "feature": "Metalen keukengerei",
-            "ours": "Geen probleem",
+            "group": "",
+            "feature": "Levensduur",
+            "ours": "Gebouwd voor jaren",
             "c1_status": "no",
-            "c1_text": "Krast de coating",
-            "c2_status": "yes",
-            "c2_text": "Geen probleem"
+            "c1_text": "Regelmatig vervangen",
+            "c2_status": "no",
+            "c2_text": ""
           }
         },
         "row-4": {
           "type": "row",
           "settings": {
             "group": "",
-            "feature": "Levensduur",
-            "ours": "Geen coating die opraakt",
+            "feature": "Hittebestendig",
+            "ours": "Extreme temperaturen",
             "c1_status": "no",
-            "c1_text": "Na een paar jaar aan vervanging toe",
-            "c2_status": "yes",
-            "c2_text": "Jarenlang, mits goed onderhouden"
+            "c1_text": "Beperkter",
+            "c2_status": "no",
+            "c2_text": ""
           }
         },
         "row-5": {
           "type": "row",
           "settings": {
-            "group": "Gezondheid",
-            "feature": "PFAS en PTFE",
-            "ours": "Geen — er is geen coating",
-            "c1_status": "no",
-            "c1_text": "PTFE-coating (fluorpolymeer)",
-            "c2_status": "yes",
-            "c2_text": "Geen"
-          }
-        },
-        "row-6": {
-          "type": "row",
-          "settings": {
             "group": "",
-            "feature": "Zure gerechten",
-            "ours": "Reageert niet met tomaat, wijn of citroen",
-            "c1_status": "partial",
-            "c1_text": "Prima zolang de coating heel is",
-            "c2_status": "no",
-            "c2_text": "Reageert en kan metaalachtig smaken"
-          }
-        },
-        "row-7": {
-          "type": "row",
-          "settings": {
-            "group": "Dagelijks gebruik",
             "feature": "Onderhoud",
-            "ours": "Vaatwasserbestendig, geen gedoe",
-            "c1_status": "partial",
-            "c1_text": "Met de hand afwassen om de coating te sparen",
+            "ours": "Eenvoudig",
+            "c1_status": "no",
+            "c1_text": "Meer zorg nodig",
             "c2_status": "no",
-            "c2_text": "Na elk gebruik afwassen, drogen en invetten"
-          }
-        },
-        "row-8": {
-          "type": "row",
-          "settings": {
-            "group": "",
-            "feature": "Gewicht",
-            "ours": "Stevig en uitgebalanceerd",
-            "c1_status": "yes",
-            "c1_text": "Licht",
-            "c2_status": "no",
-            "c2_text": "Zwaar"
-          }
-        },
-        "row-oven": {
-          "type": "row",
-          "settings": {
-            "group": "",
-            "feature": "Oven en grill",
-            "ours": "Ja, ook onder de grill",
-            "c1_status": "partial",
-            "c1_text": "Vaak beperkt door coating of greep",
-            "c2_status": "yes",
-            "c2_text": "Ja"
+            "c2_text": ""
           }
         }
       },
       "block_order": [
         "row-1",
         "row-2",
-        "row-oven",
         "row-3",
         "row-4",
-        "row-5",
-        "row-6",
-        "row-7",
-        "row-8"
+        "row-5"
       ]
     },
     "faq": {
@@ -521,10 +479,10 @@
         "index": "",
         "eyebrow": "Vragen",
         "heading": "Twijfel je <em>nog</em>?",
-        "subheading": "De antwoorden op de vragen die we het vaakst krijgen.",
+        "subheading": "",
         "show_filter": false,
-        "contact_title": "Staat je vraag er niet bij?",
-        "contact_text": "Stel hem aan ons. We helpen je graag verder.",
+        "contact_title": "Nog vragen?",
+        "contact_text": "Neem contact met ons op. We helpen je graag.",
         "contact_url": "/pages/contact",
         "color_scheme": "scheme-2",
         "padding_top": 120,
@@ -534,57 +492,57 @@
         "question-1": {
           "type": "question",
           "settings": {
-            "question": "Blijft eten niet plakken?",
-            "answer": "<p>Dit is geen pan met coating, dus de eerste keren draait het om techniek. Verwarm de pan twee tot drie minuten voor op middelhoog vuur, tot een druppel water over het oppervlak danst. Voeg een dun laagje olie toe, laat het even warm worden en leg je eten erin. Laat het liggen tot het vanzelf loslaat. Plakt er toch iets? Dan was de pan nog niet heet genoeg of verplaatste je het eten te vroeg. Het weekt binnen een paar minuten los.</p>"
+            "question": "Wat maakt Volkara pannen anders dan gewone anti-aanbakpannen?",
+            "answer": "<p>Gewone antiaanbakpannen hebben een chemische coating die door hitte, schuren en afwassen slijt. Volkara heeft geen coating: je kookt op massief titanium met een handgehamerde afwerking. Er is dus niets dat kan afbladderen.</p>"
           }
         },
         "question-2": {
           "type": "question",
           "settings": {
-            "question": "Mag ik metalen keukengerei gebruiken?",
-            "answer": "<p>Ja. De toppen van het LavaCell™-reliëf vangen het contact op en beschermen het titanium in de dalen. Spatels, gardes en tangen zijn dus welkom. Na verloop van tijd worden de toppen iets glanzender. Dat is patina, geen schade, en het heeft geen invloed op hoe de pan kookt.</p>"
+            "question": "Zijn Volkara pannen veilig in gebruik?",
+            "answer": "<p>Ja. Volkara is gemaakt zonder PFAS, PFOA of PTFE en heeft geen chemische antiaanbaklaag. Je eten komt alleen in contact met titanium.</p>"
           }
         },
         "question-3": {
           "type": "question",
           "settings": {
-            "question": "Op welke warmtebronnen werkt de pan?",
-            "answer": "<p>Op alle gangbare: gas, inductie, keramisch, elektrisch, halogeen en in de oven. De magnetische bodem ligt vlak op inductie. Op gas houd je de vlam het best binnen de bodem voor de meest gelijkmatige warmte.</p>"
+            "question": "Kan ik metalen keukengerei gebruiken?",
+            "answer": "<p>Ja. Er is geen coating die kan krassen, dus metalen spatels, gardes en tangen zijn welkom. Na verloop van tijd krijgt het oppervlak een lichte patina. Dat is normaal en heeft geen invloed op het koken.</p>"
           }
         },
         "question-4": {
           "type": "question",
           "settings": {
-            "question": "Mag de pan in de vaatwasser?",
-            "answer": "<p>Ja, er is geen coating die de vaatwasser kan aantasten. Toch raden we warm water en een zachte spons aan: dat is sneller en houdt de buitenkant mooi. Zit er iets hardnekkigs aan? Laat een bodem water een minuutje koken en veeg de pan daarna schoon.</p>"
+            "question": "Op welke warmtebronnen kan ik Volkara gebruiken?",
+            "answer": "<p>Op alle gangbare warmtebronnen: gas, inductie, keramisch en elektrisch. De pannen kunnen ook in de oven en onder de grill.</p>"
           }
         },
         "question-5": {
           "type": "question",
           "settings": {
-            "question": "Kan de pan in de oven?",
-            "answer": "<p>Ja, de pannen zijn ovenbestendig. De maximale temperatuur per product vind je in de specificaties op de productpagina. Glazen deksels kunnen minder hitte aan dan de pan zelf. De steel wordt heet in de oven, dus gebruik altijd een ovenwant of doek.</p>"
+            "question": "Mogen Volkara pannen in de vaatwasser?",
+            "answer": "<p>Ja, ze zijn vaatwasserbestendig. Met warm water en een zachte spons ben je meestal nog sneller klaar.</p>"
           }
         },
         "question-6": {
           "type": "question",
           "settings": {
-            "question": "Kan ik mijn bestelling retourneren?",
-            "answer": "<p>Ja. Je hebt 14 dagen bedenktijd vanaf het moment dat je je bestelling ontvangt. Laat het ons binnen die termijn weten en stuur het product compleet terug. Je krijgt dan het aankoopbedrag terug.</p>"
+            "question": "Hoe werkt de garantie?",
+            "answer": "<p>Op Volkara pannen krijg je 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis? Neem contact met ons op met je ordernummer en een foto, dan zorgen wij voor een oplossing. Je wettelijke rechten blijven daarnaast gewoon gelden. Lees meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p>"
           }
         },
         "question-7": {
           "type": "question",
           "settings": {
-            "question": "Wat kost verzending en hoe snel is het?",
-            "answer": "<p>Vanaf €75 verzenden we gratis. Bij een kleinere bestelling zie je de verzendkosten en de verwachte levertijd bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p>"
+            "question": "Hoe zwaar zijn Volkara pannen?",
+            "answer": "<p>Stevig, maar goed in balans: zwaarder dan een dunne antiaanbakpan en duidelijk lichter dan gietijzer van hetzelfde formaat. De handgreep ligt goed in de hand, ook als de pan vol is.</p>"
           }
         },
         "question-8": {
           "type": "question",
           "settings": {
-            "question": "Welke garantie krijg ik?",
-            "answer": "<p>Je hebt altijd recht op de wettelijke garantie: een pan moet doen wat je er redelijkerwijs van mag verwachten. Is er iets mis met het materiaal of de afwerking? Neem contact met ons op, dan zoeken we samen naar een oplossing. Meer lees je op de <a href=\"/pages/warranty\">garantiepagina</a>.</p>"
+            "question": "Moet ik mijn pan inbranden?",
+            "answer": "<p>Nee, dat is niet nodig. Was de pan voor het eerste gebruik af. Wil je, dan kun je hem kort voorbereiden: verwarm de pan, wrijf er een theelepel neutrale olie in, laat afkoelen en veeg hem uit.</p>"
           }
         }
       },
@@ -599,29 +557,16 @@
         "question-8"
       ]
     },
-    "recommendations": {
-      "type": "vk-product-recommendations",
-      "settings": {
-        "eyebrow": "Maak het compleet",
-        "heading": "Werkt goed <em>samen</em>.",
-        "subheading": "Producten met dezelfde opbouw en dezelfde lavarode details.",
-        "intent": "related",
-        "limit": 6,
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 120
-      }
-    },
     "cta": {
       "type": "vk-cta",
       "settings": {
         "layout": "inset",
-        "fallback": "vk-visual-sear.webp",
+        "fallback": "vk-visual-macro.webp",
         "show_embers": true,
-        "eyebrow": "Klaar om over te stappen?",
-        "heading": "Kies de pan die <em>blijft</em>.",
-        "subheading": "Kies je maat en ontdek hoe koken zonder coating voelt. Twijfel je? Je hebt 14 dagen bedenktijd.",
-        "button_label": "Kies je maat",
+        "eyebrow": "Klaar voor het echte werk?",
+        "heading": "Stap over op <em>titanium</em>.",
+        "subheading": "Een betere pan begint met beter materiaal.",
+        "button_label": "Kies jouw pan",
         "button_url": "#buy",
         "guarantee": "",
         "color_scheme": "scheme-1",
@@ -632,22 +577,22 @@
         "chip-1": {
           "type": "chip",
           "settings": {
-            "icon": "leaf",
-            "text": "PFAS- en PTFE-vrij"
+            "icon": "truck",
+            "text": "Gratis verzending"
           }
         },
         "chip-2": {
           "type": "chip",
           "settings": {
             "icon": "return",
-            "text": "14 dagen bedenktijd"
+            "text": "30 dagen retour"
           }
         },
         "chip-3": {
           "type": "chip",
           "settings": {
-            "icon": "truck",
-            "text": "Gratis verzending vanaf €75"
+            "icon": "shield",
+            "text": "25 jaar garantie"
           }
         }
       },
@@ -656,15 +601,29 @@
         "chip-2",
         "chip-3"
       ]
+    },
+    "recommendations": {
+      "type": "vk-product-recommendations",
+      "settings": {
+        "eyebrow": "Maak het compleet",
+        "heading": "Werkt goed <em>samen</em>.",
+        "subheading": "Producten in dezelfde stijl en kwaliteit.",
+        "intent": "related",
+        "limit": 6,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
     }
   },
   "order": [
     "main",
+    "problem",
     "solution",
-    "technology",
+    "reviews",
     "comparison",
     "faq",
-    "recommendations",
-    "cta"
+    "cta",
+    "recommendations"
   ]
 }

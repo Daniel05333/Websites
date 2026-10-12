@@ -34,25 +34,148 @@
   "tag": "div",
   "class": "vk-manifesto-section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Waar Volkara voor staat" },
-    { "type": "inline_richtext", "id": "statement", "label": "Statement", "info": "Words light up as visitors scroll. Italicise the accent word.", "default": "Een antiaanbaklaag slijt. Volkara heeft geen laag die kan <em>slijten</em>." },
-    { "type": "inline_richtext", "id": "text", "label": "Supporting line", "default": "We begonnen met één ergernis: pannen die na een paar jaar minder goed worden. Dus lieten we de coating weg en bouwden we een pan met een titanium kookoppervlak op een gelaagde kern." },
-    { "type": "checkbox", "id": "show_image", "label": "Background image", "default": true },
-    { "type": "image_picker", "id": "image", "label": "Image" },
-    { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-forge.webp", "options": [{ "value": "vk-visual-forge.webp", "label": "Forge & sparks" }, { "value": "vk-visual-chef.webp", "label": "Chef flambé" }, { "value": "vk-visual-macro.webp", "label": "LavaCell™ macro" }] },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 160 }
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Waar Volkara voor staat"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "statement",
+      "label": "Statement",
+      "info": "Words light up as visitors scroll. Italicise the accent word.",
+      "default": "Een antiaanbaklaag slijt. Volkara heeft geen laag die kan <em>slijten</em>."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Supporting line",
+      "default": "We begonnen met één ergernis: pannen die na een paar jaar minder goed worden. Dus lieten we de coating weg en bouwden we een pan met een titanium kookoppervlak op een gelaagde kern."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Background image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "fallback",
+      "label": "Bundled visual",
+      "default": "vk-visual-forge.webp",
+      "options": [
+        {
+          "value": "vk-visual-forge.webp",
+          "label": "Forge & sparks"
+        },
+        {
+          "value": "vk-visual-chef.webp",
+          "label": "Chef flambé"
+        },
+        {
+          "value": "vk-visual-macro.webp",
+          "label": "LavaCell™ macro"
+        },
+        {
+          "value": "vk-visual-pan.webp",
+          "label": "Gehamerde pan (foto)"
+        },
+        {
+          "value": "vk-visual-pan-angle.webp",
+          "label": "Gehamerde pan, schuin (video-still)"
+        },
+        {
+          "value": "vk-visual-handle.webp",
+          "label": "Handgreep, close-up"
+        },
+        {
+          "value": "vk-visual-hero.webp",
+          "label": "Gehamerde pan, breed (video-still)"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 160
+    }
   ],
   "blocks": [
-    { "type": "counter", "name": "Counter", "limit": 4, "settings": [
-      { "type": "text", "id": "prefix", "label": "Prefix" },
-      { "type": "number", "id": "number", "label": "Number", "default": 5 },
-      { "type": "range", "id": "decimals", "label": "Decimals", "min": 0, "max": 2, "step": 1, "default": 0 },
-      { "type": "text", "id": "suffix", "label": "Suffix" },
-      { "type": "text", "id": "label", "label": "Label", "default": "lagen in elke pan" }
-    ] }
+    {
+      "type": "counter",
+      "name": "Counter",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "prefix",
+          "label": "Prefix"
+        },
+        {
+          "type": "number",
+          "id": "number",
+          "label": "Number",
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "decimals",
+          "label": "Decimals",
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "suffix",
+          "label": "Suffix"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "lagen in elke pan"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "VOLKARA · Manifesto", "blocks": [{ "type": "counter" }] }]
+  "presets": [
+    {
+      "name": "VOLKARA · Manifesto",
+      "blocks": [
+        {
+          "type": "counter"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

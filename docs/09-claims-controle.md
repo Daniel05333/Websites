@@ -55,3 +55,26 @@ Voor de claims die Okura gebruikt maar Volkara (nog) niet, zie `docs/10-okura-re
 ## 5. Juridische pagina's
 
 De footer linkt naar verzendbeleid, retourbeleid, privacyverklaring en algemene voorwaarden. Die teksten moeten nog geschreven worden; ze worden niet door het thema gegenereerd.
+
+
+## 6. Door de opdrachtgever opgegeven claims (12-10-2026)
+
+De opdrachtgever heeft deze claims aangeleverd en bevestigd. Ze staan daarom op de site. Bewaar het bewijs, want de ACM kan erom vragen.
+
+| Claim | Waar | Bewijs nodig |
+|---|---|---|
+| 25 jaar garantie (materiaal- en fabricagefouten, huishoudelijk gebruik) | Trustbalk, productpagina, FAQ, garantiepagina | Schriftelijke garantievoorwaarden. De afbakening "materiaal- en fabricagefouten bij normaal huishoudelijk gebruik" is door ons geformuleerd. Controleer die. |
+| Meer dan 10.000 tevreden klanten | Trustbalk homepage | Ordergegevens |
+| 4,8 / 5 uit 15.500 beoordelingen | Productpagina (metafields `reviews.rating` / `reviews.rating_count`) | Exportlijst van je reviewplatform. Koppel het liefst de reviews-app die deze metafields automatisch vult. |
+| Drie klantcitaten (Anna M., Sarah J., Jan K.) | Productpagina, sectie Reviews | Moeten letterlijk van echte klanten komen. Verzonnen reviews zijn verboden (UCPD, bijlage I, punt 23 ter). |
+| Massief / puur titanium, handgehamerd, "eeuwenoude Japanse technieken" | Hero, specificaties, teksten | Productie- en herkomstinformatie van je leverancier |
+| Hittebestendig tot 540 °C | Specificaties, verschil-sectie, FAQ | Testrapport of specificatie van de leverancier |
+| Gratis verzending (geen drempel) | Overal | Moet je verzendinstellingen volgen. De voortgangsbalk in de winkelwagen staat uit (drempel 0). |
+| 30 dagen retour | Overal | Moet in je algemene voorwaarden en retourbeleid staan |
+
+### Prijzen en acties (Omnibus-richtlijn)
+
+- **Van-prijs €280 → €84,95 ("Bespaar €195,05").** De doorgestreepte prijs moet de laagste prijs zijn die je in de 30 dagen vóór de korting hebt gerekend. Kun je dat niet aantonen, verwijder dan de vergelijkingsprijs (compare-at) bij de variant.
+- **Sets.** De van-prijs is de som van de losse pannen (€174,90 en €269,85). Dat is een eerlijke vergelijking, zolang de losse prijzen kloppen.
+- **"Magazijnuitverkoop" met afteltimer.** De timer staat klaar, maar verschijnt pas als je in het productblok *Countdown* een echte einddatum invult. Een timer die bij elk bezoek opnieuw begint, is misleidend en daarom niet ingesteld. Zet de actie ook echt stop op die datum.
+- **Gratis Titanium Kookgids.** Deze bestaat nu als pagina (`/pages/titanium-kookgids`) en wordt vanaf de productpagina gelinkt.

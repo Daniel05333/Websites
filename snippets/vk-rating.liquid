@@ -12,12 +12,19 @@
   assign vk_rating = rating | default: 0 | times: 1.0
   assign vk_pct = vk_rating | divided_by: 5.0 | times: 100 | round: 1
   assign vk_rating_text = vk_rating | round: 1
+  assign vk_count = count | default: 0 | times: 1
+  assign vk_count_text = vk_count
+  if vk_count >= 1000
+    assign vk_th = vk_count | divided_by: 1000 | floor
+    assign vk_rest = vk_count | modulo: 1000 | prepend: '00' | slice: -3, 3
+    assign vk_count_text = vk_th | append: '.' | append: vk_rest
+  endif
 -%}
 {%- if vk_rating > 0 -%}
   <span class="vk-rating vk-rating--{{ size | default: 'sm' }}{% if class %} {{ class }}{% endif %}" role="img" aria-label="{{ 'products.product.rating.aria' | t: rating: vk_rating_text, count: count | default: 0 }}">
     <span class="vk-rating__stars" style="--vk-rating: {{ vk_pct }}%;" aria-hidden="true"></span>
     {%- unless show_text == false -%}
-      <span aria-hidden="true"><span class="vk-rating__value">{{ vk_rating_text }}</span>{% if count %} · {{ 'products.product.rating.count' | t: count: count }}{% endif %}</span>
+      <span aria-hidden="true"><span class="vk-rating__value">{{ vk_rating_text }}</span> / 5{% if count %} · {{ 'products.product.rating.count' | t: count: vk_count_text }}{% endif %}</span>
     {%- endunless -%}
   </span>
 {%- endif -%}

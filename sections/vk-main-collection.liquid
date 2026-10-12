@@ -131,26 +131,181 @@
   "tag": "div",
   "class": "vk-collection-section",
   "settings": [
-    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 24 },
-    { "type": "range", "id": "columns_desktop", "label": "Columns on desktop", "min": 2, "max": 5, "step": 1, "default": 4 },
-    { "type": "select", "id": "columns_mobile", "label": "Columns on mobile", "default": "2", "options": [{ "value": "1", "label": "1" }, { "value": "2", "label": "2" }] },
-    { "type": "checkbox", "id": "enable_filtering", "label": "Enable filtering", "default": true, "info": "Configure filters with the Shopify Search & Discovery app." },
-    { "type": "select", "id": "filter_layout", "label": "Desktop filter layout", "default": "drawer", "options": [{ "value": "drawer", "label": "Slide-in drawer" }, { "value": "sidebar", "label": "Sidebar" }] },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 24 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Enable filtering",
+      "default": true,
+      "info": "Configure filters with the Shopify Search & Discovery app."
+    },
+    {
+      "type": "select",
+      "id": "filter_layout",
+      "label": "Desktop filter layout",
+      "default": "drawer",
+      "options": [
+        {
+          "value": "drawer",
+          "label": "Slide-in drawer"
+        },
+        {
+          "value": "sidebar",
+          "label": "Sidebar"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    }
   ],
   "blocks": [
-    { "type": "promo", "name": "Promo tile", "limit": 3, "settings": [
-      { "type": "range", "id": "position", "label": "Grid position", "min": 1, "max": 24, "step": 1, "default": 5 },
-      { "type": "image_picker", "id": "image", "label": "Image" },
-      { "type": "select", "id": "fallback", "label": "Bundled visual", "default": "vk-visual-set.webp", "options": [{ "value": "vk-visual-set.webp", "label": "Set" }, { "value": "vk-visual-sear.webp", "label": "Steak sear" }, { "value": "vk-visual-chef.webp", "label": "Chef" }] },
-      { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Kies een set" },
-      { "type": "text", "id": "title", "label": "Title", "default": "Voordeliger als set" },
-      { "type": "textarea", "id": "text", "label": "Text", "default": "Elke set is goedkoper dan dezelfde producten los, gerekend met onze eigen prijzen." },
-      { "type": "text", "id": "link_label", "label": "Link label", "default": "Bekijk de sets" },
-      { "type": "url", "id": "link", "label": "Link" }
-    ] }
+    {
+      "type": "promo",
+      "name": "Promo tile",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "range",
+          "id": "position",
+          "label": "Grid position",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "fallback",
+          "label": "Bundled visual",
+          "default": "vk-visual-set.webp",
+          "options": [
+            {
+              "value": "vk-visual-set.webp",
+              "label": "Set"
+            },
+            {
+              "value": "vk-visual-sear.webp",
+              "label": "Steak sear"
+            },
+            {
+              "value": "vk-visual-chef.webp",
+              "label": "Chef"
+            },
+            {
+              "value": "vk-visual-pan.webp",
+              "label": "Gehamerde pan (foto)"
+            },
+            {
+              "value": "vk-visual-pan-angle.webp",
+              "label": "Gehamerde pan, schuin (video-still)"
+            },
+            {
+              "value": "vk-visual-macro.webp",
+              "label": "Gehamerd oppervlak, close-up"
+            },
+            {
+              "value": "vk-visual-handle.webp",
+              "label": "Handgreep, close-up"
+            },
+            {
+              "value": "vk-visual-hero.webp",
+              "label": "Gehamerde pan, breed (video-still)"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Kies een set"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Voordeliger als set"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Elke set is goedkoper dan dezelfde producten los, gerekend met onze eigen prijzen."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Bekijk de sets"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
   ]
 }
 {% endschema %}

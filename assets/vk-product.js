@@ -75,14 +75,15 @@
           this.idInput.disabled = true; if (qty) qty.disabled = true;
           inputs.innerHTML = `<input type="hidden" name="items[0][id]" value="${v.id}"><input type="hidden" name="items[0][quantity]" value="1"><input type="hidden" name="items[1][id]" value="${addon.id}"><input type="hidden" name="items[1][quantity]" value="1">`;
           price = v.price + addon.price; available = v.available && addon.available;
-        } else if (this.tier === 'bundle' && bp.data.bundle) {
+        } else if ((this.tier === 'bundle' || this.tier === 'bundle2') && bp.data[this.tier]) {
+          const bundle = bp.data[this.tier];
           this.idInput.disabled = true;
-          inputs.innerHTML = `<input type="hidden" name="id" value="${bp.data.bundle.id}">`;
-          price = bp.data.bundle.price; available = bp.data.bundle.available;
+          inputs.innerHTML = `<input type="hidden" name="id" value="${bundle.id}">`;
+          price = bundle.price; available = bundle.available;
         }
       }
       if (btn) btn.disabled = !available;
-      if (label) label.textContent = available ? `${VK.strings.addToBag || VK.strings.addToCart} — ${VK.formatMoney(price)}` : (v ? VK.strings.soldOut : VK.strings.unavailable);
+      if (label) label.textContent = available ? `${VK.strings.addToBag || VK.strings.addToCart} · ${VK.formatMoney(price)}` : (v ? VK.strings.soldOut : VK.strings.unavailable);
       this.price = price; this.available = available; this.syncSticky();
     }
     syncSticky() {
