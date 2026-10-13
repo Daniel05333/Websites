@@ -70,6 +70,7 @@
     "demo_rating_count": 1280,
     "cart_type": "drawer",
     "free_shipping_threshold": 0,
+    "cart_free_shipping": true,
     "cart_show_note": true,
     "promise_warranty": "25 jaar garantie",
     "promise_trial": "30 dagen retour",

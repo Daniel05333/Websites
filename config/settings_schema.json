@@ -295,6 +295,13 @@
         "default": 75
       },
       {
+        "type": "checkbox",
+        "id": "cart_free_shipping",
+        "label": "Shipping is always free",
+        "info": "Shows \"Verzending: Gratis\" above the total in the cart. Only turn on when your shipping rates are free for every order.",
+        "default": true
+      },
+      {
         "type": "product",
         "id": "cart_upsell_product",
         "label": "Cart upsell product",

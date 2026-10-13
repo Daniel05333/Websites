@@ -49,6 +49,9 @@
     "quantity_for": "Aantal voor {{ title }}",
     "remove": "Verwijderen",
     "subtotal": "Subtotaal",
+    "total": "Totaal",
+    "shipping": "Verzending",
+    "shipping_free": "Gratis",
     "summary": "Overzicht",
     "taxes_shipping": "Inclusief btw. Verzendkosten zie je bij het afrekenen.",
     "title": "Je winkelwagen",
@@ -266,6 +269,8 @@
       "added": "Toegevoegd",
       "adding": "Toevoegen…",
       "bundle_save": "Je bespaart {{ amount }} ten opzichte van los kopen",
+      "bundle_pan": "Pan {{ number }}",
+      "bundle_discount_note": "De korting zie je terug in je winkelwagen.",
       "bundle_view": "Bekijk wat erin zit",
       "choose_options": "Kies opties",
       "media": {

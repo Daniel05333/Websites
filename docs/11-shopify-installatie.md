@@ -64,6 +64,7 @@ Volg `dist/shopify-setup/README.md`:
 
 - **Merkbeloftes:** Gratis verzending · 30 dagen retour · 25 jaar garantie · Veilig betalen
 - **Winkelwagen → drempel gratis verzending:** 0. De balk staat uit omdat verzending altijd gratis is.
+- **Winkelwagen → Shipping is always free:** aan. De winkelwagen toont dan "Verzending: Gratis" boven het totaal. Zet je verzendtarieven in Shopify ook echt op gratis.
 - **Visuals → bundled visuals:** aan. Dan gebruiken de secties je studiofoto's tot je eigen afbeeldingen kiest.
 - **Animations:** luxe cursor, filmkorrel en vonken. Alles is uit te zetten.
 
@@ -72,7 +73,11 @@ In *Thema aanpassen* → de productpagina met sjabloon `gehamerde-pan`:
 
 - **Countdown:** vul een echte einddatum in, bijvoorbeeld `2026-11-30T23:59:00+01:00`. Zonder datum blijft de timer verborgen.
 - **Reviews:** vervang de drie citaten door echte reviews, of voeg het blok van je reviews-app toe.
-- **Bundels:** het eerste bundelblok toont de maten in de kaart *Enkel*. Alleen de gekozen kaart klapt open. Wat erin zit stel je in bij *Tier 2/3 contents*. Uitzetten kan met *Show size options inside the first tier*.
+- **Bundels:** *Enkel* toont de maten in de kaart. Bij *Set* (2 pannen) en *Complete set* (3 pannen) kiest de klant per pan zelf de maat. Elke pan gaat als losse regel in de winkelwagen. Alleen de gekozen kaart klapt open.
+- **Bundelkorting instellen (verplicht).** De 5% en 10% zie je pas in de winkelwagen als je ze in Shopify aanmaakt: *Kortingen → Korting maken → Bedrag korting op producten → Automatische korting*.
+  1. "Bundelkorting 5%": percentage 5, van toepassing op het product *Gehamerde Titanium Pan*, minimale aankoopvereiste *Minimum aantal artikelen: 2*.
+  2. "Bundelkorting 10%": percentage 10, zelfde product, *Minimum aantal artikelen: 3*.
+  Shopify past automatisch de hoogste toe. Wil je geen korting, zet dan in het blok *Bundle tiers* de velden *Tier 2/3 discount shown* op 0. Anders klopt de getoonde prijs niet met de winkelwagen.
 - **Koopknop:** alleen "In winkelwagen", zonder aantal en zonder Apple Pay of Shop Pay. Wil je ze terug, dan zitten ze als schakelaar in het blok *Buy buttons*.
 
 ### 9. Bekijken en publiceren

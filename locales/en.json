@@ -49,6 +49,9 @@
     "quantity_for": "Quantity for {{ title }}",
     "remove": "Remove",
     "subtotal": "Subtotal",
+    "total": "Total",
+    "shipping": "Shipping",
+    "shipping_free": "Free",
     "summary": "Order summary",
     "taxes_shipping": "Taxes included. Shipping calculated at checkout.",
     "title": "Your bag",
@@ -266,6 +269,8 @@
       "added": "Added",
       "adding": "Adding…",
       "bundle_save": "You save {{ amount }} vs. buying separately",
+      "bundle_pan": "Pan {{ number }}",
+      "bundle_discount_note": "The discount is applied in your cart.",
       "bundle_view": "View what is included",
       "choose_options": "Choose options",
       "media": {

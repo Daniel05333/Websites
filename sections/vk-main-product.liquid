@@ -120,9 +120,10 @@
                   {%- if settings.promise_shipping != blank %}<li>{% render 'vk-icon', name: 'truck', size: 16 %}{{ settings.promise_shipping }}</li>{% endif -%}
                   {%- if settings.promise_trial != blank %}<li>{% render 'vk-icon', name: 'return', size: 16 %}{{ settings.promise_trial }}</li>{% endif -%}
                   {%- if settings.promise_warranty != blank %}<li>{% render 'vk-icon', name: 'shield', size: 16 %}{{ settings.promise_warranty }}</li>{% endif -%}
+                  {%- if settings.promise_secure != blank %}<li>{% render 'vk-icon', name: 'lock', size: 16 %}{{ settings.promise_secure }}</li>{% endif -%}
                 </ul>
                 {%- if block.settings.show_payment_icons -%}
-                  <div class="vk-pdp__payments"><span class="vk-small vk-subtle">{% render 'vk-icon', name: 'lock', size: 14 %}{{ settings.promise_secure }}</span>{% render 'vk-payment-icons' %}</div>
+                  <div class="vk-pdp__payments">{% render 'vk-payment-icons' %}</div>
                 {%- endif -%}
               </div>
 
@@ -218,12 +219,16 @@
       { "type": "text", "id": "t2_title", "label": "Tier 2 title", "default": "Pan + deksel" },
       { "type": "text", "id": "t2_text", "label": "Tier 2 detail", "default": "Je Forge Pan met de bijpassende deksel van gehard glas." },
       { "type": "text", "id": "t2_tag", "label": "Tier 2 tag", "default": "Handig" },
+      { "type": "range", "id": "t2_pick", "label": "Tier 2: customer picks sizes for this many pans", "min": 0, "max": 4, "step": 1, "default": 0, "info": "0 = use the bundle product or add-on below. 2 or more = one size choice per pan; each pan is added to the cart separately." },
+      { "type": "range", "id": "t2_discount", "label": "Tier 2 discount shown (%)", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 0, "info": "Only set this when an automatic discount in Shopify gives exactly this percentage for this many pans. Otherwise the cart price will differ." },
       { "type": "text", "id": "t2_items", "label": "Tier 2 contents", "info": "Comma separated, e.g. 20 cm, 24 cm. Shown when the tier is selected." },
       { "type": "product", "id": "t2_addon", "label": "Tier 2 add-on product", "info": "Added alongside the selected variant; matched by size when possible." },
       { "type": "product", "id": "t2_product", "label": "Tier 2 bundle product", "info": "Use instead of an add-on to offer a second set (e.g. two pans). Overrides the add-on." },
       { "type": "text", "id": "t3_title", "label": "Tier 3 title", "default": "Het Trio" },
       { "type": "text", "id": "t3_text", "label": "Tier 3 detail", "default": "Forge Pans van 20, 24 en 28 cm, €38 minder dan los kopen." },
       { "type": "text", "id": "t3_tag", "label": "Tier 3 tag", "default": "Meeste voordeel" },
+      { "type": "range", "id": "t3_pick", "label": "Tier 3: customer picks sizes for this many pans", "min": 0, "max": 4, "step": 1, "default": 0, "info": "0 = use the tier 3 bundle product." },
+      { "type": "range", "id": "t3_discount", "label": "Tier 3 discount shown (%)", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 0, "info": "Must match an automatic discount in Shopify." },
       { "type": "text", "id": "t3_items", "label": "Tier 3 contents", "info": "Comma separated, e.g. 20 cm, 24 cm, 28 cm." },
       { "type": "product", "id": "t3_product", "label": "Tier 3 product (bundle product)" }
     ] },

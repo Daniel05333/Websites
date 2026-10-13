@@ -1,5 +1,5 @@
 {%- doc -%}
-  Honest bundle tiers. Compact cards: only the selected tier expands. Tier 1 = selected variant; tier 2 = a second bundle product, or the selected variant + add-on (matched by size);
+  Honest bundle tiers. Compact cards: only the selected tier expands. Tier 1 = selected variant; tiers 2 and 3 can let the customer pick a size per pan (vk-bundle-pick); otherwise tier 2 = a second bundle product, or the selected variant + add-on (matched by size);
   tier 3 = a dedicated bundle product. Prices and savings are real (from compare_at or sum of parts).
   @param {object} block - bundle_picker block.
   @param {object} product - Current product.
@@ -25,6 +25,17 @@
   assign vk_t2_v = vk_t2.selected_or_first_available_variant
   assign vk_t3 = b.t3_product
   assign vk_t3_v = vk_t3.selected_or_first_available_variant
+  # "Pick your sizes" tiers need a product with a single option (size).
+  assign vk_can_pick = false
+  if product.options.size == 1 and product.has_only_default_variant == false
+    assign vk_can_pick = true
+  endif
+  assign vk_t2_pick = 0
+  assign vk_t3_pick = 0
+  if vk_can_pick
+    assign vk_t2_pick = b.t2_pick | default: 0
+    assign vk_t3_pick = b.t3_pick | default: 0
+  endif
 -%}
 <vk-bundle-picker class="vk-pdp__block vk-bundles" data-section="{{ section_id }}" {{ block.shopify_attributes }}>
   <script type="application/json" data-bundle-json>
@@ -48,7 +59,9 @@
         {%- if nest_variants -%}{% render 'vk-variant-options', product: product, section_id: section_id, size_help: size_help %}{%- endif -%}
       </div></div>
     </div>
-    {%- if vk_t2 != blank and vk_t2.id != product.id -%}
+    {%- if vk_t2_pick > 1 -%}
+      {%- render 'vk-bundle-pick', key: 'pick2', count: vk_t2_pick, discount: b.t2_discount, title: b.t2_title, tag: b.t2_tag, text: b.t2_text, product: product, section_id: section_id, ember: false -%}
+    {%- elsif vk_t2 != blank and vk_t2.id != product.id -%}
       {%- render 'vk-bundle-tier', key: 'bundle2', title: b.t2_title, tag: b.t2_tag, text: b.t2_text, items: b.t2_items, tier_product: vk_t2, tier_variant: vk_t2_v, section_id: section_id, ember: false -%}
     {%- elsif vk_addon != blank -%}
       <div class="vk-bundle" data-tier="addon" data-tier-card="addon" data-tier-name="{{ b.t2_title | escape }}"{% if vk_addon_v == nil %} hidden{% endif %}>
@@ -63,7 +76,9 @@
         </div></div>
       </div>
     {%- endif -%}
-    {%- if vk_t3 != blank and vk_t3.id != product.id -%}
+    {%- if vk_t3_pick > 1 -%}
+      {%- render 'vk-bundle-pick', key: 'pick3', count: vk_t3_pick, discount: b.t3_discount, title: b.t3_title, tag: b.t3_tag, text: b.t3_text, product: product, section_id: section_id, ember: true -%}
+    {%- elsif vk_t3 != blank and vk_t3.id != product.id -%}
       {%- render 'vk-bundle-tier', key: 'bundle', title: b.t3_title, tag: b.t3_tag, text: b.t3_text, items: b.t3_items, tier_product: vk_t3, tier_variant: vk_t3_v, section_id: section_id, ember: true -%}
     {%- endif -%}
   </div>

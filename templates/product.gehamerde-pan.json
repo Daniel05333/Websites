@@ -64,17 +64,21 @@
             "t1_title": "Enkel",
             "t1_text": "De perfecte titanium pan voor dagelijks koken.",
             "t2_title": "Set",
-            "t2_text": "Twee pannen (20 + 24 cm) voor meer flexibiliteit in de keuken.",
+            "t2_text": "Twee pannen, jij kiest per pan de maat.",
             "t2_tag": "Aanbevolen · 5% korting",
             "t2_product": "set-2-pannen",
-            "t2_items": "Gehamerde Titanium Pan 20 cm, Gehamerde Titanium Pan 24 cm",
+            "t2_items": "",
             "t2_addon": "",
             "t3_title": "Complete set",
-            "t3_text": "Drie pannen (20, 24 + 28 cm): de volledige collectie met de grootste besparing.",
+            "t3_text": "Drie pannen in de maten die jij wilt, met de grootste besparing.",
             "t3_tag": "10% korting",
             "t3_product": "complete-set",
-            "t3_items": "Gehamerde Titanium Pan 20 cm, Gehamerde Titanium Pan 24 cm, Gehamerde Titanium Pan 28 cm",
-            "nest_variants": true
+            "t3_items": "",
+            "nest_variants": true,
+            "t2_pick": 2,
+            "t2_discount": 5,
+            "t3_pick": 3,
+            "t3_discount": 10
           }
         },
         "countdown-8": {

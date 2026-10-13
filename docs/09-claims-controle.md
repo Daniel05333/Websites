@@ -75,7 +75,8 @@ De opdrachtgever heeft deze claims aangeleverd en bevestigd. Ze staan daarom op 
 ### Prijzen en acties (Omnibus-richtlijn)
 
 - **Van-prijs €280 → €84,95 ("Bespaar €195,05").** De doorgestreepte prijs moet de laagste prijs zijn die je in de 30 dagen vóór de korting hebt gerekend. Kun je dat niet aantonen, verwijder dan de vergelijkingsprijs (compare-at) bij de variant.
-- **Sets.** De van-prijs is de som van de losse pannen (€174,90 en €269,85). Dat is een eerlijke vergelijking, zolang de losse prijzen kloppen.
+- **Sets.** Bij *Set* en *Complete set* kiest de klant zelf de maten. De doorgestreepte prijs is de som van de gekozen losse pannen; de korting (5% / 10%) komt uit een automatische korting in Shopify (zie docs/11, stap 8). Bestaat die korting niet, zet de korting in het thema dan op 0.
+- **Winkelwagen.** Toont "Verzending: Gratis" en "Totaal". De regel "Inclusief btw" is weggehaald; je prijzen voor consumenten moeten wel altijd inclusief btw zijn.
 - **"Magazijnuitverkoop" met afteltimer.** De timer staat klaar, maar verschijnt pas als je in het productblok *Countdown* een echte einddatum invult. Een timer die bij elk bezoek opnieuw begint, is misleidend en daarom niet ingesteld. Zet de actie ook echt stop op die datum.
 - **Gratis Titanium Kookgids.** Deze bestaat nu als pagina (`/pages/titanium-kookgids`) en wordt vanaf de productpagina gelinkt.
 

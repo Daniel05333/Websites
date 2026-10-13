@@ -12,6 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Liquid, Tag, Hash } from 'liquidjs';
 import * as mock from './mock/catalog.mjs';
+const AUTO_DISCOUNTS = [{ handle: 'gehamerde-titanium-pan', title: 'Bundelkorting', tiers: [[3, 10], [2, 5]] }];
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const PORT = Number(process.env.PORT || 4321);
@@ -96,8 +97,19 @@ function cartFor(req) { const sid = (req.headers.cookie || '').match(/vk_sid=(\w
 function findVariant(id) { for (const p of allProducts()) { const v = p.variants.find((x) => String(x.id) === String(id)); if (v) return { p, v }; } return null; }
 function cartObject(c) {
   const items = c.items.map((it, i) => { const { p, v } = findVariant(it.id); return { key: `${v.id}:${i}`, id: v.id, variant_id: v.id, product_id: p.id, product: p, variant: v, title: p.title, quantity: it.quantity, price: v.price, final_price: v.price, line_price: v.price * it.quantity, final_line_price: v.price * it.quantity, original_line_price: v.price * it.quantity, url: v.url, image: null, properties: {}, line_level_discount_allocations: [], url_to_remove: `/cart/change?line=${i + 1}&quantity=0` }; });
+  // Mirrors the automatic discounts the store owner sets up in Shopify (docs/11): % off the pan by quantity.
+  for (const rule of AUTO_DISCOUNTS) {
+    const lines = items.filter((it) => it.product.handle === rule.handle);
+    const n = lines.reduce((a, b) => a + b.quantity, 0);
+    const tier = rule.tiers.find(([min]) => n >= min); if (!tier) continue;
+    for (const it of lines) {
+      const amount = Math.round((it.line_price * tier[1]) / 100);
+      it.line_level_discount_allocations = [{ amount, discount_application: { title: `${rule.title} ${tier[1]}%` } }];
+      it.final_line_price = it.line_price - amount; it.final_price = Math.round(it.final_line_price / it.quantity);
+    }
+  }
   const total = items.reduce((a, b) => a + b.final_line_price, 0);
-  return { items, item_count: items.reduce((a, b) => a + b.quantity, 0), total_price: total, items_subtotal_price: total, original_total_price: total, note: c.note, currency: { iso_code: 'EUR' }, cart_level_discount_applications: [], taxes_included: true, requires_shipping: true };
+  return { items, item_count: items.reduce((a, b) => a + b.quantity, 0), total_price: total, items_subtotal_price: total, original_total_price: items.reduce((a, b) => a + b.line_price, 0), note: c.note, currency: { iso_code: 'EUR' }, cart_level_discount_applications: [], taxes_included: true, requires_shipping: true };
 }
 const cartJSON = (c) => { const o = cartObject(c); return { ...o, items: o.items.map((i) => ({ ...i, product: undefined, variant: undefined, product_title: i.product.title, variant_title: i.variant.title })) }; };
 

@@ -1,0 +1,62 @@
+{%- doc -%}
+  Bundle tier where the customer picks a size per pan. Each pan is added to the cart as its own line (same product,
+  chosen variant). The shown discount is only applied if a matching automatic discount exists in Shopify, so keep
+  `discount` at 0 until it does.
+  @param {string} key - Tier value (pick2 or pick3).
+  @param {number} count - Number of pans.
+  @param {number} discount - Discount percent shown (must match the automatic discount).
+  @param {string} title - Tier name.
+  @param {string} [tag] - Small badge.
+  @param {string} [text] - Description.
+  @param {object} product - Current product (single option, e.g. size).
+  @param {string} section_id - Section id.
+  @param {boolean} [ember] - Filled red badge.
+  @example
+  {% render 'vk-bundle-pick', key: 'pick2', count: 2, discount: 5, title: 'Set', product: product, section_id: section.id %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_values = product.options_with_values.first.values
+  assign vk_regular = 0
+  for i in (1..count)
+    assign vk_idx = i | minus: 1
+    assign vk_val = vk_values[vk_idx] | default: vk_values.last
+    assign vk_var = product.variants | where: 'option1', vk_val | first
+    assign vk_regular = vk_regular | plus: vk_var.price
+  endfor
+  assign vk_off = vk_regular | times: discount | divided_by: 100
+  assign vk_price = vk_regular | minus: vk_off
+  assign vk_off_money = vk_off | money
+-%}
+<div class="vk-bundle" data-tier-card="{{ key }}" data-tier-name="{{ title | escape }}" data-pick-count="{{ count }}" data-pick-discount="{{ discount }}">
+  <label class="vk-bundle__head">
+    <input type="radio" name="vk-bundle-{{ section_id }}" value="{{ key }}" data-tier-input aria-describedby="vk-bt-{{ key }}-{{ section_id }}">
+    <span class="vk-bundle__radio" aria-hidden="true"></span>
+    <span class="vk-bundle__title">{{ title }}{% if tag != blank %} <span class="vk-bundle__tag{% if ember %} vk-bundle__tag--ember{% endif %}">{{ tag }}</span>{% endif %}</span>
+    <span class="vk-bundle__price"><span data-tier-price="{{ key }}">{{ vk_price | money }}</span><s data-tier-compare="{{ key }}"{% if discount == 0 %} hidden{% endif %}>{{ vk_regular | money }}</s></span>
+  </label>
+  <div class="vk-bundle__panel"><div class="vk-bundle__inner" id="vk-bt-{{ key }}-{{ section_id }}">
+    {%- if text != blank %}<p class="vk-bundle__text">{{ text }}</p>{% endif -%}
+    <div class="vk-bundle__slots">
+      {%- for i in (1..count) -%}
+        {%- assign vk_idx = i | minus: 1 -%}
+        {%- assign vk_default = vk_values[vk_idx] | default: vk_values.last -%}
+        <fieldset class="vk-bundle__slot" data-pick-slot>
+          <legend class="vk-bundle__slot-label"><span class="vk-eyebrow">{{ 'products.product.bundle_pan' | t: number: i }}</span><span class="vk-pdp__option-value" data-slot-value>{{ vk_default }}</span></legend>
+          <div class="vk-flex vk-pdp__pills">
+            {%- for value in vk_values -%}
+              {%- assign vk_v = product.variants | where: 'option1', value | first -%}
+              <label class="vk-pill">
+                <input type="radio" name="vk-{{ key }}-{{ i }}-{{ section_id }}" value="{{ value | escape }}"{% if value == vk_default %} checked{% endif %}{% unless vk_v.available %} disabled{% endunless %}>
+                <span>{{ value }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      {%- endfor -%}
+    </div>
+    <p class="vk-bundle__meta">
+      <span class="vk-bundle__save" data-tier-save="{{ key }}"{% if discount == 0 %} hidden{% endif %}>{{ 'products.product.bundle_save' | t: amount: vk_off_money }}</span>
+      {%- if discount > 0 %}<span class="vk-small vk-subtle">{{ 'products.product.bundle_discount_note' | t }}</span>{% endif -%}
+    </p>
+  </div></div>
+</div>

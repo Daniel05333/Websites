@@ -54,6 +54,7 @@ vk-cart-drawer[open] .vk-line { animation: vk-fade-up 600ms var(--vk-ease-out) b
 .vk-cart-summary__row { display: flex; justify-content: space-between; gap: 1rem; font-size: .875rem; }
 .vk-cart-summary__row--discount { color: var(--vk-accent); }
 .vk-cart-summary__row--discount span:first-child { display: inline-flex; gap: .35rem; align-items: center; }
+.vk-cart-summary__row--shipping span:last-child { color: var(--vk-molten); font-weight: 600; }
 .vk-cart-summary__row--total { font-family: var(--vk-font-display); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
 .vk-cart-summary__note { font-size: .75rem; color: var(--vk-fg-subtle); }
 

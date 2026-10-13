@@ -26,8 +26,8 @@
             {%- for discount in cart.cart_level_discount_applications -%}
               <p class="vk-cart-summary__row vk-cart-summary__row--discount"><span>{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>
             {%- endfor -%}
-            <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
-            <p class="vk-cart-summary__note">{{ 'cart.taxes_shipping' | t }}</p>
+            {%- if settings.cart_free_shipping -%}<p class="vk-cart-summary__row vk-cart-summary__row--shipping"><span>{{ 'cart.shipping' | t }}</span><span>{{ 'cart.shipping_free' | t }}</span></p>{%- endif -%}
+          <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.total' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
             {%- if section.settings.show_note -%}
               <details class="vk-cart-note">
                 <summary>{% render 'vk-icon', name: 'gift', size: 16 %}{{ 'cart.note' | t }}</summary>

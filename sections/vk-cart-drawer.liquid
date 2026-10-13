@@ -35,8 +35,8 @@
           {%- for discount in cart.cart_level_discount_applications -%}
             <p class="vk-cart-summary__row vk-cart-summary__row--discount"><span>{% render 'vk-icon', name: 'sparkle', size: 14 %}{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>
           {%- endfor -%}
-          <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
-          <p class="vk-cart-summary__note">{{ 'cart.taxes_shipping' | t }}</p>
+          {%- if settings.cart_free_shipping -%}<p class="vk-cart-summary__row vk-cart-summary__row--shipping"><span>{{ 'cart.shipping' | t }}</span><span>{{ 'cart.shipping_free' | t }}</span></p>{%- endif -%}
+          <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.total' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
           <form action="{{ routes.cart_url }}" method="post" class="vk-cart-drawer__checkout">
             <button type="submit" name="checkout" class="vk-btn vk-btn--primary vk-btn--lg vk-btn--block">
               <span class="vk-btn__label">{% render 'vk-icon', name: 'lock', size: 18 %}{{ 'cart.checkout_total' | t: total: vk_total_money }}</span>
