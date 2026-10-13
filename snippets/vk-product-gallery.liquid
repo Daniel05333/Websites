@@ -3,14 +3,15 @@
   @param {object} product - Product.
   @param {string} section_id - Section id.
   @param {string} [chip] - Overlay chip text.
+  @param {boolean} [effects] - Floating LavaCell™ flakes and embers, pointer tilt (desktop).
   @example
   {% render 'vk-product-gallery', product: product, section_id: section.id %}
 {%- enddoc -%}
 {%- assign vk_featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
 <vk-product-gallery class="vk-gallery" data-section="{{ section_id }}">
-  <div class="vk-gallery__stage">
+  <div class="vk-gallery__stage" data-float-host>
     {%- if chip != blank %}<span class="vk-gallery__chip vk-badge vk-badge--dark">{% render 'vk-icon', name: 'shield', size: 12 %}{{ chip }}</span>{% endif -%}
-    <ul class="vk-gallery__track" data-gallery-track role="list" aria-label="{{ 'products.product.media.gallery' | t }}">
+    <ul class="vk-gallery__track" data-gallery-track{% if effects %} data-float-tilt{% endif %} role="list" aria-label="{{ 'products.product.media.gallery' | t }}">
       {%- if product.media.size > 0 -%}
         {%- for media in product.media -%}
           <li class="vk-gallery__slide{% if media.id == vk_featured.id %} is-active{% endif %}" data-media-id="{{ media.id }}" data-index="{{ forloop.index0 }}">
@@ -45,6 +46,7 @@
         <li class="vk-gallery__slide is-active"><div class="vk-pmedia">{% render 'vk-image', fallback: vk_fb, fallback_width: 1024, fallback_height: 1024, placeholder: vk_ph, alt: product.title, loading: 'eager' %}</div></li>
       {%- endif -%}
     </ul>
+    {%- if effects -%}<vk-float-field data-count="18" aria-hidden="true"></vk-float-field>{%- endif -%}
     {%- if product.media.size > 1 -%}
       <button type="button" class="vk-icon-btn vk-gallery__nav vk-gallery__nav--prev" data-gallery-prev aria-label="{{ 'general.previous' | t }}">{% render 'vk-icon', name: 'arrow-left', size: 18 %}</button>
       <button type="button" class="vk-icon-btn vk-gallery__nav vk-gallery__nav--next" data-gallery-next aria-label="{{ 'general.next' | t }}">{% render 'vk-icon', name: 'arrow-right', size: 18 %}</button>

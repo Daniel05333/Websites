@@ -4,3 +4,4 @@ tools/preview/.cache/
 tools/preview/shots/
 *.log
 preview-static/
+dist/

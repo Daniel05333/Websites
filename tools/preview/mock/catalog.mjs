@@ -61,8 +61,8 @@ const P = (id, handle, title, type, tags, collections, variants, meta) => ({
 });
 
 export const products = [
-  P(1001, 'forge-pan', 'Gehamerde Titanium Pan', 'Koekenpan', ['bestseller'], ['pans', 'bestsellers'],
-    sizes('forge-pan', [['20 cm', 8495, 28000], ['24 cm', 8995], ['28 cm', 9495], ['32 cm', 10495]], 'VK-FP'),
+  P(1001, 'gehamerde-titanium-pan', 'Gehamerde Titanium Pan', 'Koekenpan', ['bestseller'], ['pans', 'bestsellers'],
+    sizes('gehamerde-titanium-pan', [['20 cm', 8495, 28000], ['24 cm', 8995], ['28 cm', 9495], ['32 cm', 10495]], 'VK-FP'),
     { subtitle: 'Japans vakmanschap. Gebouwd voor generaties.', badge: 'Bestseller', specs: specs.cookware(), images: ['vk-visual-pan.webp', 'vk-visual-pan-angle.webp', 'vk-visual-macro.webp', 'vk-visual-handle.webp'], rating: 4.8, rating_count: 15500,
       description: html('De Gehamerde Titanium Pan is de pan die je elke dag pakt. Puur titanium, met een handgehamerde afwerking en zonder chemische coating: geen laag die kan afbladderen, wel een stevige korst, gelijkmatige warmte en een pan die gemaakt is om lang mee te gaan. Voor wie geen genoegen neemt met minder.', [
         'Massief titanium kookoppervlak, zonder PFAS, PFOA of PTFE',
@@ -71,8 +71,8 @@ export const products = [
         'Werkt op gas, inductie, keramisch en elektrisch',
         'Metalen keukengerei mag, en hij kan in de vaatwasser',
       ]) }),
-  P(1002, 'forge-wok', 'Gehamerde Titanium Wok', 'Wok', [], ['woks', 'bestsellers'],
-    sizes('forge-wok', [['30 cm', 18900], ['34 cm', 21900]], 'VK-FW'),
+  P(1002, 'gehamerde-titanium-wok', 'Gehamerde Titanium Wok', 'Wok', [], ['woks', 'bestsellers'],
+    sizes('gehamerde-titanium-wok', [['30 cm', 18900], ['34 cm', 21900]], 'VK-FW'),
     { subtitle: 'Gemaakt voor felle hitte.', specs: specs.cookware(),
       description: html('Met de Gehamerde Titanium Wok roerbak je op hoog vuur, zoals het hoort: snel, heet en met groenten die knapperig blijven. De vlakke bodem staat stevig op inductie, de diepe kom geeft ruimte om te omscheppen. Voor iedereen die vaak Aziatisch kookt of gewoon graag op hoog vuur werkt.', [
         'Vlakke bodem voor goed contact met inductie en keramisch',
@@ -107,7 +107,7 @@ export const products = [
         'Geschikt voor inductie en alle andere warmtebronnen',
         'Titanium kookoppervlak zonder coating, vaatwasserbestendig',
       ]) }),
-  P(1006, 'the-trio', 'Complete set — 3 gehamerde pannen', 'Set', ['bestseller'], ['sets', 'bestsellers'],
+  P(1006, 'complete-set', 'Complete set — 3 gehamerde pannen', 'Set', ['bestseller'], ['sets', 'bestsellers'],
     single(24287, 26985, 'VK-SET-3'),
     { subtitle: '20, 24 en 28 cm — 10% voordeliger dan los.', badge: 'Bespaar 10%', specs: specs.cookware([{ label: 'Inhoud', value: 'Gehamerde Titanium Pan 20, 24 en 28 cm' }]),
       description: html('De complete set: de Gehamerde Titanium Pan in drie maten. Een kleine voor een ei of een saus, een middelste voor elke dag en een grote voor als je voor meer mensen kookt. Je betaalt 10% minder dan voor drie losse pannen.', [
@@ -116,7 +116,7 @@ export const products = [
         'Massief titanium, zonder PFAS, PFOA of PTFE',
         'Geschikt voor alle warmtebronnen, oven en grill',
       ]) }),
-  P(1014, 'duo-set', 'Set — 2 gehamerde pannen', 'Set', [], ['sets'],
+  P(1014, 'set-2-pannen', 'Set — 2 gehamerde pannen', 'Set', [], ['sets'],
     single(16616, 17490, 'VK-SET-2'),
     { subtitle: '20 en 24 cm — 5% voordeliger dan los.', badge: 'Bespaar 5%', specs: specs.cookware([{ label: 'Inhoud', value: 'Gehamerde Titanium Pan 20 en 24 cm' }]),
       description: html('Twee gehamerde titanium pannen voor meer flexibiliteit in de keuken: de 20 cm voor ontbijt en sauzen, de 24 cm voor elke dag. Je betaalt 5% minder dan voor twee losse pannen.', [
@@ -206,8 +206,8 @@ const L = (title, url, links = []) => ({ title, url, links });
 export const menus = {
   'main-menu': [
     L('Collectie', '/collections/all', [
-      L('Pannen', '/collections/pans', [L('Gehamerde Titanium Pan', '/products/forge-pan'), L('Gehamerde Titanium Wok', '/products/forge-wok'), L('Hapjespan', '/products/saute-pan'), L('Steelpan', '/products/saucepan'), L('Kookpan', '/products/stockpot')]),
-      L('Sets', '/collections/sets', [L('Set — 2 pannen', '/products/duo-set'), L('Complete set — 3 pannen', '/products/the-trio'), L("Chef's Collectie", '/products/chefs-collection'), L('Signature Keuken', '/products/signature-kitchen')]),
+      L('Pannen', '/collections/pans', [L('Gehamerde Titanium Pan', '/products/gehamerde-titanium-pan'), L('Gehamerde Titanium Wok', '/products/gehamerde-titanium-wok'), L('Hapjespan', '/products/saute-pan'), L('Steelpan', '/products/saucepan'), L('Kookpan', '/products/stockpot')]),
+      L('Sets', '/collections/sets', [L('Set — 2 pannen', '/products/set-2-pannen'), L('Complete set — 3 pannen', '/products/complete-set'), L("Chef's Collectie", '/products/chefs-collection'), L('Signature Keuken', '/products/signature-kitchen')]),
       L('Messen & accessoires', '/collections/knives', [L('Damascus koksmes', '/products/damascus-chef-knife'), L('Damascus santoku', '/products/santoku-knife'), L('Titanium snijplank', '/products/titanium-board'), L('Keukengerei', '/products/utensil-set'), L('Glazen deksel', '/products/glass-lid')]),
     ]),
     L('VolcanicCore™', '/pages/technology'), L('Ons verhaal', '/pages/about'), L('Vragen', '/pages/veelgestelde-vragen'), L('Contact', '/pages/contact'),
@@ -292,5 +292,5 @@ export const articles = [
 ];
 
 // Product templates (Shopify template suffix): templates/product.<suffix>.json
-const TEMPLATE_SUFFIX = {"forge-pan": "forge-pan", "forge-wok": "cookware", "saute-pan": "cookware", "saucepan": "cookware", "stockpot": "cookware", "the-trio": "cookware", "chefs-collection": "cookware", "signature-kitchen": "cookware"};
+const TEMPLATE_SUFFIX = {"gehamerde-titanium-pan": "gehamerde-pan", "gehamerde-titanium-wok": "cookware", "saute-pan": "cookware", "saucepan": "cookware", "stockpot": "cookware", "complete-set": "cookware", "chefs-collection": "cookware", "signature-kitchen": "cookware"};
 for (const p of products) p.template_suffix = TEMPLATE_SUFFIX[p.handle] || null;

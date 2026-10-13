@@ -7,7 +7,8 @@
     assign vk_has_c2 = true
   endif
 -%}
-<section id="vk-{{ section.id }}" class="vk-section vk-compare color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+<section id="vk-{{ section.id }}" class="vk-section vk-compare color-{{ s.color_scheme }}" data-section-id="{{ section.id }}"{% if section.settings.stack_effect %} data-stack{% endif %}>
+  {%- if section.settings.show_contours -%}<vk-contours aria-hidden="true"></vk-contours>{%- endif -%}
   <div class="vk-container">
     {%- render 'vk-heading', index: s.index, eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: 'center' -%}
     <vk-compare class="vk-compare__wrap{% if vk_has_c2 %} has-c2{% endif %}" data-show="1" data-reveal>
@@ -62,30 +63,194 @@
   "tag": "div",
   "class": "vk-compare-section",
   "settings": [
-    { "type": "text", "id": "index", "label": "Chapter number", "default": "07" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "De vergelijking" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Niet elke pan is <em>hetzelfde</em>." },
-    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Zo verhoudt VolcanicCore™ zich tot de pannen die in veel keukens al staan." },
-    { "type": "text", "id": "competitor_1", "label": "Competitor 1", "default": "Antiaanbaklaag" },
-    { "type": "text", "id": "competitor_2", "label": "Competitor 2", "info": "Leave empty for a two-column comparison.", "default": "Gietijzer" },
-    { "type": "textarea", "id": "footnote", "label": "Footnote", "default": "Vergeleken met gangbare aluminium pannen met een PTFE-antiaanbaklaag en traditioneel, onbehandeld gietijzer. Afzonderlijke producten kunnen verschillen." },
-    { "type": "text", "id": "button_label", "label": "Button label", "default": "Kies je pan" },
-    { "type": "url", "id": "button_url", "label": "Button link" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+    {
+      "type": "text",
+      "id": "index",
+      "label": "Chapter number",
+      "default": "07"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "De vergelijking"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Niet elke pan is <em>hetzelfde</em>."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Zo verhoudt VolcanicCore™ zich tot de pannen die in veel keukens al staan."
+    },
+    {
+      "type": "text",
+      "id": "competitor_1",
+      "label": "Competitor 1",
+      "default": "Antiaanbaklaag"
+    },
+    {
+      "type": "text",
+      "id": "competitor_2",
+      "label": "Competitor 2",
+      "info": "Leave empty for a two-column comparison.",
+      "default": "Gietijzer"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "Vergeleken met gangbare aluminium pannen met een PTFE-antiaanbaklaag en traditioneel, onbehandeld gietijzer. Afzonderlijke producten kunnen verschillen."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Kies je pan"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_effect",
+      "label": "Stack effect",
+      "info": "Desktop: the section pins and the next one slides over it.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contours",
+      "label": "Animated contour lines",
+      "default": false
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    }
   ],
   "blocks": [
-    { "type": "row", "name": "Row", "limit": 14, "settings": [
-      { "type": "text", "id": "group", "label": "Group heading (optional)", "info": "Starts a new group above this row." },
-      { "type": "text", "id": "feature", "label": "Feature", "default": "Aanbraden" },
-      { "type": "text", "id": "ours", "label": "VOLKARA", "default": "Mooie, gelijkmatige korst" },
-      { "type": "select", "id": "c1_status", "label": "Competitor 1 status", "default": "no", "options": [{ "value": "yes", "label": "Yes" }, { "value": "partial", "label": "Partial" }, { "value": "no", "label": "No" }] },
-      { "type": "text", "id": "c1_text", "label": "Competitor 1 text", "default": "Coating verdraagt geen hoge hitte" },
-      { "type": "select", "id": "c2_status", "label": "Competitor 2 status", "default": "yes", "options": [{ "value": "yes", "label": "Yes" }, { "value": "partial", "label": "Partial" }, { "value": "no", "label": "No" }] },
-      { "type": "text", "id": "c2_text", "label": "Competitor 2 text", "default": "Goede korst" }
-    ] }
+    {
+      "type": "row",
+      "name": "Row",
+      "limit": 14,
+      "settings": [
+        {
+          "type": "text",
+          "id": "group",
+          "label": "Group heading (optional)",
+          "info": "Starts a new group above this row."
+        },
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature",
+          "default": "Aanbraden"
+        },
+        {
+          "type": "text",
+          "id": "ours",
+          "label": "VOLKARA",
+          "default": "Mooie, gelijkmatige korst"
+        },
+        {
+          "type": "select",
+          "id": "c1_status",
+          "label": "Competitor 1 status",
+          "default": "no",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Yes"
+            },
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "c1_text",
+          "label": "Competitor 1 text",
+          "default": "Coating verdraagt geen hoge hitte"
+        },
+        {
+          "type": "select",
+          "id": "c2_status",
+          "label": "Competitor 2 status",
+          "default": "yes",
+          "options": [
+            {
+              "value": "yes",
+              "label": "Yes"
+            },
+            {
+              "value": "partial",
+              "label": "Partial"
+            },
+            {
+              "value": "no",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "c2_text",
+          "label": "Competitor 2 text",
+          "default": "Goede korst"
+        }
+      ]
+    }
   ],
-  "presets": [{ "name": "VOLKARA · Comparison", "blocks": [{ "type": "row", "settings": { "group": "Prestaties" } }, { "type": "row" }] }]
+  "presets": [
+    {
+      "name": "VOLKARA · Comparison",
+      "blocks": [
+        {
+          "type": "row",
+          "settings": {
+            "group": "Prestaties"
+          }
+        },
+        {
+          "type": "row"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

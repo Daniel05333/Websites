@@ -1,6 +1,6 @@
 {{ 'vk-section-story.css' | asset_url | stylesheet_tag }}
 {%- render 'vk-section-styles', section: section -%}
-<section id="vk-{{ section.id }}" class="vk-section vk-problem color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+<section id="vk-{{ section.id }}" class="vk-section vk-problem color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}"{% if section.settings.stack_effect %} data-stack{% endif %}>
   <div class="vk-container">
     {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading, align: 'center' -%}
     <vk-slider class="vk-problem__slider">
@@ -69,6 +69,13 @@
       "id": "transition_text",
       "label": "Transition line",
       "default": "Het kan anders"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_effect",
+      "label": "Stack effect",
+      "info": "Desktop: the section pins and the next one slides over it.",
+      "default": false
     },
     {
       "type": "color_scheme",

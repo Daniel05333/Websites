@@ -38,7 +38,7 @@ const rewritePath = (href) => {
   if (p.startsWith('/products/') || p.startsWith('/collections/')) return '#vk-preview-na';
   return null;
 };
-const nav = [['/', 'Homepage'], ['/collections/all', 'Collectie: alles'], ['/collections/sets', 'Collectie: sets'], ['/products/forge-pan', 'Product: Forge Pan'], ['/products/the-trio', 'Product: The Trio'], ['/products/damascus-chef-knife', 'Product: Damascus koksmes'], ['/pages/technology', 'VolcanicCore™'], ['/pages/about', 'Over ons'], ['/pages/veelgestelde-vragen', 'Veelgestelde vragen'], ['/pages/verzenden-en-retourneren', 'Verzenden en retourneren'], ['/pages/contact', 'Contact'], ['/cart', 'Winkelwagen'], ['/search', 'Zoeken'], ['/collections', 'Alle collecties'], ['/404', '404']];
+const nav = [['/', 'Homepage'], ['/collections/all', 'Collectie: alles'], ['/collections/sets', 'Collectie: sets'], ['/products/gehamerde-titanium-pan', 'Product: Gehamerde Titanium Pan'], ['/products/complete-set', 'Product: Complete set'], ['/products/damascus-chef-knife', 'Product: Damascus koksmes'], ['/pages/technology', 'VolcanicCore™'], ['/pages/about', 'Over ons'], ['/pages/veelgestelde-vragen', 'Veelgestelde vragen'], ['/pages/verzenden-en-retourneren', 'Verzenden en retourneren'], ['/pages/contact', 'Contact'], ['/cart', 'Winkelwagen'], ['/search', 'Zoeken'], ['/collections', 'Alle collecties'], ['/404', '404']];
 const bar = (route) => `<div class="vk-preview-bar"><strong>VOLKARA preview</strong><label for="vk-preview-nav" class="vk-visually-hidden">Ga naar pagina</label><select id="vk-preview-nav" onchange="location.href=this.value">${nav.map(([r, t]) => `<option value="${routes.get(r)}"${r === route ? ' selected' : ''}>${t}</option>`).join('')}${nav.some(([r]) => r === route) ? '' : '<option selected disabled>Andere pagina</option>'}</select><span>Demo · afrekenen en accounts werken pas in Shopify</span></div>`;
 function rewrite(html, route = '') {
   const defaultSort = html.match(/<option value="([a-z-]+)" selected/)?.[1] || 'manual';
@@ -67,7 +67,7 @@ const cartSections = 'vk-cart-drawer,vk-cart-icon-bubble';
 for (const p of products) for (const v of p.variants) {
   const cookie = `vk_sid=rec${RUN}x${++sid}`;
   replay[`add|${v.id}`] = JSON.stringify(await post('/cart/add.js', { id: v.id, quantity: 1, sections: cartSections }, cookie));
-  if (p.handle === 'forge-pan' && v.title === '28 cm') {
+  if (p.handle === 'gehamerde-titanium-pan' && v.title === '28 cm') {
     replay['change|empty'] = JSON.stringify(await post('/cart/change.js', { line: 1, quantity: 0, sections: cartSections + ',vk-main-cart' }, cookie));
   }
 }

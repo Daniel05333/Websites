@@ -4,7 +4,7 @@
   assign vk_points = section.blocks | where: 'type', 'point'
   assign vk_spots = section.blocks | where: 'type', 'hotspot'
 -%}
-<section id="vk-{{ section.id }}" class="vk-section vk-solution color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+<section id="vk-{{ section.id }}" class="vk-section vk-solution color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}"{% if section.settings.stack_effect %} data-stack{% endif %}>
   <vk-solution class="vk-container vk-solution__grid">
     <div class="vk-solution__copy">
       {%- render 'vk-heading', index: section.settings.index, eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.subheading -%}
@@ -133,6 +133,13 @@
       "type": "url",
       "id": "button_url",
       "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_effect",
+      "label": "Stack effect",
+      "info": "Desktop: the section pins and the next one slides over it.",
+      "default": false
     },
     {
       "type": "color_scheme",

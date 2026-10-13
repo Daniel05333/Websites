@@ -10,7 +10,8 @@
         "show_sticky_atc": true,
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "gallery_effects": true
       },
       "blocks": {
         "badge-1": {
@@ -66,8 +67,8 @@
         "buy_buttons-8": {
           "type": "buy_buttons",
           "settings": {
-            "show_quantity": true,
-            "show_dynamic_checkout": true,
+            "show_quantity": false,
+            "show_dynamic_checkout": false,
             "dispatch_text": ""
           }
         },
@@ -366,7 +367,8 @@
         "button_url": "/collections/pans",
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "show_contours": true
       },
       "blocks": {
         "row-1": {
@@ -602,7 +604,8 @@
         "guarantee": "",
         "color_scheme": "scheme-1",
         "padding_top": 96,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "show_contours": true
       },
       "blocks": {
         "chip-1": {

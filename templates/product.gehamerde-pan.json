@@ -10,7 +10,8 @@
         "show_sticky_atc": true,
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "gallery_effects": true
       },
       "blocks": {
         "badge-1": {
@@ -65,12 +66,12 @@
             "t2_title": "Set",
             "t2_text": "Twee pannen (20 + 24 cm) voor meer flexibiliteit in de keuken.",
             "t2_tag": "Aanbevolen · 5% korting",
-            "t2_product": "duo-set",
+            "t2_product": "set-2-pannen",
             "t2_addon": "",
             "t3_title": "Complete set",
             "t3_text": "Drie pannen (20, 24 + 28 cm): de volledige collectie met de grootste besparing.",
             "t3_tag": "10% korting",
-            "t3_product": "the-trio"
+            "t3_product": "complete-set"
           }
         },
         "countdown-8": {
@@ -83,8 +84,8 @@
         "buy_buttons-9": {
           "type": "buy_buttons",
           "settings": {
-            "show_quantity": true,
-            "show_dynamic_checkout": true,
+            "show_quantity": false,
+            "show_dynamic_checkout": false,
             "dispatch_text": ""
           }
         },
@@ -184,7 +185,8 @@
         "transition_text": "Het kan anders",
         "color_scheme": "scheme-2",
         "padding_top": 120,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "stack_effect": true
       },
       "blocks": {
         "card-1": {
@@ -237,7 +239,8 @@
         "button_url": "",
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "stack_effect": true
       },
       "blocks": {
         "point-1": {
@@ -343,7 +346,8 @@
         "link": "",
         "color_scheme": "scheme-2",
         "padding_top": 120,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "stack_effect": true
       },
       "blocks": {
         "review-1": {
@@ -400,7 +404,8 @@
         "button_url": "",
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "show_contours": true
       },
       "blocks": {
         "row-1": {
@@ -571,7 +576,8 @@
         "guarantee": "",
         "color_scheme": "scheme-1",
         "padding_top": 96,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "show_contours": true
       },
       "blocks": {
         "chip-1": {
@@ -614,10 +620,88 @@
         "padding_top": 120,
         "padding_bottom": 120
       }
+    },
+    "stage": {
+      "type": "vk-forge-stage",
+      "settings": {
+        "label": "De Gehamerde Titanium Pan van dichtbij",
+        "length": 450,
+        "palette": "lava-titanium",
+        "sparks": 450
+      },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "De Gehamerde Titanium Pan",
+            "title": "Gehamerd|titanium",
+            "text": "Een kookoppervlak van massief titanium met een handgehamerde afwerking.",
+            "text_2": "Zonder PFAS, PFOA of PTFE. Zonder chemische coating. Puur titanium.",
+            "column": "1",
+            "show_image": false,
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": ""
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Hittebestendig",
+            "title": "Tot|540°C",
+            "text": "Dichtschroeien op hoog vuur, afmaken in de oven of onder de grill.",
+            "text_2": "",
+            "column": "2",
+            "show_image": true,
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": ""
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Zonder coating",
+            "title": "Niets dat|afbladdert",
+            "text": "Metalen keukengerei mag, de vaatwasser ook. Er is geen laag die kan slijten.",
+            "text_2": "",
+            "column": "3",
+            "show_image": false,
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": ""
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "25 jaar garantie",
+            "title": "Gebouwd voor|generaties",
+            "text": "Japans vakmanschap, gemaakt om elke dag te presteren.",
+            "text_2": "",
+            "column": "2",
+            "show_image": false,
+            "button_label": "Kies je set",
+            "button_url": "#buy",
+            "button2_label": "Bekijk de kookgids",
+            "button2_url": "/pages/titanium-kookgids"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3",
+        "slide-4"
+      ]
     }
   },
   "order": [
     "main",
+    "stage",
     "problem",
     "solution",
     "reviews",

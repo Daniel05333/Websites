@@ -86,7 +86,8 @@
         "button_url": "/collections/pans",
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "show_contours": true
       },
       "blocks": {
         "row-1": {
@@ -218,7 +219,8 @@
         "guarantee": "",
         "color_scheme": "scheme-1",
         "padding_top": 96,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "show_contours": true
       },
       "blocks": {
         "chip-1": {
@@ -418,7 +420,7 @@
             "column": "2",
             "show_image": false,
             "button_label": "Bekijk de pan",
-            "button_url": "/products/forge-pan",
+            "button_url": "/products/gehamerde-titanium-pan",
             "button2_label": "Bekijk collectie",
             "button2_url": "/collections/all"
           }
@@ -511,7 +513,7 @@
         "fallback": "vk-visual-pan.webp",
         "image_alt": "Gehamerde titanium pan van Volkara",
         "button_label": "Bekijk de pan",
-        "button_url": "/products/forge-pan",
+        "button_url": "/products/gehamerde-titanium-pan",
         "color_scheme": "scheme-2",
         "padding_top": 120,
         "padding_bottom": 120

@@ -3,7 +3,7 @@
 {%- liquid
   assign product = section.settings.product
   if product == blank
-    assign product = all_products['forge-pan']
+    assign product = all_products['gehamerde-titanium-pan']
   endif
   if product == blank
     assign product = collections.all.products.first

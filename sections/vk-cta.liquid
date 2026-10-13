@@ -10,6 +10,7 @@
         {%- endif -%}
       </div>
       <div class="vk-cta__shade" aria-hidden="true"></div>
+      {%- if section.settings.show_contours -%}<vk-contours class="vk-cta__contours" aria-hidden="true"></vk-contours>{%- endif -%}
       {%- if s.show_embers %}<vk-embers count="40"></vk-embers>{% endif -%}
       <div class="vk-cta__content">
         {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: 'center', size: 'h1' -%}
@@ -136,6 +137,12 @@
       "type": "text",
       "id": "guarantee",
       "label": "Guarantee line"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contours",
+      "label": "Animated contour lines",
+      "default": false
     },
     {
       "type": "color_scheme",

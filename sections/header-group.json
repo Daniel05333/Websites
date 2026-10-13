@@ -15,8 +15,8 @@
     "header": {
       "type": "vk-header",
       "blocks": {
-        "feature-pan": { "type": "mega_feature", "settings": { "menu_item": "Collectie", "fallback": "vk-visual-pan.webp", "eyebrow": "DE KLASSIEKER", "title": "De Forge Pan", "text": "Vier maten, één opbouw. Een titanium koekenpan voor elke dag.", "link_label": "Bekijk de Forge Pan", "link": "/products/forge-pan" } },
-        "feature-trio": { "type": "mega_feature", "settings": { "menu_item": "Sets", "fallback": "vk-visual-set.webp", "eyebrow": "HET TRIO", "title": "Drie maten. Bespaar €38.", "text": "Forge Pans van 20, 24 en 28 cm voor €379. Dat is €38 minder dan los kopen.", "link_label": "Bekijk Het Trio", "link": "/products/the-trio" } }
+        "feature-pan": { "type": "mega_feature", "settings": { "menu_item": "Collectie", "fallback": "vk-visual-pan.webp", "eyebrow": "DE KLASSIEKER", "title": "De Forge Pan", "text": "Vier maten, één opbouw. Een titanium koekenpan voor elke dag.", "link_label": "Bekijk de Forge Pan", "link": "/products/gehamerde-titanium-pan" } },
+        "feature-trio": { "type": "mega_feature", "settings": { "menu_item": "Sets", "fallback": "vk-visual-set.webp", "eyebrow": "HET TRIO", "title": "Drie maten. Bespaar €38.", "text": "Forge Pans van 20, 24 en 28 cm voor €379. Dat is €38 minder dan los kopen.", "link_label": "Bekijk Het Trio", "link": "/products/complete-set" } }
       },
       "block_order": ["feature-pan", "feature-trio"],
       "settings": { "color_scheme": "scheme-1", "menu": "main-menu", "logo_position": "center", "sticky_behavior": "on_scroll_up", "transparent_on_home": true, "popular_searches": "Forge Pan, Wok, Het Trio, Santoku, Onderhoud" }

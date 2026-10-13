@@ -10,7 +10,7 @@
 <section id="vk-{{ section.id }}" class="vk-section vk-pdp color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
   <div class="vk-container vk-pdp__grid">
     <div class="vk-pdp__media">
-      {%- render 'vk-product-gallery', product: product, section_id: section.id, chip: s.gallery_chip -%}
+      {%- render 'vk-product-gallery', product: product, section_id: section.id, chip: s.gallery_chip, effects: s.gallery_effects -%}
     </div>
 
     <div class="vk-pdp__info" id="buy">
@@ -194,6 +194,7 @@
   "class": "vk-pdp-section",
   "settings": [
     { "type": "text", "id": "gallery_chip", "label": "Gallery chip", "default": "Zonder coating" },
+    { "type": "checkbox", "id": "gallery_effects", "label": "Gallery effects", "info": "Floating flakes and embers that move away from the pointer; the photo tilts toward it.", "default": true },
     { "type": "checkbox", "id": "show_sticky_atc", "label": "Sticky add-to-cart bar", "default": true },
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
     { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
