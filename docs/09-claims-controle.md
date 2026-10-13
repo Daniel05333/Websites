@@ -81,7 +81,7 @@ De opdrachtgever heeft deze claims aangeleverd en bevestigd. Ze staan daarom op 
 
 ## 7. 3D-weergave en productieproces op de productpagina
 
-**Pan in 3D (sectie *Pan explorer*).** De pan is in code nagebouwd, zonder modelbestand van de leverancier. De vorm volgt de productfoto's: gehamerd kookoppervlak, uitlopende rand en een steel met klinknagels. Elk onderdeel heeft een label:
+**Pan in 3D (sectie *Pan explorer*).** Staat nu niet op de productpagina (daar staat weer de *Forge stage*). Voeg je hem later toe: de pan is in code nagebouwd, zonder modelbestand van de leverancier. De vorm volgt de productfoto's: gehamerd kookoppervlak, uitlopende rand en een steel met klinknagels. Elk onderdeel heeft een label:
 
 | Onderdeel | Label | Waarom |
 |---|---|---|

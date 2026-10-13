@@ -42,7 +42,7 @@ Sterren en het aantal beoordelingen komen uit `reviews.rating` en `reviews.ratin
 
 | Product | Sjabloon |
 |---|---|
-| Gehamerde Titanium Pan | `product.gehamerde-pan` (bundels, 3D-pan met lagen, productieproces, reviews) |
+| Gehamerde Titanium Pan | `product.gehamerde-pan` (bundels, 3D-scène, productieproces, reviews) |
 | Wok, hapjespan, steelpan, kookpan, sets | `product.cookware` |
 | Messen, snijplank, keukengerei, deksel | `product` (standaard) |
 
@@ -82,9 +82,9 @@ Gebruik *Voorbeeld* en loop het af: homepage, collectie, de pan, de winkelwagen 
 
 | Effect | Waar aan/uit |
 |---|---|
-| Draaibare 3D-pan met "Ontdek de lagen" en vier scrollscènes | Sectie *Pan explorer (3D)* op de productpagina. Teksten per onderdeel in de blokken *Layer*, scènes in de blokken *Scene* |
+| Draaibare 3D-pan met "Ontdek de lagen" en vier scrollscènes | Sectie *Pan explorer (3D)*. Staat in het thema, maar niet op een pagina; toe te voegen via *Sectie toevoegen* |
 | Tijdlijn "Van ontwerp tot afgewerkt product" | Sectie *Process steps* op de productpagina |
-| 3D-scène met vonken en vloeibaar metaal | Sectie *Forge stage* (homepage) |
+| 3D-scène met vonken en vloeibaar metaal | Sectie *Forge stage* (homepage en productpagina) |
 | Zwevende zeshoekjes en vonken bij de productfoto, foto kantelt mee | Productsectie → *Gallery effects* |
 | Secties schuiven over elkaar heen (desktop) | *Stack effect* in Problem, Solution, Reviews en Comparison |
 | Bewegende hoogtelijnen | *Animated contour lines* in CTA, Reviews en Comparison |
