@@ -54,7 +54,11 @@
           </div>
           {%- if b.button_label != blank or b.button2_label != blank -%}
             <div class="vk-stage__actions">
-              {%- if b.button_label != blank -%}{% render 'vk-button', label: b.button_label, url: b.button_url, style: 'primary', icon: 'arrow-right', magnetic: true %}{%- endif -%}
+              {%- if b.button_label != blank -%}
+                {%- assign vk_slide_url = b.button_url -%}
+                {%- if b.button_to_buy and template.name == 'product' %}{% assign vk_slide_url = '#buy' %}{% endif -%}
+                {% render 'vk-button', label: b.button_label, url: vk_slide_url, style: 'primary', icon: 'arrow-right', magnetic: true %}
+              {%- endif -%}
               {%- if b.button2_label != blank -%}{% render 'vk-button', label: b.button2_label, url: b.button2_url, style: 'secondary' %}{%- endif -%}
             </div>
           {%- endif -%}
@@ -98,6 +102,7 @@
         { "type": "image_picker", "id": "image", "label": "Editorial image" },
         { "type": "text", "id": "button_label", "label": "Button label" },
         { "type": "url", "id": "button_url", "label": "Button link" },
+        { "type": "checkbox", "id": "button_to_buy", "label": "On product pages: scroll to the buy buttons", "default": false },
         { "type": "text", "id": "button2_label", "label": "Second button label" },
         { "type": "url", "id": "button2_url", "label": "Second button link" }
       ]

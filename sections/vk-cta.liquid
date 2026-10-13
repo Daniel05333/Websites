@@ -16,7 +16,13 @@
         {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: 'center', size: 'h1' -%}
         <div class="vk-cta__button" data-reveal data-reveal-delay="300">
           <span class="vk-cta__ring" aria-hidden="true"></span>
-          {%- render 'vk-button', label: s.button_label, url: s.button_url, icon: 'arrow-right', magnetic: true, size: 'lg' -%}
+          {%- liquid
+            assign vk_cta_url = s.button_url
+            if s.button_to_buy and template.name == 'product'
+              assign vk_cta_url = '#buy'
+            endif
+          -%}
+          {%- render 'vk-button', label: s.button_label, url: vk_cta_url, icon: 'arrow-right', magnetic: true, size: 'lg' -%}
         </div>
         {%- if section.blocks.size > 0 -%}
           <ul class="vk-cta__chips" role="list" data-reveal data-reveal-delay="450">
@@ -132,6 +138,12 @@
       "type": "url",
       "id": "button_url",
       "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_to_buy",
+      "label": "On product pages: scroll to the buy buttons",
+      "default": false
     },
     {
       "type": "text",

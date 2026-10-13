@@ -18,7 +18,7 @@
         <vk-video class="vk-hero__video">
           {{ s.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
         </vk-video>
-      {%- elsif s.video_asset != blank and settings.use_bundled_visuals -%}
+      {%- elsif s.video_asset != blank and s.video_asset != 'none' and settings.use_bundled_visuals -%}
         <video class="vk-hero__video vk-hero__video--asset" autoplay muted loop playsinline preload="metadata" poster="{{ s.fallback | asset_url }}" aria-hidden="true">
           <source src="{{ s.video_asset | replace: '.mp4', '.webm' | asset_url }}" type="video/webm">
           <source src="{{ s.video_asset | asset_url }}" type="video/mp4">
@@ -105,11 +105,11 @@
       "type": "select",
       "id": "video_asset",
       "label": "Bundled video",
-      "default": "",
+      "default": "none",
       "info": "Product film shipped with the theme. Used when no video is uploaded (requires Theme settings → Visuals).",
       "options": [
         {
-          "value": "",
+          "value": "none",
           "label": "None"
         },
         {

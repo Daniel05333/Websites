@@ -187,8 +187,8 @@ html.vk-scroll-locked .vk-sticky-atc { transform: translateY(110%); }
   .vk-pdp__usp-text { font-size: .6875rem; line-height: 1.3; }
   .vk-pdp__option-label { flex-wrap: nowrap; margin-bottom: .5rem; }
   .vk-pdp__size-help { display: none; }
-  .vk-pdp__pills { gap: .4rem; flex-wrap: nowrap; }
-  .vk-pdp__pills .vk-pill { flex: 1 1 0; min-width: 0; }
+  .vk-pdp__pills { gap: .4rem; flex-wrap: wrap; }
+  .vk-pdp__pills .vk-pill { flex: 1 0 auto; min-width: calc(25% - .3rem); }
   .vk-pdp__pills .vk-pill span { width: 100%; min-width: 0; padding-inline: .4rem; min-height: 42px; font-size: .8125rem; }
   .vk-bundle__head { padding: .6rem .8rem; gap: .6rem; min-height: 52px; }
   .vk-bundle__inner { padding-inline: .8rem; }

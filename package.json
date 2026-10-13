@@ -8,12 +8,12 @@
   "scripts": {
     "preview": "node tools/preview/server.mjs",
     "shoot": "node tools/preview/shoot.mjs",
-    "check": "node tools/check.mjs",
+    "check": "node tools/check.mjs && node tools/validate-templates.mjs",
     "locales": "node tools/merge-locales.mjs",
     "templates": "node tools/assemble-templates.mjs",
     "products:csv": "node tools/export-products-csv.mjs",
     "export:static": "node tools/preview/export-static.mjs preview-static",
-    "package": "npm run -s products:csv && node tools/package-theme.mjs"
+    "package": "node tools/validate-templates.mjs && npm run -s products:csv && node tools/package-theme.mjs"
   },
   "devDependencies": {
     "@shopify/theme-check-node": "3.30.1",

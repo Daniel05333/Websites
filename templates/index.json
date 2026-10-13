@@ -8,7 +8,7 @@
       "settings": {
         "fallback": "vk-visual-hero.webp",
         "image_alt": "Gehamerde titanium pan van Volkara in studiolicht",
-        "overlay": 62,
+        "overlay": 60,
         "parallax": 20,
         "show_embers": true,
         "height": "full",

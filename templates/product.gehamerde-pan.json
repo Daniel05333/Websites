@@ -246,9 +246,10 @@
             "column": "2",
             "show_image": false,
             "button_label": "Kies je set",
-            "button_url": "#buy",
+            "button_url": "",
             "button2_label": "Bekijk de kookgids",
-            "button2_url": "/pages/titanium-kookgids"
+            "button2_url": "/pages/titanium-kookgids",
+            "button_to_buy": true
           }
         }
       },
@@ -381,7 +382,6 @@
         "subheading": "",
         "show_summary": true,
         "average": "",
-        "count": "",
         "autoplay": false,
         "link_label": "",
         "link": "",
@@ -613,12 +613,13 @@
         "heading": "Stap over op <em>titanium</em>.",
         "subheading": "Een betere pan begint met beter materiaal.",
         "button_label": "Kies jouw pan",
-        "button_url": "#buy",
+        "button_url": "",
         "guarantee": "",
         "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 120,
-        "show_contours": true
+        "show_contours": true,
+        "button_to_buy": true
       },
       "blocks": {
         "chip-1": {
