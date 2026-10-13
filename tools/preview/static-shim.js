@@ -24,7 +24,11 @@
       const data = await bucket('cart');
       const b = init.body;
       let id = null;
-      if (b instanceof FormData) id = b.get('id') || b.get('items[0][id]');
+      if (b instanceof FormData) {
+        id = b.get('id');
+        // multi-line adds (bundle tiers): key = every unit's variant id, sorted
+        if (!id) { const ids = []; for (let i = 0; b.get(`items[${i}][id]`); i++) for (let q = 0; q < (Number(b.get(`items[${i}][quantity]`)) || 1); q++) ids.push(b.get(`items[${i}][id]`)); id = ids.sort().join(','); }
+      }
       else if (typeof b === 'string') { try { const j = JSON.parse(b); id = j.id || j.items?.[0]?.id; } catch (_) {} }
       const hit = data[`add|${id}`];
       if (!hit) return json({ status: 422, description: 'Dit product is niet opgenomen in de preview.' }, 422);

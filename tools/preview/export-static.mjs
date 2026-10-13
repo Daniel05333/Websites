@@ -71,6 +71,17 @@ for (const p of products) for (const v of p.variants) {
     replay['change|empty'] = JSON.stringify(await post('/cart/change.js', { line: 1, quantity: 0, sections: cartSections + ',vk-main-cart' }, cookie));
   }
 }
+// bundle tiers that add several pans: every size combination of 2 and 3 pans (order does not matter)
+{
+  const pan = products.find((p) => p.handle === 'gehamerde-titanium-pan');
+  const ids = pan.variants.map((v) => String(v.id));
+  const combos = (n, start = 0) => (n === 0 ? [[]] : ids.slice(start).flatMap((id, i) => combos(n - 1, start + i).map((c) => [id, ...c])));
+  for (const combo of [...combos(2), ...combos(3)]) {
+    const qty = new Map(); combo.forEach((id) => qty.set(id, (qty.get(id) || 0) + 1));
+    const body = { sections: cartSections }; [...qty].forEach(([id, q], i) => { body[`items[${i}][id]`] = id; body[`items[${i}][quantity]`] = q; });
+    replay[`add|${[...combo].sort().join(',')}`] = JSON.stringify(await post('/cart/add.js', body, `vk_sid=combo${RUN}x${++sid}`));
+  }
+}
 {
   const cookie = `vk_sid=cartpage${RUN}`;
   await post('/cart/add.js', { id: products[0].variants[2].id, quantity: 1 }, cookie);
