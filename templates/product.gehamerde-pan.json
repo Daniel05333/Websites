@@ -78,7 +78,8 @@
             "t2_pick": 2,
             "t2_discount": 5,
             "t3_pick": 3,
-            "t3_discount": 10
+            "t3_discount": 10,
+            "size_style": "dropdown"
           }
         },
         "countdown-8": {

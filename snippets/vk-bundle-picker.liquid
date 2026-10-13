@@ -56,7 +56,7 @@
       </label>
       <div class="vk-bundle__panel"><div class="vk-bundle__inner">
         {%- if b.t1_text != blank %}<p class="vk-bundle__text" id="vk-bt1-{{ section_id }}">{{ b.t1_text }}</p>{% endif -%}
-        {%- if nest_variants -%}{% render 'vk-variant-options', product: product, section_id: section_id, size_help: size_help %}{%- endif -%}
+        {%- if nest_variants -%}{% render 'vk-variant-options', product: product, section_id: section_id, size_help: size_help, style: b.size_style %}{%- endif -%}
       </div></div>
     </div>
     {%- if vk_t2_pick > 1 -%}

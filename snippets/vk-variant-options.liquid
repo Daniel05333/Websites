@@ -3,23 +3,47 @@
   @param {object} product - Product.
   @param {string} section_id - Section id (radio names).
   @param {string} [size_help] - Helper line under the first option.
+  @param {string} [style] - 'pills' (default) or 'dropdown'.
   @example
   {% render 'vk-variant-options', product: product, section_id: section.id, size_help: block.settings.size_help %}
 {%- enddoc -%}
-<vk-variant-picker class="vk-pdp__variants" data-section="{{ section_id }}">
+{%- assign vk_sold_out = 'products.product.sold_out' | t -%}
+<vk-variant-picker class="vk-pdp__variants{% if style == 'dropdown' %} vk-pdp__variants--dropdown{% endif %}" data-section="{{ section_id }}">
   {%- for option in product.options_with_values -%}
     <fieldset class="vk-pdp__option" data-option-index="{{ forloop.index0 }}">
       <legend class="vk-pdp__option-label"><span class="vk-eyebrow">{{ option.name }}</span><span class="vk-pdp__option-value" data-option-value>{{ option.selected_value }}</span>
         {%- if forloop.first and size_help != blank %}<span class="vk-pdp__size-help vk-small vk-muted">{{ size_help }}</span>{% endif -%}
       </legend>
-      <div class="vk-flex vk-pdp__pills">
-        {%- for value in option.values -%}
-          <label class="vk-pill">
-            <input type="radio" name="{{ section_id }}-{{ option.name | handle }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
-            <span>{{ value }}</span>
-          </label>
-        {%- endfor -%}
-      </div>
+      {%- if style == 'dropdown' -%}
+        <label class="vk-visually-hidden" for="vk-opt-{{ section_id }}-{{ forloop.index }}">{{ option.name }}</label>
+        <div class="vk-pdp__select-wrap">
+          <select class="vk-select vk-pdp__select" id="vk-opt-{{ section_id }}-{{ forloop.index }}" name="{{ section_id }}-{{ option.name | handle }}">
+            {%- for value in option.values -%}
+              {%- liquid
+                assign vk_label = value
+                if product.options.size == 1
+                  assign vk_ov = product.variants | where: 'option1', value | first
+                  assign vk_ov_price = vk_ov.price | money
+                  assign vk_label = value | append: ' · ' | append: vk_ov_price
+                  unless vk_ov.available
+                    assign vk_label = vk_label | append: ' · ' | append: vk_sold_out
+                  endunless
+                endif
+              -%}
+              <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ vk_label }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      {%- else -%}
+        <div class="vk-flex vk-pdp__pills">
+          {%- for value in option.values -%}
+            <label class="vk-pill">
+              <input type="radio" name="{{ section_id }}-{{ option.name | handle }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
+              <span>{{ value }}</span>
+            </label>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </fieldset>
   {%- endfor -%}
 </vk-variant-picker>

@@ -33,7 +33,7 @@
     }
     onOptionChange() {
       const picker = this.querySelector('vk-variant-picker');
-      const selected = [...picker.querySelectorAll('fieldset')].map((fs) => fs.querySelector('input:checked')?.value);
+      const selected = [...picker.querySelectorAll('fieldset')].map((fs) => fs.querySelector('select')?.value ?? fs.querySelector('input:checked')?.value);
       const match = this.product.variants.find((v) => v.options.every((o, i) => o === selected[i]));
       picker.querySelectorAll('fieldset').forEach((fs, i) => { const out = fs.querySelector('[data-option-value]'); if (out) out.textContent = selected[i] || ''; });
       this.selectVariant(match);
@@ -47,7 +47,7 @@
       // sticky select sync + picker sync
       const sel = this.stickyBar()?.querySelector('[data-sticky-variant]'); if (sel) sel.value = v.id;
       const picker = this.querySelector('vk-variant-picker');
-      picker?.querySelectorAll('fieldset').forEach((fs, i) => { const r = [...fs.querySelectorAll('input')].find((x) => x.value === v.options[i]); if (r) r.checked = true; const out = fs.querySelector('[data-option-value]'); if (out) out.textContent = v.options[i]; });
+      picker?.querySelectorAll('fieldset').forEach((fs, i) => { const r = [...fs.querySelectorAll('input')].find((x) => x.value === v.options[i]); if (r) r.checked = true; const sel = fs.querySelector('select'); if (sel) sel.value = v.options[i]; const out = fs.querySelector('[data-option-value]'); if (out) out.textContent = v.options[i]; });
       if (v.featured_media) this.section?.querySelector('vk-product-gallery')?.goToMedia(v.featured_media);
       this.syncTier();
       VK.publish(VK.EVENTS.variantChange, { variant: v, product: this.product });
@@ -56,7 +56,8 @@
       const v = this.variant; const bp = this.querySelector('vk-bundle-picker'); const inputs = this.querySelector('[data-bundle-inputs]');
       const btn = this.querySelector('[data-atc]'); const label = this.querySelector('[data-atc-label]'); const qty = this.querySelector('vk-product-form input[name="quantity"]');
       let price = v ? v.price : 0, compare = v ? v.compare_at_price || 0 : 0, available = !!(v && v.available);
-      let config = v && !this.product.variants.every((x) => x === v) && v.title !== 'Default Title' ? v.title : '';
+      // Sticky bar text: the chosen tier (name) and what is in it (detail).
+      let name = '', detail = v && v.title !== 'Default Title' ? v.title : '';
       if (inputs) inputs.innerHTML = '';
       if (this.idInput) this.idInput.disabled = false; if (qty) qty.disabled = false;
       if (bp && bp.data) {
@@ -72,7 +73,7 @@
           const on = card.dataset.tierCard === this.tier;
           card.classList.toggle('is-active', on);
           const panel = card.querySelector('.vk-bundle__panel'); if (panel) panel.inert = !on;
-          if (on) config = [card.dataset.tierName, this.tier === 'single' || this.tier === 'addon' ? config : ''].filter(Boolean).join(' · ');
+          if (on) name = card.dataset.tierName;
         });
         bp.querySelectorAll('[data-pick-count]').forEach((card) => {
           const picked = this.pickedVariants(card); const regular = picked.reduce((a, x) => a + x.price, 0); const off = this.pickOff(card, picked);
@@ -80,7 +81,6 @@
           card.querySelector(`[data-tier-price="${key}"]`).textContent = VK.formatMoney(regular - off);
           const cmp = card.querySelector(`[data-tier-compare="${key}"]`); if (cmp) { cmp.hidden = !off; cmp.textContent = VK.formatMoney(regular); }
           const save = card.querySelector(`[data-tier-save="${key}"]`); if (save) { save.hidden = !off; save.textContent = VK.t('bundleSave', { amount: VK.formatMoney(off) }); }
-          card.querySelectorAll('[data-pick-slot]').forEach((slot) => { const out = slot.querySelector('[data-slot-value]'); if (out) out.textContent = slot.querySelector('input:checked')?.value || ''; });
         });
         const singleCompare = bp.querySelector('[data-tier-compare="single"]');
         if (singleCompare && v) { const sale = v.compare_at_price > v.price; singleCompare.hidden = !sale; if (sale) singleCompare.textContent = VK.formatMoney(v.compare_at_price); }
@@ -101,18 +101,18 @@
           price = compare - this.pickOff(card, picked);
           if (price === compare) compare = 0;
           available = picked.length > 0 && picked.every((x) => x.available);
-          config = [card.dataset.tierName, picked.map((x) => x.options[0]).join(' + ')].join(' · ');
+          detail = picked.map((x) => x.options[0]).join(' + ');
         } else if ((this.tier === 'bundle' || this.tier === 'bundle2') && bp.data[this.tier]) {
           const bundle = bp.data[this.tier];
           this.idInput.disabled = true;
           inputs.innerHTML = `<input type="hidden" name="id" value="${bundle.id}">`;
-          price = bundle.price; compare = bundle.compare; available = bundle.available;
+          price = bundle.price; compare = bundle.compare; available = bundle.available; detail = '';
         }
       }
       this.renderPrice(price, compare);
       if (btn) btn.disabled = !available;
       if (label) label.textContent = available ? `${VK.strings.addToBag || VK.strings.addToCart} · ${VK.formatMoney(price)}` : (v ? VK.strings.soldOut : VK.strings.unavailable);
-      this.price = price; this.available = available; this.config = config; this.syncSticky();
+      this.price = price; this.available = available; this.stickyText = { name, detail }; this.syncSticky();
     }
     renderPrice(price, compare) {
       const root = this.querySelector('[data-pdp-price]'); if (!root) return;
@@ -124,7 +124,7 @@
       if (save && onSale) save.textContent = VK.t('save', { amount: VK.formatMoney(compare - price) });
     }
     pickedVariants(card) {
-      return [...card.querySelectorAll('[data-pick-slot]')].map((slot) => { const val = slot.querySelector('input:checked')?.value; return this.product.variants.find((x) => x.options[0] === val); }).filter(Boolean);
+      return [...card.querySelectorAll('[data-pick-slot]')].map((slot) => { const val = slot.querySelector('select')?.value ?? slot.querySelector('input:checked')?.value; return this.product.variants.find((x) => x.options[0] === val); }).filter(Boolean);
     }
     // Mirrors a percentage automatic discount in Shopify: rounded per cart line (same size twice = one line).
     pickOff(card, picked) {
@@ -137,7 +137,10 @@
       const sticky = this.stickyBar(); if (!sticky) return;
       const p = sticky.querySelector('[data-sticky-price]'); if (p) p.textContent = VK.formatMoney(this.price ?? this.variant?.price ?? 0);
       const b = sticky.querySelector('[data-sticky-btn]'); if (b) b.disabled = !this.available;
-      const c = sticky.querySelector('[data-sticky-config]'); if (c) { c.textContent = this.config || ''; c.hidden = !this.config; }
+      const t = this.stickyText || {}; const c = sticky.querySelector('[data-sticky-config]');
+      if (c) { c.querySelector('[data-sticky-name]').textContent = t.name || ''; c.querySelector('[data-sticky-detail]').textContent = t.detail || ''; c.hidden = !t.name && !t.detail; }
+      // The size dropdown only applies to the single pan, not to sets.
+      const sel = sticky.querySelector('[data-sticky-variant]'); if (sel) sel.hidden = !!this.tier && this.tier !== 'single';
     }
   });
 

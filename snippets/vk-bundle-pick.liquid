@@ -17,13 +17,15 @@
 {%- liquid
   assign vk_values = product.options_with_values.first.values
   assign vk_regular = 0
+  assign vk_off = 0
   for i in (1..count)
     assign vk_idx = i | minus: 1
     assign vk_val = vk_values[vk_idx] | default: vk_values.last
     assign vk_var = product.variants | where: 'option1', vk_val | first
     assign vk_regular = vk_regular | plus: vk_var.price
+    assign vk_line_off = vk_var.price | times: discount | divided_by: 100.0 | round
+    assign vk_off = vk_off | plus: vk_line_off
   endfor
-  assign vk_off = vk_regular | times: discount | divided_by: 100
   assign vk_price = vk_regular | minus: vk_off
   assign vk_off_money = vk_off | money
 -%}
@@ -40,18 +42,15 @@
       {%- for i in (1..count) -%}
         {%- assign vk_idx = i | minus: 1 -%}
         {%- assign vk_default = vk_values[vk_idx] | default: vk_values.last -%}
-        <fieldset class="vk-bundle__slot" data-pick-slot>
-          <legend class="vk-bundle__slot-label"><span class="vk-eyebrow">{{ 'products.product.bundle_pan' | t: number: i }}</span><span class="vk-pdp__option-value" data-slot-value>{{ vk_default }}</span></legend>
-          <div class="vk-flex vk-pdp__pills">
+        <div class="vk-bundle__slot" data-pick-slot>
+          <label class="vk-bundle__slot-label vk-eyebrow" for="vk-{{ key }}-{{ i }}-{{ section_id }}">{{ 'products.product.bundle_pan' | t: number: i }}</label>
+          <select class="vk-select vk-pdp__select" id="vk-{{ key }}-{{ i }}-{{ section_id }}" name="vk-{{ key }}-{{ i }}-{{ section_id }}">
             {%- for value in vk_values -%}
               {%- assign vk_v = product.variants | where: 'option1', value | first -%}
-              <label class="vk-pill">
-                <input type="radio" name="vk-{{ key }}-{{ i }}-{{ section_id }}" value="{{ value | escape }}"{% if value == vk_default %} checked{% endif %}{% unless vk_v.available %} disabled{% endunless %}>
-                <span>{{ value }}</span>
-              </label>
+              <option value="{{ value | escape }}"{% if value == vk_default %} selected{% endif %}{% unless vk_v.available %} disabled{% endunless %}>{{ value }} · {{ vk_v.price | money }}{% unless vk_v.available %} · {{ 'products.product.sold_out' | t }}{% endunless %}</option>
             {%- endfor -%}
-          </div>
-        </fieldset>
+          </select>
+        </div>
       {%- endfor -%}
     </div>
     <p class="vk-bundle__meta">
