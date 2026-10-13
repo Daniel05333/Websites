@@ -1,0 +1,24 @@
+{%- render 'vk-section-styles', section: section -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-apps color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.include_margins -%}<div class="vk-container">{%- endif -%}
+    {%- for block in section.blocks -%}
+      {% render block %}
+    {%- endfor -%}
+  {%- if section.settings.include_margins -%}</div>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Apps",
+  "tag": "div",
+  "class": "vk-apps-section",
+  "settings": [
+    { "type": "checkbox", "id": "include_margins", "label": "Keep the content within the page width", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 48 }
+  ],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "Apps" }]
+}
+{% endschema %}

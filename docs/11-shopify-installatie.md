@@ -4,6 +4,17 @@ Het Volkara-thema is een compleet Shopify-thema (Online Store 2.0, net als Dawn)
 
 > **Waarom niet ín Dawn?** Volkara gebruikt eigen secties, stijlen en scripts die op elkaar zijn afgestemd: kleuren, lettertypes, winkelwagen-lade, bundels en de 3D-scène. Die stukje voor stukje in Dawn plakken geeft dubbele stijlen en kapotte onderdelen. Een eigen thema uploaden is sneller, veiliger en makkelijk terug te draaien.
 
+## Vanaf je huidige Dawn-thema (callix-nl)
+
+Je Dawn-export (Dawn 16.1.0, 12-10-2026) is onaangepast: standaardinstellingen, standaard homepage, geen logo, geen app-embeds en geen eigen code. Er hoeft dus niets van Dawn mee. Volkara neemt alle functies van Dawn over (account, zoeken, blog, cadeaukaart, wachtwoordpagina, winkelwagen) en heeft er twee Dawn-secties bij gekregen:
+
+- **Apps**: voor app-blokken, bijvoorbeeld een reviews-widget op een pagina.
+- **Custom Liquid**: voor eigen code of een embed.
+
+Niet overgenomen, want niet in gebruik in je winkel: de B2B-bestellijst (*Quick order list*) en *Ophalen in de winkel* (pickup availability).
+
+Upload `volkara-callix-nl.zip` (stap 1 hieronder). Dawn blijft in je themabibliotheek staan als terugvaloptie.
+
 ## Wat je nodig hebt
 
 Draai `npm run package`. Dat maakt:
