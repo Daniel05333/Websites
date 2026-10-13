@@ -15,6 +15,7 @@
       </span>
       <span class="vk-sticky-atc__meta">
         <span class="vk-sticky-atc__title">{{ product.title | escape }}</span>
+        <span class="vk-sticky-atc__config" data-sticky-config{% if product.has_only_default_variant %} hidden{% endif %}>{{ variant.title }}</span>
         {%- render 'vk-product-rating', product: product -%}
       </span>
     </div>

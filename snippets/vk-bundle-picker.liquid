@@ -1,10 +1,12 @@
 {%- doc -%}
-  Honest bundle tiers. Tier 1 = selected variant; tier 2 = a second bundle product, or the selected variant + add-on (matched by size);
+  Honest bundle tiers. Compact cards: only the selected tier expands. Tier 1 = selected variant; tier 2 = a second bundle product, or the selected variant + add-on (matched by size);
   tier 3 = a dedicated bundle product. Prices and savings are real (from compare_at or sum of parts).
   @param {object} block - bundle_picker block.
   @param {object} product - Current product.
   @param {object} variant - Selected variant.
   @param {string} section_id - Section id.
+  @param {boolean} [nest_variants] - Render the size options inside the first tier.
+  @param {string} [size_help] - Size helper line for the nested options.
   @example
   {% render 'vk-bundle-picker', block: block, product: product, variant: vk_v, section_id: section.id %}
 {%- enddoc -%}
@@ -32,50 +34,37 @@
       "bundle": {% if vk_t3 != blank %}{ "id": {{ vk_t3_v.id }}, "price": {{ vk_t3_v.price }}, "compare": {{ vk_t3_v.compare_at_price | default: 0 }}, "available": {{ vk_t3_v.available }} }{% else %}null{% endif %}
     }
   </script>
-  <p class="vk-eyebrow vk-bundles__label">{{ b.label }}</p>
-  <div class="vk-bundles__list" role="radiogroup" aria-label="{{ b.label | escape }}">
-    <label class="vk-bundle is-active">
-      <input type="radio" name="vk-bundle-{{ section_id }}" value="single" checked>
-      <span class="vk-bundle__radio" aria-hidden="true"></span>
-      <span class="vk-bundle__copy"><span class="vk-bundle__title">{{ b.t1_title }}</span><span class="vk-bundle__text">{{ b.t1_text }}</span></span>
-      <span class="vk-bundle__price" data-tier-price="single">{{ variant.price | money }}</span>
-    </label>
+  <p class="vk-eyebrow vk-bundles__label" id="vk-bundles-label-{{ section_id }}">{{ b.label }}</p>
+  <div class="vk-bundles__list" role="radiogroup" aria-labelledby="vk-bundles-label-{{ section_id }}">
+    <div class="vk-bundle is-active" data-tier-card="single" data-tier-name="{{ b.t1_title | escape }}">
+      <label class="vk-bundle__head">
+        <input type="radio" name="vk-bundle-{{ section_id }}" value="single" checked data-tier-input aria-describedby="vk-bt1-{{ section_id }}">
+        <span class="vk-bundle__radio" aria-hidden="true"></span>
+        <span class="vk-bundle__title">{{ b.t1_title }}</span>
+        <span class="vk-bundle__price"><span data-tier-price="single">{{ variant.price | money }}</span><s data-tier-compare="single"{% unless variant.compare_at_price > variant.price %} hidden{% endunless %}>{{ variant.compare_at_price | money }}</s></span>
+      </label>
+      <div class="vk-bundle__panel"><div class="vk-bundle__inner">
+        {%- if b.t1_text != blank %}<p class="vk-bundle__text" id="vk-bt1-{{ section_id }}">{{ b.t1_text }}</p>{% endif -%}
+        {%- if nest_variants -%}{% render 'vk-variant-options', product: product, section_id: section_id, size_help: size_help %}{%- endif -%}
+      </div></div>
+    </div>
     {%- if vk_t2 != blank and vk_t2.id != product.id -%}
-      <label class="vk-bundle">
-        <input type="radio" name="vk-bundle-{{ section_id }}" value="bundle2"{% unless vk_t2_v.available %} disabled{% endunless %}>
-        <span class="vk-bundle__radio" aria-hidden="true"></span>
-        <span class="vk-bundle__copy">
-          <span class="vk-bundle__title">{{ b.t2_title }}{% if b.t2_tag != blank %} <span class="vk-bundle__tag">{{ b.t2_tag }}</span>{% endif %}</span>
-          <span class="vk-bundle__text">{{ b.t2_text }}</span>
-          {%- if vk_t2_v.compare_at_price > vk_t2_v.price -%}
-            {%- assign vk_save2 = vk_t2_v.compare_at_price | minus: vk_t2_v.price | money -%}
-            <span class="vk-bundle__save">{{ 'products.product.bundle_save' | t: amount: vk_save2 }}</span>
-          {%- endif -%}
-        </span>
-        <span class="vk-bundle__price"><span>{{ vk_t2_v.price | money }}</span>{% if vk_t2_v.compare_at_price > vk_t2_v.price %}<s>{{ vk_t2_v.compare_at_price | money }}</s>{% endif %}</span>
-      </label>
+      {%- render 'vk-bundle-tier', key: 'bundle2', title: b.t2_title, tag: b.t2_tag, text: b.t2_text, items: b.t2_items, tier_product: vk_t2, tier_variant: vk_t2_v, section_id: section_id, ember: false -%}
     {%- elsif vk_addon != blank -%}
-      <label class="vk-bundle" data-tier="addon"{% if vk_addon_v == nil %} hidden{% endif %}>
-        <input type="radio" name="vk-bundle-{{ section_id }}" value="addon">
-        <span class="vk-bundle__radio" aria-hidden="true"></span>
-        <span class="vk-bundle__copy"><span class="vk-bundle__title">{{ b.t2_title }}{% if b.t2_tag != blank %} <span class="vk-bundle__tag">{{ b.t2_tag }}</span>{% endif %}</span><span class="vk-bundle__text">{{ b.t2_text }}</span></span>
-        <span class="vk-bundle__price" data-tier-price="addon">{% if vk_addon_v != nil %}{{ vk_t2_price | money }}{% endif %}</span>
-      </label>
+      <div class="vk-bundle" data-tier="addon" data-tier-card="addon" data-tier-name="{{ b.t2_title | escape }}"{% if vk_addon_v == nil %} hidden{% endif %}>
+        <label class="vk-bundle__head">
+          <input type="radio" name="vk-bundle-{{ section_id }}" value="addon" data-tier-input aria-describedby="vk-bt2-{{ section_id }}">
+          <span class="vk-bundle__radio" aria-hidden="true"></span>
+          <span class="vk-bundle__title">{{ b.t2_title }}{% if b.t2_tag != blank %} <span class="vk-bundle__tag">{{ b.t2_tag }}</span>{% endif %}</span>
+          <span class="vk-bundle__price"><span data-tier-price="addon">{% if vk_addon_v != nil %}{{ vk_t2_price | money }}{% endif %}</span></span>
+        </label>
+        <div class="vk-bundle__panel"><div class="vk-bundle__inner">
+          {%- if b.t2_text != blank %}<p class="vk-bundle__text" id="vk-bt2-{{ section_id }}">{{ b.t2_text }}</p>{% endif -%}
+        </div></div>
+      </div>
     {%- endif -%}
     {%- if vk_t3 != blank and vk_t3.id != product.id -%}
-      <label class="vk-bundle">
-        <input type="radio" name="vk-bundle-{{ section_id }}" value="bundle"{% unless vk_t3_v.available %} disabled{% endunless %}>
-        <span class="vk-bundle__radio" aria-hidden="true"></span>
-        <span class="vk-bundle__copy">
-          <span class="vk-bundle__title">{{ b.t3_title }}{% if b.t3_tag != blank %} <span class="vk-bundle__tag vk-bundle__tag--ember">{{ b.t3_tag }}</span>{% endif %}</span>
-          <span class="vk-bundle__text">{{ b.t3_text }}</span>
-          {%- if vk_t3_v.compare_at_price > vk_t3_v.price -%}
-            {%- assign vk_save = vk_t3_v.compare_at_price | minus: vk_t3_v.price | money -%}
-            <span class="vk-bundle__save">{{ 'products.product.bundle_save' | t: amount: vk_save }}</span>
-          {%- endif -%}
-        </span>
-        <span class="vk-bundle__price"><span>{{ vk_t3_v.price | money }}</span>{% if vk_t3_v.compare_at_price > vk_t3_v.price %}<s>{{ vk_t3_v.compare_at_price | money }}</s>{% endif %}</span>
-      </label>
+      {%- render 'vk-bundle-tier', key: 'bundle', title: b.t3_title, tag: b.t3_tag, text: b.t3_text, items: b.t3_items, tier_product: vk_t3, tier_variant: vk_t3_v, section_id: section_id, ember: true -%}
     {%- endif -%}
   </div>
 </vk-bundle-picker>

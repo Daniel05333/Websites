@@ -266,6 +266,7 @@
       "added": "Toegevoegd",
       "adding": "Toevoegen…",
       "bundle_save": "Je bespaart {{ amount }} ten opzichte van los kopen",
+      "bundle_view": "Bekijk wat erin zit",
       "choose_options": "Kies opties",
       "media": {
         "gallery": "Productgalerij",
@@ -319,6 +320,24 @@
     "view_all": "Alle resultaten voor ‘{{ terms }}’"
   },
   "sections": {
+    "process": {
+      "step": "Stap",
+      "steps_label": "Stappen"
+    },
+    "explorer": {
+      "layers_label": "Onderdelen van de pan",
+      "viewer": "3D-weergave",
+      "stage_label": "3D-weergave van de Gehamerde Titanium Pan. Sleep of gebruik de pijltjestoetsen om te draaien.",
+      "explode": "Ontdek de lagen",
+      "collapse": "Bekijk complete pan",
+      "drag_hint": "Sleep om te draaien",
+      "material": "Materiaal",
+      "function": "Functie",
+      "detail": "Detail",
+      "status_confirmed": "Bevestigd",
+      "status_partial": "Deels bevestigd",
+      "status_illustrative": "Illustratief"
+    },
     "categories": {
       "pieces": {
         "one": "{{ count }} product",

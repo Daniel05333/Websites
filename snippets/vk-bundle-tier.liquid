@@ -1,0 +1,41 @@
+{%- doc -%}
+  One bundle-product tier card: a compact radio row (name, tag, price, compare) and a panel that expands when selected.
+  The tier adds the bundle product itself to the cart, so the panel only shows what is in it.
+  @param {string} key - Tier value (bundle2 or bundle).
+  @param {string} title - Tier name.
+  @param {string} [tag] - Small badge.
+  @param {string} [text] - Description.
+  @param {string} [items] - Comma-separated contents.
+  @param {object} tier_product - Bundle product.
+  @param {object} tier_variant - Its selected variant.
+  @param {string} section_id - Section id.
+  @param {boolean} [ember] - Filled red badge.
+  @example
+  {% render 'vk-bundle-tier', key: 'bundle', title: 'Complete set', tier_product: p, tier_variant: v, section_id: section.id %}
+{%- enddoc -%}
+{%- assign vk_on_sale = false -%}
+{%- if tier_variant.compare_at_price > tier_variant.price -%}{%- assign vk_on_sale = true -%}{%- endif -%}
+<div class="vk-bundle" data-tier-card="{{ key }}" data-tier-name="{{ title | escape }}">
+  <label class="vk-bundle__head">
+    <input type="radio" name="vk-bundle-{{ section_id }}" value="{{ key }}" data-tier-input aria-describedby="vk-bt-{{ key }}-{{ section_id }}"{% unless tier_variant.available %} disabled{% endunless %}>
+    <span class="vk-bundle__radio" aria-hidden="true"></span>
+    <span class="vk-bundle__title">{{ title }}{% if tag != blank %} <span class="vk-bundle__tag{% if ember %} vk-bundle__tag--ember{% endif %}">{{ tag }}</span>{% endif %}</span>
+    <span class="vk-bundle__price"><span>{{ tier_variant.price | money }}</span>{% if vk_on_sale %}<s>{{ tier_variant.compare_at_price | money }}</s>{% endif %}</span>
+  </label>
+  <div class="vk-bundle__panel"><div class="vk-bundle__inner" id="vk-bt-{{ key }}-{{ section_id }}">
+    {%- if text != blank %}<p class="vk-bundle__text">{{ text }}</p>{% endif -%}
+    {%- if items != blank -%}
+      <ul class="vk-bundle__items" role="list">
+        {%- assign vk_items = items | split: ',' -%}
+        {%- for it in vk_items -%}<li>{% render 'vk-icon', name: 'check', size: 12 %}{{ it | strip }}</li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <p class="vk-bundle__meta">
+      {%- if vk_on_sale -%}
+        {%- assign vk_save = tier_variant.compare_at_price | minus: tier_variant.price | money -%}
+        <span class="vk-bundle__save">{{ 'products.product.bundle_save' | t: amount: vk_save }}</span>
+      {%- endif -%}
+      <a class="vk-link vk-small" href="{{ tier_product.url }}">{{ 'products.product.bundle_view' | t }}</a>
+    </p>
+  </div></div>
+</div>

@@ -6,6 +6,7 @@
   @param {boolean} [show_compare] - Default true.
   @param {boolean} [show_save] - Default true.
   @param {string} [size] - 'md' (default) | 'lg'.
+  @param {boolean} [dynamic] - Always render compare and save holders so scripts can show them later.
   @example
   {% render 'vk-price', product: product, size: 'lg' %}
 {%- enddoc -%}
@@ -37,6 +38,9 @@
     {%- if show_save != false -%}
       <span class="vk-price__save" data-price-save>{{ 'products.product.price.save' | t: amount: vk_saving }}</span>
     {%- endif -%}
+  {%- elsif dynamic -%}
+    <s class="vk-price__compare" hidden><span class="vk-visually-hidden">{{ 'products.product.price.regular_price' | t }}</span><span data-price-compare></span></s>
+    <span class="vk-price__save" data-price-save hidden></span>
   {%- endif -%}
   {%- if vk_v.unit_price_measurement -%}
     <span class="vk-price__unit">{{ vk_v.unit_price | money }}/{% if vk_v.unit_price_measurement.reference_value != 1 %}{{ vk_v.unit_price_measurement.reference_value }}{% endif %}{{ vk_v.unit_price_measurement.reference_unit }}</span>

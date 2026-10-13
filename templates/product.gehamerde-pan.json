@@ -67,11 +67,14 @@
             "t2_text": "Twee pannen (20 + 24 cm) voor meer flexibiliteit in de keuken.",
             "t2_tag": "Aanbevolen · 5% korting",
             "t2_product": "set-2-pannen",
+            "t2_items": "Gehamerde Titanium Pan 20 cm, Gehamerde Titanium Pan 24 cm",
             "t2_addon": "",
             "t3_title": "Complete set",
             "t3_text": "Drie pannen (20, 24 + 28 cm): de volledige collectie met de grootste besparing.",
             "t3_tag": "10% korting",
-            "t3_product": "complete-set"
+            "t3_product": "complete-set",
+            "t3_items": "Gehamerde Titanium Pan 20 cm, Gehamerde Titanium Pan 24 cm, Gehamerde Titanium Pan 28 cm",
+            "nest_variants": true
           }
         },
         "countdown-8": {
@@ -175,6 +178,140 @@
         "share-17"
       ]
     },
+    "explorer": {
+      "type": "vk-pan-explorer",
+      "settings": {
+        "label": "De Gehamerde Titanium Pan in 3D",
+        "note": "3D-weergave ter illustratie. De vorm volgt de productfoto's; de opbouw binnenin is schematisch.",
+        "color_scheme": "scheme-1",
+        "padding_top": 88,
+        "padding_bottom": 88
+      },
+      "blocks": {
+        "scene-1": {
+          "type": "scene",
+          "settings": {
+            "preset": "overview",
+            "eyebrow": "Overzicht",
+            "title": "Ontworpen voor dagelijks koken.",
+            "text": "Een gehamerd titanium kookoppervlak, een uitlopende rand en een lange steel die stevig vastzit. Sleep de pan rond en bekijk hem van alle kanten.",
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": "",
+            "button2_tier": "none"
+          }
+        },
+        "scene-2": {
+          "type": "scene",
+          "settings": {
+            "preset": "layers",
+            "eyebrow": "Onderdelen",
+            "title": "Elk detail heeft een functie.",
+            "text": "Tik op een onderdeel en lees wat het doet. Wat de leverancier bevestigt, staat er als feit. De kern tonen we als schets, omdat de exacte opbouw niet is opgegeven.",
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": "",
+            "button2_tier": "none"
+          }
+        },
+        "scene-3": {
+          "type": "scene",
+          "settings": {
+            "preset": "detail",
+            "eyebrow": "Afwerking",
+            "title": "Vakmanschap tot in detail.",
+            "text": "Het kookoppervlak is met de hand gehamerd. Die structuur is meer dan een afwerking: je kookt direct op titanium, zonder coating die kan slijten of afbladderen.",
+            "button_label": "",
+            "button_url": "",
+            "button2_label": "",
+            "button2_url": "",
+            "button2_tier": "none"
+          }
+        },
+        "scene-4": {
+          "type": "scene",
+          "settings": {
+            "preset": "ready",
+            "eyebrow": "Jouw pan",
+            "title": "Klaar voor jouw keuken.",
+            "text": "Kies je maat of neem een set en bespaar. Met 25 jaar garantie, 30 dagen retour en gratis verzending.",
+            "button_label": "Kies je maat",
+            "button_url": "#buy",
+            "button2_label": "Bekijk de sets",
+            "button2_url": "#buy",
+            "button2_tier": "bundle2"
+          }
+        },
+        "layer-1": {
+          "type": "layer",
+          "settings": {
+            "part": "surface",
+            "status": "confirmed",
+            "name": "Kookoppervlak",
+            "material": "Massief titanium, handgehamerd",
+            "function": "Je kookt direct op titanium. Er zit geen coating op die kan slijten of afbladderen.",
+            "detail": "Zonder PFAS, PFOA of PTFE. Metalen keukengerei mag."
+          }
+        },
+        "layer-2": {
+          "type": "layer",
+          "settings": {
+            "part": "core",
+            "status": "illustrative",
+            "name": "Kern",
+            "material": "Niet opgegeven",
+            "function": "Laat schematisch zien waar de warmte van de bodem naar het kookoppervlak gaat.",
+            "detail": "Het aantal lagen en de materialen binnenin zijn niet door de leverancier opgegeven. Deze laag is een illustratie, geen specificatie."
+          }
+        },
+        "layer-3": {
+          "type": "layer",
+          "settings": {
+            "part": "body",
+            "status": "partial",
+            "name": "Buitenwand en rand",
+            "material": "Niet apart opgegeven",
+            "function": "Geeft de pan zijn vorm. De uitlopende rand helpt bij het uitschenken.",
+            "detail": "De vorm zie je op de productfoto's. De hele pan is hittebestendig tot 540 °C."
+          }
+        },
+        "layer-4": {
+          "type": "layer",
+          "settings": {
+            "part": "base",
+            "status": "partial",
+            "name": "Bodem",
+            "material": "Niet apart opgegeven",
+            "function": "Werkt op gas, inductie, keramisch en elektrisch, en kan de oven en de grill in.",
+            "detail": "De geschiktheid voor alle warmtebronnen is bevestigd. De opbouw van de bodem in deze weergave is illustratief."
+          }
+        },
+        "layer-5": {
+          "type": "layer",
+          "settings": {
+            "part": "handle",
+            "status": "confirmed",
+            "name": "Steel en klinknagels",
+            "material": "Niet apart opgegeven",
+            "function": "Een lange steel voor grip en balans, aan de pan vastgezet met klinknagels.",
+            "detail": "Mag mee de oven in en kan in de vaatwasser, net als de pan."
+          }
+        }
+      },
+      "block_order": [
+        "scene-1",
+        "scene-2",
+        "scene-3",
+        "scene-4",
+        "layer-1",
+        "layer-2",
+        "layer-3",
+        "layer-4",
+        "layer-5"
+      ]
+    },
     "problem": {
       "type": "vk-problem",
       "settings": {
@@ -226,109 +363,66 @@
         "card-3"
       ]
     },
-    "solution": {
-      "type": "vk-solution",
+    "process": {
+      "type": "vk-process",
       "settings": {
         "index": "",
-        "eyebrow": "Het Volkara-verschil",
-        "heading": "Eén pan. <em>Voor altijd.</em>",
-        "subheading": "Elk detail is gekozen op prestatie én veiligheid.",
-        "fallback": "vk-visual-pan.webp",
-        "image_alt": "Gehamerde titanium pan van Volkara",
-        "button_label": "",
-        "button_url": "",
+        "eyebrow": "Zo komt hij tot stand",
+        "heading": "Van ontwerp tot <em>afgewerkt product</em>",
+        "subheading": "",
+        "note": "Een algemeen overzicht. We noemen alleen wat we kunnen onderbouwen.",
         "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "stack_effect": true
+        "padding_top": 96,
+        "padding_bottom": 96
       },
       "blocks": {
-        "point-1": {
-          "type": "point",
+        "step-1": {
+          "type": "step",
           "settings": {
-            "title": "Geen PFAS. Geen chemische coating.",
-            "hotspot": 1,
-            "text": "<p>Gemaakt zonder PFAS, PFOA of PTFE. Je kookt puur op titanium.</p>"
+            "title": "Ontwerp",
+            "text": "Een vlakke bodem voor goed contact met de warmtebron, een uitlopende rand om uit te schenken en een lange steel. In vier maten: 20, 24, 28 en 32 cm.",
+            "fallback": "vk-visual-pan.webp"
           }
         },
-        "point-2": {
-          "type": "point",
+        "step-2": {
+          "type": "step",
           "settings": {
-            "title": "Massief titanium oppervlak.",
-            "hotspot": 1,
-            "text": "<p>Geen laag die kan afbladderen: het oppervlak is het titanium zelf.</p>"
+            "title": "Titanium kookoppervlak",
+            "text": "Het kookoppervlak is massief titanium. Zonder chemische coating en zonder PFAS, PFOA of PTFE.",
+            "fallback": "vk-visual-pan-angle.webp"
           }
         },
-        "point-3": {
-          "type": "point",
+        "step-3": {
+          "type": "step",
           "settings": {
-            "title": "Bestand tegen extreme hitte.",
-            "hotspot": 4,
-            "text": "<p>Tot 540°C: van dichtschroeien op hoog vuur tot de oven en de grill.</p>"
+            "title": "Met de hand gehamerd",
+            "text": "Het oppervlak krijgt met de hand zijn gehamerde structuur, volgens eeuwenoude Japanse technieken.",
+            "fallback": "vk-visual-macro.webp"
           }
         },
-        "point-4": {
-          "type": "point",
+        "step-4": {
+          "type": "step",
           "settings": {
-            "title": "Handgehamerde afwerking.",
-            "hotspot": 2,
-            "text": "<p>Een oppervlak met karakter en een natuurlijke loslating.</p>"
+            "title": "Steel bevestigen",
+            "text": "De steel wordt met klinknagels aan de pan vastgezet. Zo zit hij stevig, ook als de pan de oven in gaat.",
+            "fallback": "vk-visual-handle.webp"
           }
         },
-        "hotspot-1": {
-          "type": "hotspot",
+        "step-5": {
+          "type": "step",
           "settings": {
-            "number": 1,
-            "x": 42,
-            "y": 60,
-            "label_side": "right",
-            "label": "Gehamerd titanium",
-            "text": "Massief titanium kookoppervlak met een handgehamerde afwerking."
-          }
-        },
-        "hotspot-2": {
-          "type": "hotspot",
-          "settings": {
-            "number": 2,
-            "x": 14,
-            "y": 50,
-            "label_side": "right",
-            "label": "Uitlopende rand",
-            "text": "Voor netjes uitschenken van saus en vet."
-          }
-        },
-        "hotspot-3": {
-          "type": "hotspot",
-          "settings": {
-            "number": 3,
-            "x": 86,
-            "y": 12,
-            "label_side": "left",
-            "label": "Gepolijste handgreep",
-            "text": "Stevig in de hand, ook bij een volle pan."
-          }
-        },
-        "hotspot-4": {
-          "type": "hotspot",
-          "settings": {
-            "number": 4,
-            "x": 70,
-            "y": 80,
-            "label_side": "left",
-            "label": "Hittebestendig",
-            "text": "Bestand tegen hitte tot 540°C, ook in de oven."
+            "title": "Klaar voor jouw keuken",
+            "text": "Geschikt voor elke warmtebron, de oven, de grill en de vaatwasser. Met 25 jaar garantie.",
+            "fallback": "vk-visual-hero.webp"
           }
         }
       },
       "block_order": [
-        "point-1",
-        "point-2",
-        "point-3",
-        "point-4",
-        "hotspot-1",
-        "hotspot-2",
-        "hotspot-3",
-        "hotspot-4"
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4",
+        "step-5"
       ]
     },
     "reviews": {
@@ -620,90 +714,13 @@
         "padding_top": 120,
         "padding_bottom": 120
       }
-    },
-    "stage": {
-      "type": "vk-forge-stage",
-      "settings": {
-        "label": "De Gehamerde Titanium Pan van dichtbij",
-        "length": 450,
-        "palette": "lava-titanium",
-        "sparks": 450
-      },
-      "blocks": {
-        "slide-1": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "De Gehamerde Titanium Pan",
-            "title": "Gehamerd|titanium",
-            "text": "Een kookoppervlak van massief titanium met een handgehamerde afwerking.",
-            "text_2": "Zonder PFAS, PFOA of PTFE. Zonder chemische coating. Puur titanium.",
-            "column": "1",
-            "show_image": false,
-            "button_label": "",
-            "button_url": "",
-            "button2_label": "",
-            "button2_url": ""
-          }
-        },
-        "slide-2": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "Hittebestendig",
-            "title": "Tot|540°C",
-            "text": "Dichtschroeien op hoog vuur, afmaken in de oven of onder de grill.",
-            "text_2": "",
-            "column": "2",
-            "show_image": true,
-            "button_label": "",
-            "button_url": "",
-            "button2_label": "",
-            "button2_url": ""
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "Zonder coating",
-            "title": "Niets dat|afbladdert",
-            "text": "Metalen keukengerei mag, de vaatwasser ook. Er is geen laag die kan slijten.",
-            "text_2": "",
-            "column": "3",
-            "show_image": false,
-            "button_label": "",
-            "button_url": "",
-            "button2_label": "",
-            "button2_url": ""
-          }
-        },
-        "slide-4": {
-          "type": "slide",
-          "settings": {
-            "eyebrow": "25 jaar garantie",
-            "title": "Gebouwd voor|generaties",
-            "text": "Japans vakmanschap, gemaakt om elke dag te presteren.",
-            "text_2": "",
-            "column": "2",
-            "show_image": false,
-            "button_label": "Kies je set",
-            "button_url": "#buy",
-            "button2_label": "Bekijk de kookgids",
-            "button2_url": "/pages/titanium-kookgids"
-          }
-        }
-      },
-      "block_order": [
-        "slide-1",
-        "slide-2",
-        "slide-3",
-        "slide-4"
-      ]
     }
   },
   "order": [
     "main",
-    "stage",
+    "explorer",
     "problem",
-    "solution",
+    "process",
     "reviews",
     "comparison",
     "faq",

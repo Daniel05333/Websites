@@ -78,3 +78,21 @@ De opdrachtgever heeft deze claims aangeleverd en bevestigd. Ze staan daarom op 
 - **Sets.** De van-prijs is de som van de losse pannen (€174,90 en €269,85). Dat is een eerlijke vergelijking, zolang de losse prijzen kloppen.
 - **"Magazijnuitverkoop" met afteltimer.** De timer staat klaar, maar verschijnt pas als je in het productblok *Countdown* een echte einddatum invult. Een timer die bij elk bezoek opnieuw begint, is misleidend en daarom niet ingesteld. Zet de actie ook echt stop op die datum.
 - **Gratis Titanium Kookgids.** Deze bestaat nu als pagina (`/pages/titanium-kookgids`) en wordt vanaf de productpagina gelinkt.
+
+## 7. 3D-weergave en productieproces op de productpagina
+
+**Pan in 3D (sectie *Pan explorer*).** De pan is in code nagebouwd, zonder modelbestand van de leverancier. De vorm volgt de productfoto's: gehamerd kookoppervlak, uitlopende rand en een steel met klinknagels. Elk onderdeel heeft een label:
+
+| Onderdeel | Label | Waarom |
+|---|---|---|
+| Kookoppervlak | Bevestigd | Massief titanium, handgehamerd, zonder PFAS/PFOA/PTFE (opgave opdrachtgever, §6) |
+| Kern | Illustratief | Aantal lagen en materialen zijn **niet** opgegeven. De laag is een schets, geen specificatie |
+| Buitenwand en rand | Deels bevestigd | Vorm zichtbaar op de foto's; materiaal niet apart opgegeven |
+| Bodem | Deels bevestigd | Geschikt voor alle warmtebronnen (bevestigd); opbouw illustratief |
+| Steel en klinknagels | Bevestigd | Bevestiging met klinknagels is zichtbaar; materiaal niet apart opgegeven |
+
+Krijg je de echte opbouw van de leverancier (bijvoorbeeld een specificatieblad), pas dan de teksten aan in de blokken *Layer* en zet het label pas op *Bevestigd* als je het schriftelijk hebt. Noem geen laagaantal of kernmateriaal zonder bewijs.
+
+**Van ontwerp tot afgewerkt product (sectie *Process steps*).** Een algemene tijdlijn, zonder fabrieksdetails. Alleen stappen die volgen uit bevestigde feiten: titanium kookoppervlak, handgehamerd ("eeuwenoude Japanse technieken", opgave opdrachtgever), steel met klinknagels, vier maten, geschikt voor alle warmtebronnen en de vaatwasser, 25 jaar garantie.
+
+**Oude VolcanicCore™-pagina.** De "vijf lagen"-uitleg op `/pages/technology` is niet bevestigd (zie §1). Gebruik die pagina pas na bevestiging, of haal hem uit het menu.

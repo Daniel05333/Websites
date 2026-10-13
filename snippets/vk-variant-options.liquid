@@ -1,0 +1,25 @@
+{%- doc -%}
+  Variant option pills (one fieldset per option). Changes bubble to vk-product-info, which owns the selected variant.
+  @param {object} product - Product.
+  @param {string} section_id - Section id (radio names).
+  @param {string} [size_help] - Helper line under the first option.
+  @example
+  {% render 'vk-variant-options', product: product, section_id: section.id, size_help: block.settings.size_help %}
+{%- enddoc -%}
+<vk-variant-picker class="vk-pdp__variants" data-section="{{ section_id }}">
+  {%- for option in product.options_with_values -%}
+    <fieldset class="vk-pdp__option" data-option-index="{{ forloop.index0 }}">
+      <legend class="vk-pdp__option-label"><span class="vk-eyebrow">{{ option.name }}</span><span class="vk-pdp__option-value" data-option-value>{{ option.selected_value }}</span>
+        {%- if forloop.first and size_help != blank %}<span class="vk-pdp__size-help vk-small vk-muted">{{ size_help }}</span>{% endif -%}
+      </legend>
+      <div class="vk-flex vk-pdp__pills">
+        {%- for value in option.values -%}
+          <label class="vk-pill">
+            <input type="radio" name="{{ section_id }}-{{ option.name | handle }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
+            <span>{{ value }}</span>
+          </label>
+        {%- endfor -%}
+      </div>
+    </fieldset>
+  {%- endfor -%}
+</vk-variant-picker>

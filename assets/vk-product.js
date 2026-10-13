@@ -16,12 +16,19 @@
       this.section = this.closest('.vk-pdp');
       this.idInput = this.querySelector('[data-variant-id]');
       this.variant = this.product.variants.find((v) => String(v.id) === this.idInput?.value) || this.product.variants[0];
-      this.tier = 'single';
+      this.tier = this.querySelector('[data-tier-input]:checked')?.value || 'single';
       this.addEventListener('change', (e) => {
-        if (e.target.closest('vk-variant-picker')) this.onOptionChange();
-        if (e.target.closest('vk-bundle-picker')) { this.tier = e.target.value; this.syncTier(); }
+        // Size pills can live inside the first bundle card, so check them first.
+        if (e.target.closest('vk-variant-picker')) { this.onOptionChange(); return; }
+        if (e.target.matches('[data-tier-input]')) { this.tier = e.target.value; this.syncTier(); }
       });
-      this.section?.addEventListener('change', (e) => { if (e.target.matches('[data-sticky-variant]')) this.selectVariant(this.product.variants.find((v) => String(v.id) === e.target.value)); });
+      // The sticky bar lives in <body> (see vk-sticky-atc), so listen on the document.
+      this.sectionId = this.section?.dataset.sectionId;
+      document.addEventListener('change', (e) => { if (e.target.matches('[data-sticky-variant]') && e.target.closest(`vk-sticky-atc[data-section="${this.sectionId}"]`)) this.selectVariant(this.product.variants.find((v) => String(v.id) === e.target.value)); });
+      // Other sections (e.g. the pan explorer CTA) can pick a tier: they dispatch vk:select-tier on the document.
+      this.onSelectTier = (e) => { const r = this.querySelector(`[data-tier-input][value="${e.detail?.tier}"]`); if (r && !r.disabled) { r.checked = true; this.tier = r.value; this.syncTier(); } };
+      document.addEventListener('vk:select-tier', this.onSelectTier);
+      this.syncTier();
     }
     onOptionChange() {
       const picker = this.querySelector('vk-variant-picker');
@@ -36,18 +43,8 @@
       if (!v) { if (btn) btn.disabled = true; if (label) label.textContent = VK.strings.unavailable; this.syncSticky(); return; }
       if (this.idInput) this.idInput.value = v.id;
       const url = new URL(location.href); url.searchParams.set('variant', v.id); history.replaceState({}, '', url);
-      // price
-      const priceRoot = this.querySelector('[data-pdp-price]');
-      if (priceRoot) {
-        priceRoot.querySelector('[data-price-current]').textContent = VK.formatMoney(v.price);
-        const cmp = priceRoot.querySelector('[data-price-compare]'); const save = priceRoot.querySelector('[data-price-save]');
-        const onSale = v.compare_at_price > v.price;
-        priceRoot.querySelector('.vk-price__compare')?.toggleAttribute('hidden', !onSale); save?.toggleAttribute('hidden', !onSale);
-        if (cmp && onSale) cmp.textContent = VK.formatMoney(v.compare_at_price);
-        if (save && onSale) save.textContent = VK.t('save', { amount: VK.formatMoney(v.compare_at_price - v.price) });
-      }
       // sticky select sync + picker sync
-      const sel = this.section?.querySelector('[data-sticky-variant]'); if (sel) sel.value = v.id;
+      const sel = this.stickyBar()?.querySelector('[data-sticky-variant]'); if (sel) sel.value = v.id;
       const picker = this.querySelector('vk-variant-picker');
       picker?.querySelectorAll('fieldset').forEach((fs, i) => { const r = [...fs.querySelectorAll('input')].find((x) => x.value === v.options[i]); if (r) r.checked = true; const out = fs.querySelector('[data-option-value]'); if (out) out.textContent = v.options[i]; });
       if (v.featured_media) this.section?.querySelector('vk-product-gallery')?.goToMedia(v.featured_media);
@@ -57,7 +54,8 @@
     syncTier() {
       const v = this.variant; const bp = this.querySelector('vk-bundle-picker'); const inputs = this.querySelector('[data-bundle-inputs]');
       const btn = this.querySelector('[data-atc]'); const label = this.querySelector('[data-atc-label]'); const qty = this.querySelector('vk-product-form input[name="quantity"]');
-      let price = v ? v.price : 0, available = !!(v && v.available);
+      let price = v ? v.price : 0, compare = v ? v.compare_at_price || 0 : 0, available = !!(v && v.available);
+      let config = v && !this.product.variants.every((x) => x === v) && v.title !== 'Default Title' ? v.title : '';
       if (inputs) inputs.innerHTML = '';
       if (this.idInput) this.idInput.disabled = false; if (qty) qty.disabled = false;
       if (bp && bp.data) {
@@ -68,28 +66,48 @@
           addonTier.hidden = !addon;
           if (!addon && this.tier === 'addon') { this.tier = 'single'; const single = bp.querySelector('input[value="single"]'); if (single) single.checked = true; }
         }
-        bp.querySelectorAll('.vk-bundle').forEach((l) => l.classList.toggle('is-active', l.querySelector('input').checked));
+        // Only the selected card is expanded; collapsed panels leave the tab order.
+        bp.querySelectorAll('[data-tier-card]').forEach((card) => {
+          const on = card.dataset.tierCard === this.tier;
+          card.classList.toggle('is-active', on);
+          const panel = card.querySelector('.vk-bundle__panel'); if (panel) panel.inert = !on;
+          if (on) config = [card.dataset.tierName, this.tier === 'single' || this.tier === 'addon' ? config : ''].filter(Boolean).join(' · ');
+        });
+        const singleCompare = bp.querySelector('[data-tier-compare="single"]');
+        if (singleCompare && v) { const sale = v.compare_at_price > v.price; singleCompare.hidden = !sale; if (sale) singleCompare.textContent = VK.formatMoney(v.compare_at_price); }
         const addonPrice = bp.querySelector('[data-tier-price="addon"]'); if (addonPrice && v && addon) addonPrice.textContent = VK.formatMoney(v.price + addon.price);
         const singlePrice = bp.querySelector('[data-tier-price="single"]'); if (singlePrice && v) singlePrice.textContent = VK.formatMoney(v.price);
         if (this.tier === 'addon' && addon && v) {
           this.idInput.disabled = true; if (qty) qty.disabled = true;
           inputs.innerHTML = `<input type="hidden" name="items[0][id]" value="${v.id}"><input type="hidden" name="items[0][quantity]" value="1"><input type="hidden" name="items[1][id]" value="${addon.id}"><input type="hidden" name="items[1][quantity]" value="1">`;
-          price = v.price + addon.price; available = v.available && addon.available;
+          price = v.price + addon.price; compare = 0; available = v.available && addon.available;
         } else if ((this.tier === 'bundle' || this.tier === 'bundle2') && bp.data[this.tier]) {
           const bundle = bp.data[this.tier];
           this.idInput.disabled = true;
           inputs.innerHTML = `<input type="hidden" name="id" value="${bundle.id}">`;
-          price = bundle.price; available = bundle.available;
+          price = bundle.price; compare = bundle.compare; available = bundle.available;
         }
       }
+      this.renderPrice(price, compare);
       if (btn) btn.disabled = !available;
       if (label) label.textContent = available ? `${VK.strings.addToBag || VK.strings.addToCart} · ${VK.formatMoney(price)}` : (v ? VK.strings.soldOut : VK.strings.unavailable);
-      this.price = price; this.available = available; this.syncSticky();
+      this.price = price; this.available = available; this.config = config; this.syncSticky();
     }
+    renderPrice(price, compare) {
+      const root = this.querySelector('[data-pdp-price]'); if (!root) return;
+      root.querySelector('[data-price-current]').textContent = VK.formatMoney(price);
+      const cmp = root.querySelector('[data-price-compare]'); const save = root.querySelector('[data-price-save]');
+      const onSale = compare > price;
+      root.querySelector('.vk-price__compare')?.toggleAttribute('hidden', !onSale); save?.toggleAttribute('hidden', !onSale);
+      if (cmp && onSale) cmp.textContent = VK.formatMoney(compare);
+      if (save && onSale) save.textContent = VK.t('save', { amount: VK.formatMoney(compare - price) });
+    }
+    stickyBar() { return document.querySelector(`vk-sticky-atc[data-section="${this.sectionId}"]`); }
     syncSticky() {
-      const sticky = this.section?.querySelector('vk-sticky-atc'); if (!sticky) return;
+      const sticky = this.stickyBar(); if (!sticky) return;
       const p = sticky.querySelector('[data-sticky-price]'); if (p) p.textContent = VK.formatMoney(this.price ?? this.variant?.price ?? 0);
       const b = sticky.querySelector('[data-sticky-btn]'); if (b) b.disabled = !this.available;
+      const c = sticky.querySelector('[data-sticky-config]'); if (c) { c.textContent = this.config || ''; c.hidden = !this.config; }
     }
   });
 
@@ -139,10 +157,19 @@
   /* ---------- Sticky ATC ---------- */
   define('vk-sticky-atc', class extends HTMLElement {
     connectedCallback() {
-      const section = this.closest('.vk-pdp'); const main = section?.querySelector('[data-atc]'); if (!main) return;
+      if (this._init) return; this._init = true;
+      const section = this.closest('.vk-pdp') || document.getElementById(`vk-${this.dataset.section}`);
+      const main = section?.querySelector('[data-atc]'); if (!main) return;
+      // Sections are isolated stacking contexts, so a fixed bar inside one sits under later (stacked) sections.
+      // Move it to <body>, keeping the section's colour scheme, and drop a stale copy left by an editor re-render.
+      if (this.parentElement !== document.body) {
+        document.querySelectorAll(`body > vk-sticky-atc[data-section="${this.dataset.section}"]`).forEach((old) => old !== this && old.remove());
+        [...section.classList].filter((c) => c.startsWith('color-')).forEach((c) => this.classList.add(c));
+        document.body.appendChild(this);
+      }
       const footer = document.querySelector('.vk-footer');
       let mainVisible = true, footerVisible = false;
-      const update = () => { const show = !mainVisible && !footerVisible && main.getBoundingClientRect().top < 0; this.classList.toggle('is-visible', show); this.setAttribute('aria-hidden', String(!show)); this.querySelectorAll('[tabindex]').forEach((el) => el.tabIndex = show ? 0 : -1); };
+      const update = () => { const show = !mainVisible && !footerVisible && main.isConnected && main.getBoundingClientRect().top < 0; this.classList.toggle('is-visible', show); this.setAttribute('aria-hidden', String(!show)); this.querySelectorAll('[tabindex]').forEach((el) => el.tabIndex = show ? 0 : -1); };
       new IntersectionObserver(([en]) => { mainVisible = en.isIntersecting; update(); }).observe(main);
       if (footer) new IntersectionObserver(([en]) => { footerVisible = en.isIntersecting; update(); }).observe(footer);
     }

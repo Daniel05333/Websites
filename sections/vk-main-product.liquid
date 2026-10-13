@@ -27,6 +27,17 @@
           }
         </script>
 
+        {%- liquid
+          # The size pills move into the "single" bundle card when both blocks exist and the bundle block asks for it.
+          assign vk_nest_variants = false
+          assign vk_size_help = ''
+          assign vk_vp_block = section.blocks | where: 'type', 'variant_picker' | first
+          assign vk_bp_block = section.blocks | where: 'type', 'bundle_picker' | first
+          if vk_vp_block and vk_bp_block and vk_bp_block.settings.nest_variants and product.has_only_default_variant == false
+            assign vk_nest_variants = true
+            assign vk_size_help = vk_vp_block.settings.size_help
+          endif
+        -%}
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when '@app' -%}
@@ -48,7 +59,7 @@
 
             {%- when 'price' -%}
               <div class="vk-pdp__block vk-pdp__price" {{ block.shopify_attributes }} data-pdp-price>
-                {%- render 'vk-price', product: product, variant: vk_v, size: 'lg' -%}
+                {%- render 'vk-price', product: product, variant: vk_v, size: 'lg', dynamic: true -%}
                 <p class="vk-pdp__tax vk-small vk-subtle">
                   {%- if cart.taxes_included %}{{ 'products.product.tax_included' | t }}{% endif -%}
                   {%- if shop.shipping_policy.body != blank %} <a href="{{ shop.shipping_policy.url }}" class="vk-link">{{ 'products.product.shipping_calculated' | t }}</a>{% endif -%}
@@ -69,28 +80,12 @@
               </ul>
 
             {%- when 'variant_picker' -%}
-              {%- unless product.has_only_default_variant -%}
-                <vk-variant-picker class="vk-pdp__block vk-pdp__variants" data-section="{{ section.id }}" {{ block.shopify_attributes }}>
-                  {%- for option in product.options_with_values -%}
-                    <fieldset class="vk-pdp__option" data-option-index="{{ forloop.index0 }}">
-                      <legend class="vk-pdp__option-label"><span class="vk-eyebrow">{{ option.name }}</span><span class="vk-pdp__option-value" data-option-value>{{ option.selected_value }}</span>
-                        {%- if forloop.first and block.settings.size_help != blank %}<span class="vk-pdp__size-help vk-small vk-muted">{{ block.settings.size_help }}</span>{% endif -%}
-                      </legend>
-                      <div class="vk-flex">
-                        {%- for value in option.values -%}
-                          <label class="vk-pill">
-                            <input type="radio" name="{{ section.id }}-{{ option.name | handle }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
-                            <span>{{ value }}</span>
-                          </label>
-                        {%- endfor -%}
-                      </div>
-                    </fieldset>
-                  {%- endfor -%}
-                </vk-variant-picker>
+              {%- unless product.has_only_default_variant or vk_nest_variants -%}
+                <div class="vk-pdp__block" {{ block.shopify_attributes }}>{% render 'vk-variant-options', product: product, section_id: section.id, size_help: block.settings.size_help %}</div>
               {%- endunless -%}
 
             {%- when 'bundle_picker' -%}
-              {%- render 'vk-bundle-picker', block: block, product: product, variant: vk_v, section_id: section.id -%}
+              {%- render 'vk-bundle-picker', block: block, product: product, variant: vk_v, section_id: section.id, nest_variants: vk_nest_variants, size_help: vk_size_help -%}
 
             {%- when 'countdown' -%}
               {%- if block.settings.end != blank -%}<div class="vk-pdp__block vk-pdp__countdown" {{ block.shopify_attributes }}>{% render 'vk-countdown', end: block.settings.end, label: block.settings.label %}</div>{%- endif -%}
@@ -217,16 +212,19 @@
     { "type": "bundle_picker", "name": "Bundle tiers", "limit": 1, "settings": [
       { "type": "paragraph", "content": "Honest bundles: savings are calculated from real prices. Tier products are added to the cart as separate items." },
       { "type": "text", "id": "label", "label": "Label", "default": "Kies je set" },
+      { "type": "checkbox", "id": "nest_variants", "label": "Show size options inside the first tier", "default": true },
       { "type": "text", "id": "t1_title", "label": "Tier 1 title", "default": "De pan" },
       { "type": "text", "id": "t1_text", "label": "Tier 1 detail", "default": "Eén Forge Pan in jouw maat." },
       { "type": "text", "id": "t2_title", "label": "Tier 2 title", "default": "Pan + deksel" },
       { "type": "text", "id": "t2_text", "label": "Tier 2 detail", "default": "Je Forge Pan met de bijpassende deksel van gehard glas." },
       { "type": "text", "id": "t2_tag", "label": "Tier 2 tag", "default": "Handig" },
+      { "type": "text", "id": "t2_items", "label": "Tier 2 contents", "info": "Comma separated, e.g. 20 cm, 24 cm. Shown when the tier is selected." },
       { "type": "product", "id": "t2_addon", "label": "Tier 2 add-on product", "info": "Added alongside the selected variant; matched by size when possible." },
       { "type": "product", "id": "t2_product", "label": "Tier 2 bundle product", "info": "Use instead of an add-on to offer a second set (e.g. two pans). Overrides the add-on." },
       { "type": "text", "id": "t3_title", "label": "Tier 3 title", "default": "Het Trio" },
       { "type": "text", "id": "t3_text", "label": "Tier 3 detail", "default": "Forge Pans van 20, 24 en 28 cm, €38 minder dan los kopen." },
       { "type": "text", "id": "t3_tag", "label": "Tier 3 tag", "default": "Meeste voordeel" },
+      { "type": "text", "id": "t3_items", "label": "Tier 3 contents", "info": "Comma separated, e.g. 20 cm, 24 cm, 28 cm." },
       { "type": "product", "id": "t3_product", "label": "Tier 3 product (bundle product)" }
     ] },
     { "type": "countdown", "name": "Countdown", "limit": 1, "settings": [

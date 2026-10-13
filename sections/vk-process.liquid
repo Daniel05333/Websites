@@ -1,0 +1,71 @@
+{{ 'vk-section-process.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-process.js' | asset_url }}" defer></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-process color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    {%- render 'vk-heading', index: s.index, eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}
+    {%- if section.blocks.size > 0 -%}
+      <vk-process class="vk-process__grid">
+        <div class="vk-process__steps" role="tablist" aria-label="{{ 'sections.process.steps_label' | t }}">
+          {%- for block in section.blocks -%}
+            <button type="button" class="vk-process__step" role="tab" id="vk-{{ section.id }}-tab-{{ forloop.index }}" aria-controls="vk-{{ section.id }}-panel-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" {{ block.shopify_attributes }}>
+              <span class="vk-process__num vk-mono">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+              <span class="vk-process__step-title">{{ block.settings.title }}</span>
+            </button>
+          {%- endfor -%}
+        </div>
+        <div class="vk-process__panels">
+          {%- for block in section.blocks -%}
+            <div class="vk-process__panel" role="tabpanel" id="vk-{{ section.id }}-panel-{{ forloop.index }}" aria-labelledby="vk-{{ section.id }}-tab-{{ forloop.index }}"{% unless forloop.first %} hidden{% endunless %}>
+              <div class="vk-process__media vk-media">
+                {%- render 'vk-image', image: block.settings.image, sizes: '(min-width: 990px) 45vw, 100vw', fallback: block.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'macro', alt: block.settings.title -%}
+              </div>
+              <div class="vk-process__body">
+                <p class="vk-process__kicker vk-mono">{{ 'sections.process.step' | t }} {{ forloop.index }} / {{ forloop.length }}</p>
+                <h3 class="vk-process__title">{{ block.settings.title }}</h3>
+                <p class="vk-process__text">{{ block.settings.text }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </vk-process>
+    {%- endif -%}
+    {%- if s.note != blank -%}<p class="vk-process__note">{{ s.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Process steps",
+  "tag": "div",
+  "class": "vk-process-section",
+  "settings": [
+    { "type": "paragraph", "content": "Describe only steps you can back up. Keep production details general until your supplier confirms them." },
+    { "type": "text", "id": "index", "label": "Chapter number" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Zo komt hij tot stand" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Van ontwerp tot <em>afgewerkt product</em>" },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading" },
+    { "type": "text", "id": "note", "label": "Note" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Ontwerp" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "select", "id": "fallback", "label": "Bundled visual (when no image is chosen)", "default": "vk-visual-pan.webp", "options": [
+          { "value": "vk-visual-pan.webp", "label": "Pan" }, { "value": "vk-visual-pan-angle.webp", "label": "Pan, angled" }, { "value": "vk-visual-macro.webp", "label": "Hammered surface" }, { "value": "vk-visual-handle.webp", "label": "Handle" }, { "value": "vk-visual-hero.webp", "label": "Studio" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Process steps" }]
+}
+{% endschema %}

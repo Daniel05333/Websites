@@ -42,7 +42,7 @@ Sterren en het aantal beoordelingen komen uit `reviews.rating` en `reviews.ratin
 
 | Product | Sjabloon |
 |---|---|
-| Gehamerde Titanium Pan | `product.gehamerde-pan` (bundels, 3D-scène, reviews) |
+| Gehamerde Titanium Pan | `product.gehamerde-pan` (bundels, 3D-pan met lagen, productieproces, reviews) |
 | Wok, hapjespan, steelpan, kookpan, sets | `product.cookware` |
 | Messen, snijplank, keukengerei, deksel | `product` (standaard) |
 
@@ -72,6 +72,7 @@ In *Thema aanpassen* → de productpagina met sjabloon `gehamerde-pan`:
 
 - **Countdown:** vul een echte einddatum in, bijvoorbeeld `2026-11-30T23:59:00+01:00`. Zonder datum blijft de timer verborgen.
 - **Reviews:** vervang de drie citaten door echte reviews, of voeg het blok van je reviews-app toe.
+- **Bundels:** het eerste bundelblok toont de maten in de kaart *Enkel*. Alleen de gekozen kaart klapt open. Wat erin zit stel je in bij *Tier 2/3 contents*. Uitzetten kan met *Show size options inside the first tier*.
 - **Koopknop:** alleen "In winkelwagen", zonder aantal en zonder Apple Pay of Shop Pay. Wil je ze terug, dan zitten ze als schakelaar in het blok *Buy buttons*.
 
 ### 9. Bekijken en publiceren
@@ -81,7 +82,9 @@ Gebruik *Voorbeeld* en loop het af: homepage, collectie, de pan, de winkelwagen 
 
 | Effect | Waar aan/uit |
 |---|---|
-| 3D-scène met vonken en vloeibaar metaal | Sectie *Forge stage* (homepage en productpagina) |
+| Draaibare 3D-pan met "Ontdek de lagen" en vier scrollscènes | Sectie *Pan explorer (3D)* op de productpagina. Teksten per onderdeel in de blokken *Layer*, scènes in de blokken *Scene* |
+| Tijdlijn "Van ontwerp tot afgewerkt product" | Sectie *Process steps* op de productpagina |
+| 3D-scène met vonken en vloeibaar metaal | Sectie *Forge stage* (homepage) |
 | Zwevende zeshoekjes en vonken bij de productfoto, foto kantelt mee | Productsectie → *Gallery effects* |
 | Secties schuiven over elkaar heen (desktop) | *Stack effect* in Problem, Solution, Reviews en Comparison |
 | Bewegende hoogtelijnen | *Animated contour lines* in CTA, Reviews en Comparison |

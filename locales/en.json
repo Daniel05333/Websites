@@ -266,6 +266,7 @@
       "added": "Added",
       "adding": "Adding…",
       "bundle_save": "You save {{ amount }} vs. buying separately",
+      "bundle_view": "View what is included",
       "choose_options": "Choose options",
       "media": {
         "gallery": "Product gallery",
@@ -319,6 +320,24 @@
     "view_all": "Search for “{{ terms }}”"
   },
   "sections": {
+    "process": {
+      "step": "Step",
+      "steps_label": "Steps"
+    },
+    "explorer": {
+      "layers_label": "Parts of the pan",
+      "viewer": "3D view",
+      "stage_label": "3D view of the Hammered Titanium Pan. Drag or use the arrow keys to rotate.",
+      "explode": "Explore the layers",
+      "collapse": "View complete pan",
+      "drag_hint": "Drag to rotate",
+      "material": "Material",
+      "function": "Function",
+      "detail": "Detail",
+      "status_confirmed": "Confirmed",
+      "status_partial": "Partly confirmed",
+      "status_illustrative": "Illustrative"
+    },
     "categories": {
       "pieces": {
         "one": "{{ count }} piece",

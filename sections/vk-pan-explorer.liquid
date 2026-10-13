@@ -1,0 +1,156 @@
+{{ 'vk-section-pan-explorer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-pan-explorer.js' | asset_url }}" type="module"></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_scenes = section.blocks | where: 'type', 'scene'
+  assign vk_layers = section.blocks | where: 'type', 'layer'
+  assign vk_has_layer_scene = false
+  for sc in vk_scenes
+    if sc.settings.preset == 'layers'
+      assign vk_has_layer_scene = true
+      break
+    endif
+  endfor
+  assign vk_layers_done = false
+-%}
+{%- capture vk_layer_ui -%}
+  {%- if vk_layers.size > 0 -%}
+    <div class="vk-explorer__layers" data-explorer-layers>
+      <div class="vk-explorer__layer-list" role="group" aria-label="{{ 'sections.explorer.layers_label' | t }}">
+        {%- for block in vk_layers -%}
+          <button type="button" class="vk-explorer__layer" data-layer-btn="{{ block.settings.part }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="vk-{{ section.id }}-info" {{ block.shopify_attributes }}>
+            <span class="vk-explorer__layer-num vk-mono">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <span class="vk-explorer__layer-name">{{ block.settings.name }}</span>
+            <span class="vk-explorer__status vk-explorer__status--{{ block.settings.status }}">{%- case block.settings.status -%}{%- when 'confirmed' -%}{{ 'sections.explorer.status_confirmed' | t }}{%- when 'partial' -%}{{ 'sections.explorer.status_partial' | t }}{%- else -%}{{ 'sections.explorer.status_illustrative' | t }}{%- endcase -%}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="vk-explorer__info" id="vk-{{ section.id }}-info" aria-live="polite">
+        {%- for block in vk_layers -%}
+          <article class="vk-explorer__card" data-layer-info="{{ block.settings.part }}"{% unless forloop.first %} hidden{% endunless %}>
+            <header class="vk-explorer__card-head">
+              <h4 class="vk-explorer__card-title">{{ block.settings.name }}</h4>
+              <span class="vk-explorer__status vk-explorer__status--{{ block.settings.status }}">{%- case block.settings.status -%}{%- when 'confirmed' -%}{{ 'sections.explorer.status_confirmed' | t }}{%- when 'partial' -%}{{ 'sections.explorer.status_partial' | t }}{%- else -%}{{ 'sections.explorer.status_illustrative' | t }}{%- endcase -%}</span>
+            </header>
+            <dl class="vk-explorer__facts">
+              {%- if block.settings.material != blank -%}<div><dt>{{ 'sections.explorer.material' | t }}</dt><dd>{{ block.settings.material }}</dd></div>{%- endif -%}
+              {%- if block.settings.function != blank -%}<div><dt>{{ 'sections.explorer.function' | t }}</dt><dd>{{ block.settings.function }}</dd></div>{%- endif -%}
+              {%- if block.settings.detail != blank -%}<div><dt>{{ 'sections.explorer.detail' | t }}</dt><dd>{{ block.settings.detail }}</dd></div>{%- endif -%}
+            </dl>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+<section id="vk-{{ section.id }}" class="vk-section vk-explorer color-{{ s.color_scheme }}" data-section-id="{{ section.id }}" aria-labelledby="vk-{{ section.id }}-title">
+  <div class="vk-container">
+    <h2 class="vk-visually-hidden" id="vk-{{ section.id }}-title">{{ s.label }}</h2>
+    <vk-pan-explorer class="vk-explorer__grid" data-three="{{ 'vk-three.module.min.js' | asset_url }}">
+      <div class="vk-explorer__stage-wrap">
+        <div class="vk-explorer__stage" data-explorer-stage tabindex="0" role="img" aria-roledescription="{{ 'sections.explorer.viewer' | t }}" aria-label="{{ 'sections.explorer.stage_label' | t }}">
+          <div class="vk-explorer__poster" aria-hidden="true">
+            {%- render 'vk-image', image: s.poster, sizes: '(min-width: 990px) 55vw, 100vw', fallback: 'vk-visual-pan.webp', fallback_width: 800, fallback_height: 823, placeholder: 'product', alt: '' -%}
+          </div>
+          <canvas class="vk-explorer__canvas" aria-hidden="true"></canvas>
+          <div class="vk-explorer__progress" aria-hidden="true">
+            {%- for block in vk_scenes -%}<span class="vk-explorer__tick{% if forloop.first %} is-active{% endif %}" data-scene-tick><span></span></span>{%- endfor -%}
+          </div>
+          <div class="vk-explorer__controls">
+            <button type="button" class="vk-explorer__toggle" data-explode aria-pressed="false">
+              {%- render 'vk-icon', name: 'layers', size: 16 -%}
+              <span data-explode-label data-on="{{ 'sections.explorer.collapse' | t | escape }}" data-off="{{ 'sections.explorer.explode' | t | escape }}">{{ 'sections.explorer.explode' | t }}</span>
+            </button>
+            <span class="vk-explorer__hint vk-mono" aria-hidden="true">{% render 'vk-icon', name: 'arrows-horizontal', size: 14 %}<span>{{ 'sections.explorer.drag_hint' | t }}</span></span>
+          </div>
+        </div>
+        {%- if s.note != blank -%}<p class="vk-explorer__note">{{ s.note }}</p>{%- endif -%}
+      </div>
+
+      <div class="vk-explorer__scenes">
+        {%- for block in vk_scenes -%}
+          {%- assign b = block.settings -%}
+          <div class="vk-explorer__scene vk-explorer__scene--{{ b.preset }}" data-scene="{{ b.preset }}" {{ block.shopify_attributes }}>
+            {%- if b.eyebrow != blank -%}<p class="vk-eyebrow vk-explorer__eyebrow"><span class="vk-mono">0{{ forloop.index }}</span> {{ b.eyebrow }}</p>{%- endif -%}
+            <h3 class="vk-explorer__title">{{ b.title }}</h3>
+            {%- if b.text != blank -%}<p class="vk-explorer__text">{{ b.text }}</p>{%- endif -%}
+            {%- if b.preset == 'layers' and vk_layers_done == false -%}{{ vk_layer_ui }}{%- assign vk_layers_done = true -%}{%- endif -%}
+            {%- if b.button_label != blank or b.button2_label != blank -%}
+              <div class="vk-explorer__actions">
+                {%- if b.button_label != blank -%}{% render 'vk-button', label: b.button_label, url: b.button_url, style: 'primary', icon: 'arrow-right' %}{%- endif -%}
+                {%- if b.button2_label != blank -%}
+                  {%- capture vk_attrs %}data-select-tier="{{ b.button2_tier }}"{% endcapture -%}
+                  {% render 'vk-button', label: b.button2_label, url: b.button2_url, style: 'secondary', attrs: vk_attrs %}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+        {%- unless vk_has_layer_scene -%}{{ vk_layer_ui }}{%- endunless -%}
+      </div>
+    </vk-pan-explorer>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pan explorer (3D)",
+  "tag": "div",
+  "class": "vk-explorer-section",
+  "settings": [
+    { "type": "paragraph", "content": "Interactive 3D pan built in code (no model file). Drag to rotate, click a part to read about it. Scenes switch the view as the visitor scrolls." },
+    { "type": "text", "id": "label", "label": "Section label (screen readers)", "default": "De pan in 3D" },
+    { "type": "image_picker", "id": "poster", "label": "Poster image", "info": "Shown while 3D loads and when WebGL is not available." },
+    { "type": "text", "id": "note", "label": "Note under the viewer", "default": "3D-weergave ter illustratie. De vorm volgt de productfoto's; de opbouw binnenin is schematisch." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "scene",
+      "name": "Scene",
+      "limit": 6,
+      "settings": [
+        { "type": "select", "id": "preset", "label": "View", "default": "overview", "options": [
+          { "value": "overview", "label": "Overview" },
+          { "value": "layers", "label": "Exploded layers (shows the layer list)" },
+          { "value": "detail", "label": "Close-up of the cooking surface" },
+          { "value": "handle", "label": "Handle and rivets" },
+          { "value": "ready", "label": "Complete pan" }
+        ] },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Ontworpen voor dagelijks koken." },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "button_label", "label": "Button label" },
+        { "type": "url", "id": "button_url", "label": "Button link" },
+        { "type": "text", "id": "button2_label", "label": "Second button label" },
+        { "type": "url", "id": "button2_url", "label": "Second button link" },
+        { "type": "select", "id": "button2_tier", "label": "Second button selects bundle tier", "default": "none", "info": "Selects this tier in the product's bundle picker before scrolling to it.", "options": [
+          { "value": "none", "label": "None" }, { "value": "single", "label": "Tier 1" }, { "value": "bundle2", "label": "Tier 2" }, { "value": "bundle", "label": "Tier 3" }
+        ] }
+      ]
+    },
+    {
+      "type": "layer",
+      "name": "Layer",
+      "limit": 5,
+      "settings": [
+        { "type": "select", "id": "part", "label": "3D part", "default": "surface", "options": [
+          { "value": "surface", "label": "Cooking surface" }, { "value": "core", "label": "Core (illustrative)" }, { "value": "body", "label": "Outer wall and rim" }, { "value": "base", "label": "Base" }, { "value": "handle", "label": "Handle and rivets" }
+        ] },
+        { "type": "select", "id": "status", "label": "Status", "default": "illustrative", "info": "Only choose Confirmed for facts your supplier has confirmed in writing.", "options": [
+          { "value": "confirmed", "label": "Confirmed" }, { "value": "partial", "label": "Partly confirmed" }, { "value": "illustrative", "label": "Illustrative" }
+        ] },
+        { "type": "text", "id": "name", "label": "Name", "default": "Kookoppervlak" },
+        { "type": "text", "id": "material", "label": "Material" },
+        { "type": "textarea", "id": "function", "label": "Function" },
+        { "type": "textarea", "id": "detail", "label": "Detail" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Pan explorer (3D)" }]
+}
+{% endschema %}
