@@ -18,7 +18,8 @@ const SEO_LINE = {
 const seoDescription = (p) => `${p.metafields.custom.subtitle} ${SEO_LINE[p.type] || 'Titanium kookoppervlak zonder coating, PFAS- en PTFE-vrij. Geschikt voor inductie en alle warmtebronnen.'}`;
 const seoTitle = (p) => { const t = p.title.replace(/^Volkara /, ''); return `${t.charAt(0).toUpperCase()}${t.slice(1)} | Volkara`; };
 const rows = [head];
-for (const p of products) {
+// Preview-only fixtures (e.g. the test e-book) never go into the store import.
+for (const p of products.filter((x) => !x.tags?.includes('preview-only'))) {
   const m = p.metafields.custom;
   p.variants.forEach((v, i) => {
     const first = i === 0;
