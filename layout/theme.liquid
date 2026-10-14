@@ -98,6 +98,8 @@
         "currency": {{ cart.currency.iso_code | json }},
         "locale": {{ request.locale.iso_code | json }},
         "cartType": {{ settings.cart_type | default: 'drawer' | json }},
+        {%- assign vk_gift = settings.cart_gift_product.selected_or_first_available_variant %}
+        "gift": {% if vk_gift %}{ "variant": {{ vk_gift.id }}, "price": {{ vk_gift.price }}, "available": {{ vk_gift.available }} }{% else %}null{% endif %},
         "freeShippingThreshold": {{ vk_free_shipping_cents | json }},
         "enableAnimations": {{ settings.enable_animations | json }},
         "enablePageTransitions": {{ settings.enable_page_transitions | json }},

@@ -1,0 +1,35 @@
+{%- doc -%}
+  Cart totals: discounts, free shipping, total, and what the order saves against the compare-at prices.
+  @param {object} cart - Cart.
+  @example
+  {% render 'vk-cart-summary', cart: cart %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_before = 0
+  for item in cart.items
+    assign vk_unit = item.variant.price
+    if item.variant.compare_at_price > vk_unit
+      assign vk_unit = item.variant.compare_at_price
+    endif
+    assign vk_line = vk_unit | times: item.quantity
+    if item.original_line_price > vk_line
+      assign vk_line = item.original_line_price
+    endif
+    assign vk_before = vk_before | plus: vk_line
+  endfor
+  assign vk_saved = vk_before | minus: cart.total_price
+  assign vk_saved_money = vk_saved | money
+-%}
+<div class="vk-cart-summary">
+  {%- if vk_saved > 0 -%}
+    <p class="vk-cart-summary__row vk-cart-summary__row--sub"><span>{{ 'cart.subtotal' | t }}</span><span><s class="vk-price__compare">{{ vk_before | money }}</s> {{ cart.total_price | money }}</span></p>
+  {%- endif -%}
+  {%- for discount in cart.cart_level_discount_applications -%}
+    <p class="vk-cart-summary__row vk-cart-summary__row--discount"><span>{% render 'vk-icon', name: 'sparkle', size: 14 %}{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>
+  {%- endfor -%}
+  {%- if settings.cart_free_shipping -%}<p class="vk-cart-summary__row vk-cart-summary__row--shipping"><span>{{ 'cart.shipping' | t }}</span><span>{{ 'cart.shipping_free' | t }}</span></p>{%- endif -%}
+  <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.total' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+  {%- if vk_saved > 0 -%}
+    <p class="vk-cart-summary__saved">{% render 'vk-icon', name: 'check', size: 14 %}{{ 'cart.order_save' | t: amount: vk_saved_money }}</p>
+  {%- endif -%}
+</div>

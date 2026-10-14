@@ -5,7 +5,24 @@
   @example
   {% render 'vk-cart-line-item', item: item, index: forloop.index %}
 {%- enddoc -%}
-<li class="vk-line" data-line="{{ index }}" data-key="{{ item.key }}" style="--vk-i: {{ index | minus: 1 }};">
+{%- liquid
+  assign vk_gift_v = settings.cart_gift_product.selected_or_first_available_variant
+  assign vk_is_gift = false
+  if vk_gift_v and item.variant_id == vk_gift_v.id
+    assign vk_is_gift = true
+  endif
+  assign vk_compare_line = 0
+  if item.variant.compare_at_price > item.variant.price
+    assign vk_compare_line = item.variant.compare_at_price | times: item.quantity
+  endif
+  assign vk_before = item.original_line_price
+  if vk_compare_line > vk_before
+    assign vk_before = vk_compare_line
+  endif
+  assign vk_line_save = vk_before | minus: item.final_line_price
+  assign vk_line_save_money = vk_line_save | money
+-%}
+<li class="vk-line{% if vk_is_gift %} vk-line--gift{% endif %}" data-line="{{ index }}" data-key="{{ item.key }}" style="--vk-i: {{ index | minus: 1 }};">
   <a href="{{ item.url }}" class="vk-line__media vk-media vk-ratio-square" tabindex="-1" aria-hidden="true">
     {%- if item.image -%}
       {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '', widths: '120,240', sizes: '96px' }}
@@ -17,9 +34,22 @@
     <div class="vk-line__top">
       <div>
         <a href="{{ item.url }}" class="vk-line__title">{{ item.product.title | escape }}</a>
-        {%- unless item.product.has_only_default_variant -%}
-          <p class="vk-line__variant">{{ item.variant.title | escape }}</p>
-        {%- endunless -%}
+        {%- if vk_is_gift -%}
+          <p class="vk-line__gift">{% render 'vk-icon', name: 'gift', size: 12 %}{{ settings.cart_gift_label | default: 'Gratis' }}</p>
+        {%- elsif item.product.has_only_default_variant == false -%}
+          {%- if item.product.variants.size > 1 and item.product.variants.size <= 50 -%}
+            <label class="vk-visually-hidden" for="vk-line-variant-{{ item.key | handle }}">{{ item.product.options.first }}</label>
+            <div class="vk-line__variant-select">
+              <select class="vk-select vk-select--sm" id="vk-line-variant-{{ item.key | handle }}" data-line-variant data-key="{{ item.key }}" data-current="{{ item.variant_id }}" data-quantity="{{ item.quantity }}">
+                {%- for v in item.product.variants -%}
+                  <option value="{{ v.id }}"{% if v.id == item.variant_id %} selected{% endif %}{% unless v.available or v.id == item.variant_id %} disabled{% endunless %}>{{ v.title | escape }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- else -%}
+            <p class="vk-line__variant">{{ item.variant.title | escape }}</p>
+          {%- endif -%}
+        {%- endif -%}
         {%- for prop in item.properties -%}
           {%- unless prop.last == blank or prop.first contains '_' -%}<p class="vk-line__variant">{{ prop.first }}: {{ prop.last }}</p>{%- endunless -%}
         {%- endfor -%}
@@ -28,10 +58,14 @@
         {%- endfor -%}
       </div>
       <div class="vk-line__price">
-        {%- if item.original_line_price > item.final_line_price -%}<s class="vk-price__compare">{{ item.original_line_price | money }}</s>{%- endif -%}
-        <span>{{ item.final_line_price | money }}</span>
+        <span class="vk-line__now">{% if item.final_line_price == 0 %}{{ 'cart.free' | t }}{% else %}{{ item.final_line_price | money }}{% endif %}</span>
+        {%- if vk_line_save > 0 -%}
+          <s class="vk-price__compare">{{ vk_before | money }}</s>
+          <span class="vk-line__save">{{ 'cart.line_save' | t: amount: vk_line_save_money }}</span>
+        {%- endif -%}
       </div>
     </div>
+    {%- unless vk_is_gift -%}
     <div class="vk-line__actions">
       <vk-quantity class="vk-quantity vk-quantity--sm">
         <button type="button" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t }}">{% render 'vk-icon', name: 'minus', size: 14 %}</button>
@@ -40,6 +74,7 @@
       </vk-quantity>
       <a href="{{ item.url_to_remove }}" class="vk-line__remove" data-line-remove="{{ index }}">{{ 'cart.remove' | t }}<span class="vk-visually-hidden"> {{ item.product.title | escape }}</span></a>
     </div>
+    {%- endunless -%}
     <p class="vk-line__error" data-line-error role="alert" hidden></p>
   </div>
 </li>

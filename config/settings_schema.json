@@ -295,6 +295,22 @@
         "default": 75
       },
       {
+        "type": "header",
+        "content": "Free gift (e.g. e-book)"
+      },
+      {
+        "type": "product",
+        "id": "cart_gift_product",
+        "label": "Add this product free to every order",
+        "info": "Added automatically once the cart holds any other product, and removed when it no longer does. Its price in Shopify must be 0.00, otherwise it is not added. Turn off inventory tracking for a digital product."
+      },
+      {
+        "type": "text",
+        "id": "cart_gift_label",
+        "label": "Gift label in the cart",
+        "default": "Gratis bij je bestelling"
+      },
+      {
         "type": "checkbox",
         "id": "cart_free_shipping",
         "label": "Shipping is always free",

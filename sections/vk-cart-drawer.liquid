@@ -8,7 +8,7 @@
   <div class="vk-drawer__overlay"></div>
   <div class="vk-drawer__panel" tabindex="-1">
     <div class="vk-drawer__header">
-      <h2 id="vk-cart-drawer-title" class="vk-drawer__title">{{ 'cart.title' | t }} <span class="vk-cart-drawer__count vk-mono">({{ cart.item_count }})</span></h2>
+      <h2 id="vk-cart-drawer-title" class="vk-drawer__title">{{ 'cart.title' | t }} <span class="vk-cart-drawer__count" aria-label="{{ cart.item_count }}">{{ cart.item_count }}</span></h2>
       <button type="button" class="vk-icon-btn vk-icon-btn--plain" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'vk-icon', name: 'close', size: 22 %}</button>
     </div>
     <div class="vk-cart-drawer__content" data-cart-content>
@@ -32,17 +32,14 @@
           {%- endif -%}
         </div>
         <div class="vk-drawer__footer vk-cart-drawer__footer">
-          {%- for discount in cart.cart_level_discount_applications -%}
-            <p class="vk-cart-summary__row vk-cart-summary__row--discount"><span>{% render 'vk-icon', name: 'sparkle', size: 14 %}{{ discount.title }}</span><span>−{{ discount.total_allocated_amount | money }}</span></p>
-          {%- endfor -%}
-          {%- if settings.cart_free_shipping -%}<p class="vk-cart-summary__row vk-cart-summary__row--shipping"><span>{{ 'cart.shipping' | t }}</span><span>{{ 'cart.shipping_free' | t }}</span></p>{%- endif -%}
-          <p class="vk-cart-summary__row vk-cart-summary__row--total"><span>{{ 'cart.total' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></p>
+          {%- render 'vk-cart-summary', cart: cart -%}
           <form action="{{ routes.cart_url }}" method="post" class="vk-cart-drawer__checkout">
             <button type="submit" name="checkout" class="vk-btn vk-btn--primary vk-btn--lg vk-btn--block">
               <span class="vk-btn__label">{% render 'vk-icon', name: 'lock', size: 18 %}{{ 'cart.checkout_total' | t: total: vk_total_money }}</span>
             </button>
           </form>
-          <p class="vk-cart-drawer__trust">{{ settings.promise_warranty }} · {{ settings.promise_trial }} · {{ settings.promise_secure }}</p>
+          <button type="button" class="vk-cart-drawer__continue vk-link" data-drawer-close>{{ 'cart.continue' | t }}</button>
+          <p class="vk-cart-drawer__trust">{% render 'vk-icon', name: 'lock', size: 13 %}{{ 'cart.secure' | t }}</p>
           {% render 'vk-payment-icons', class: 'vk-cart-drawer__payments' %}
         </div>
       {%- else -%}

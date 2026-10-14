@@ -1,0 +1,12 @@
+import { chromium } from 'playwright-core';
+const B='http://localhost:4321';
+const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+const p = await b.newPage({ viewport: {width:390,height:844} });
+p.on('request', r=>{ if (/cart\//.test(r.url())) console.log('>>', r.method(), r.url().replace(B,''), (r.postData()||'').slice(0,160)); });
+p.on('response', async r=>{ if (/cart\/(add|change)/.test(r.url())) console.log('<<', r.status(), (await r.text()).slice(0,120)); });
+await p.goto(B+'/products/gehamerde-titanium-pan', { waitUntil: 'networkidle' });
+await p.click('[data-atc]'); await p.waitForTimeout(2000);
+console.log('--- select options:', await p.locator('vk-cart-drawer [data-line="1"] [data-line-variant] option').allTextContents());
+await p.locator('vk-cart-drawer [data-line="1"] [data-line-variant]').selectOption({ label: '32 cm' }); await p.waitForTimeout(2500);
+console.log((await (await p.request.get(B+'/cart.js')).json()).items.map(i=>i.quantity+'x'+i.variant_id).join(' '));
+await b.close();

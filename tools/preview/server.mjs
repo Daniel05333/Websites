@@ -34,6 +34,9 @@ function themeSettings() {
   const schemes = cur.color_schemes || {};
   out.color_schemes = Object.entries(schemes).map(([id, v]) => ({ id, settings: v.settings, toString() { return id; } }));
   out.cart_upsell_product = out.cart_upsell_product ? productByHandle(out.cart_upsell_product) : null;
+  // VK_GIFT=<handle> picks the free gift without touching settings_data (for testing).
+  const gift = process.env.VK_GIFT || out.cart_gift_product;
+  out.cart_gift_product = gift ? productByHandle(gift) : null;
   return out;
 }
 const money = (c) => c == null ? '' : '€' + (Number(c) / 100).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -96,7 +99,7 @@ const carts = new Map();
 function cartFor(req) { const sid = (req.headers.cookie || '').match(/vk_sid=(\w+)/)?.[1] || 'default'; if (!carts.has(sid)) carts.set(sid, { items: [], note: '' }); return carts.get(sid); }
 function findVariant(id) { for (const p of allProducts()) { const v = p.variants.find((x) => String(x.id) === String(id)); if (v) return { p, v }; } return null; }
 function cartObject(c) {
-  const items = c.items.map((it, i) => { const { p, v } = findVariant(it.id); return { key: `${v.id}:${i}`, id: v.id, variant_id: v.id, product_id: p.id, product: p, variant: v, title: p.title, quantity: it.quantity, price: v.price, final_price: v.price, line_price: v.price * it.quantity, final_line_price: v.price * it.quantity, original_line_price: v.price * it.quantity, url: v.url, image: null, properties: {}, line_level_discount_allocations: [], url_to_remove: `/cart/change?line=${i + 1}&quantity=0` }; });
+  const items = c.items.map((it, i) => { const { p, v } = findVariant(it.id); return { key: `${v.id}:vk`, id: v.id, variant_id: v.id, product_id: p.id, product: p, variant: v, title: p.title, quantity: it.quantity, price: v.price, final_price: v.price, line_price: v.price * it.quantity, final_line_price: v.price * it.quantity, original_line_price: v.price * it.quantity, url: v.url, image: null, properties: {}, line_level_discount_allocations: [], url_to_remove: `/cart/change?line=${i + 1}&quantity=0` }; });
   // Mirrors the automatic discounts the store owner sets up in Shopify (docs/11): % off the pan by quantity.
   for (const rule of AUTO_DISCOUNTS) {
     const lines = items.filter((it) => it.product.handle === rule.handle);
@@ -314,11 +317,17 @@ async function handleCart(req, res, url) {
   if (url.pathname === '/cart/add.js') {
     const items = []; if (b.id) items.push({ id: b.id, quantity: Number(b.quantity) || 1 });
     for (let i = 0; i < 5; i++) if (b[`items[${i}][id]`]) items.push({ id: b[`items[${i}][id]`], quantity: Number(b[`items[${i}][quantity]`]) || 1 });
+    if (Array.isArray(b.items)) for (const it of b.items) items.push({ id: it.id, quantity: Number(it.quantity) || 1 });
     for (const it of items) { if (!findVariant(it.id)) return send(res, 422, JSON.stringify({ status: 422, description: 'Variant not found' }), 'application/json'); const ex = cart.items.find((x) => String(x.id) === String(it.id)); ex ? (ex.quantity += it.quantity) : cart.items.push(it); }
-    return send(res, 200, JSON.stringify({ id: items[0]?.id, quantity: items[0]?.quantity, sections: await sectionsFor(req, b.sections, cart) }), 'application/json');
+    return send(res, 200, JSON.stringify({ id: items[0]?.id, quantity: items[0]?.quantity, sections: await sectionsFor(req, (b.sections && b.sections.join) ? b.sections.join(',') : b.sections, cart) }), 'application/json');
   }
-  if (url.pathname === '/cart/change.js') { const line = Number(b.line) - 1; if (cart.items[line]) { if (Number(b.quantity) === 0) cart.items.splice(line, 1); else cart.items[line].quantity = Number(b.quantity); } return send(res, 200, JSON.stringify({ ...cartJSON(cart), sections: await sectionsFor(req, (b.sections || []).join ? b.sections.join(',') : b.sections, cart) }), 'application/json'); }
-  if (url.pathname === '/cart/update.js') { if ('note' in b) cart.note = b.note; return send(res, 200, JSON.stringify(cartJSON(cart)), 'application/json'); }
+  if (url.pathname === '/cart/change.js') { const line = b.id != null ? cart.items.findIndex((x) => `${x.id}:vk` === String(b.id) || String(x.id) === String(b.id)) : Number(b.line) - 1; if (cart.items[line]) { if (Number(b.quantity) === 0) cart.items.splice(line, 1); else cart.items[line].quantity = Number(b.quantity); } return send(res, 200, JSON.stringify({ ...cartJSON(cart), sections: await sectionsFor(req, Array.isArray(b.sections) ? b.sections.join(',') : b.sections, cart) }), 'application/json'); }
+  if (url.pathname === '/cart/update.js') {
+    if ('note' in b) cart.note = b.note;
+    for (const [key, q] of Object.entries(b.updates || {})) { const i = cart.items.findIndex((x) => `${x.id}:vk` === key || String(x.id) === key); if (i < 0) continue; if (Number(q) === 0) cart.items.splice(i, 1); else cart.items[i].quantity = Number(q); }
+    const ids = b.sections ? ((b.sections || []).join ? b.sections.join(',') : b.sections) : null;
+    return send(res, 200, JSON.stringify({ ...cartJSON(cart), ...(ids ? { sections: await sectionsFor(req, ids, cart) } : {}) }), 'application/json');
+  }
   return send(res, 404, '{}', 'application/json');
 }
 

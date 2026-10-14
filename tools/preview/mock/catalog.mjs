@@ -188,6 +188,9 @@ export const products = [
         'Verkrijgbaar in de maten van de Volkara pannen',
         'Maakt van je koekenpan een pan om in te stoven',
       ]) }),
+  P(1015, 'titanium-kookgids-ebook', 'Titanium Kookgids (e-book)', 'E-book', ['digital'], [],
+    single(0, 1500, 'VK-EBOOK'),
+    { subtitle: 'Gratis bij elke bestelling.', description: html('Testproduct voor de preview: een digitaal e-book dat gratis bij elke bestelling wordt gevoegd.', []) }),
 ];
 
 export const collections = [
