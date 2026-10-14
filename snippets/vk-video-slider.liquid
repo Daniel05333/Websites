@@ -1,0 +1,91 @@
+{%- doc -%}
+  Video slider for the product page (block "Video slider"). Up to six slots; each takes an uploaded Shopify video
+  or a YouTube / Vimeo link. Empty slots are skipped. Uploaded videos load nothing until they scroll into view and
+  then play muted; embeds load only when tapped. In the theme editor, empty slots show where to add a video.
+  @param {object} block - The video_slider block.
+  @example
+  {% render 'vk-video-slider', block: block %}
+{%- enddoc -%}
+{%- liquid
+  assign b = block.settings
+  assign vk_count = 0
+  for i in (1..6)
+    assign k_video = 'video_' | append: i
+    assign k_url = 'url_' | append: i
+    if b[k_video] != blank or b[k_url] != blank
+      assign vk_count = vk_count | plus: 1
+    endif
+  endfor
+-%}
+{%- if vk_count > 0 or request.design_mode -%}
+  <div class="vk-pdp__block vk-vslider" {{ block.shopify_attributes }}>
+    {%- if b.heading != blank or b.text != blank -%}
+      <div class="vk-vslider__head">
+        {%- if b.heading != blank %}<p class="vk-eyebrow">{{ b.heading }}</p>{% endif -%}
+        {%- if b.text != blank %}<p class="vk-vslider__text vk-small vk-muted">{{ b.text }}</p>{% endif -%}
+      </div>
+    {%- endif -%}
+    <vk-slider class="vk-vslider__slider">
+      <ul class="vk-slider__track vk-vslider__track" data-slider-track role="list" tabindex="0" aria-label="{{ b.heading | default: 'Video' | escape }}">
+        {%- for i in (1..6) -%}
+          {%- liquid
+            assign k_video = 'video_' | append: i
+            assign k_url = 'url_' | append: i
+            assign k_caption = 'caption_' | append: i
+            assign vk_video = b[k_video]
+            assign vk_url = b[k_url]
+            assign vk_caption = b[k_caption]
+            assign k_poster = 'poster_' | append: i
+            assign vk_poster = b[k_poster]
+          -%}
+          {%- if vk_video != blank -%}
+            {%- liquid
+              assign vk_src = nil
+              for source in vk_video.sources
+                if source.format == 'mp4' and source.height <= 1080
+                  assign vk_src = source
+                endif
+              endfor
+              if vk_src == nil
+                for source in vk_video.sources
+                  unless source.format == 'm3u8'
+                    assign vk_src = source
+                    break
+                  endunless
+                endfor
+              endif
+            -%}
+            <li class="vk-vslider__slide">
+              <vk-video-card class="vk-vslider__card" data-kind="file">
+                <video class="vk-vslider__media" playsinline muted loop preload="none"
+                  {%- if vk_poster != blank %} poster="{{ vk_poster | image_url: width: 640 }}"{% elsif vk_video.preview_image %} poster="{{ vk_video.preview_image | image_url: width: 640 }}"{% endif %}
+                  aria-label="{{ vk_caption | default: vk_video.alt | escape }}">
+                  {%- if vk_src %}<source data-src="{{ vk_src.url }}" type="{{ vk_src.mime_type }}">{% endif -%}
+                </video>
+                <button type="button" class="vk-vslider__play" data-video-toggle aria-label="{{ 'sections.video.play' | t }}" data-label-play="{{ 'sections.video.play' | t | escape }}" data-label-pause="{{ 'sections.video.pause' | t | escape }}">{% render 'vk-icon', name: 'play', size: 18 %}</button>
+                <button type="button" class="vk-vslider__sound" data-video-sound aria-pressed="false" aria-label="{{ 'sections.video.sound' | t }}">{% render 'vk-icon', name: 'volume-off', size: 16 %}</button>
+                {%- if vk_caption != blank %}<p class="vk-vslider__caption">{{ vk_caption }}</p>{% endif -%}
+              </vk-video-card>
+            </li>
+          {%- elsif vk_url != blank -%}
+            <li class="vk-vslider__slide">
+              <vk-video-card class="vk-vslider__card" data-kind="embed" data-type="{{ vk_url.type }}" data-id="{{ vk_url.id }}" data-title="{{ vk_caption | default: 'Video' | escape }}">
+                {%- if vk_poster != blank -%}{{ vk_poster | image_url: width: 640 | image_tag: class: 'vk-vslider__media', loading: 'lazy', alt: '', sizes: '(min-width: 990px) 220px, 46vw' }}{%- endif -%}
+                <button type="button" class="vk-vslider__play vk-vslider__play--embed" data-video-embed aria-label="{{ 'sections.video.play' | t }}{% if vk_caption != blank %}: {{ vk_caption | escape }}{% endif %}">{% render 'vk-icon', name: 'play', size: 20 %}</button>
+                {%- if vk_caption != blank %}<p class="vk-vslider__caption">{{ vk_caption }}</p>{% endif -%}
+              </vk-video-card>
+            </li>
+          {%- elsif request.design_mode and i <= 3 -%}
+            <li class="vk-vslider__slide">
+              <div class="vk-vslider__card vk-vslider__empty">
+                {% render 'vk-icon', name: 'play', size: 20 %}
+                <span>{{ 'sections.video.empty' | t: number: i }}</span>
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      {%- render 'vk-slider-controls', class: 'vk-vslider__controls' -%}
+    </vk-slider>
+  </div>
+{%- endif -%}

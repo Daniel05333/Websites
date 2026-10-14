@@ -325,6 +325,12 @@
     "view_all": "Alle resultaten voor ‘{{ terms }}’"
   },
   "sections": {
+    "video": {
+      "play": "Video afspelen",
+      "pause": "Video pauzeren",
+      "sound": "Geluid aan of uit",
+      "empty": "Video {{ number }}: voeg hier een video toe in het blok Video slider"
+    },
     "process": {
       "step": "Stap",
       "steps_label": "Stappen"

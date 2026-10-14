@@ -187,6 +187,62 @@
     }
   });
 
+  /* ---------- Video slider cards ----------
+     Uploaded video: nothing is fetched until the card is on screen; then it plays muted and pauses again off
+     screen (and while the tab is hidden). Embeds stay a thumbnail until tapped. Reduced motion: no autoplay. */
+  define('vk-video-card', class extends HTMLElement {
+    connectedCallback() {
+      if (this._init) return; this._init = true;
+      this.video = this.querySelector('video');
+      this.addEventListener('click', (e) => {
+        if (e.target.closest('[data-video-embed]')) return this.embed();
+        if (e.target.closest('[data-video-sound]')) return this.toggleSound();
+        if (this.video && (e.target.closest('[data-video-toggle]') || e.target === this.video)) this.toggle(true);
+      });
+      if (!this.video) return;
+      this.video.addEventListener('play', () => this.sync()); this.video.addEventListener('pause', () => this.sync());
+      this.io = new IntersectionObserver(([en]) => {
+        this.visible = en.isIntersecting && en.intersectionRatio >= 0.6;
+        if (this.visible) { this.load(); if (!reduce() && !this.userPaused) this.play(); } else this.video.pause();
+      }, { threshold: [0, 0.6] });
+      this.io.observe(this);
+      this.onVis = () => { if (document.hidden) this.video.pause(); else if (this.visible && !reduce() && !this.userPaused) this.play(); };
+      document.addEventListener('visibilitychange', this.onVis);
+    }
+    disconnectedCallback() { this.io?.disconnect(); document.removeEventListener('visibilitychange', this.onVis); }
+    load() {
+      if (this.loaded) return; this.loaded = true;
+      this.video.querySelectorAll('source[data-src]').forEach((s) => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
+      this.video.preload = 'metadata'; this.video.load();
+    }
+    play() { this.load(); this.video.play().catch(() => {}); }
+    toggle(byUser) {
+      if (this.video.paused) { this.userPaused = false; this.play(); }
+      else { this.video.pause(); if (byUser) this.userPaused = true; }
+    }
+    toggleSound() {
+      this.video.muted = !this.video.muted;
+      const b = this.querySelector('[data-video-sound]'); b?.setAttribute('aria-pressed', String(!this.video.muted)); this.classList.toggle('is-unmuted', !this.video.muted);
+      if (!this.video.muted && this.video.paused) { this.userPaused = false; this.play(); }
+    }
+    sync() {
+      const playing = !this.video.paused; this.classList.toggle('is-playing', playing);
+      const t = this.querySelector('[data-video-toggle]'); if (t) t.setAttribute('aria-label', playing ? t.dataset.labelPause : t.dataset.labelPlay);
+    }
+    embed() {
+      if (this.querySelector('iframe')) return;
+      const { type, id, title } = this.dataset; if (!id) return;
+      const src = type === 'youtube'
+        ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&playsinline=1&rel=0&modestbranding=1`
+        : `https://player.vimeo.com/video/${encodeURIComponent(id)}?autoplay=1&playsinline=1&dnt=1`;
+      const frame = document.createElement('iframe');
+      Object.assign(frame, { src, title: title || 'Video', allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', loading: 'eager' });
+      frame.className = 'vk-vslider__media'; frame.setAttribute('allowfullscreen', '');
+      this.append(frame); this.classList.add('is-embedded');
+      frame.focus();
+    }
+  });
+
   /* ---------- Sticky ATC ---------- */
   define('vk-sticky-atc', class extends HTMLElement {
     connectedCallback() {

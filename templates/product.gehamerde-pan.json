@@ -161,6 +161,13 @@
         "share-17": {
           "type": "share",
           "settings": {}
+        },
+        "video_slider-18": {
+          "type": "video_slider",
+          "settings": {
+            "heading": "Bekijk hem in actie",
+            "text": ""
+          }
         }
       },
       "block_order": [
@@ -179,6 +186,7 @@
         "collapsible_tab-13",
         "collapsible_tab-14",
         "collapsible_tab-15",
+        "video_slider-18",
         "complementary-16",
         "share-17"
       ]

@@ -211,6 +211,9 @@ function resolveValue(type, v) {
   if (type === 'product') return productByHandle(v);
   if (type === 'link_list') return linklist(v);
   if (type === 'color_scheme') return v;
+  // Test hooks: "asset:<file>" stands in for an uploaded video; a YouTube/Vimeo URL becomes Shopify's video_url object.
+  if (type === 'video' && typeof v === 'string' && v.startsWith('asset:')) { const f = v.slice(6); const fmt = f.split('.').pop(); return { sources: [{ url: `/assets/${f}`, mime_type: `video/${fmt}`, format: fmt, height: 720 }], preview_image: null, alt: '' }; }
+  if (type === 'video_url' && typeof v === 'string') { const yt = v.match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{6,})/); const vm = v.match(/vimeo\.com\/(\d+)/); return yt ? { type: 'youtube', id: yt[1] } : vm ? { type: 'vimeo', id: vm[1] } : null; }
   if (type === 'image_picker' || type === 'video' || type === 'page') return null;
   return v;
 }
@@ -238,7 +241,7 @@ function baseContext(req, url, cart) {
   return {
     shop: { name: 'VOLKARA', url: `http://localhost:${PORT}`, currency: 'EUR', money_format: '€{{amount_with_comma_separator}}', money_with_currency_format: '€{{amount_with_comma_separator}} EUR', enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'ideal', 'klarna'], customer_accounts_enabled: true, policies: [], shipping_policy: { body: 'x', url: '/pages/verzenden-en-retourneren' } },
     settings, cart: cartObject(cart), customer: null, current_page: Number(url.searchParams.get('page')) || 1,
-    request: { locale: { iso_code: 'nl' }, design_mode: false, path: url.pathname, url: url.pathname + url.search, host: 'localhost' },
+    request: { locale: { iso_code: 'nl' }, design_mode: url.searchParams.has('design_mode'), path: url.pathname, url: url.pathname + url.search, host: 'localhost' },
     routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', cart_update_url: '/cart/update', cart_clear_url: '/cart/clear', predictive_search_url: '/search/suggest', product_recommendations_url: '/recommendations/products', search_url: '/search', collections_url: '/collections', all_products_collection_url: '/collections/all', account_url: '/account', account_login_url: '/account/login', account_logout_url: '/account/logout', account_register_url: '/account/register', account_addresses_url: '/account/addresses' },
     localization: { available_countries: [], available_languages: [] },
     collections: Object.fromEntries(mock.collections.map((c) => [c.handle, collectionByHandle(c.handle)])),

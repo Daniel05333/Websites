@@ -325,6 +325,12 @@
     "view_all": "Search for “{{ terms }}”"
   },
   "sections": {
+    "video": {
+      "play": "Play video",
+      "pause": "Pause video",
+      "sound": "Toggle sound",
+      "empty": "Video {{ number }}: add a video in the Video slider block"
+    },
     "process": {
       "step": "Step",
       "steps_label": "Steps"
