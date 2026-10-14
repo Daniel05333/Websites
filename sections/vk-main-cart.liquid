@@ -5,7 +5,7 @@
   <div class="vk-container">
     <div class="vk-main-cart__head">
       <h1 class="vk-h1" data-split>{{ section.settings.heading }}</h1>
-      {%- if cart.item_count > 0 %}<p class="vk-mono vk-muted">{{ 'cart.item_count' | t: count: cart.item_count }}</p>{% endif -%}
+      {%- if cart.item_count > 0 %}{% capture vk_count %}{% render 'vk-cart-count', cart: cart %}{% endcapture %}{% assign vk_count_n = vk_count | plus: 0 %}<p class="vk-mono vk-muted">{{ 'cart.item_count' | t: count: vk_count_n }}</p>{% endif -%}
     </div>
     {%- if cart.item_count > 0 -%}
       <div class="vk-main-cart__layout">
@@ -23,6 +23,7 @@
         <aside class="vk-main-cart__summary" aria-label="{{ 'cart.summary' | t }}">
           <div class="vk-main-cart__card">
             {% render 'vk-free-shipping-bar', cart: cart %}
+            {%- render 'vk-cart-insurance', cart: cart -%}
             {%- render 'vk-cart-summary', cart: cart -%}
             {%- if section.settings.show_note -%}
               <details class="vk-cart-note">

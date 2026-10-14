@@ -1,0 +1,19 @@
+{%- doc -%}
+  Number of items in the cart, without the shipping insurance (that is a service, not something you ordered).
+  Outputs the number only.
+  @param {object} cart - Cart.
+  @example
+  {% render 'vk-cart-count', cart: cart %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_n = cart.item_count
+  assign vk_ins = settings.cart_insurance_product.selected_or_first_available_variant
+  if vk_ins
+    for item in cart.items
+      if item.variant_id == vk_ins.id
+        assign vk_n = vk_n | minus: item.quantity
+      endif
+    endfor
+  endif
+  echo vk_n
+-%}

@@ -56,8 +56,10 @@
         {%- endif -%}
         <a href="{{ routes.cart_url }}" class="vk-header__icon vk-header__cart"{% if settings.cart_type == 'drawer' %} data-drawer-open="vk-cart-drawer" aria-controls="vk-cart-drawer" aria-expanded="false"{% endif %}>
           {% render 'vk-icon', name: 'bag', size: 20 %}
-          <span class="vk-visually-hidden">{{ 'header.cart' | t }} ({{ 'header.cart_count' | t: count: cart.item_count }})</span>
-          <span id="vk-cart-icon-bubble" class="vk-cart-icon-bubble"><span class="vk-cart-count{% if cart.item_count == 0 %} is-empty{% endif %}" data-cart-count aria-hidden="true">{{ cart.item_count }}</span></span>
+          {%- capture vk_count %}{% render 'vk-cart-count', cart: cart %}{% endcapture -%}
+          {%- assign vk_count_n = vk_count | plus: 0 -%}
+          <span class="vk-visually-hidden">{{ 'header.cart' | t }} ({{ 'header.cart_count' | t: count: vk_count_n }})</span>
+          <span id="vk-cart-icon-bubble" class="vk-cart-icon-bubble"><span class="vk-cart-count{% if vk_count_n == 0 %} is-empty{% endif %}" data-cart-count aria-hidden="true">{{ vk_count_n }}</span></span>
         </a>
       </div>
     </div>

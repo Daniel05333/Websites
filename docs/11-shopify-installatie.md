@@ -90,6 +90,7 @@ In *Thema aanpassen* → de productpagina met sjabloon `gehamerde-pan`:
   2. "Bundelkorting 20%": percentage 20, zelfde product, *Minimum aantal artikelen: 3*.
   Shopify past automatisch de hoogste toe. Wil je geen korting, zet dan in het blok *Bundle tiers* de velden *Tier 2/3 discount shown* op 0. Anders klopt de getoonde prijs niet met de winkelwagen.
 - **Gratis e-book:** *Thema-instellingen → Cart → Add this product free to every order*: kies het e-book. Het e-book moet in Shopify **€0,00** kosten (een vergelijkingsprijs mag), anders voegt het thema het niet toe. Zet bij een digitaal product *Voorraad bijhouden* uit en *Dit is een fysiek product* uit.
+- **Verzendverzekering:** maak in Shopify een product *Verzendverzekering* van €4,95 aan: geen fysiek product, voorraad niet bijhouden, wel beschikbaar in het verkoopkanaal *Online Store*. Kies het daarna bij *Thema-instellingen → Cart → Insurance product*. In de winkelwagen verschijnt dan een schakelaar die standaard **uit** staat. Een vooraf aangevinkte betaalde extra mag niet in de EU. Pas de tekst onder de schakelaar aan op wat je verzekering echt dekt. Wil je het product niet in zoekresultaten, zet dan het metaveld `seo.hidden` op 1.
 - **Koopknop:** alleen "In winkelwagen", zonder aantal en zonder Apple Pay of Shop Pay. Wil je ze terug, dan zitten ze als schakelaar in het blok *Buy buttons*.
 
 ### 9. Bekijken en publiceren

@@ -1,0 +1,28 @@
+{%- doc -%}
+  Opt-in shipping insurance switch (theme setting "Insurance product"). Off until the customer turns it on;
+  the switch adds or removes the insurance product, so its price is the product's own price in Shopify.
+  @param {object} cart - Cart.
+  @example
+  {% render 'vk-cart-insurance', cart: cart %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_ins = settings.cart_insurance_product.selected_or_first_available_variant
+  assign vk_ins_on = false
+  assign vk_ins_key = ''
+  for item in cart.items
+    if vk_ins and item.variant_id == vk_ins.id
+      assign vk_ins_on = true
+      assign vk_ins_key = item.key
+    endif
+  endfor
+-%}
+{%- if vk_ins and vk_ins.available -%}
+  <div class="vk-insurance{% if vk_ins_on %} is-on{% endif %}">
+    <button type="button" class="vk-insurance__switch" role="switch" aria-checked="{{ vk_ins_on }}" aria-labelledby="vk-ins-title" aria-describedby="vk-ins-text" data-insurance-toggle data-key="{{ vk_ins_key }}"><span class="vk-insurance__knob" aria-hidden="true"></span></button>
+    <div class="vk-insurance__copy">
+      <p class="vk-insurance__title" id="vk-ins-title">{% render 'vk-icon', name: 'shield', size: 16 %}{{ settings.cart_insurance_title }}</p>
+      {%- if settings.cart_insurance_text != blank %}<p class="vk-insurance__text" id="vk-ins-text">{{ settings.cart_insurance_text }}</p>{% endif -%}
+    </div>
+    <span class="vk-insurance__price">{{ vk_ins.price | money }}</span>
+  </div>
+{%- endif -%}

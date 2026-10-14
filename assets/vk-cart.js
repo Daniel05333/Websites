@@ -78,49 +78,81 @@
     });
   }
 
-  /* ---------- Free gift (e.g. the e-book) ----------
-     Theme setting "Add this product free to every order". After every cart change, and once on page load, the
-     cart is read from Shopify and corrected: one gift line while any other product is in the cart, none when the
-     cart holds nothing else. Our own corrections never publish a cart event, so they cannot trigger themselves.
-     The gift is only ever added when Shopify prices it at 0.00 — checked before adding and again in the cart. */
+  /* ---------- Cart rules: free gift (e.g. the e-book) and shipping insurance ----------
+     After every cart change, once on page load and on returning to the tab, the cart is read from Shopify and
+     corrected in one request:
+     - gift: one line while the cart holds a real product, none otherwise; only ever added when Shopify prices
+       it at 0.00 (checked before adding and again in the cart);
+     - insurance: at most one, and never on its own.
+     Neither counts as a "real product". Corrections publish no cart event, so they cannot trigger themselves. */
   const gift = VK.config.gift;
-  let giftBusy = false, giftAgain = false, giftBroken = false;
-  const syncGift = async () => {
-    if (!gift || giftBroken) return;
-    if (giftBusy) { giftAgain = true; return; }
-    giftBusy = true;
+  const insurance = VK.config.insurance;
+  let syncBusy = false, syncAgain = false, giftBroken = false;
+  const post = async (url, body) => {
+    const res = await fetch(url, { ...VK.fetchConfig(), body: JSON.stringify({ ...body, sections: sectionIds(), sections_url: location.pathname }) });
+    const data = await res.json();
+    if (!res.ok || data.status) throw new Error(data.description || data.message || 'cart error');
+    renderSections(data.sections);
+    if (document.querySelector('.vk-main-cart') && !data.sections?.['vk-main-cart']) location.reload();
+    return data;
+  };
+  const syncCart = async () => {
+    if (!gift && !insurance) return;
+    if (syncBusy) { syncAgain = true; return; }
+    syncBusy = true;
     try {
       const cart = await (await fetch(`${VK.routes.cart_url}.js`, { headers: { Accept: 'application/json' } })).json();
-      const lines = cart.items.filter((it) => it.variant_id === gift.variant);
-      const others = cart.items.some((it) => it.variant_id !== gift.variant);
-      const paid = lines.some((it) => it.final_price > 0);
-      const qty = lines.reduce((n, it) => n + it.quantity, 0);
-      let body = null, url = null;
-      if (others && !lines.length) {
-        if (gift.price !== 0 || !gift.available) { giftBroken = true; console.warn('VOLKARA: gift product skipped — it must cost 0.00 and be available.'); return; }
-        url = `${VK.routes.cart_add_url}.js`; body = { items: [{ id: gift.variant, quantity: 1 }] };
-      } else if (lines.length && (!others || paid)) {
+      const isGift = (it) => gift && it.variant_id === gift.variant;
+      const isIns = (it) => insurance && it.variant_id === insurance.variant;
+      const real = cart.items.some((it) => !isGift(it) && !isIns(it));
+      const updates = {};
+      let addGift = false;
+      if (gift && !giftBroken) {
+        const lines = cart.items.filter(isGift);
+        const paid = lines.some((it) => it.final_price > 0);
         if (paid) { giftBroken = true; console.warn('VOLKARA: gift product removed — Shopify charges for it.'); }
-        url = `${VK.routes.cart_update_url}.js`; body = { updates: Object.fromEntries(lines.map((it) => [it.key, 0])) };
-      } else if (qty > 1) {
-        url = `${VK.routes.cart_update_url}.js`; body = { updates: Object.fromEntries(lines.map((it, i) => [it.key, i === 0 ? 1 : 0])) };
+        if (real && !lines.length) {
+          if (gift.price !== 0 || !gift.available) { giftBroken = true; console.warn('VOLKARA: gift product skipped — it must cost 0.00 and be available.'); }
+          else addGift = true;
+        } else if (lines.length && (!real || paid)) lines.forEach((it) => { updates[it.key] = 0; });
+        else lines.forEach((it, i) => { if (i > 0 || it.quantity > 1) updates[it.key] = i === 0 ? 1 : 0; });
       }
-      if (!url) return;
-      const res = await fetch(url, { ...VK.fetchConfig(), body: JSON.stringify({ ...body, sections: sectionIds(), sections_url: location.pathname }) });
-      const data = await res.json();
-      if (!res.ok || data.status) { giftBroken = true; console.warn('VOLKARA: gift product could not be updated', data.description || data.message); return; }
-      renderSections(data.sections);
-      if (document.querySelector('.vk-main-cart') && !data.sections?.['vk-main-cart']) location.reload();
-    } catch (e) { console.error(e); }
-    finally { giftBusy = false; if (giftAgain) { giftAgain = false; syncGift(); } }
+      if (insurance) {
+        const lines = cart.items.filter(isIns);
+        if (lines.length && !real) lines.forEach((it) => { updates[it.key] = 0; });
+        else lines.forEach((it, i) => { if (i > 0 || it.quantity > 1) updates[it.key] = i === 0 ? 1 : 0; });
+      }
+      if (Object.keys(updates).length) await post(`${VK.routes.cart_update_url}.js`, { updates });
+      if (addGift) {
+        // A gift that cannot be added (sold out, unpublished) is not retried on every change.
+        try { await post(`${VK.routes.cart_add_url}.js`, { items: [{ id: gift.variant, quantity: 1 }] }); } catch (err) { giftBroken = true; throw err; }
+      }
+    } catch (e) { console.warn('VOLKARA: cart rules', e.message || e); }
+    finally { syncBusy = false; if (syncAgain) { syncAgain = false; syncCart(); } }
   };
-  VK.syncGift = syncGift;
-  if (gift) {
-    VK.subscribe(VK.EVENTS.cartUpdate, () => syncGift());
+  VK.syncCart = syncCart;
+  if (gift || insurance) {
+    VK.subscribe(VK.EVENTS.cartUpdate, () => syncCart());
     // A refresh, a back/forward visit or another tab can leave the cart out of step.
-    window.addEventListener('pageshow', () => syncGift());
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) syncGift(); });
+    window.addEventListener('pageshow', () => syncCart());
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) syncCart(); });
   }
+
+  /* Shipping insurance switch: off until the customer turns it on. */
+  document.addEventListener('click', async (e) => {
+    const sw = e.target.closest('[data-insurance-toggle]'); if (!sw || !insurance || sw.disabled) return;
+    const on = sw.getAttribute('aria-checked') !== 'true';
+    sw.disabled = true; sw.setAttribute('aria-checked', String(on)); sw.closest('.vk-insurance')?.classList.toggle('is-on', on);
+    try {
+      if (on) await post(`${VK.routes.cart_add_url}.js`, { items: [{ id: insurance.variant, quantity: 1 }] });
+      else if (sw.dataset.key) await post(`${VK.routes.cart_update_url}.js`, { updates: { [sw.dataset.key]: 0 } });
+      else { const cart = await (await fetch(`${VK.routes.cart_url}.js`)).json(); const keys = cart.items.filter((it) => it.variant_id === insurance.variant).map((it) => it.key); if (keys.length) await post(`${VK.routes.cart_update_url}.js`, { updates: Object.fromEntries(keys.map((k) => [k, 0])) }); }
+      syncCart();
+    } catch (err) {
+      console.warn('VOLKARA: insurance', err.message || err);
+      sw.setAttribute('aria-checked', String(!on)); sw.closest('.vk-insurance')?.classList.toggle('is-on', !on); sw.disabled = false;
+    }
+  });
 
   /* ---------- Change a line's size from the cart ----------
      Shopify cannot swap a line's variant, so the line is set to 0 and the new variant added with the same

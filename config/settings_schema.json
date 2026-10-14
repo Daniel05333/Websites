@@ -311,6 +311,29 @@
         "default": "Gratis bij je bestelling"
       },
       {
+        "type": "header",
+        "content": "Shipping insurance"
+      },
+      {
+        "type": "product",
+        "id": "cart_insurance_product",
+        "label": "Insurance product",
+        "info": "Shows an opt-in switch in the cart that adds this product (e.g. 'Verzendverzekering', 4.95). Off by default: EU law does not allow paid extras to be pre-selected. Removed automatically when the cart holds nothing else."
+      },
+      {
+        "type": "text",
+        "id": "cart_insurance_title",
+        "label": "Switch title",
+        "default": "Verzendverzekering"
+      },
+      {
+        "type": "text",
+        "id": "cart_insurance_text",
+        "label": "Switch text",
+        "default": "Verzekerd tegen verlies, schade en diefstal",
+        "info": "Describe only what your insurance actually covers."
+      },
+      {
         "type": "checkbox",
         "id": "cart_free_shipping",
         "label": "Shipping is always free",

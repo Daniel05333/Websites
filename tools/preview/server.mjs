@@ -37,6 +37,8 @@ function themeSettings() {
   // VK_GIFT=<handle> picks the free gift without touching settings_data (for testing).
   const gift = process.env.VK_GIFT || out.cart_gift_product;
   out.cart_gift_product = gift ? productByHandle(gift) : null;
+  const ins = process.env.VK_INSURANCE || out.cart_insurance_product;
+  out.cart_insurance_product = ins ? productByHandle(ins) : null;
   return out;
 }
 const money = (c) => c == null ? '' : '€' + (Number(c) / 100).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');

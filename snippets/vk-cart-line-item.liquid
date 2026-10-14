@@ -21,7 +21,14 @@
   endif
   assign vk_line_save = vk_before | minus: item.final_line_price
   assign vk_line_save_money = vk_line_save | money
+  # The shipping insurance is shown as the switch in the cart footer, not as a product line.
+  assign vk_ins_v = settings.cart_insurance_product.selected_or_first_available_variant
+  assign vk_is_ins = false
+  if vk_ins_v and item.variant_id == vk_ins_v.id
+    assign vk_is_ins = true
+  endif
 -%}
+{%- unless vk_is_ins -%}
 <li class="vk-line{% if vk_is_gift %} vk-line--gift{% endif %}" data-line="{{ index }}" data-key="{{ item.key }}" style="--vk-i: {{ index | minus: 1 }};">
   <a href="{{ item.url }}" class="vk-line__media vk-media vk-ratio-square" tabindex="-1" aria-hidden="true">
     {%- if item.image -%}
@@ -78,3 +85,4 @@
     <p class="vk-line__error" data-line-error role="alert" hidden></p>
   </div>
 </li>
+{%- endunless -%}
