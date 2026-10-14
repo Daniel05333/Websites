@@ -12,7 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Liquid, Tag, Hash } from 'liquidjs';
 import * as mock from './mock/catalog.mjs';
-const AUTO_DISCOUNTS = [{ handle: 'gehamerde-titanium-pan', title: 'Bundelkorting', tiers: [[3, 10], [2, 5]] }];
+const AUTO_DISCOUNTS = [{ handle: 'gehamerde-titanium-pan', title: 'Bundelkorting', tiers: [[3, 20], [2, 10]] }];
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const PORT = Number(process.env.PORT || 4321);

@@ -1,18 +1,7 @@
-/*
- * VOLKARA template. Edit in the Shopify theme editor.
- */
 {
   "sections": {
     "main": {
       "type": "vk-main-product",
-      "settings": {
-        "gallery_chip": "25 jaar garantie",
-        "show_sticky_atc": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 96,
-        "gallery_effects": true
-      },
       "blocks": {
         "badge-1": {
           "type": "badge",
@@ -61,25 +50,25 @@
           "type": "bundle_picker",
           "settings": {
             "label": "Magazijnuitverkoop deal",
+            "nest_variants": true,
+            "size_style": "dropdown",
             "t1_title": "Enkel",
             "t1_text": "De perfecte titanium pan voor dagelijks koken.",
             "t2_title": "Set",
             "t2_text": "Twee pannen, jij kiest per pan de maat.",
-            "t2_tag": "Aanbevolen · 5% korting",
-            "t2_product": "set-2-pannen",
+            "t2_tag": "Aanbevolen · 10% korting",
+            "t2_pick": 2,
+            "t2_discount": 10,
             "t2_items": "",
             "t2_addon": "",
+            "t2_product": "set-2-pannen",
             "t3_title": "Complete set",
             "t3_text": "Drie pannen in de maten die jij wilt, met de grootste besparing.",
-            "t3_tag": "10% korting",
-            "t3_product": "complete-set",
-            "t3_items": "",
-            "nest_variants": true,
-            "t2_pick": 2,
-            "t2_discount": 5,
+            "t3_tag": "20% korting",
             "t3_pick": 3,
-            "t3_discount": 10,
-            "size_style": "dropdown"
+            "t3_discount": 20,
+            "t3_items": "",
+            "t3_product": "complete-set"
           }
         },
         "countdown-8": {
@@ -118,6 +107,7 @@
             "icon": "list",
             "source": "description",
             "content": "",
+            "page": "",
             "open": true
           }
         },
@@ -128,6 +118,7 @@
             "icon": "list",
             "source": "specs",
             "content": "",
+            "page": "",
             "open": false
           }
         },
@@ -138,6 +129,7 @@
             "icon": "truck",
             "source": "custom",
             "content": "<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>30 dagen retour.</strong> Niet tevreden? Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer.</p><p><strong>25 jaar garantie.</strong> Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Je wettelijke rechten blijven daarnaast gelden.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "page": "",
             "open": false
           }
         },
@@ -148,6 +140,7 @@
             "icon": "drop",
             "source": "care",
             "content": "<p><strong>Voor het eerste gebruik.</strong> Was de pan met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Elke dag.</strong> Verwarm de pan twee tot drie minuten voor op middelhoog vuur, tot een druppel water over het oppervlak danst. Voeg olie toe, laat die even warm worden en begin met koken.</p><p><strong>Schoonmaken.</strong> Warm water en een zachte spons, of de vaatwasser. Zit er iets aangekoekt? Laat een bodem water een minuutje koken en veeg de pan schoon.</p><p>Meer tips in de gratis <a href=\"/pages/titanium-kookgids\">Titanium Kookgids</a>.</p>",
+            "page": "",
             "open": false
           }
         },
@@ -189,16 +182,18 @@
         "video_slider-18",
         "complementary-16",
         "share-17"
-      ]
+      ],
+      "settings": {
+        "gallery_chip": "25 jaar garantie",
+        "gallery_effects": true,
+        "show_sticky_atc": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      }
     },
     "stage": {
       "type": "vk-forge-stage",
-      "settings": {
-        "label": "De Gehamerde Titanium Pan van dichtbij",
-        "length": 450,
-        "palette": "lava-titanium",
-        "sparks": 450
-      },
       "blocks": {
         "slide-1": {
           "type": "slide",
@@ -211,6 +206,7 @@
             "show_image": false,
             "button_label": "",
             "button_url": "",
+            "button_to_buy": false,
             "button2_label": "",
             "button2_url": ""
           }
@@ -226,6 +222,7 @@
             "show_image": true,
             "button_label": "",
             "button_url": "",
+            "button_to_buy": false,
             "button2_label": "",
             "button2_url": ""
           }
@@ -241,6 +238,7 @@
             "show_image": false,
             "button_label": "",
             "button_url": "",
+            "button_to_buy": false,
             "button2_label": "",
             "button2_url": ""
           }
@@ -252,13 +250,13 @@
             "title": "Gebouwd voor|generaties",
             "text": "Japans vakmanschap, gemaakt om elke dag te presteren.",
             "text_2": "",
-            "column": "2",
+            "column": "4",
             "show_image": false,
             "button_label": "Kies je set",
             "button_url": "",
+            "button_to_buy": false,
             "button2_label": "Bekijk de kookgids",
-            "button2_url": "/pages/titanium-kookgids",
-            "button_to_buy": true
+            "button2_url": "/pages/titanium-kookgids"
           }
         }
       },
@@ -267,25 +265,21 @@
         "slide-2",
         "slide-3",
         "slide-4"
-      ]
+      ],
+      "settings": {
+        "label": "De Gehamerde Titanium Pan van dichtbij",
+        "length": 450,
+        "palette": "lava-titanium",
+        "sparks": 450
+      }
     },
     "problem": {
       "type": "vk-problem",
-      "settings": {
-        "index": "",
-        "eyebrow": "Het probleem",
-        "heading": "Waarom je huidige pan niet <em>voldoet</em>.",
-        "subheading": "Traditionele pannen verliezen hun kracht. Veel standaard pannen gebruiken coatings die na verloop van tijd slijten, beschadigen of minder goed presteren.",
-        "transition_text": "Het kan anders",
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 96,
-        "stack_effect": true
-      },
       "blocks": {
         "card-1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/709585ba-8358-475a-ad60-bd3ed8612ff0.jpg",
             "fallback": "none",
             "stat": "COATING SLIJT",
             "stat_label": "door hitte, schuren en afwassen",
@@ -296,6 +290,7 @@
         "card-2": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/93ae421b-f290-4394-952a-7c158278c173.jpg",
             "fallback": "vk-visual-problem-coating.webp",
             "stat": "HOTSPOTS",
             "stat_label": "het midden te heet, de rand te koud",
@@ -306,6 +301,7 @@
         "card-3": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/39bd8643-9c6c-43ef-9ae4-e23f6e6de936.jpg",
             "fallback": "none",
             "stat": "VERVANGEN",
             "stat_label": "steeds weer een nieuwe pan",
@@ -318,20 +314,21 @@
         "card-1",
         "card-2",
         "card-3"
-      ]
+      ],
+      "settings": {
+        "index": "",
+        "eyebrow": "Het probleem",
+        "heading": "Waarom je huidige pan niet <em>voldoet</em>.",
+        "subheading": "Traditionele pannen verliezen hun kracht. Veel standaard pannen gebruiken coatings die na verloop van tijd slijten, beschadigen of minder goed presteren.",
+        "transition_text": "Het kan anders",
+        "stack_effect": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 96
+      }
     },
     "process": {
       "type": "vk-process",
-      "settings": {
-        "index": "",
-        "eyebrow": "Zo komt hij tot stand",
-        "heading": "Van ontwerp tot <em>afgewerkt product</em>",
-        "subheading": "",
-        "note": "Een algemeen overzicht. We noemen alleen wat we kunnen onderbouwen.",
-        "color_scheme": "scheme-1",
-        "padding_top": 96,
-        "padding_bottom": 96
-      },
       "blocks": {
         "step-1": {
           "type": "step",
@@ -380,25 +377,21 @@
         "step-3",
         "step-4",
         "step-5"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "index": "",
+        "eyebrow": "Zo komt hij tot stand",
+        "heading": "Van ontwerp tot <em>afgewerkt product</em>",
+        "subheading": "",
+        "note": "Een algemeen overzicht. We noemen alleen wat we kunnen onderbouwen.",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
     "reviews": {
       "type": "vk-reviews",
-      "settings": {
-        "index": "",
-        "eyebrow": "Reviews",
-        "heading": "Dit zeggen onze <em>klanten</em>.",
-        "subheading": "",
-        "show_summary": true,
-        "average": "",
-        "autoplay": false,
-        "link_label": "",
-        "link": "",
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "stack_effect": true
-      },
       "blocks": {
         "review-1": {
           "type": "review",
@@ -438,25 +431,26 @@
         "review-1",
         "review-2",
         "review-3"
-      ]
+      ],
+      "settings": {
+        "index": "",
+        "eyebrow": "Reviews",
+        "heading": "Dit zeggen onze <em>klanten</em>.",
+        "subheading": "",
+        "show_summary": true,
+        "average": "",
+        "autoplay": false,
+        "link_label": "",
+        "link": "",
+        "stack_effect": true,
+        "show_contours": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
     },
     "comparison": {
       "type": "vk-comparison",
-      "settings": {
-        "index": "",
-        "eyebrow": "De vergelijking",
-        "heading": "Volkara vs. gewone <em>pannen</em>.",
-        "subheading": "Zo verhoudt de Gehamerde Titanium Pan zich tot een gewone pan.",
-        "competitor_1": "Gewone pannen",
-        "competitor_2": "",
-        "footnote": "",
-        "button_label": "",
-        "button_url": "",
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "show_contours": true
-      },
       "blocks": {
         "row-1": {
           "type": "row",
@@ -525,24 +519,26 @@
         "row-3",
         "row-4",
         "row-5"
-      ]
+      ],
+      "settings": {
+        "index": "",
+        "eyebrow": "De vergelijking",
+        "heading": "Volkara vs. gewone <em>pannen</em>.",
+        "subheading": "Zo verhoudt de Gehamerde Titanium Pan zich tot een gewone pan.",
+        "competitor_1": "Gewone pannen",
+        "competitor_2": "",
+        "footnote": "",
+        "button_label": "",
+        "button_url": "",
+        "stack_effect": false,
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
     },
     "faq": {
       "type": "vk-faq",
-      "settings": {
-        "layout": "split",
-        "index": "",
-        "eyebrow": "Vragen",
-        "heading": "Twijfel je <em>nog</em>?",
-        "subheading": "",
-        "show_filter": false,
-        "contact_title": "Nog vragen?",
-        "contact_text": "Neem contact met ons op. We helpen je graag.",
-        "contact_url": "/pages/contact",
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 120
-      },
       "blocks": {
         "question-1": {
           "type": "question",
@@ -610,26 +606,24 @@
         "question-6",
         "question-7",
         "question-8"
-      ]
+      ],
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Vragen",
+        "heading": "Twijfel je <em>nog</em>?",
+        "subheading": "",
+        "show_filter": false,
+        "contact_title": "Nog vragen?",
+        "contact_text": "Neem contact met ons op. We helpen je graag.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
     },
     "cta": {
       "type": "vk-cta",
-      "settings": {
-        "layout": "inset",
-        "fallback": "vk-visual-macro.webp",
-        "show_embers": true,
-        "eyebrow": "Klaar voor het echte werk?",
-        "heading": "Stap over op <em>titanium</em>.",
-        "subheading": "Een betere pan begint met beter materiaal.",
-        "button_label": "Kies jouw pan",
-        "button_url": "",
-        "guarantee": "",
-        "color_scheme": "scheme-1",
-        "padding_top": 96,
-        "padding_bottom": 120,
-        "show_contours": true,
-        "button_to_buy": true
-      },
       "blocks": {
         "chip-1": {
           "type": "chip",
@@ -657,7 +651,23 @@
         "chip-1",
         "chip-2",
         "chip-3"
-      ]
+      ],
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-macro.webp",
+        "show_embers": true,
+        "eyebrow": "Klaar voor het echte werk?",
+        "heading": "Stap over op <em>titanium</em>.",
+        "subheading": "Een betere pan begint met beter materiaal.",
+        "button_label": "Kies jouw pan",
+        "button_url": "",
+        "button_to_buy": true,
+        "guarantee": "",
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      }
     },
     "recommendations": {
       "type": "vk-product-recommendations",

@@ -1,18 +1,1 @@
-{
-  "type": "footer",
-  "name": "Footer group",
-  "sections": {
-    "footer": {
-      "type": "vk-footer",
-      "blocks": {
-        "brand": { "type": "brand", "settings": { "text": "<p>Titanium kookgerei met VolcanicCore™-opbouw. Zonder coating, voor elke kookplaat en voor dagelijks gebruik.</p>", "email": "support@volkara.com", "hours": "", "address": "" } },
-        "menu-shop": { "type": "menu", "settings": { "heading": "Collectie", "menu": "footer-shop" } },
-        "menu-help": { "type": "menu", "settings": { "heading": "Klantenservice", "menu": "footer-help" } },
-        "menu-legal": { "type": "menu", "settings": { "heading": "Voorwaarden", "menu": "footer-legal" } }
-      },
-      "block_order": ["brand", "menu-shop", "menu-help", "menu-legal"],
-      "settings": { "color_scheme": "scheme-1", "show_newsletter": true, "newsletter_eyebrow": "Nieuwsbrief", "newsletter_text": "Kooktips, recepten en nieuwe producten in je inbox. Afmelden kan altijd.", "show_promises": true, "show_payment_icons": true, "show_wordmark": true, "legal_text": "Alle prijzen zijn inclusief btw." }
-    }
-  },
-  "order": ["footer"]
-}
+{"type":"footer","name":"Footer group","sections":{"footer":{"type":"vk-footer","blocks":{"brand":{"type":"brand","settings":{"text":"<p>Titanium kookgerei met VolcanicCore™-opbouw. Zonder coating, voor elke kookplaat en voor dagelijks gebruik.<\/p>","email":"support@volkara.com","hours":"","address":""}},"menu-shop":{"type":"menu","settings":{"heading":"Collectie","menu":""}},"menu-help":{"type":"menu","settings":{"heading":"Klantenservice","menu":""}},"menu-legal":{"type":"menu","settings":{"heading":"Voorwaarden","menu":""}}},"block_order":["brand","menu-shop","menu-help","menu-legal"],"settings":{"color_scheme":"scheme-1","show_newsletter":true,"newsletter_eyebrow":"Nieuwsbrief","newsletter_text":"Kooktips, recepten en nieuwe producten in je inbox. Afmelden kan altijd.","show_promises":true,"show_payment_icons":true,"show_wordmark":true,"legal_text":""}}},"order":["footer"]}
