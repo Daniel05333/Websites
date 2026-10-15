@@ -1,12 +1,29 @@
 {%- doc -%}
-  Accepted payment methods from the store's checkout settings.
+  Accepted payment methods from the store's checkout settings, plus settings.payment_icons_extra.
   @param {string} [class] - Extra classes.
   @example
   {% render 'vk-payment-icons' %}
 {%- enddoc -%}
-{%- if shop.enabled_payment_types.size > 0 -%}
+{%- liquid
+  # Shopify does not list every method (iDEAL via some providers is missing), so the theme setting adds extras.
+  assign vk_types = shop.enabled_payment_types | join: ','
+  assign vk_extra = settings.payment_icons_extra | downcase | remove: ' ' | split: ','
+  for vk_e in vk_extra
+    if vk_e != blank
+      unless shop.enabled_payment_types contains vk_e
+        if vk_types == blank
+          assign vk_types = vk_e
+        else
+          assign vk_types = vk_types | append: ',' | append: vk_e
+        endif
+      endunless
+    endif
+  endfor
+  assign vk_types = vk_types | split: ','
+-%}
+{%- if vk_types.size > 0 -%}
   <ul class="vk-payment-icons{% if class %} {{ class }}{% endif %}" role="list" aria-label="{{ 'general.payment_methods' | t }}">
-    {%- for type in shop.enabled_payment_types -%}
+    {%- for type in vk_types -%}
       <li>{{ type | payment_type_svg_tag: class: 'vk-payment-icon' }}</li>
     {%- endfor -%}
   </ul>

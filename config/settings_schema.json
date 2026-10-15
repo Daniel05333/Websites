@@ -272,6 +272,13 @@
     "name": "Cart",
     "settings": [
       {
+        "type": "text",
+        "id": "payment_icons_extra",
+        "label": "Extra payment icons",
+        "info": "Shown next to the methods Shopify lists automatically (under the add-to-cart button, in the cart and footer). Comma-separated, e.g. ideal, bancontact, klarna. Only add methods you really accept.",
+        "default": "ideal"
+      },
+      {
         "type": "select",
         "id": "cart_type",
         "label": "Cart type",
