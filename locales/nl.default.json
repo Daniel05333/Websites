@@ -25,7 +25,7 @@
   },
   "cart": {
     "checkout": "Afrekenen",
-    "checkout_total": "Afrekenen · {{ total }}",
+    "checkout_total": "Afrekenen — {{ total }}",
     "continue": "Verder winkelen",
     "empty": "Je winkelwagen is leeg.",
     "empty_primary": "Bekijk de Forge Pan",

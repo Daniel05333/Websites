@@ -113,3 +113,60 @@ vk-cart-drawer[open] .vk-line { animation: vk-fade-up 600ms var(--vk-ease-out) b
 .vk-insurance__text { margin: .15rem 0 0; font-size: .75rem; color: var(--vk-fg-subtle); }
 .vk-insurance__price { font-family: var(--vk-font-display); font-weight: 600; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .vk-insurance__knob, .vk-insurance__switch { transition: none; } }
+
+/* ==========================================================================
+   Compact cart (after the reference): tighter lines, rectangular controls,
+   price beside its old price, a short footer with plain rules.
+   ========================================================================== */
+.vk-cart-drawer .vk-drawer__header { padding: 1rem 1.25rem; }
+.vk-cart-drawer .vk-drawer__title { display: flex; align-items: center; gap: .55rem; font-size: 1.375rem; }
+.vk-cart-drawer__count { min-width: 1.5rem; height: 1.5rem; margin-left: 0; font-size: .75rem; }
+.vk-cart-drawer__close { width: 40px; height: 40px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--vk-border-strong); background: rgba(var(--vk-fg-rgb), .03); }
+.vk-cart-drawer .vk-drawer__body { padding: 0 1.25rem; }
+
+/* lines: title on top, controls under it on the left, price centred on the right */
+.vk-line { grid-template-columns: 72px minmax(0, 1fr); gap: .9rem; padding: 1rem 0; align-items: start; }
+.vk-line:first-child { padding-top: 1rem; }
+.vk-line__media { border-radius: 10px; box-shadow: inset 0 0 0 1px var(--vk-border); }
+.vk-line__info { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: .75rem; row-gap: .45rem; align-content: start; }
+.vk-line__top { display: contents; }
+.vk-line__top > div:first-child { grid-column: 1 / -1; min-width: 0; }
+.vk-line__title { display: block; font-size: .9375rem; line-height: 1.3; }
+.vk-line__variant-select { margin-top: .4rem; max-width: 9.5rem; }
+.vk-line__variant-select .vk-select { min-height: 34px; height: 34px; padding: 0 2rem 0 .7rem; border-radius: 8px; font-size: .8125rem; background-position: right .6rem center; }
+.vk-line__discount { font-size: .75rem; }
+.vk-line__actions { grid-column: 1; grid-row: 2; display: flex; flex-direction: column; align-items: flex-start; gap: .4rem; }
+.vk-line__price { grid-column: 2; grid-row: 2; align-self: center; display: grid; justify-items: end; gap: .15rem; }
+.vk-line__amounts { display: inline-flex; align-items: baseline; gap: .4rem; }
+.vk-line__now { font-size: .9375rem; }
+.vk-line__price s { font-size: .75rem; font-weight: 400; color: var(--vk-fg-subtle); }
+.vk-line__save { font-size: .6875rem; }
+.vk-line__remove { font-size: .75rem; }
+.vk-line__error { grid-column: 1 / -1; margin: 0; }
+.vk-line .vk-quantity { height: 34px; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--vk-border-strong); overflow: hidden; }
+.vk-line .vk-quantity button { width: 32px; border-radius: 0; }
+.vk-line .vk-quantity button:hover { background: rgba(var(--vk-fg-rgb), .06); }
+.vk-line .vk-quantity input { width: 2.1rem; font-size: .8125rem; box-shadow: inset 1px 0 0 var(--vk-border-strong), inset -1px 0 0 var(--vk-border-strong); }
+/* gift line: no controls, so the price sits beside the title block */
+.vk-line--gift .vk-line__price { grid-row: 1; align-self: start; }
+.vk-line--gift .vk-line__top > div:first-child { grid-column: 1; }
+.vk-line--gift { margin-inline: -1.25rem; padding-inline: 1.25rem; }
+.vk-line__gift { margin-top: .3rem; padding: .2rem .5rem; font-size: .6875rem; border-radius: 6px; }
+
+/* footer: insurance row, rules between subtotal and total, plain button */
+.vk-cart-drawer__footer { gap: .55rem; padding: .9rem 1.25rem calc(.9rem + env(safe-area-inset-bottom)); }
+.vk-insurance { padding: .15rem 0 .7rem; border-radius: 0; box-shadow: none; background: none; border-bottom: 1px solid var(--vk-border); gap: .75rem; }
+.vk-insurance.is-on { box-shadow: none; background: none; }
+.vk-insurance__title { font-size: .875rem; }
+.vk-insurance__text { font-size: .6875rem; }
+.vk-insurance__price { font-size: .9375rem; color: var(--vk-molten); }
+.vk-cart-summary { gap: 0; }
+.vk-cart-summary__row { padding: .45rem 0; font-size: .8125rem; color: var(--vk-fg-muted); }
+.vk-cart-summary__row--sub s { font-size: .75rem; }
+.vk-cart-summary__row--total { border-top: 1px solid var(--vk-border); margin-top: .1rem; padding-top: .6rem; font-size: 1.125rem; color: var(--vk-fg); }
+.vk-cart-summary__saved { margin-top: .2rem; font-size: .75rem; }
+.vk-cart-drawer__checkout .vk-btn { --vk-btn-h: 50px; border-radius: 10px; box-shadow: none; font-size: .875rem; letter-spacing: .12em; text-transform: uppercase; }
+.vk-cart-drawer__checkout .vk-btn svg { display: none; }
+.vk-cart-drawer__continue { padding: .1rem; font-size: .8125rem; text-decoration: underline; text-underline-offset: .25em; }
+.vk-cart-drawer__trust { font-size: .6875rem; }
+@media (max-width: 749px) { .vk-cart-drawer { --vk-drawer-w: 100%; } }

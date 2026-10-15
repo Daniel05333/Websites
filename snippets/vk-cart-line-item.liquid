@@ -65,11 +65,11 @@
         {%- endfor -%}
       </div>
       <div class="vk-line__price">
-        <span class="vk-line__now">{% if item.final_line_price == 0 %}{{ 'cart.free' | t }}{% else %}{{ item.final_line_price | money }}{% endif %}</span>
-        {%- if vk_line_save > 0 -%}
-          <s class="vk-price__compare">{{ vk_before | money }}</s>
-          <span class="vk-line__save">{{ 'cart.line_save' | t: amount: vk_line_save_money }}</span>
-        {%- endif -%}
+        <span class="vk-line__amounts">
+          <span class="vk-line__now">{% if item.final_line_price == 0 %}{{ 'cart.free' | t }}{% else %}{{ item.final_line_price | money }}{% endif %}</span>
+          {%- if vk_line_save > 0 %}<s class="vk-price__compare">{{ vk_before | money }}</s>{% endif -%}
+        </span>
+        {%- if vk_line_save > 0 %}<span class="vk-line__save">{{ 'cart.line_save' | t: amount: vk_line_save_money }}</span>{% endif -%}
       </div>
     </div>
     {%- unless vk_is_gift -%}
