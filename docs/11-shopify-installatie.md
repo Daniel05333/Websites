@@ -118,8 +118,7 @@ Een nieuwe verhaalpagina, los van je bestaande `page.about`-template (die blijft
 2. Kies rechts bij **Thema-template** voor `ons-verhaal` en sla op.
 3. Pas alles aan in de thema-editor. Secties: Story hero, Story timeline, Story team, Story values, Afbeelding + tekst, Story proof + CTA.
 
-Let op (eerlijke claims):
-- **Tijdlijn**: de labels zijn stappen ("Het begin", "De zoektocht"…). Vervang ze alleen door jaartallen die kloppen.
-- **Team** staat standaard verborgen. Zet hem aan zodra je echte foto's, namen en functies hebt.
-- **Quote** blijft verborgen zolang hij leeg is. Gebruik alleen een echte klant of chef, met toestemming.
-- **Cijfers** gebruiken de gegevens die al op de site staan (5 lagen, 0 coatings, 30 dagen retour, 6 warmtebronnen).
+Let op: alles tussen [haken] vul je zelf in (jaartallen, teamnamen, cijfers, quote).
+- **Cijfers**: typ een getal (50.000 of 4,8) en het telt op; komma = decimaal, punt = duizendtal.
+- Gebruik alleen echte cijfers, namen en reviews: claims die niet kloppen zijn misleidend (consumentenrecht).
+- Wil je een blok nog niet tonen? Verberg de sectie of het blok in de editor (oogje).

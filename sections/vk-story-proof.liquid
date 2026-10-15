@@ -24,7 +24,21 @@
           {%- assign b = block.settings -%}
           <div class="vk-story-stat vk-story-step" data-reveal {{ block.shopify_attributes }}>
             <dt class="vk-story-stat__label">{{ b.label }}</dt>
-            <dd class="vk-story-stat__value"><span data-count-to="{{ b.number }}" data-count-prefix="{{ b.prefix | escape }}">{{ b.prefix }}{{ b.number }}</span>{% if b.suffix != blank %}<small>{{ b.suffix }}</small>{% endif %}</dd>
+            {%- liquid
+              # Dutch notation: dot = thousands, comma = decimals. Plain numbers count up; anything else is shown as typed.
+              assign vk_raw = b.value | strip
+              assign vk_num = vk_raw | remove: '.' | replace: ',', '.'
+              assign vk_rest = vk_num | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9' | remove: '.'
+              assign vk_numeric = false
+              if vk_raw != blank and vk_rest == '' and vk_num != '.'
+                assign vk_numeric = true
+              endif
+              assign vk_dec = 0
+              if vk_numeric and vk_num contains '.'
+                assign vk_dec = vk_num | split: '.' | last | size
+              endif
+            -%}
+            <dd class="vk-story-stat__value">{% if vk_numeric %}<span data-count-to="{{ vk_num }}" data-count-decimals="{{ vk_dec }}" data-count-prefix="{{ b.prefix | escape }}">{{ b.prefix }}{{ vk_raw }}</span>{% else %}<span>{{ b.prefix }}{{ vk_raw }}</span>{% endif %}{% if b.suffix != blank %}<small>{{ b.suffix }}</small>{% endif %}</dd>
             {%- if b.note != blank -%}<dd class="vk-story-stat__note">{{ b.note }}</dd>{%- endif -%}
           </div>
         {%- endfor -%}
@@ -76,7 +90,7 @@
       "settings": [
         { "type": "paragraph", "content": "Only use numbers you can back up." },
         { "type": "text", "id": "prefix", "label": "Prefix" },
-        { "type": "number", "id": "number", "label": "Number", "default": 5 },
+        { "type": "text", "id": "value", "label": "Number", "info": "Counts up when it is a number. Use a comma for decimals (4,8) and a dot for thousands (50.000).", "default": "5" },
         { "type": "text", "id": "suffix", "label": "Suffix" },
         { "type": "text", "id": "label", "label": "Label", "default": "Lagen metaal" },
         { "type": "text", "id": "note", "label": "Note" }
