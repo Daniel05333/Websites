@@ -276,6 +276,7 @@ export const pages = [
     '<p>* Doorhalen wat niet van toepassing is.</p>',
   ].join('') },
   { handle: 'about', title: 'Ons verhaal', template_suffix: 'about', content: '' },
+  { handle: 'ons-verhaal', title: 'Ons verhaal', template_suffix: 'ons-verhaal', content: '' },
   { handle: 'technology', title: 'VolcanicCore™-technologie', template_suffix: 'technology', content: '' },
   { handle: 'contact', title: 'Contact', template_suffix: 'contact', content: '<p>Een vraag over maten, onderhoud of je bestelling? Stuur ons een bericht. We lezen alles zelf en reageren zo snel mogelijk op werkdagen.</p>' },
   { handle: 'warranty', title: 'Garantie en retourneren', template_suffix: null, content: [

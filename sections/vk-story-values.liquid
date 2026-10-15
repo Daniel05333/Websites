@@ -1,0 +1,64 @@
+{{ 'vk-section-ons-verhaal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-ons-verhaal.js' | asset_url }}" defer="defer"></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-story-values color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if s.seam -%}<div class="vk-seam" data-seam aria-hidden="true"></div>{%- endif -%}
+  <div class="vk-container">
+    {%- if s.eyebrow != blank or s.heading != blank or s.text != blank -%}
+      <header class="vk-story-head">
+        {%- if s.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="vk-story-head__title" data-split>{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<p class="vk-story-head__text" data-reveal>{{ s.text }}</p>{%- endif -%}
+      </header>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="vk-story-values__grid" role="list" data-reveal-stagger>
+        {%- for block in section.blocks -%}
+          <li class="vk-story-val vk-story-bracket" data-reveal data-story-glow {{ block.shopify_attributes }}>
+            <span class="vk-story-val__num" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <span class="vk-story-val__icon vk-story-step" aria-hidden="true">{% render 'vk-icon', name: block.settings.icon, size: 20 %}</span>
+            <h3 class="vk-story-val__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="vk-story-val__text">{{ block.settings.text }}</p>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story values",
+  "tag": "div",
+  "class": "vk-story-values-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Waar we voor staan" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Gebouwd op <em>principes</em>" },
+    { "type": "inline_richtext", "id": "text", "label": "Intro", "default": "Elke pan die we maken, toetsen we aan deze zes regels." },
+    { "type": "checkbox", "id": "seam", "label": "Chequered seam", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "limit": 9,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "flame", "options": [
+          { "value": "flame", "label": "Flame" }, { "value": "layers", "label": "Layers" }, { "value": "shield", "label": "Shield" },
+          { "value": "check-circle", "label": "Check" }, { "value": "utensils", "label": "Utensils" }, { "value": "return", "label": "Return" },
+          { "value": "chat", "label": "Chat" }, { "value": "leaf", "label": "Leaf" }, { "value": "award", "label": "Award" },
+          { "value": "hexagon", "label": "Hexagon" }, { "value": "heart", "label": "Heart" }, { "value": "truck", "label": "Truck" },
+          { "value": "induction", "label": "Induction" }, { "value": "warranty", "label": "Warranty" }
+        ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Een principe" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Leg in één of twee zinnen uit wat dit betekent." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Story values", "blocks": [{ "type": "value" }, { "type": "value" }, { "type": "value" }] }]
+}
+{% endschema %}

@@ -1,0 +1,48 @@
+{{ 'vk-section-ons-verhaal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-ons-verhaal.js' | asset_url }}" defer="defer"></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-story-hero color-{{ s.color_scheme }}" data-section-id="{{ section.id }}" style="--o: {{ s.overlay | divided_by: 100.0 }};"{% if s.stack_effect %} data-stack{% endif %}>
+  {%- if s.image != blank -%}
+    <div class="vk-story-hero__media" data-parallax="0.12" aria-hidden="true">
+      {%- render 'vk-image', image: s.image, sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '' -%}
+    </div>
+  {%- endif -%}
+  <div class="vk-story-hero__shade" aria-hidden="true"></div>
+  {%- if s.show_contours -%}<vk-contours aria-hidden="true"></vk-contours>{%- endif -%}
+  <div class="vk-story-hero__glow" aria-hidden="true"></div>
+  {%- if s.show_embers %}<vk-embers count="36"></vk-embers>{% endif -%}
+
+  <div class="vk-container vk-story-hero__content">
+    {%- if s.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+    <h1 class="vk-story-hero__title" data-letters>{{ s.heading }}</h1>
+    {%- if s.subheading != blank -%}<p class="vk-story-hero__sub" data-reveal data-reveal-delay="500">{{ s.subheading }}</p>{%- endif -%}
+  </div>
+  {%- if s.cue_label != blank -%}
+    <a class="vk-story-hero__cue" href="#vk-{{ section.id }}-end">{{ s.cue_label }}<span class="vk-story-hero__cue-line" aria-hidden="true"></span></a>
+  {%- endif -%}
+  <span id="vk-{{ section.id }}-end" style="position:absolute;bottom:0" aria-hidden="true"></span>
+</section>
+
+{% schema %}
+{
+  "name": "Story hero",
+  "tag": "div",
+  "class": "vk-story-hero-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ons verhaal" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Letters spring in one by one. Italicise accent words.", "default": "Vuur, metaal en <em>geduld</em>." },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Volkara begon met één vraag die elke fanatieke thuiskok zich ooit stelt: waarom slijt goed kookgerei? Dit is het verhaal van hoe het antwoord een pan werd." },
+    { "type": "text", "id": "cue_label", "label": "Scroll cue", "default": "Ontdek ons verhaal" },
+    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Optional. Darkened by the overlay below." },
+    { "type": "range", "id": "overlay", "label": "Image overlay", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 70 },
+    { "type": "checkbox", "id": "show_contours", "label": "Contour lines", "default": true },
+    { "type": "checkbox", "id": "show_embers", "label": "Embers", "default": true },
+    { "type": "checkbox", "id": "stack_effect", "label": "Stack effect", "info": "Desktop: the next section slides over this one while it recedes.", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 }
+  ],
+  "presets": [{ "name": "Story hero" }]
+}
+{% endschema %}

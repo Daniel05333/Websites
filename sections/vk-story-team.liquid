@@ -1,0 +1,68 @@
+{{ 'vk-section-ons-verhaal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-ons-verhaal.js' | asset_url }}" defer="defer"></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-story-team color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if s.seam -%}<div class="vk-seam" data-seam aria-hidden="true"></div>{%- endif -%}
+  <div class="vk-container">
+    {%- if s.eyebrow != blank or s.heading != blank or s.text != blank -%}
+      <header class="vk-story-head">
+        {%- if s.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="vk-story-head__title" data-split>{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<p class="vk-story-head__text" data-reveal>{{ s.text }}</p>{%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div data-story-carousel>
+        <ul class="vk-story-team__track" data-track role="list" data-reveal-stagger>
+          {%- for block in section.blocks -%}
+            <li class="vk-story-team__card vk-story-step" data-reveal {{ block.shopify_attributes }}>
+              {%- render 'vk-image', image: block.settings.image, sizes: '(min-width: 990px) 30vw, (min-width: 600px) 45vw, 78vw', placeholder: 'chef', alt: block.settings.name -%}
+              <div class="vk-story-team__meta">
+                <p class="vk-story-team__name">{{ block.settings.name }}</p>
+                {%- if block.settings.role != blank -%}<p class="vk-story-team__role">{{ block.settings.role }}</p>{%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <div class="vk-story-nav" data-nav hidden>
+          <button type="button" class="vk-story-nav__btn" data-prev aria-label="{{ 'general.previous' | t }}">{% render 'vk-icon', name: 'arrow-left', size: 18 %}</button>
+          <span class="vk-story-nav__dots" data-dots aria-hidden="true"></span>
+          <button type="button" class="vk-story-nav__btn" data-next aria-label="{{ 'general.next' | t }}">{% render 'vk-icon', name: 'arrow-right', size: 18 %}</button>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story team",
+  "tag": "div",
+  "class": "vk-story-team-section",
+  "settings": [
+    { "type": "paragraph", "content": "Show the real people behind the brand. Use your own photos and names only." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Het team" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "De mensen achter de <em>pan</em>" },
+    { "type": "inline_richtext", "id": "text", "label": "Intro" },
+    { "type": "checkbox", "id": "seam", "label": "Chequered seam", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "person",
+      "name": "Person",
+      "limit": 12,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Portrait, about 4:5." },
+        { "type": "text", "id": "name", "label": "Name", "default": "Naam" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Functie" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Story team", "blocks": [{ "type": "person" }, { "type": "person" }, { "type": "person" }] }]
+}
+{% endschema %}

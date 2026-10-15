@@ -1,0 +1,163 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ * "Ons verhaal" story page: assign it to a page under Online Store → Pages → Theme template.
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-story-hero",
+      "settings": {
+        "eyebrow": "Ons verhaal",
+        "heading": "Vuur, metaal en <em>geduld</em>.",
+        "subheading": "Volkara begon met één vraag die elke fanatieke thuiskok zich ooit stelt: waarom slijt goed kookgerei? Dit is het verhaal van hoe het antwoord een pan werd.",
+        "cue_label": "Ontdek ons verhaal",
+        "overlay": 70,
+        "show_contours": true,
+        "show_embers": true,
+        "stack_effect": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "timeline": {
+      "type": "vk-story-timeline",
+      "settings": {
+        "eyebrow": "Onze reis",
+        "heading": "Van ergernis naar <em>vakmanschap</em>",
+        "text": "",
+        "seam": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "chapter-1": {
+          "type": "chapter",
+          "settings": {
+            "label": "Het begin",
+            "title": "Een pan die het opgaf",
+            "text": "<p>Het begon met een antiaanbakpan die na een paar jaar begon te krassen en te plakken. Weer een nieuwe kopen voelde verkeerd: goed kookgerei hoort niet te slijten.</p>"
+          }
+        },
+        "chapter-2": {
+          "type": "chapter",
+          "settings": {
+            "label": "De zoektocht",
+            "title": "Op zoek naar beter metaal",
+            "text": "<p>We vergeleken gietijzer, carbonstaal, rvs en titanium. Elk materiaal had sterke kanten, maar geen enkel deed alles: snel opwarmen, warmte vasthouden én zonder coating loslaten.</p>"
+          }
+        },
+        "chapter-3": {
+          "type": "chapter",
+          "settings": {
+            "label": "Het ontwerp",
+            "title": "VolcanicCore™",
+            "text": "<p>Dus combineerden we ze. Vijf lagen metaal, samengesmeed tot één geheel, met een titanium LavaCell™-kookoppervlak. Geen coating die kan afbladderen, geen PFAS of PTFE.</p>"
+          }
+        },
+        "chapter-4": {
+          "type": "chapter",
+          "settings": {
+            "label": "De toets",
+            "title": "Staat hij er over tien jaar nog?",
+            "text": "<p>Bij elke keuze — materiaal, opbouw, steel, afwerking — stellen we dezelfde vraag. Wat die vraag niet doorstaat, maken we niet.</p>"
+          }
+        },
+        "chapter-5": {
+          "type": "chapter",
+          "settings": {
+            "label": "Vandaag",
+            "title": "Volkara",
+            "text": "<p>Een kleine collectie kookgerei voor thuiskoks die liever één keer goed kopen. Minder producten, beter gemaakt — en een team dat je verder helpt als er iets is.</p>"
+          }
+        }
+      },
+      "block_order": ["chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5"]
+    },
+    "team": {
+      "type": "vk-story-team",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "Het team",
+        "heading": "De mensen achter de <em>pan</em>",
+        "text": "",
+        "seam": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "person-1": { "type": "person", "settings": { "name": "Naam", "role": "Oprichter" } },
+        "person-2": { "type": "person", "settings": { "name": "Naam", "role": "Functie" } },
+        "person-3": { "type": "person", "settings": { "name": "Naam", "role": "Functie" } }
+      },
+      "block_order": ["person-1", "person-2", "person-3"]
+    },
+    "values": {
+      "type": "vk-story-values",
+      "settings": {
+        "eyebrow": "Waar we voor staan",
+        "heading": "Gebouwd op <em>principes</em>",
+        "text": "Zes regels waar elke pan aan moet voldoen.",
+        "seam": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "value-1": { "type": "value", "settings": { "icon": "flame", "title": "Zonder coating", "text": "Een titanium kookoppervlak, zonder PFAS of PTFE. Niets dat kan afbladderen." } },
+        "value-2": { "type": "value", "settings": { "icon": "layers", "title": "Gebouwd om te blijven", "text": "Vijf lagen metaal, samengesmeed. Ontworpen voor jaren dagelijks koken." } },
+        "value-3": { "type": "value", "settings": { "icon": "check-circle", "title": "Eerlijk over wat we beloven", "text": "We zeggen alleen wat we kunnen onderbouwen. Twijfel je? Vraag het ons." } },
+        "value-4": { "type": "value", "settings": { "icon": "induction", "title": "Voor elke keuken", "text": "Geschikt voor gas, keramisch, inductie en de oven." } },
+        "value-5": { "type": "value", "settings": { "icon": "return", "title": "Zonder risico proberen", "text": "30 dagen retour. Past de pan niet bij je keuken, dan stuur je hem terug." } },
+        "value-6": { "type": "value", "settings": { "icon": "chat", "title": "Mensen, geen script", "text": "Een vraag over je pan of bestelling? We lezen alles zelf en helpen je verder." } }
+      },
+      "block_order": ["value-1", "value-2", "value-3", "value-4", "value-5", "value-6"]
+    },
+    "mission": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-pan-angle.webp",
+        "placeholder": "chef",
+        "image_alt": "Een Volkara-pan van opzij",
+        "image_position": "left",
+        "ratio": "portrait",
+        "index": "",
+        "eyebrow": "Onze missie",
+        "heading": "Eén pan die je <em>niet</em> hoeft te vervangen.",
+        "text": "<p>We wilden kookgerei dat aanbraadt als in een professionele keuken, werkt op een moderne kookplaat en niet na een paar jaar aan vervanging toe is — zonder coating tussen je eten en het metaal.</p><p>Daarom houden we ons aan drie regels: maak minder dingen en maak ze goed, zeg alleen wat we kunnen onderbouwen, en help je verder als er iets mis is.</p>",
+        "button_label": "Zo werkt VolcanicCore™",
+        "button_url": "/pages/technology",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "proof": {
+      "type": "vk-story-proof",
+      "settings": {
+        "eyebrow": "In cijfers",
+        "heading": "Wat er in elke pan <em>zit</em>",
+        "button_label": "Bekijk de collectie",
+        "button_url": "/collections/all",
+        "trust": "Gratis verzending · 30 dagen retour · Veilig betalen",
+        "show_halftone": true,
+        "show_contours": false,
+        "seam": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "stat-1": { "type": "stat", "settings": { "prefix": "", "number": 5, "suffix": "", "label": "Lagen metaal", "note": "Samengesmeed tot één geheel" } },
+        "stat-2": { "type": "stat", "settings": { "prefix": "", "number": 0, "suffix": "", "label": "Coatings", "note": "Geen PFAS, geen PTFE" } },
+        "stat-3": { "type": "stat", "settings": { "prefix": "", "number": 30, "suffix": "dagen", "label": "Retour", "note": "Zonder opgaaf van reden" } },
+        "stat-4": { "type": "stat", "settings": { "prefix": "", "number": 6, "suffix": "", "label": "Warmtebronnen", "note": "Van gas en inductie tot de oven" } },
+        "quote": { "type": "quote", "settings": { "quote": "", "author": "", "role": "" } }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "stat-4", "quote"]
+    }
+  },
+  "order": ["hero", "timeline", "team", "values", "mission", "proof"]
+}

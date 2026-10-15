@@ -109,3 +109,17 @@ Gebruik *Voorbeeld* en loop het af: homepage, collectie, de pan, de winkelwagen 
 | Achtergrondvideo in de hero | Hero → *Bundled video*, of upload een eigen video |
 
 Bij "minder beweging" in de systeeminstellingen zien bezoekers automatisch een rustige versie.
+
+## Ons verhaal-pagina (template `page.ons-verhaal`)
+
+Een nieuwe verhaalpagina, los van je bestaande `page.about`-template (die blijft ongewijzigd).
+
+1. Ga naar **Online Store → Pagina's** en open je pagina *Over ons* (of maak er een).
+2. Kies rechts bij **Thema-template** voor `ons-verhaal` en sla op.
+3. Pas alles aan in de thema-editor. Secties: Story hero, Story timeline, Story team, Story values, Afbeelding + tekst, Story proof + CTA.
+
+Let op (eerlijke claims):
+- **Tijdlijn**: de labels zijn stappen ("Het begin", "De zoektocht"…). Vervang ze alleen door jaartallen die kloppen.
+- **Team** staat standaard verborgen. Zet hem aan zodra je echte foto's, namen en functies hebt.
+- **Quote** blijft verborgen zolang hij leeg is. Gebruik alleen een echte klant of chef, met toestemming.
+- **Cijfers** gebruiken de gegevens die al op de site staan (5 lagen, 0 coatings, 30 dagen retour, 6 warmtebronnen).

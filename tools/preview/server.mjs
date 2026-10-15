@@ -172,7 +172,7 @@ engine.registerTag('paginate', class extends Tag {
 engine.registerTag('section', class extends Tag { constructor(t, r, l) { super(t, r, l); this.name = t.args.trim().replace(/['"]/g, ''); } *render(ctx, emitter) { emitter.write(yield renderSection(this.name, null, ctx.getSync(['__page']), this.name)); } });
 engine.registerTag('sections', class extends Tag {
   constructor(t, r, l) { super(t, r, l); this.name = t.args.trim().replace(/['"]/g, ''); }
-  *render(ctx, emitter) { const g = readJSON(`sections/${this.name}.json`); for (const k of g.order) emitter.write(yield renderSection(g.sections[k].type, g.sections[k], ctx.getSync(['__page']), `sections--vk__${k}`)); }
+  *render(ctx, emitter) { const g = readJSON(`sections/${this.name}.json`); for (const k of g.order) if (!g.sections[k].disabled) emitter.write(yield renderSection(g.sections[k].type, g.sections[k], ctx.getSync(['__page']), `sections--vk__${k}`)); }
 });
 
 // filters
@@ -260,7 +260,7 @@ async function renderTemplate(name, ctx, onlySection) {
   const tpl = readJSON(`templates/${name}.json`);
   ctx.template = { name: name.split('.')[0], suffix: name.split('.')[1] || null, toString() { return name; } };
   if (onlySection) { const key = Object.keys(tpl.sections).find((k) => onlySection === `template--vk__${k}` || onlySection === tpl.sections[k].type); if (key) return renderSection(tpl.sections[key].type, tpl.sections[key], ctx, `template--vk__${key}`); return renderSection(onlySection, null, ctx, onlySection); }
-  let body = ''; for (const k of tpl.order) body += await renderSection(tpl.sections[k].type, tpl.sections[k], ctx, `template--vk__${k}`);
+  let body = ''; for (const k of tpl.order) if (!tpl.sections[k].disabled) body += await renderSection(tpl.sections[k].type, tpl.sections[k], ctx, `template--vk__${k}`);
   const layout = tpl.layout === 'password' ? 'password' : 'theme';
   return engine.parseAndRender(read(`layout/${layout}.liquid`), { ...ctx, content_for_layout: body, __page: ctx }, { globals: ctx });
 }

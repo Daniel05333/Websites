@@ -1,0 +1,99 @@
+{{ 'vk-section-ons-verhaal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-ons-verhaal.js' | asset_url }}" defer="defer"></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_stats = section.blocks | where: 'type', 'stat'
+  assign vk_quotes = section.blocks | where: 'type', 'quote'
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-story-proof color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if s.seam -%}<div class="vk-seam" data-seam aria-hidden="true"></div>{%- endif -%}
+  {%- if s.show_halftone -%}<div class="vk-story-proof__halftone" aria-hidden="true"></div>{%- endif -%}
+  {%- if s.show_contours -%}<vk-contours aria-hidden="true"></vk-contours>{%- endif -%}
+  <div class="vk-container">
+    {%- if s.eyebrow != blank or s.heading != blank -%}
+      <header class="vk-story-head">
+        {%- if s.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="vk-story-head__title" data-split>{{ s.heading }}</h2>{%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if vk_stats.size > 0 -%}
+      <dl class="vk-story-proof__stats" style="--n: {{ vk_stats.size | at_most: 4 }};" data-reveal-stagger>
+        {%- for block in vk_stats -%}
+          {%- assign b = block.settings -%}
+          <div class="vk-story-stat vk-story-step" data-reveal {{ block.shopify_attributes }}>
+            <dt class="vk-story-stat__label">{{ b.label }}</dt>
+            <dd class="vk-story-stat__value"><span data-count-to="{{ b.number }}" data-count-prefix="{{ b.prefix | escape }}">{{ b.prefix }}{{ b.number }}</span>{% if b.suffix != blank %}<small>{{ b.suffix }}</small>{% endif %}</dd>
+            {%- if b.note != blank -%}<dd class="vk-story-stat__note">{{ b.note }}</dd>{%- endif -%}
+          </div>
+        {%- endfor -%}
+      </dl>
+    {%- endif -%}
+
+    {%- for block in vk_quotes -%}
+      {%- if block.settings.quote != blank -%}
+        <figure class="vk-story-proof__quote" data-reveal {{ block.shopify_attributes }}>
+          {%- render 'vk-icon', name: 'quote', size: 28 -%}
+          <blockquote>{{ block.settings.quote }}</blockquote>
+          {%- if block.settings.author != blank -%}<figcaption><strong>{{ block.settings.author }}</strong>{% if block.settings.role != blank %} — {{ block.settings.role }}{% endif %}</figcaption>{%- endif -%}
+        </figure>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if s.button_label != blank or s.trust != blank -%}
+      <div class="vk-story-proof__cta" data-reveal>
+        {%- if s.button_label != blank -%}{% render 'vk-button', label: s.button_label, url: s.button_url, style: 'primary', icon: 'arrow-right', class: 'vk-story-chamfer', magnetic: true %}{%- endif -%}
+        {%- if s.trust != blank -%}<p class="vk-story-proof__trust">{% render 'vk-icon', name: 'shield', size: 15 %}<span>{{ s.trust }}</span></p>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story proof + CTA",
+  "tag": "div",
+  "class": "vk-story-proof-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In cijfers" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Wat er in elke pan <em>zit</em>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Bekijk de collectie" },
+    { "type": "url", "id": "button_url", "label": "Button link", "default": "/collections/all" },
+    { "type": "text", "id": "trust", "label": "Line under the button", "default": "Gratis verzending · 30 dagen retour · Veilig betalen" },
+    { "type": "checkbox", "id": "show_halftone", "label": "Halftone glow", "default": true },
+    { "type": "checkbox", "id": "show_contours", "label": "Contour lines", "default": false },
+    { "type": "checkbox", "id": "seam", "label": "Chequered seam", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Number",
+      "limit": 4,
+      "settings": [
+        { "type": "paragraph", "content": "Only use numbers you can back up." },
+        { "type": "text", "id": "prefix", "label": "Prefix" },
+        { "type": "number", "id": "number", "label": "Number", "default": 5 },
+        { "type": "text", "id": "suffix", "label": "Suffix" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Lagen metaal" },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Quote",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Only quote real customers or chefs, with their permission. Leave empty to hide." },
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "author", "label": "Name" },
+        { "type": "text", "id": "role", "label": "Role or place" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Story proof + CTA", "blocks": [{ "type": "stat" }, { "type": "quote" }] }]
+}
+{% endschema %}

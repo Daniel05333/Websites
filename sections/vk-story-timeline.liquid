@@ -1,0 +1,97 @@
+{{ 'vk-section-ons-verhaal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'vk-ons-verhaal.js' | asset_url }}" defer="defer"></script>
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-story-tl color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  {%- if s.seam -%}<div class="vk-seam" data-seam aria-hidden="true"></div>{%- endif -%}
+  <div class="vk-container">
+    {%- if s.eyebrow != blank or s.heading != blank or s.text != blank -%}
+      <header class="vk-story-head">
+        {%- if s.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="vk-story-head__title" data-split>{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<p class="vk-story-head__text" data-reveal>{{ s.text }}</p>{%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="vk-story-tl__body" data-rail>
+        <span class="vk-story-tl__rail" aria-hidden="true"><span class="vk-story-tl__fill"></span></span>
+        <span class="vk-story-tl__head" aria-hidden="true"></span>
+        <ol class="vk-story-tl__list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign b = block.settings
+              assign vk_side = 'left'
+              assign vk_from = 'left'
+              assign vk_mod = forloop.index0 | modulo: 2
+              if vk_mod == 1
+                assign vk_side = 'right'
+                assign vk_from = 'right'
+              endif
+              assign vk_speed = '0.04'
+              if vk_mod == 1
+                assign vk_speed = '0.08'
+              endif
+            -%}
+            <li class="vk-story-tl__item vk-story-tl__item--{{ vk_side }}" data-chapter {{ block.shopify_attributes }}>
+              <span class="vk-story-tl__node" data-node aria-hidden="true"></span>
+              <div class="vk-story-tl__slot" data-reveal="{{ vk_from }}">
+                <div data-parallax="{{ vk_speed }}">
+                  <article class="vk-story-tl__plate vk-story-step">
+                    <div class="vk-story-tl__inner vk-story-step">
+                      <span class="vk-story-tl__ghost" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                      {%- if b.image != blank -%}
+                        <div class="vk-story-tl__img">{%- render 'vk-image', image: b.image, sizes: '(min-width: 750px) 40vw, 90vw', alt: b.image.alt -%}</div>
+                      {%- endif -%}
+                      {%- if b.label != blank -%}<p class="vk-story-tl__label">{{ b.label }}</p>{%- endif -%}
+                      <h3 class="vk-story-tl__title">{{ b.title }}</h3>
+                      {%- if b.text != blank -%}<div class="vk-story-tl__text">{{ b.text }}</div>{%- endif -%}
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story timeline",
+  "tag": "div",
+  "class": "vk-story-timeline-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Onze reis" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Van ergernis naar <em>vakmanschap</em>" },
+    { "type": "inline_richtext", "id": "text", "label": "Intro" },
+    { "type": "checkbox", "id": "seam", "label": "Chequered seam", "info": "Squares of this section dissolve into the section above while scrolling.", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    {
+      "type": "chapter",
+      "name": "Chapter",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "info": "A year (e.g. 2024) or a step name. Only use years that are true.", "default": "Hoofdstuk" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Een nieuw hoofdstuk" },
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Vertel hier wat er in deze fase gebeurde.</p>" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Story timeline",
+    "blocks": [
+      { "type": "chapter", "settings": { "label": "Het begin", "title": "Een pan die het opgaf", "text": "<p>Het begon met een antiaanbakpan die na een paar jaar begon te krassen en te plakken. Weer een nieuwe kopen voelde verkeerd.</p>" } },
+      { "type": "chapter", "settings": { "label": "De zoektocht", "title": "Op zoek naar beter metaal", "text": "<p>We vergeleken gietijzer, carbonstaal, rvs en titanium. Elk materiaal had sterke kanten, maar geen enkel deed alles.</p>" } },
+      { "type": "chapter", "settings": { "label": "Het ontwerp", "title": "VolcanicCore™", "text": "<p>Lagen metaal, samengesmeed tot één geheel, met een titanium kookoppervlak. Geen coating die kan slijten.</p>" } }
+    ]
+  }]
+}
+{% endschema %}
