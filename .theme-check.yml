@@ -4,3 +4,4 @@ ignore:
   - tools/**
   - docs/**
   - rijschool-linkerbaan/**
+  - nexd-media/**
