@@ -1,5 +1,5 @@
 import { site, nav, serviceArea } from '../data/site.mjs';
-import { icon, brandMark } from './icons.mjs';
+import { icon } from './icons.mjs';
 
 export const esc = (s = '') =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -13,13 +13,22 @@ export const waHref = (text = site.contact.whatsappMessage) =>
 export const btn = ({ href, label, variant = 'primary', iconName = 'arrow', iconFirst = false, attrs = '' }) => `
 <a class="btn btn--${variant}" href="${href}" ${attrs}>${iconFirst ? icon(iconName, 20) : ''}<span>${label}</span>${!iconFirst && iconName ? icon(iconName, 20) : ''}</a>`;
 
+// Logo (getekend portret van Furkan) + woordmerk, zoals op de bestaande site.
+const brandLockup = () => `
+  <img class="brand__logo" src="${site.owner.logoSmall}" alt="" width="44" height="44">
+  <span class="brand__text"><span class="brand__eyebrow">Rijschool</span><span class="brand__name">Linkerbaan</span></span>`;
+
+export const socialLinks = () => `
+<ul class="social" aria-label="Sociale media">
+  <li><a href="${site.social.instagram}" target="_blank" rel="noopener">${icon('instagram', 20)}<span class="visually-hidden">Instagram</span></a></li>
+  <li><a href="${site.social.tiktok}" target="_blank" rel="noopener">${icon('tiktok', 20)}<span class="visually-hidden">TikTok</span></a></li>
+  <li><a href="${waHref()}" target="_blank" rel="noopener">${icon('whatsapp', 20)}<span class="visually-hidden">WhatsApp</span></a></li>
+</ul>`;
+
 const header = (path) => `
 <header class="site-header" data-header>
   <div class="container site-header__inner">
-    <a class="brand" href="/">
-      ${brandMark(38)}
-      <span class="brand__text"><span class="brand__eyebrow">Rijschool</span><span class="brand__name">Linkerbaan</span></span>
-    </a>
+    <a class="brand" href="/">${brandLockup()}</a>
     <nav class="main-nav" aria-label="Hoofdmenu">
       <ul>
         ${nav
@@ -65,11 +74,9 @@ const footer = () => `
   <div class="lane-divider" aria-hidden="true"></div>
   <div class="container site-footer__grid">
     <div class="site-footer__brand">
-      <a class="brand brand--light" href="/">
-        ${brandMark(38)}
-        <span class="brand__text"><span class="brand__eyebrow">Rijschool</span><span class="brand__name">Linkerbaan</span></span>
-      </a>
-      <p>Met vertrouwen, inzicht en plezier de weg op. Persoonlijke rijlessen in ${site.contact.region}.</p>
+      <a class="brand brand--light" href="/">${brandLockup()}</a>
+      <p>${site.footerTagline} Persoonlijke rijlessen in ${site.contact.region}.</p>
+      ${socialLinks()}
       <a class="btn btn--primary" href="/proefles/"><span>Plan een proefles</span>${icon('arrow', 20)}</a>
     </div>
     <div>
@@ -78,6 +85,8 @@ const footer = () => `
         <li><a href="${telHref()}">${icon('phone', 18)}${site.contact.phoneDisplay}</a></li>
         <li><a href="${waHref()}" target="_blank" rel="noopener">${icon('whatsapp', 18)}WhatsApp</a></li>
         <li><a href="${mailHref()}">${icon('mail', 18)}${site.contact.email}</a></li>
+        <li><a href="${site.social.instagram}" target="_blank" rel="noopener">${icon('instagram', 18)}Instagram</a></li>
+        <li><a href="${site.social.tiktok}" target="_blank" rel="noopener">${icon('tiktok', 18)}TikTok</a></li>
         <li><span>${icon('pin', 18)}${site.contact.region}</span></li>
       </ul>
     </div>
@@ -113,13 +122,14 @@ const orgSchema = () => ({
   url: `${site.url}/`,
   telephone: site.contact.phoneE164,
   email: site.contact.email,
-  logo: `${site.url}/assets/img/logo.svg`,
+  logo: `${site.url}${site.owner.logo}`,
+  sameAs: [site.social.instagram, site.social.tiktok],
   image: `${site.url}/assets/img/og-image.png`,
   founder: { '@type': 'Person', name: site.owner.name, jobTitle: site.owner.role },
   areaServed: serviceArea.map((name) => ({ '@type': 'City', name })),
 });
 
-export const layout = ({ path, title, description, body, schema = [], noindex = false, bodyClass = '' }) => {
+export const layout = ({ path, title, description, body, schema = [], noindex = false, bodyClass = '', head = '' }) => {
   const canonical = `${site.url}${path}`;
   const allSchema = [orgSchema(), ...schema];
   return `<!doctype html>
@@ -130,7 +140,7 @@ export const layout = ({ path, title, description, body, schema = [], noindex = 
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
-<meta name="theme-color" content="#0F1B2D">
+<meta name="theme-color" content="#1B252F">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${site.locale}">
 <meta property="og:site_name" content="${site.name}">
@@ -141,11 +151,12 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/logo-furkan-128.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=__V__">
+${head}
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/main.js?v=__V__" defer></script>
 <script type="application/ld+json">${JSON.stringify(allSchema.length === 1 ? allSchema[0] : allSchema)}</script>

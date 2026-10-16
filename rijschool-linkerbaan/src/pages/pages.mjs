@@ -20,6 +20,7 @@ import {
   pageHero,
   doubtBand,
   sectionHead,
+  gallerySection,
 } from '../components/sections.mjs';
 
 const minPrice = formatPrice(Math.min(...packages.map((p) => p.price)));
@@ -39,6 +40,7 @@ const home = () =>
       ownerSection(),
       pricingSection(),
       stepsSection(),
+      gallerySection(),
       areaSection(),
       faqSection(),
       trialSection(),
@@ -119,10 +121,16 @@ ${pageHero({
   crumbs: [{ name: 'Over ons', path: '/over-rijschool-linkerbaan/' }],
 })}
 <section class="section story" aria-labelledby="story-title">
-  <div class="container container--narrow story__body reveal">
+  <div class="container story__grid">
+  <div class="story__body reveal">
     <h2 id="story-title" class="section-title">Waarom de linkerbaan?</h2>
     <p class="lead">De linkerbaan is de baan waar je doorpakt en vooruitgaat. Zo hoort een rijopleiding te voelen: als een route waarin je merkt dat je elke les een stukje verder komt.</p>
     <p>Maar vooruitgaan doe je niet door te haasten. Het begint bij rust in de auto, duidelijke uitleg en een instructeur die ziet wat jij nodig hebt. De één wil eerst eindeloos oefenen op een rustige weg, de ander staat te popelen om de snelweg op te gaan. Beide is prima.</p>
+  </div>
+  <figure class="story__photo reveal">
+    <img src="${site.photos.interior.src}" alt="${site.photos.interior.alt}" width="${site.photos.interior.width}" height="${site.photos.interior.height}" loading="lazy">
+    <figcaption>Uitzicht vanuit de lesauto, een ${site.car}.</figcaption>
+  </figure>
   </div>
 </section>
 ${ownerSection({ full: true })}

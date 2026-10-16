@@ -1,6 +1,6 @@
 import { site, packages, serviceArea, steps, reasons, faq, formatPrice } from '../data/site.mjs';
 import { icon } from './icons.mjs';
-import { esc, btn, telHref, mailHref, waHref } from './layout.mjs';
+import { esc, btn, telHref, mailHref, waHref, socialLinks } from './layout.mjs';
 
 // Wegillustratie in perspectief. Wordt gebruikt zolang er geen echte foto is.
 const roadVisual = () => `
@@ -8,34 +8,34 @@ const roadVisual = () => `
   <title id="road-title">Illustratie: een lesauto rijdt over een weg met twee rijstroken richting de zonsopgang</title>
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1B2A40"/><stop offset=".75" stop-color="#3A3F4A"/><stop offset="1" stop-color="#8A6A2A"/>
+      <stop offset="0" stop-color="#26313D"/><stop offset=".75" stop-color="#3A3F4A"/><stop offset="1" stop-color="#8A6A2A"/>
     </linearGradient>
     <radialGradient id="sun" cx=".5" cy=".5" r=".5">
-      <stop offset="0" stop-color="#FFD04D"/><stop offset=".35" stop-color="#FFC21A" stop-opacity=".55"/><stop offset="1" stop-color="#FFC21A" stop-opacity="0"/>
+      <stop offset="0" stop-color="#F59A45"/><stop offset=".35" stop-color="#EB7712" stop-opacity=".55"/><stop offset="1" stop-color="#EB7712" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="asphalt" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#2A3B55"/><stop offset="1" stop-color="#0B1422"/>
     </linearGradient>
     <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1E2D44"/><stop offset="1" stop-color="#0F1B2D"/>
+      <stop offset="0" stop-color="#1E2D44"/><stop offset="1" stop-color="#1B252F"/>
     </linearGradient>
   </defs>
   <rect width="600" height="600" fill="url(#sky)"/>
   <circle cx="300" cy="200" r="190" fill="url(#sun)"/>
-  <circle cx="300" cy="205" r="46" fill="#FFD04D"/>
+  <circle cx="300" cy="205" r="46" fill="#F59A45"/>
   <path d="M0 200 C90 186 160 196 230 192 S420 184 600 198 V600 H0Z" fill="#26324A"/>
   <path d="M0 214 C120 206 210 212 300 210 S480 204 600 214 V600 H0Z" fill="url(#land)"/>
   <path d="M288 210 L312 210 L600 600 L0 600 Z" fill="url(#asphalt)"/>
   <path d="M289 210 L20 600" stroke="#fff" stroke-width="6" stroke-opacity=".85"/>
   <path d="M311 210 L580 600" stroke="#fff" stroke-width="6" stroke-opacity=".85"/>
-  <path class="road__dashes" d="M300 210 L300 600" stroke="#FFC21A" stroke-width="8" stroke-dasharray="24 28"/>
+  <path class="road__dashes" d="M300 210 L300 600" stroke="#EB7712" stroke-width="8" stroke-dasharray="24 28"/>
   <g class="road__car">
     <ellipse cx="190" cy="568" rx="64" ry="12" fill="#000" opacity=".35"/>
     <rect x="132" y="402" width="116" height="164" rx="34" fill="#F7F5F0"/>
-    <rect x="148" y="432" width="84" height="40" rx="12" fill="#0F1B2D" opacity=".9"/>
-    <rect x="148" y="496" width="84" height="44" rx="12" fill="#0F1B2D" opacity=".9"/>
-    <rect x="160" y="384" width="60" height="24" rx="7" fill="#FFC21A"/>
-    <text x="190" y="401.5" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="15" fill="#0F1B2D">LES</text>
+    <rect x="148" y="432" width="84" height="40" rx="12" fill="#1B252F" opacity=".9"/>
+    <rect x="148" y="496" width="84" height="44" rx="12" fill="#1B252F" opacity=".9"/>
+    <rect x="160" y="384" width="60" height="24" rx="7" fill="#EB7712"/>
+    <text x="190" y="401.5" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="800" font-size="15" fill="#1B252F">LES</text>
     <rect x="140" y="556" width="22" height="8" rx="4" fill="#E0483A"/>
     <rect x="218" y="556" width="22" height="8" rx="4" fill="#E0483A"/>
   </g>
@@ -50,7 +50,7 @@ export const hero = () => {
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero__grid">
     <div class="hero__copy">
-      <p class="eyebrow eyebrow--light"><span class="eyebrow__dot"></span>Rijschool in ${site.contact.region}</p>
+      <p class="eyebrow eyebrow--light">${site.tagline} · ${site.contact.region}</p>
       <h1 id="hero-title" class="hero__title">Met vertrouwen <span class="hero__accent">de weg op.</span></h1>
       <p class="hero__lead">Persoonlijke rijlessen, duidelijke uitleg en begeleiding op jouw tempo. Zet vandaag de eerste stap naar jouw rijbewijs.</p>
       <div class="hero__actions">
@@ -58,7 +58,7 @@ export const hero = () => {
         ${btn({ href: '/tarieven/', label: 'Bekijk de tarieven', variant: 'outline-light', iconName: '' })}
       </div>
       <ul class="hero__facts" aria-label="In het kort">
-        <li>${icon('check', 18)}Eigenaar ${site.owner.firstName} is zelf rijinstructeur</li>
+        <li>${icon('check', 18)}Je krijgt les van ${site.owner.firstName} zelf</li>
         <li>${icon('check', 18)}Vaste pakketprijzen vanaf ${formatPrice(Math.min(...packages.map((p) => p.price)))}</li>
         <li>${icon('check', 18)}Ophalen en afzetten aan huis*</li>
       </ul>
@@ -85,8 +85,8 @@ export const intro = () => `
   <div class="container intro__grid reveal">
     <p class="eyebrow">Rijschool Linkerbaan</p>
     <div>
-      <h2 id="intro-title" class="intro__statement">Leren rijden doe je niet in een keurslijf. Je doet het <mark>in jouw tempo</mark>, met iemand naast je die rustig uitlegt en eerlijk zegt waar je staat.</h2>
-      <p class="intro__text">Bij Rijschool Linkerbaan krijg je les van ${site.owner.name}, eigenaar en rijinstructeur. Elke les sluit aan op wat jij al kunt, zodat je stap voor stap zelfverzekerder en zelfstandiger wordt in het verkeer.</p>
+      <h2 id="intro-title" class="intro__statement">Je krijgt les van ${site.owner.firstName}, die begrijpt hoe jij leert. Geen haast, geen stress. Gewoon <mark>duidelijke uitleg</mark>, persoonlijke aandacht en plezier onderweg.</h2>
+      <p class="intro__text">Rijschool Linkerbaan is de rijschool van ${site.owner.name}, eigenaar en rijinstructeur. Elke les sluit aan op wat jij al kunt, zodat je stap voor stap zelfverzekerder en zelfstandiger wordt in het verkeer.</p>
     </div>
   </div>
 </section>`;
@@ -94,7 +94,7 @@ export const intro = () => `
 export const reasonsSection = () => `
 <section class="section section--tint" aria-labelledby="reasons-title">
   <div class="container">
-    ${sectionHead({ eyebrow: 'Waarom Linkerbaan', title: 'Wat je van je lessen mag verwachten', id: 'reasons-title' })}
+    ${sectionHead({ eyebrow: 'Waarom Linkerbaan', title: 'Plezier, vertrouwen en duidelijkheid', id: 'reasons-title' })}
     <ul class="reasons">
       ${reasons
         .map(
@@ -115,8 +115,8 @@ const ownerPortrait = () => {
   if (o.photo)
     return `<img class="owner__photo" src="${o.photo}" alt="${o.name}, ${o.role.toLowerCase()} bij ${site.name}" width="720" height="880" loading="lazy">`;
   return `
-  <div class="owner__placeholder" role="img" aria-label="Naamkaart van ${o.name}, ${o.role.toLowerCase()}">
-    <span class="owner__monogram" aria-hidden="true">${o.firstName[0]}</span>
+  <div class="owner__placeholder">
+    <img class="owner__logo" src="${o.logo}" alt="Getekend portret van ${o.name} met de lesauto, het logo van ${site.name}" width="512" height="512" loading="lazy">
     <span class="owner__lanes" aria-hidden="true"></span>
   </div>`;
 };
@@ -399,5 +399,32 @@ export const doubtBand = () => `
       ${btn({ href: '/contact/', label: 'Bespreek jouw mogelijkheden' })}
       ${btn({ href: waHref('Hoi Furkan, ik twijfel welk lespakket bij mij past. Kun je me helpen?'), label: 'WhatsApp', variant: 'outline-light', iconName: 'whatsapp', iconFirst: true, attrs: 'target="_blank" rel="noopener"' })}
     </div>
+  </div>
+</section>`;
+
+// Foto's van het Instagram-account van de rijschool.
+export const gallerySection = () => `
+<section class="section gallery" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="gallery__head">
+      ${sectionHead({
+        eyebrow: 'Op Instagram',
+        title: 'Snel geslaagd, strak gedaan?',
+        intro: `Zo ziet het eruit bij Rijschool Linkerbaan: leerlingen bij de lesauto, een grijze ${site.car}. Volg ${site.social.instagramHandle} voor meer.`,
+        id: 'gallery-title',
+      })}
+      <div class="gallery__follow">
+        ${btn({ href: site.social.instagram, label: 'Volg op Instagram', variant: 'secondary', iconName: 'instagram', iconFirst: true, attrs: 'target="_blank" rel="noopener"' })}
+        ${btn({ href: site.social.tiktok, label: 'TikTok', variant: 'ghost', iconName: 'tiktok', iconFirst: true, attrs: 'target="_blank" rel="noopener"' })}
+      </div>
+    </div>
+    <ul class="gallery__grid">
+      ${site.photos.gallery
+        .map(
+          (g, i) => `
+      <li class="reveal" style="--d:${i * 60}ms"><a href="${site.social.instagram}" target="_blank" rel="noopener"><img src="${g.src}" alt="${esc(g.alt)}" width="480" height="641" loading="lazy" decoding="async"></a></li>`
+        )
+        .join('')}
+    </ul>
   </div>
 </section>`;

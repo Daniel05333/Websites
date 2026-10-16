@@ -1,10 +1,9 @@
 // Centrale bron voor alle bedrijfsgegevens, tarieven, werkgebied en FAQ.
 // Pas gegevens alleen hier aan; `npm run build` zet ze door naar alle pagina's.
 //
-// LET OP: alles hieronder is overgenomen uit de bestaande website zoals die in de
-// opdracht is beschreven. De live site was tijdens de bouw niet bereikbaar, dus elk
-// gegeven met `verify: true` (of in VERIFY_BEFORE_LAUNCH) moet vóór publicatie door
-// de rijschool worden bevestigd. Zie docs/04-oplevering.md.
+// Bronnen: de opdrachtbeschrijving, een schermafbeelding van rijschoollinkerbaan.nl en van
+// instagram.com/rijschoollinkerbaan (16-10-2026). Gegevens in VERIFY_BEFORE_LAUNCH moeten
+// vóór publicatie door de rijschool worden bevestigd. Zie docs/03-oplevering.md.
 
 export const site = {
   name: 'Rijschool Linkerbaan',
@@ -14,9 +13,22 @@ export const site = {
     name: 'Furkan Topuzcu',
     firstName: 'Furkan',
     role: 'Eigenaar en rijinstructeur',
-    // Zet hier het pad naar een echte foto (bijv. '/assets/img/furkan.webp') zodra die er is.
+    // Echte portretfoto, zodra beschikbaar (bijv. '/assets/img/furkan.webp').
     photo: null,
+    // Het bestaande logo: een getekend portret van Furkan met lesauto.
+    logo: '/assets/img/logo-furkan-512.webp',
+    logoSmall: '/assets/img/logo-furkan-128.webp',
   },
+  // Slogan van de bestaande site.
+  tagline: 'Rij met plezier',
+  footerTagline: 'Jouw persoonlijke rijschool voor een vlotte en veilige ervaring.',
+  social: {
+    instagram: 'https://www.instagram.com/rijschoollinkerbaan/',
+    instagramHandle: '@rijschoollinkerbaan',
+    tiktok: 'https://www.tiktok.com/@rijschoollinkerbaan',
+  },
+  // De lesauto zoals te zien op Instagram.
+  car: 'Volkswagen Golf',
   contact: {
     phoneDisplay: '085 060 8137',
     phoneE164: '+31850608137',
@@ -34,11 +46,29 @@ export const site = {
   form: {
     endpoint: '',
   },
-  // Echte foto's van lesauto, instructeur of lessituaties. Leeg = vormgegeven
-  // illustraties in plaats van stockfoto's.
+  // Echte foto's (van het Instagram-account van de rijschool). `hero: null` toont
+  // de getekende weg-illustratie.
   photos: {
-    hero: null, // { src, alt, width, height }
-    car: null,
+    hero: {
+      src: '/assets/img/hero-lesauto.webp',
+      alt: 'Een leerling staat juichend bij de grijze lesauto van Rijschool Linkerbaan',
+      width: 630,
+      height: 841,
+    },
+    interior: {
+      src: '/assets/img/lesauto-interieur.webp',
+      alt: 'Zicht vanaf de bestuurdersstoel van de lesauto op een straat met fietspad',
+      width: 630,
+      height: 490,
+    },
+    gallery: [
+      { src: '/assets/img/instagram-1.webp', alt: 'Leerling bij de geopende deur van de lesauto' },
+      { src: '/assets/img/instagram-2.webp', alt: 'Leerling poseert naast de lesauto' },
+      { src: '/assets/img/instagram-3.webp', alt: 'Leerling steekt de hand op naast de lesauto' },
+      { src: '/assets/img/instagram-4.webp', alt: 'Leerling stapt uit de lesauto op een parkeerterrein' },
+      { src: '/assets/img/instagram-5.webp', alt: 'Leerling houdt het lesbord omhoog naast de lesauto' },
+      { src: '/assets/img/instagram-6.webp', alt: 'Leerling zwaait met het lesbord bij de lesauto' },
+    ],
   },
 };
 
@@ -128,26 +158,22 @@ export const steps = [
   },
 ];
 
+// De drie kernwaarden van de bestaande site, in hun eigen woorden.
 export const reasons = [
   {
-    icon: 'person',
-    title: 'Persoonlijke aandacht',
-    text: 'Een instructeur die jou en je rijstijl leert kennen en de lessen daarop afstemt.',
+    icon: 'smile',
+    title: 'Plezier',
+    text: 'Autorijden leren met een glimlach. Furkan zorgt voor een ontspannen en gezellige sfeer in de auto.',
+  },
+  {
+    icon: 'shield',
+    title: 'Vertrouwen',
+    text: 'Jij staat centraal. Stap voor stap bouw je aan je zelfvertrouwen, zodat je zeker achter het stuur zit.',
   },
   {
     icon: 'chat',
-    title: 'Rustige, duidelijke uitleg',
-    text: 'Je weet altijd wat je doet en waarom. Vragen stellen mag altijd, ook tien keer.',
-  },
-  {
-    icon: 'gauge',
-    title: 'Leren op jouw tempo',
-    text: 'Je lesplan sluit aan op jouw niveau. Niet sneller dan nodig, niet langzamer dan kan.',
-  },
-  {
-    icon: 'euro',
-    title: 'Heldere tarieven',
-    text: 'Drie pakketten met vaste prijzen, zodat je vooraf weet waar je aan toe bent.',
+    title: 'Duidelijkheid',
+    text: 'Altijd transparante communicatie over lessen, planning en kosten. Geen verrassingen.',
   },
 ];
 
@@ -196,6 +222,7 @@ export const nav = [
   { href: '/', label: 'Home' },
   { href: '/tarieven/', label: 'Rijlessen & tarieven' },
   { href: '/over-rijschool-linkerbaan/', label: 'Over ons' },
+  { href: '/#veelgestelde-vragen', label: 'FAQ' },
   { href: '/contact/', label: 'Contact' },
 ];
 
@@ -210,7 +237,9 @@ export const VERIFY_BEFORE_LAUNCH = [
   'Het WhatsApp-nummer (nu ingesteld op het vaste nummer 085 060 8137)',
   'Werkgebied: nog steeds alle acht plaatsen?',
   'Doelgroepomschrijving per pakket ("Voor wie")',
-  'Echte foto’s van Furkan, de lesauto en lessituaties',
+  'Toestemming van de leerlingen op de Instagram-foto’s om ze ook op de website te tonen',
+  'Of de lesauto nog de grijze Volkswagen Golf van de Instagram-foto’s is',
+  'Een echte portretfoto van Furkan (nu wordt het getekende logo gebruikt)',
   'Formulierkoppeling met het bestaande aanmeldsysteem',
   'KvK-nummer en eventuele vestigingsgegevens voor footer en privacyverklaring',
 ];

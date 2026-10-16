@@ -4,7 +4,6 @@ import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { pages } from './src/pages/pages.mjs';
 import { site } from './src/data/site.mjs';
-import { brandMark } from './src/components/icons.mjs';
 
 const OUT = 'public';
 await rm(OUT, { recursive: true, force: true });
@@ -23,16 +22,6 @@ for (const page of pages) {
   await mkdir(dirname(file), { recursive: true });
   await writeFile(file, page.render().replaceAll('__V__', hash));
 }
-
-// Logo/favicon als losse SVG (zelfde merkteken als in de header, met vaste kleuren).
-const standalone = brandMark(40)
-  .replaceAll('var(--ink)', '#0F1B2D')
-  .replaceAll('var(--accent)', '#FFC21A')
-  .replace('<svg class="brand-mark"', '<svg xmlns="http://www.w3.org/2000/svg"')
-  .replace(' aria-hidden="true" focusable="false"', '')
-  .trim();
-await writeFile(join(OUT, 'assets/img/favicon.svg'), standalone);
-await writeFile(join(OUT, 'assets/img/logo.svg'), standalone);
 
 const today = new Date().toISOString().slice(0, 10);
 const urls = pages.filter((p) => p.sitemap);

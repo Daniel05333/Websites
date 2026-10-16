@@ -88,6 +88,16 @@ console.log('Navigatie en contact');
     const cmp = await page.$$eval('.compare tbody tr:last-child td', (els) => els.map((e) => e.textContent.trim()));
     return JSON.stringify(a) === JSON.stringify(b) && a.length === 3 && cmp.join() === '€ 1.100,€ 1.650,€ 2.300';
   });
+  await check('alle afbeeldingen laden (incl. lazy) op home en over ons', async () => {
+    for (const p of ['/', '/over-rijschool-linkerbaan/']) {
+      await page.goto(base + p);
+      for (let y = 0; y < 12000; y += 700) { await page.evaluate((y) => scrollTo(0, y), y); await page.waitForTimeout(60); }
+      await page.waitForLoadState('networkidle');
+      const broken = await page.$$eval('img', (is) => is.filter((i) => !i.complete || i.naturalWidth === 0).map((i) => i.src));
+      if (broken.length) throw new Error(broken.join(', '));
+    }
+    return true;
+  });
   await check('FAQ-accordeon opent met toetsenbord', async () => {
     await page.goto(base + '/');
     const s = page.locator('#veelgestelde-vragen summary').first();

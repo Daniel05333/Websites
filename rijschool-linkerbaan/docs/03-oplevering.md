@@ -3,7 +3,7 @@
 ## Status in één oogopslag
 
 - ✅ **Gebouwd:** een complete, werkende statische website in `public/`, te genereren met `npm run build`.
-- ❌ **Niet gepubliceerd.** De site staat nergens live. `rijschoollinkerbaan.nl` resolvet momenteel niet (zie audit).
+- ❌ **Niet gepubliceerd.** De nieuwe site staat nog niet live; op `rijschoollinkerbaan.nl` staat nog de huidige site. Er is wel een privé-voorbeeld als Claude-artifact.
 - ⚠️ **Formulier:** werkt volledig, maar is nog niet aan een backend gekoppeld (zie hieronder).
 - ⚠️ **Inhoud:** alle prijzen en voorwaarden komen uit de opdrachtbeschrijving van de oude site en moeten nog bevestigd worden.
 
@@ -11,7 +11,7 @@
 
 | URL | Inhoud |
 |---|---|
-| `/` | Hero, introductie, waarom Linkerbaan, aanpak van Furkan, pakketten, stappenplan, werkgebied, FAQ (9 vragen), proeflesformulier |
+| `/` | Hero met foto van de lesauto, introductie, Plezier/Vertrouwen/Duidelijkheid, aanpak van Furkan, pakketten, stappenplan, Instagram-galerij, werkgebied, FAQ (9 vragen), proeflesformulier |
 | `/tarieven/` | Drie tariefkaarten, vergelijkingstabel, "Twijfel je?"-band, uitleg over de proefles, pakket-FAQ |
 | `/proefles/` | Gefocuste aanvraagpagina (zonder sticky balk) met een stappenplan in drie stappen |
 | `/over-rijschool-linkerbaan/` | Kennismaking met Furkan, de betekenis van de naam, aanpak, "zo ziet een les eruit", formulier |
@@ -41,11 +41,12 @@ Allemaal lokaal uitgevoerd met `npm test` (Chromium 1194 + axe-core 4.14).
 - Elke pagina heeft een unieke title en description, precies één `h1` en `lang="nl"`.
 - Alle JSON-LD is geldig; sitemap, robots, OG-afbeelding en favicons zijn aanwezig.
 
-**Browsertests** (`tests/e2e.mjs`): 42 controles ✅
+**Browsertests** (`tests/e2e.mjs`): 43 controles ✅
 - Geen horizontale overflow, consolefouten of kapotte requests op 7 pagina's × 5 breedtes (320, 375, 768, 1024, 1440 px).
 - **axe-core WCAG 2.1 A/AA + best practices:** 0 overtredingen op alle 7 pagina's, op desktop én mobiel.
 - Hoofdmenu (4 links, `aria-current`), skip-link en FAQ werken met het toetsenbord.
 - Tel-, mailto- en WhatsApp-links zijn correct opgebouwd (nieuw tabblad met `noopener`).
+- Alle afbeeldingen laden, ook de lazy geladen foto's.
 - De CTA op een tariefkaart neemt het gekozen pakket mee naar het formulier.
 - Prijzen zijn identiek op home, tarieven en in de vergelijkingstabel.
 - Mobiel menu: openen, focus erin, Esc sluit, focus terug, links navigeren.
@@ -57,9 +58,9 @@ Allemaal lokaal uitgevoerd met `npm test` (Chromium 1194 + axe-core 4.14).
 
 | Pagina | Performance | Accessibility | Best Practices | SEO | LCP | CLS | Gewicht |
 |---|---|---|---|---|---|---|---|
-| `/` | 99 | 100 | 100 | 100 | 2,0 s | 0 | 190 KiB |
-| `/tarieven/` | 100 | 100 | 100 | 100 | 1,8 s | 0 | 168 KiB |
-| `/proefles/` | 100 | 100 | 100 | 100 | 1,8 s | 0 | 159 KiB |
+| `/` | 96 | 100 | 100 | 100 | 2,7 s | 0 | 285 KiB |
+| `/tarieven/` | 99 | 100 | 100 | 100 | 2,0 s | 0 | 193 KiB |
+| `/proefles/` | 99 | 100 | 100 | 100 | 2,0 s | 0 | 176 KiB |
 
 Dit zijn labmetingen. Echte Core Web Vitals (veldgegevens) zijn pas na livegang te meten, bijvoorbeeld via Search Console.
 
@@ -88,14 +89,20 @@ Deze lijst staat ook in `src/data/site.mjs` (`VERIFY_BEFORE_LAUNCH`).
 10. **Conceptteksten over de lesaanpak** (homepage "Wat je van je lessen mag verwachten", "De persoonlijke aanpak", over-ons "Zo ziet een les eruit" en "Waarom de linkerbaan?"). Deze teksten volgen de merkpositionering uit de opdracht, maar Furkan moet ze herkennen als zijn werkwijze.
 11. KvK-nummer en vestigingsgegevens, voor de footer en de privacyverklaring.
 
+## Gebruikt materiaal van de huidige site en Instagram
+- **Huisstijl:** kleuren, woordmerk, Poppins en het getekende logo van Furkan.
+- **Teksten:** "Rij met plezier", de kernwaarden Plezier, Vertrouwen en Duidelijkheid, "je krijgt les van Furkan, die begrijpt hoe jij leert", de footertekst, en de Instagram-bio "Snel geslaagd, strak gedaan?".
+- **Socials:** Instagram en TikTok, in de footer, de galerij en de gestructureerde data.
+- **Foto's van Instagram:** de lesauto (hero), het zicht vanuit de lesauto (over ons) en zes foto's van leerlingen bij de lesauto (galerij). Tegels met tekst in beeld ("GEZAKT", "OOK €100 VERDIENEN?") zijn niet gebruikt.
+- **Niet gebruikt:** de foto's van een man in een geruite jas. Waarschijnlijk is dat Furkan, maar dat is niet bevestigd. Is hij het, dan is een van die foto's een goede portretfoto.
+
 ## Ontbrekend materiaal
-- Het **logo** (er staat nu een tijdelijk merkteken).
-- **Foto's** van Furkan, de lesauto en echte lessituaties (de vakken staan klaar in `site.photos` en `site.owner.photo`).
-- **Echte reviews**, met toestemming om te publiceren. Er zijn bewust geen reviews of slagingspercentages verzonnen.
+- **Originele bestanden** van het logo en de foto's. Het logo en de foto's zijn nu uit schermafbeeldingen geknipt (foto's: 630 px breed). Originelen geven een scherper beeld.
+- **Toestemming** van de leerlingen op de foto's om ze ook op de website te tonen.
+- **Echte reviews**, met toestemming om te publiceren.
 
 ## Publiceren
-1. Zorg dat de DNS van `rijschoollinkerbaan.nl` weer werkt.
-2. Bevestig de gegevens hierboven en pas `src/data/site.mjs` aan.
-3. Koppel het formulier (`form.endpoint`).
-4. Draai `npm run build` en upload de inhoud van `public/` naar de hosting. Elke statische host werkt (Apache/shared hosting, Netlify, Vercel, Cloudflare Pages). Voor Apache staat er een `.htaccess` met de 404-pagina en caching.
-5. Meld `https://www.rijschoollinkerbaan.nl/sitemap.xml` aan in Google Search Console en vul het Google Bedrijfsprofiel aan.
+1. Bevestig de gegevens hierboven en pas `src/data/site.mjs` aan.
+2. Koppel het formulier (`form.endpoint`).
+3. Draai `npm run build` en upload de inhoud van `public/` naar de hosting. Elke statische host werkt (Apache/shared hosting, Netlify, Vercel, Cloudflare Pages). Voor Apache staat er een `.htaccess` met de 404-pagina en caching.
+4. Meld `https://www.rijschoollinkerbaan.nl/sitemap.xml` aan in Google Search Console en vul het Google Bedrijfsprofiel aan.

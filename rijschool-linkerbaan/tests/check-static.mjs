@@ -50,7 +50,7 @@ for (const f of files) {
     }
   }
 }
-for (const extra of ['sitemap.xml', 'robots.txt', 'assets/img/og-image.png', 'assets/img/favicon.svg', 'assets/img/apple-touch-icon.png'])
+for (const extra of ['sitemap.xml', 'robots.txt', 'assets/img/og-image.png', 'assets/img/logo-furkan-128.png', 'assets/img/apple-touch-icon.png'])
   if (!(await exists(join(root, extra)))) errors.push(`ontbreekt: ${extra}`);
 
 if (errors.length) {

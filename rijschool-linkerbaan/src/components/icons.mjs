@@ -24,20 +24,11 @@ const paths = {
   flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
   route: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
   shield: '<path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/>',
+  smile: '<circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 0 0 7 0M9 9.5h.01M15 9.5h.01"/>',
+  instagram: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8h.01"/>',
+  tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/>',
   info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
   alert: '<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/>',
 };
 
 export const icon = (name, size) => wrap(paths[name] ?? '', size);
-
-// Merkteken: rijstrook met doorgetrokken en gestippelde lijn en een pijl die
-// naar links, de linkerbaan in, beweegt. Vervang door het echte logo zodra beschikbaar.
-export const brandMark = (size = 36) => `
-<svg class="brand-mark" width="${size}" height="${size}" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-  <rect width="40" height="40" rx="11" fill="var(--ink)"/>
-  <path d="M10 33V7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M30 33V7" stroke="#fff" stroke-opacity=".35" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M20 33v-4M20 23v-4M20 13V9" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/>
-  <path d="M25 31c0-7-1-10-9-14" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-  <path d="m14.5 12.5 1.4 4.6 4.7-.9" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-</svg>`;

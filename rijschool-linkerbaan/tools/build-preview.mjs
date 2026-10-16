@@ -34,9 +34,17 @@ for (const p of pages) {
 }
 
 const b64 = async (f) => (await readFile(f)).toString('base64');
-const css = (await readFile('assets/css/main.css', 'utf8'))
-  .replace("url('../fonts/bricolage-grotesque-var.woff2')", `url(data:font/woff2;base64,${await b64('assets/fonts/bricolage-grotesque-var.woff2')})`)
-  .replace("url('../fonts/inter-var.woff2')", `url(data:font/woff2;base64,${await b64('assets/fonts/inter-var.woff2')})`);
+let css = await readFile('assets/css/main.css', 'utf8');
+for (const [m, file] of [...css.matchAll(/url\('\.\.\/fonts\/([^']+)'\)/g)])
+  css = css.replace(m, `url(data:font/woff2;base64,${await b64('assets/fonts/' + file)})`);
+// Afbeeldingen inbedden als data-URI, zodat het voorbeeld één los bestand blijft.
+const inlineImages = async (html) => {
+  for (const src of new Set([...html.matchAll(/\/assets\/img\/[\w.-]+\.(?:webp|png)/g)].map((m) => m[0]))) {
+    const type = src.endsWith('.png') ? 'image/png' : 'image/webp';
+    html = html.replaceAll(src, `data:${type};base64,${await b64(src.slice(1))}`);
+  }
+  return html;
+};
 const js = await readFile('assets/js/main.js', 'utf8');
 
 const router = `
@@ -95,5 +103,5 @@ ${views.map((v) => `<template data-view="${v.key}" data-title="${v.title}" data-
 <script>${js}</script>
 <script>${router}</script>
 `;
-await writeFile(out, page);
-console.log(`${out}: ${(page.length / 1024).toFixed(0)} KB, ${views.length} pagina's`);
+await writeFile(out, await inlineImages(page));
+console.log(`${out}: ${views.length} pagina's`);
