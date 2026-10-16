@@ -9,6 +9,7 @@ npm run serve      # lokaal bekijken op http://localhost:4500
 npm test           # build + statische controle + browsertests (Chromium + axe)
 npm run shoot      # screenshots naar docs/screenshots
 node tools/make-images.mjs   # og-image, logo en apple-touch-icon opnieuw genereren
+node tools/build-preview.mjs voorbeeld/nexd-media-website.html   # alle pagina's in één deelbaar bestand
 ```
 
 Upload na `npm run build` de inhoud van **`public/`** naar de hosting.
