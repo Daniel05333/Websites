@@ -7,6 +7,7 @@ npm install        # alleen nodig voor tests en de afbeeldingsgenerator
 npm run build      # genereert ./public uit src/ en assets/
 npm run serve      # lokaal bekijken op http://localhost:4400
 npm test           # build + statische controle + browsertests (Chromium + axe)
+node tools/build-preview.mjs preview.html   # alle pagina's in één deelbaar bestand
 ```
 
 Upload na `npm run build` de inhoud van **`public/`** naar elke webhosting.
