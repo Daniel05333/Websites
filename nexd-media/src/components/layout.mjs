@@ -14,98 +14,113 @@ export const waHref = (text = site.contact.whatsappMessage) =>
   `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}`;
 const ext = 'target="_blank" rel="noopener"';
 
-export const btn = ({ href, label, variant = 'primary', iconName = 'arrow', attrs = '' }) =>
-  `<a class="btn btn--${variant}" href="${href}" ${attrs}><span>${label}</span>${iconName ? icon(iconName, 18) : ''}</a>`;
+const arrow = `<svg class="cta__arrow" viewBox="0 0 13.7071 10.7071" aria-hidden="true" focusable="false"><path d="M0 5.35355H13M8 10.3536L13 5.35355L8 0.353553"/></svg>`;
 
-// Merkteken: vijf versmallende kaders, het motief van de Conversion Engine.
-export const mark = (size = 28) => `<svg class="mark" width="${size}" height="${size}" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-  <rect x="1" y="4" width="11" height="24" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/>
-  <rect x="9" y="8" width="9" height="16" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/>
-  <rect x="17" y="11" width="7" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/>
-  <rect x="25" y="13.5" width="6" height="5" rx="1" fill="var(--signal)"/>
-</svg>`;
+/**
+ * Knoppen.
+ * - `primary`: de afgeschuinde knop (donker vlak, groene rand en tekst; groen vult bij hover).
+ * - `solid`:   dezelfde vorm, gevuld met groen (voor donkere ondergronden).
+ * - `hollow`:  alleen de groene rand (footer).
+ * - `ghost` / `ghost-dark`: tekstlink tussen haken, "[ Label → ]".
+ */
+export const btn = ({ href, label, variant = 'primary', attrs = '' }) => {
+  if (variant.startsWith('ghost') || variant === 'link')
+    return `<a class="bracket-link${variant === 'ghost-dark' ? ' bracket-link--dark' : ''}" href="${href}" ${attrs}><span aria-hidden="true">[ </span>${label}<span aria-hidden="true"> → ]</span></a>`;
+  const [kind, ...mods] = variant.split(' ');
+  return `<a class="cta cta--${kind} ${mods.join(' ')}" href="${href}" ${attrs}><span class="cta__label">${label}</span>${arrow}</a>`;
+};
 
-// Het echte logo (uit de huidige site) + woordmerk.
-const brand = () => `<a class="brand" href="/"><img class="brand__logo" src="/assets/img/logo-x.png" alt="" width="41" height="33"><span class="brand__name">NEXD</span> <span class="brand__sub">Media</span></a>`;
+/** Vier hoekhaken rond een paneel: één pad, vier keer gedraaid. */
+export const brackets = (cls = '') =>
+  ['tl', 'tr', 'br', 'bl']
+    .map((c) => `<svg class="bracket bracket--${c} ${cls}" viewBox="0 0 10.5 10.5" aria-hidden="true" focusable="false"><path d="M0 0.5H10V10.5"/></svg>`)
+    .join('');
 
-const header = (path, theme) => `
-<header class="site-header${theme === 'dark' ? ' site-header--on-dark' : ''}" data-header>
-  <div class="container site-header__inner">
+const logo = (size = 34) => `<img class="brand__logo" src="/assets/img/logo-x.png" alt="" width="${size}" height="${Math.round((size * 66) / 82)}">`;
+const brand = () => `<a class="brand" href="/">${logo()}<span class="brand__name">NEXD</span> <span class="brand__sub">Media</span></a>`;
+
+const header = (path) => `
+<header class="masthead" data-header>
+  <div class="masthead__inner">
     ${brand()}
-    <nav class="main-nav" aria-label="Hoofdmenu">
+    <nav class="masthead__nav" aria-label="Hoofdmenu">
       <ul>${nav.map((n) => `<li><a href="${n.href}"${n.href === path ? ' aria-current="page"' : ''}>${n.label}</a></li>`).join('')}</ul>
     </nav>
-    <div class="site-header__actions">
-      ${btn({ href: '/contact/', label: 'Bespreek je website', variant: 'primary btn--sm', iconName: '' })}
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
-        <span class="menu-toggle__open">${icon('menu')}</span><span class="menu-toggle__close">${icon('close')}</span>
-        <span class="visually-hidden" data-menu-label>Menu openen</span>
-      </button>
-    </div>
+    <a class="masthead__cta" href="/contact/"${path === '/contact/' ? ' aria-current="page"' : ''}><span aria-hidden="true">[ </span>Bespreek je website<span aria-hidden="true"> → ]</span></a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu-sheet" data-menu-toggle>
+      <span class="burger__lines" aria-hidden="true"><span></span><span></span></span>
+      <span class="visually-hidden" data-menu-label>Menu openen</span>
+    </button>
   </div>
-  <div class="mobile-menu" id="mobile-menu" hidden data-menu>
-    <nav class="container" aria-label="Mobiel menu">
-      <ul class="mobile-menu__list">
-        ${[{ href: '/', label: 'Home' }, ...nav].map((n) => `<li><a href="${n.href}"${n.href === path ? ' aria-current="page"' : ''}>${n.label}${icon('arrow', 20)}</a></li>`).join('')}
-      </ul>
-      <div class="mobile-menu__contact">
-        ${btn({ href: '/contact/', label: 'Plan een kennismaking', variant: 'primary btn--block' })}
-        <div class="mobile-menu__row">
-          <a class="btn btn--ghost" href="${telHref()}">${icon('phone', 18)}<span>Bellen</span></a>
-          <a class="btn btn--ghost" href="${waHref()}" ${ext}>${icon('whatsapp', 18)}<span>WhatsApp</span></a>
-        </div>
-      </div>
-    </nav>
+</header>
+<div class="sheet" id="menu-sheet" role="dialog" aria-modal="true" aria-label="Menu" hidden data-menu>
+  <div class="sheet__top">
+    ${brand()}
+    <button class="sheet__close" type="button" data-menu-close><span class="visually-hidden">Menu sluiten</span><span aria-hidden="true"></span></button>
   </div>
-</header>`;
+  <nav class="sheet__nav" aria-label="Mobiel menu">
+    <ul>${[{ href: '/', label: 'Home' }, ...nav, { href: '/contact/', label: 'Contact' }]
+      .map((n, i) => `<li style="--i:${i}"><a href="${n.href}"${n.href === path ? ' aria-current="page"' : ''}>${n.label}</a></li>`)
+      .join('')}</ul>
+  </nav>
+  <div class="sheet__foot">
+    <a href="${telHref()}">${icon('phone', 18)} ${site.contact.phoneDisplay}</a>
+    <a href="${waHref()}" ${ext}>${icon('whatsapp', 18)} WhatsApp</a>
+  </div>
+</div>`;
 
 const footer = () => `
-<footer class="site-footer">
-  <div class="container">
-    <div class="site-footer__top">
-      <p class="site-footer__claim">Websites die <em>aanvragen</em> opleveren.</p>
-      ${btn({ href: '/contact/', label: 'Plan een kennismaking' })}
-    </div>
-    <div class="site-footer__grid">
-      <div class="site-footer__brand">
-        ${brand()}
-        <p>${site.footerTagline}</p>
+<footer class="foot" data-foot>
+  <div class="foot__panel">
+    <canvas class="contour-canvas" data-contour="footer" aria-hidden="true"></canvas>
+    <div class="foot__grid">
+      <a class="foot__brand" href="/">${logo(40)}<span class="visually-hidden">${site.name}, naar de homepage</span></a>
+      <p class="foot__claim" data-reveal="words" data-stagger="110">Laten we <br>beginnen<span class="dot">.</span></p>
+      <div class="foot__lead">
+        <p>Vertel ons waar je website tegenaan loopt. We bespreken vrijblijvend welke aanpak bij jouw kantoor past.</p>
+        <div class="foot__actions">
+          ${btn({ href: '/contact/', label: 'Plan een kennismaking', variant: 'hollow' })}
+          <a class="foot__wa" href="${waHref('Hoi NEXD Media, ik heb een vraag over mijn website.')}" ${ext}>${icon('whatsapp', 18)}<span>Stel je vraag via WhatsApp</span></a>
+        </div>
       </div>
-      <div>
-        <h2 class="site-footer__title">Websites</h2>
-        <ul class="site-footer__list">
+      <nav class="foot__nav" aria-label="Footer">
+        <h2 class="foot__label">Websites</h2>
+        <ul>
           <li><a href="/website-laten-maken.html">Website laten maken</a></li>
           ${services.filter((s) => s.group === 'website').map((s) => `<li><a href="${s.path}">${s.nav}</a></li>`).join('')}
         </ul>
-      </div>
-      <div>
-        <h2 class="site-footer__title">Marketing</h2>
-        <ul class="site-footer__list">
+      </nav>
+      <nav class="foot__nav" aria-label="Marketing">
+        <h2 class="foot__label">Marketing</h2>
+        <ul>
           ${services.filter((s) => s.group === 'marketing').map((s) => `<li><a href="${s.path}">${s.nav}</a></li>`).join('')}
           <li><a href="/over-ons/">Over ons</a></li>
         </ul>
-      </div>
-      <div>
-        <h2 class="site-footer__title">Contact</h2>
-        <ul class="site-footer__list">
+      </nav>
+      <div class="foot__contact">
+        <h2 class="foot__label">Contact</h2>
+        <ul>
           <li><a href="${telHref()}">${site.contact.phoneDisplay}</a></li>
           <li><a href="${mailHref()}">${site.contact.email}</a></li>
-          <li><a href="${waHref()}" ${ext}>WhatsApp</a></li>
-          <li><a href="${site.social.linkedin}" ${ext}>LinkedIn</a></li>
-          <li><a href="${site.social.x}" ${ext}>X (Twitter)</a></li>
+          <li>${site.contact.street}<br>${site.contact.postalCode} ${site.contact.city}</li>
         </ul>
       </div>
     </div>
-    <div class="site-footer__bottom">
-      <p>© ${new Date().getFullYear()} ${site.legalName} · ${site.contact.street}, ${site.contact.postalCode} ${site.contact.city} · KvK ${site.contact.kvk} · btw ${site.contact.vat}</p>
-      <a href="/privacy/">Privacyverklaring</a>
+    <div class="foot__bottom">
+      <p>© ${new Date().getFullYear()} ${site.legalName} · KvK ${site.contact.kvk} · btw ${site.contact.vat}</p>
+      <ul class="foot__social">
+        <li><a href="${site.social.linkedin}" ${ext}>LinkedIn</a></li>
+        <li><a href="${site.social.x}" ${ext}>X (Twitter)</a></li>
+        <li><a href="${waHref()}" ${ext}>WhatsApp</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+      </ul>
     </div>
   </div>
 </footer>`;
 
 const stickyCta = () => `
-<aside class="sticky-cta" aria-label="Snel contact" data-sticky-cta>
-  ${btn({ href: '/contact/', label: 'Bespreek je website', variant: 'primary sticky-cta__main' })}
+<aside class="sticky-cta is-hidden" aria-label="Snel contact" data-sticky-cta>
+  ${btn({ href: '/contact/', label: 'Bespreek je website', variant: 'solid sticky-cta__main' })}
   <a class="sticky-cta__icon" href="${waHref()}" ${ext} aria-label="Stuur een WhatsApp-bericht">${icon('whatsapp', 22)}</a>
 </aside>`;
 
@@ -127,7 +142,7 @@ const orgSchema = () => ({
   sameAs: [site.social.linkedin, site.social.x],
 });
 
-export const layout = ({ path, title, description, body, schema = [], noindex = false, theme = 'light', head = '' }) => {
+export const layout = ({ path, title, description, body, schema = [], noindex = false, head = '', home = false }) => {
   const canonical = `${site.url}${path}`;
   return `<!doctype html>
 <html lang="nl">
@@ -137,7 +152,7 @@ export const layout = ({ path, title, description, body, schema = [], noindex = 
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonical}">`}
-<meta name="theme-color" content="#0E0F0D">
+<meta name="theme-color" content="#f7faf9">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${site.locale}">
 <meta property="og:site_name" content="${site.name}">
@@ -150,26 +165,39 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/oswald-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=__V__">
 ${head}
-<script>document.documentElement.classList.add('js')</script>
-<script src="/assets/js/main.js?v=__V__" defer></script>
+<script>document.documentElement.classList.add('js');history.scrollRestoration='manual';setTimeout(function(){if(!window.__nexdReady)document.documentElement.classList.remove('js')},4000)</script>
+<script type="module" src="/assets/js/main.js?v=__V__"></script>
 <script type="application/ld+json">${JSON.stringify([orgSchema(), ...schema])}</script>
 </head>
-<body>
+<body${home ? ' class="is-home"' : ''}>
 <a class="skip-link" href="#main">Naar de inhoud</a>
-${header(path, theme)}
+${home ? veil() : ''}
+${header(path)}
 <main id="main" tabindex="-1">
 ${body}
 </main>
 ${footer()}
 ${stickyCta()}
+<div class="cursor-ring" aria-hidden="true" data-cursor></div>
 </body>
 </html>
 `;
 };
+
+/**
+ * Laadsluier (alleen de homepage, alleen met JavaScript): het logo vult zich van boven, een meter langs
+ * de voet. Voortgang kruipt naar 0.7 en loopt pas vol als de 3D-scène klaar is; zonder WebGL tilt hij direct.
+ */
+const veil = () => `
+<div class="veil" role="status" aria-label="NEXD Media wordt geladen" data-veil>
+  <div class="veil__mark"><span class="veil__shell"></span><span class="veil__fill" data-veil-fill></span></div>
+  <p class="veil__name">NEXD Media</p>
+  <div class="veil__meter"><span data-veil-meter></span></div>
+</div>`;
 
 export const breadcrumbSchema = (items) => ({
   '@context': 'https://schema.org',

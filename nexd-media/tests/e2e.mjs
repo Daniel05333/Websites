@@ -35,7 +35,10 @@ for (const width of [320, 375, 768, 1024, 1440]) {
   for (const p of pages) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    if (overflow > 0) problems.push(`${p}: ${overflow}px horizontale overflow`);
+    if (overflow > 0) {
+      const culprit = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((e) => e.getBoundingClientRect().right > innerWidth + 0.5).map((e) => `${e.tagName.toLowerCase()}.${String(e.className.baseVal ?? e.className).split(' ')[0]}`).slice(-3).join(' > '));
+      problems.push(`${p}: ${overflow}px horizontale overflow (${culprit})`);
+    }
   }
   problems.length ? fail(`${width}px: geen overflow/consolefouten`, problems.join('; ')) : ok(`${width}px: geen overflow, consolefouten of kapotte requests op ${pages.length} pagina's`);
   await ctx.close();
@@ -79,18 +82,16 @@ console.log('Conversion Engine (3D-hero)');
     const shot = await page.locator('.engine-canvas').screenshot();
     return shot.length > 20000;
   });
-  await check('render-loop pauzeert buiten beeld (geen frames na wegscrollen)', async () => {
-    await page.evaluate(() => {
-      window.__frames = 0;
-      const raf = window.requestAnimationFrame;
-      window.requestAnimationFrame = (cb) => raf((t) => { window.__frames++; cb(t); });
-    });
+  await check('render-loop pauzeert buiten beeld (geen 3D-frames na wegscrollen)', async () => {
+    const frames = () => page.evaluate(() => document.querySelector('[data-engine]').__frames || 0);
+    const live = await frames();
+    await page.waitForTimeout(500);
+    const running = (await frames()) > live;
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(600);
-    const before = await page.evaluate(() => window.__frames);
+    await page.waitForTimeout(900);
+    const before = await frames();
     await page.waitForTimeout(800);
-    const after = await page.evaluate(() => window.__frames);
-    return after - before < 3;
+    return running && (await frames()) - before < 2;
   });
   await ctx.close();
 
@@ -111,17 +112,22 @@ console.log('Navigatie en contact');
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await ctx.newPage();
   await page.goto(base + '/');
-  for (const [text, path] of [['Diensten', '/website-laten-maken.html'], ['Optimaliseren', '/website-laten-optimaliseren/'], ['Over ons', '/over-ons/'], ['Contact', '/contact/']]) {
+  for (const [text, path] of [['Diensten', '/website-laten-maken.html'], ['Over ons', '/over-ons/']]) {
     await check(`hoofdmenu "${text}" → ${path}`, async () => {
       await page.getByRole('navigation', { name: 'Hoofdmenu' }).getByRole('link', { name: text, exact: true }).click();
       await page.waitForURL(base + path);
-      return (await page.locator('.main-nav [aria-current="page"]').textContent()) === text;
+      return (await page.locator('.masthead__nav [aria-current="page"]').textContent()) === text;
     });
   }
+  await check('header-CTA "Bespreek je website" → /contact/', async () => {
+    await page.locator('.masthead__cta').click();
+    await page.waitForURL(base + '/contact/');
+    return true;
+  });
   await check('"Resultaten" → cases-sectie op home', async () => {
     await page.getByRole('navigation', { name: 'Hoofdmenu' }).getByRole('link', { name: 'Resultaten', exact: true }).click();
-    await page.waitForURL(base + '/#werk');
-    return page.locator('#werk').isVisible();
+    await page.waitForURL(base + '/#resultaten');
+    return page.locator('#resultaten').isVisible();
   });
   await check('alle tel-links: +31611907255', async () => {
     const hrefs = await page.$$eval('a[href^="tel:"]', (as) => [...new Set(as.map((a) => a.getAttribute('href')))]);
@@ -133,13 +139,14 @@ console.log('Navigatie en contact');
     page.$$eval('a[href*="wa.me"]', (as) => as.length > 0 && as.every((a) => /^https:\/\/wa\.me\/31611907255\?text=/.test(a.href) && a.target === '_blank' && a.rel.includes('noopener'))));
   await check('alle externe links openen veilig (rel=noopener)', async () =>
     page.$$eval('a[target="_blank"]', (as) => as.every((a) => a.rel.includes('noopener'))));
-  await check('prijzen consistent: home-routes = keuzehulp = dienstpagina', async () => {
+  await check('prijzen consistent: hero-paneel = keuzehulp = dienstpagina', async () => {
     await page.goto(base + '/');
-    const routes = await page.$$eval('.route__price', (e) => e.map((x) => x.lastChild.textContent.trim()));
+    // Met JS zijn de cijfers in letters gesplitst; de leesbare kopie staat in .visually-hidden.
+    const hero = await page.$$eval('.panel__stats dd [data-reveal]', (e) => e.map((x) => `€ ${(x.querySelector('.visually-hidden') ?? x).textContent.trim()}`));
     const plans = await page.$$eval('.plan__amount', (e) => e.map((x) => x.textContent.trim()));
     await page.goto(base + '/maatwerk-website.html');
     const card = (await page.locator('.price-card__price').textContent()).replace(/\s+/g, ' ');
-    return routes.join() === '€ 1.795,€ 4.495,€ 1.395' && plans.join() === routes.join() && card.includes('€ 4.495');
+    return hero.join() === '€ 1.795,€ 4.495,€ 1.395' && plans.join() === hero.join() && card.includes('€ 4.495');
   });
   await check('keuzehulp toont het plan dat bij de situatie past', async () => {
     await page.goto(base + '/');
@@ -160,7 +167,7 @@ console.log('Navigatie en contact');
   });
   await check('gratis websitecheck in de hero vult het onderwerp in het formulier', async () => {
     await page.goto(base + '/');
-    await page.locator('.hero__offer a').click();
+    await page.locator('[data-offer-link]').click();
     await page.waitForURL(/\/contact\/\?project=websitecheck/);
     return (await page.locator('#project').inputValue()) === 'websitecheck';
   });
@@ -168,6 +175,7 @@ console.log('Navigatie en contact');
     await page.goto(base + '/over-ons/');
     await page.locator('.team-grid').scrollIntoViewIfNeeded();
     await page.waitForLoadState('networkidle');
+    await page.waitForFunction(() => [...document.querySelectorAll('.member__portrait img')].every((i) => i.complete && i.naturalWidth), null, { timeout: 8000 }).catch(() => {});
     return page.$$eval('.member__portrait img', (is) => is.length === 6 && is.every((i) => i.complete && i.naturalWidth === 256));
   });
   await check('oude WordPress-URL\'s hebben een 301 in .htaccess', async () => {
@@ -188,12 +196,21 @@ console.log('Navigatie en contact');
     await page.keyboard.press('Enter');
     return hidden && first === 'Naar de inhoud' && (await page.evaluate(() => document.activeElement.id)) === 'main';
   });
-  await check('aanpak: stap in beeld activeert de bijbehorende laag', async () => {
+  await check('cases: strip wisselt de getoonde case (aria-pressed, één case zichtbaar)', async () => {
     await page.goto(base + '/');
-    await page.locator('[data-step-trigger="4"]').scrollIntoViewIfNeeded();
-    await page.evaluate(() => document.querySelector('[data-step-trigger="4"]').scrollIntoView({ block: 'center' }));
-    await page.waitForTimeout(400);
-    return (await page.locator('[data-stack]').getAttribute('data-step')) === '4';
+    await page.locator('[data-pick="countus"]').scrollIntoViewIfNeeded();
+    await page.locator('[data-pick="countus"]').click();
+    await page.waitForTimeout(300);
+    const pressed = await page.$$eval('[data-pick]', (bs) => bs.map((b) => b.getAttribute('aria-pressed')).join());
+    const shown = await page.$$eval('[data-case]', (as) => as.filter((a) => a.offsetParent).map((a) => a.dataset.case).join());
+    return pressed === 'false,true,false' && shown === 'countus';
+  });
+  await check('werkwijze: 7 stappen in de tijdlijn, rail volgt de scroll', async () => {
+    await page.locator('#werkwijze').scrollIntoViewIfNeeded();
+    await page.evaluate(() => window.scrollBy(0, 600));
+    await page.waitForTimeout(600);
+    const y = await page.locator('.rail__mark').getAttribute('transform');
+    return (await page.locator('[data-row]').count()) === 7 && /translate\(8 [1-9]/.test(y || '');
   });
   await ctx.close();
 }
@@ -207,16 +224,16 @@ console.log('Mobiel');
   const toggle = page.locator('[data-menu-toggle]');
   await check('menu opent, focus naar eerste link, Esc sluit en focus terug', async () => {
     await toggle.click();
-    const open = (await toggle.getAttribute('aria-expanded')) === 'true' && (await page.locator('#mobile-menu').isVisible());
-    const focusInMenu = await page.evaluate(() => !!document.activeElement.closest('#mobile-menu'));
+    const open = (await toggle.getAttribute('aria-expanded')) === 'true' && (await page.locator('#menu-sheet').isVisible());
+    const focusInMenu = await page.evaluate(() => !!document.activeElement.closest('#menu-sheet'));
     await page.keyboard.press('Escape');
-    const closed = (await toggle.getAttribute('aria-expanded')) === 'false' && !(await page.locator('#mobile-menu').isVisible());
+    const closed = (await toggle.getAttribute('aria-expanded')) === 'false' && !(await page.locator('#menu-sheet').isVisible());
     const focusBack = await page.evaluate(() => document.activeElement.matches('[data-menu-toggle]'));
     return open && focusInMenu && closed && focusBack;
   });
   await check('menulink navigeert', async () => {
     await toggle.click();
-    await page.locator('#mobile-menu').getByRole('link', { name: 'Over ons' }).click();
+    await page.locator('#menu-sheet').getByRole('link', { name: 'Over ons' }).click();
     await page.waitForURL(base + '/over-ons/');
     return true;
   });
@@ -224,20 +241,21 @@ console.log('Mobiel');
     await page.goto(base + '/maatwerk-website.html');
     await page.waitForTimeout(300);
     const hiddenTop = await page.locator('[data-sticky-cta]').evaluate((e) => e.classList.contains('is-hidden'));
-    await page.locator('.svc-steps').scrollIntoViewIfNeeded();
-    await page.waitForTimeout(400);
+    await page.locator('.steps-band').scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => !document.querySelector('[data-sticky-cta]').classList.contains('is-hidden'), null, { timeout: 3000 }).catch(() => {});
     const shown = !(await page.locator('[data-sticky-cta]').evaluate((e) => e.classList.contains('is-hidden')));
     await page.goto(base + '/contact/');
     await page.locator('[data-form-card]').scrollIntoViewIfNeeded();
     await page.waitForTimeout(400);
     const hiddenForm = await page.locator('[data-sticky-cta]').evaluate((e) => e.classList.contains('is-hidden'));
-    return hiddenTop && shown && hiddenForm;
+    if (!(hiddenTop && shown && hiddenForm)) throw new Error(`top ${hiddenTop}, midden zichtbaar ${shown}, formulier ${hiddenForm}`);
+    return true;
   });
   await check('touch targets ≥ 44px voor knoppen, menu en keuzes', async () => {
     const small = [];
     for (const p of ['/', '/contact/', '/standaard-website.html']) {
       await page.goto(base + p);
-      small.push(...(await page.$$eval('.btn, .menu-toggle, .sticky-cta__icon, .chooser__option, .faq__item summary, .pill-list a, .site-footer__list a', (els) =>
+      small.push(...(await page.$$eval('.cta, .bracket-link, .burger, .sticky-cta__icon, .chooser__option, .faq__item summary, .pill-list a, .foot__nav a, .strip__card', (els) =>
         els.filter((e) => e.offsetParent).map((e) => [e.textContent.trim().slice(0, 20), e.getBoundingClientRect()]).filter(([, r]) => r.height < 40 || r.width < 40).map(([t]) => t))));
     }
     if (small.length) throw new Error(small.join(', '));
@@ -326,9 +344,11 @@ console.log('Zonder JavaScript');
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, javaScriptEnabled: false });
   const page = await ctx.newPage();
   await page.goto(base + '/');
-  await check('alle content zichtbaar: hero, cases, alle drie de pakketten', async () =>
-    (await page.locator('#hero-title').isVisible()) && (await page.locator('#werk').isVisible()) &&
-    (await page.$$eval('[data-plan]', (ps) => ps.filter((p) => p.offsetParent).length)) === 3);
+  await check('alle content zichtbaar: hero, alle drie de cases, alle drie de pakketten, tijdlijn', async () =>
+    (await page.locator('#hero-title').isVisible()) && (await page.locator('#resultaten').isVisible()) &&
+    (await page.$$eval('[data-case]', (as) => as.filter((a) => a.offsetParent).length)) === 3 &&
+    (await page.$$eval('[data-plan]', (ps) => ps.filter((p) => p.offsetParent).length)) === 3 &&
+    (await page.locator('[data-row]').first().isVisible()));
   await ctx.close();
 }
 

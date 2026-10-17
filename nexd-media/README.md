@@ -31,7 +31,8 @@ src/components/        layout (head, header, footer), secties, iconen
 src/pages/pages.mjs    paginasamenstelling + SEO-metadata
 src/engine/engine.js   de 3D-hero (three.js), apart gebundeld met esbuild
 assets/css/main.css    design system (tokens bovenaan) en componenten
-assets/js/main.js      menu, reveals, aanpak-stapel, keuzehulp, formulier, 3D-loader
+src/client/            beweging en interactie (ticker, springs, Lenis, reveals, canvassen,
+                       stapel, tijdlijn, cases, menu, formulier, 3D-loader), gebundeld naar public/assets/js/main.js
 build.mjs              bouwt public/ (+ sitemap, robots, .htaccess met 301's)
 tools/                 lokale server, screenshots, afbeeldingsgenerator
 tests/                 statische controle (incl. claims-guard) en browsertests
@@ -44,4 +45,4 @@ docs/                  audit, designrichting, oplevering en open punten
 2. [Designconcepten, keuze en design system](docs/02-designrichting.md)
 3. [Oplevering, tests en wat nog bevestigd moet worden](docs/03-oplevering.md)
 
-Licenties van fonts (SIL OFL) en three.js (MIT) staan in [`docs/licenses/`](docs/licenses).
+Licenties van fonts (SIL OFL), three.js (MIT) en Lenis (MIT) staan in [`docs/licenses/`](docs/licenses).

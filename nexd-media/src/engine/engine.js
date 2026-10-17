@@ -5,12 +5,13 @@
 import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, BufferGeometry, BufferAttribute, Float32BufferAttribute,
   LineSegments, LineBasicMaterial, Mesh, MeshBasicMaterial, PlaneGeometry, BoxGeometry, EdgesGeometry,
-  Points, ShaderMaterial, AdditiveBlending, Color, Fog, DoubleSide,
+  Points, ShaderMaterial, NormalBlending, Color, Fog, DoubleSide,
 } from 'three';
 
-const INK = new Color('#0e0f0d');
-const PAPER = new Color('#e9e4d9');
-const SIGNAL = new Color('#ff5a1f');
+// Lichte grond: inktlijnen en -deeltjes, het NEXD-groen voor wie doorstroomt. Mist loopt naar de grondkleur.
+const GROUND = new Color('#f7faf9');
+const PAPER = new Color('#0f172a');
+const SIGNAL = new Color('#12b981');
 
 // Kaders langs de x-as: positie, halve hoogte (y) en halve diepte (z).
 const FRAMES = [
@@ -67,7 +68,7 @@ function frameObject(f, i) {
   }
   const outline = new BufferGeometry();
   outline.setAttribute('position', new Float32BufferAttribute([...rect(f.hy, f.hz), ...ticks], 3));
-  const lineMat = new LineBasicMaterial({ color: PAPER, transparent: true, opacity: 0.55 });
+  const lineMat = new LineBasicMaterial({ color: PAPER, transparent: true, opacity: 0.5 });
   g.add(new LineSegments(outline, lineMat));
 
   const fillMat = new MeshBasicMaterial({ color: PAPER, transparent: true, opacity: 0.025, side: DoubleSide, depthWrite: false });
@@ -102,7 +103,7 @@ export function mount(container, { lowPower = false } = {}) {
   canvas.setAttribute('aria-hidden', 'true');
 
   const scene = new Scene();
-  scene.fog = new Fog(INK, 12, 30);
+  scene.fog = new Fog(GROUND, 13, 30);
   const camera = new PerspectiveCamera(32, 1, 0.1, 80);
 
   const world = new Group();
@@ -114,7 +115,7 @@ export function mount(container, { lowPower = false } = {}) {
   for (let j = -9; j <= 9; j++) grid.push(-14, 0, j, 14, 0, j);
   const gridGeo = new BufferGeometry();
   gridGeo.setAttribute('position', new Float32BufferAttribute(grid, 3));
-  const floor = new LineSegments(gridGeo, new LineBasicMaterial({ color: PAPER, transparent: true, opacity: 0.06 }));
+  const floor = new LineSegments(gridGeo, new LineBasicMaterial({ color: PAPER, transparent: true, opacity: 0.07 }));
   floor.position.y = -3.1;
   world.add(floor);
 
@@ -122,11 +123,11 @@ export function mount(container, { lowPower = false } = {}) {
   frames.forEach((f) => world.add(f));
 
   // De aanvraag: een massief, oplichtend blok.
-  const coreGeo = new BoxGeometry(0.16, 0.5, 0.72);
+  const coreGeo = new BoxGeometry(0.1, 0.32, 0.46);
   const coreMat = new MeshBasicMaterial({ color: SIGNAL });
   const core = new Mesh(coreGeo, coreMat);
   core.position.x = CORE_X;
-  const coreEdges = new LineSegments(new EdgesGeometry(new BoxGeometry(0.34, 0.74, 0.98)), new LineBasicMaterial({ color: SIGNAL, transparent: true, opacity: 0.6 }));
+  const coreEdges = new LineSegments(new EdgesGeometry(new BoxGeometry(0.3, 0.62, 0.84)), new LineBasicMaterial({ color: SIGNAL, transparent: true, opacity: 0.6 }));
   coreEdges.position.x = CORE_X;
   world.add(core, coreEdges);
 
@@ -137,7 +138,7 @@ export function mount(container, { lowPower = false } = {}) {
     uniforms: { uSize: { value: 420 }, uStrength: { value: 0.5 }, uColor: { value: SIGNAL } },
     vertexShader: 'uniform float uSize; void main(){ vec4 mv = modelViewMatrix * vec4(position,1.); gl_PointSize = uSize / -mv.z; gl_Position = projectionMatrix * mv; }',
     fragmentShader: 'uniform float uStrength; uniform vec3 uColor; void main(){ float d = length(gl_PointCoord-.5); float a = pow(smoothstep(.5,0.,d),2.2)*uStrength; gl_FragColor = vec4(uColor, a); }',
-    transparent: true, depthWrite: false, blending: AdditiveBlending,
+    transparent: true, depthWrite: false, blending: NormalBlending,
   });
   world.add(new Points(glowGeo, glowMat));
 
@@ -175,7 +176,7 @@ export function mount(container, { lowPower = false } = {}) {
       void main(){ vColor = color; vAlpha = aAlpha; vec4 mv = modelViewMatrix * vec4(position,1.); gl_PointSize = aSize * uScale / -mv.z; gl_Position = projectionMatrix * mv; }`,
     fragmentShader: `varying vec3 vColor; varying float vAlpha;
       void main(){ float d = length(gl_PointCoord-.5); float a = smoothstep(.5,.12,d) * vAlpha; if(a < .01) discard; gl_FragColor = vec4(vColor, a); }`,
-    transparent: true, depthWrite: false, blending: AdditiveBlending,
+    transparent: true, depthWrite: false, blending: NormalBlending,
   });
   const particles = new Points(pGeo, pMat);
   particles.frustumCulled = false;
@@ -186,6 +187,7 @@ export function mount(container, { lowPower = false } = {}) {
   let scroll = 0;
   let pulse = 0;
   let intro = 0;
+  const born = performance.now() / 1000;
   let portrait = false;
 
   const onPointer = (e) => {
@@ -216,7 +218,8 @@ export function mount(container, { lowPower = false } = {}) {
   resize();
 
   const update = (dt, t) => {
-    intro = Math.min(1, intro + dt / 2.2);
+    // Op klokttijd, niet op frames: ook een traag apparaat staat na ~2 s compleet.
+    intro = clamp01((t - born) / 2.2);
     pointer.x += (pointer.tx - pointer.x) * Math.min(1, dt * 3);
     pointer.y += (pointer.ty - pointer.y) * Math.min(1, dt * 3);
 
@@ -224,15 +227,15 @@ export function mount(container, { lowPower = false } = {}) {
     const s = ease(scroll);
     // Portret: de hele trechter bovenin, boven de koptekst. Landschap: rechts van de kop.
     if (portrait) {
-      world.position.set(-2.1, 4.5, 0);
+      world.position.set(-1.5, 4.4, 0);
       world.rotation.y = -0.5 + pointer.x * 0.1 + s * 0.4;
-      camera.position.set(0, 0.9, 20 - s * 3);
+      camera.position.set(0, 0.9, 21.5 - s * 3);
       camera.lookAt(0, 0.9, 0);
     } else {
-      world.position.set(1.6, -0.15, 0);
+      world.position.set(0.75, 0.1, 0);
       world.rotation.y = -0.78 + pointer.x * 0.16 + s * 0.55;
-      camera.position.set(0, 0.9, 14 - s * 3);
-      camera.lookAt(2.4, 0, 0);
+      camera.position.set(0, 0.9, 18 - s * 3);
+      camera.lookAt(1.2, 0, 0);
     }
     world.rotation.x = 0.1 + pointer.y * 0.06 - s * 0.06;
 
@@ -248,7 +251,7 @@ export function mount(container, { lowPower = false } = {}) {
     const ps = 1 + pulse * 0.22;
     core.scale.set(ps, ps, ps);
     coreEdges.rotation.x = t * 0.25;
-    glowMat.uniforms.uStrength.value = 0.38 + pulse * 0.35;
+    glowMat.uniforms.uStrength.value = 0.22 + pulse * 0.2;
 
     const fadeIn = ease(intro * 1.3);
     for (let i = 0; i < N; i++) {
@@ -284,13 +287,13 @@ export function mount(container, { lowPower = false } = {}) {
       pos[i3 + 1] = st.u[i] * ey * 0.92 + wob;
       pos[i3 + 2] = st.v[i] * ez * 0.92 + wob;
 
-      // Kleur: wie voorbij "vertrouwen" komt, wordt signaaloranje.
+      // Kleur: wie voorbij "vertrouwen" komt, wordt NEXD-groen.
       const warm = clamp01((x - FRAMES[1].x) / (FRAMES[2].x - FRAMES[1].x)) * (d >= 3 ? 1 : 0.35);
       col[i3] = lerp(PAPER.r, SIGNAL.r, warm);
       col[i3 + 1] = lerp(PAPER.g, SIGNAL.g, warm);
       col[i3 + 2] = lerp(PAPER.b, SIGNAL.b, warm);
       const edgeFade = clamp01((x - START_X) / 3);
-      alpha[i] = (0.5 + warm * 0.5) * edgeFade * fadeIn;
+      alpha[i] = (0.42 + warm * 0.58) * edgeFade * fadeIn;
     }
     pGeo.attributes.position.needsUpdate = true;
     pGeo.attributes.color.needsUpdate = true;
@@ -304,6 +307,7 @@ export function mount(container, { lowPower = false } = {}) {
   const loop = (now) => {
     raf = 0;
     if (!visible || document.hidden) return;
+    container.__frames = (container.__frames || 0) + 1; // telbaar in de browsertests
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     update(dt, now / 1000);
@@ -344,7 +348,7 @@ export function mount(container, { lowPower = false } = {}) {
   });
 
   // Eerste frame direct renderen, daarna pas tonen (geen lege canvas-flits).
-  update(0.016, 0);
+  update(0.016, born);
   renderer.render(scene, camera);
   container.appendChild(canvas);
   start();

@@ -41,10 +41,10 @@ export const site = {
 
 export const nav = [
   { href: '/website-laten-maken.html', label: 'Diensten' },
-  { href: '/website-laten-optimaliseren/', label: 'Optimaliseren' },
-  { href: '/#werk', label: 'Resultaten' },
+  { href: '/#route', label: 'Aanpak' },
+  { href: '/#werkwijze', label: 'Werkwijze' },
+  { href: '/#resultaten', label: 'Resultaten' },
   { href: '/over-ons/', label: 'Over ons' },
-  { href: '/contact/', label: 'Contact' },
 ];
 
 // De vijf fasen van de Conversion Engine (hero, 3D-scène en fallback gebruiken dezelfde lijst).

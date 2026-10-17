@@ -3,8 +3,8 @@ import { services } from '../data/services.mjs';
 import { layout, btn, breadcrumbSchema, faqSchema, telHref, mailHref, waHref, stripTags } from '../components/layout.mjs';
 import { icon } from '../components/icons.mjs';
 import {
-  homeHero, trust, problemSection, approachSection, servicesSection, casesSection, chooser, teamSection,
-  processSection, faqSection, finalCta, pageHero, servicePage, contactForm,
+  homeHero, routeSection, timelineSection, casesSection, chooser, teamSection,
+  processSection, faqSection, pageHero, servicePage, contactForm,
 } from '../components/sections.mjs';
 
 const ext = 'target="_blank" rel="noopener"';
@@ -15,11 +15,12 @@ const home = {
   render: () =>
     layout({
       path: '/',
-      theme: 'dark',
+      home: true,
       title: 'NEXD Media | Websites die aanvragen opleveren voor legal & finance',
       description: 'NEXD Media bouwt conversiegerichte websites voor advocaten, accountants en zakelijke dienstverleners. Strategie, design en techniek die leiden tot aanvragen.',
       schema: [faqSchema(faq)],
-      body: [homeHero(), trust(), problemSection(), approachSection(), servicesSection(), casesSection(), chooser(), teamSection(), processSection(), faqSection(faq), finalCta()].join('\n'),
+      // De eerste drie blokken vormen een stapel: elk pint bovenaan en het volgende schuift eroverheen.
+      body: [`<div class="stack" data-stack-root>${homeHero()}${routeSection()}${timelineSection()}</div>`, casesSection(), chooser(), teamSection(), faqSection(faq)].join('\n'),
     }),
 };
 
@@ -41,16 +42,15 @@ const overview = {
           crumbs: [{ name: 'Home', path: '/' }, { name: 'Website laten maken', path: '/website-laten-maken.html' }],
           actions: btn({ href: '/contact/', label: 'Plan een kennismaking' }),
         }),
-        chooser(),
-        `<section class="section services services--compact" aria-labelledby="meer-title"><div class="container">
-          <div class="section-head reveal"><p class="eyebrow">Verder bouwen</p><h2 id="meer-title" class="h2">Alles voor een website die blijft <em>presteren</em>.</h2></div>
+        chooser({ withServices: false }),
+        `<section class="section services-tiles" aria-labelledby="meer-title"><div class="container">
+          <div class="section-head"><p class="eyebrow">Verder bouwen</p><h2 id="meer-title" class="mast mast--md" data-reveal="words">Alles voor een website die blijft presteren</h2></div>
           <ul class="tile-grid">
-            ${services.filter((s) => !packages.some((p) => p.key === s.key)).map((s) => `<li class="tile reveal"><a href="${s.path}"><h3 class="h4">${s.nav}</h3><p>${stripTags(s.lead).split('. ')[0]}.</p><span class="link-arrow">Lees meer${icon('arrow', 16)}</span></a></li>`).join('')}
+            ${services.filter((s) => !packages.some((p) => p.key === s.key)).map((s, i) => `<li class="tile" data-reveal="rise" data-delay="${i * 70}"><a href="${s.path}"><span class="tile__n">${String(i + 1).padStart(2, '0')}</span><h3 class="tile__name">${s.nav}</h3><p>${stripTags(s.lead).split('. ')[0]}.</p><span class="bracket-link" aria-hidden="true">[ Lees meer → ]</span></a></li>`).join('')}
           </ul>
         </div></section>`,
         processSection(),
         faqSection(faq.slice(0, 4)),
-        finalCta(),
       ].join('\n'),
     }),
 };
@@ -99,17 +99,16 @@ const about = {
           crumbs: [{ name: 'Home', path: '/' }, { name: 'Over ons', path: '/over-ons/' }],
         }),
         `<section class="section principles" aria-labelledby="principes-title"><div class="container">
-          <div class="section-head reveal"><p class="eyebrow">Waar we voor staan</p><h2 id="principes-title" class="h2">Design is pas goed als het <em>werkt</em>.</h2></div>
+          <div class="section-head"><p class="eyebrow">Waar we voor staan</p><h2 id="principes-title" class="mast mast--md" data-reveal="words">Design is pas goed als het werkt</h2></div>
           <ol class="principle-list">
-            <li class="reveal"><h3 class="h4">Eerst de klant, dan het design</h3><p>We beginnen bij wie je website bezoekt en wat die persoon nodig heeft om contact op te nemen.</p></li>
-            <li class="reveal"><h3 class="h4">Eerlijk over resultaten</h3><p>We tonen alleen cijfers die klanten zelf hebben gedeeld, en beloven geen posities in Google.</p></li>
-            <li class="reveal"><h3 class="h4">Zelf in de hand</h3><p>Je krijgt een website die je zelf kunt bijhouden, met uitleg bij de oplevering.</p></li>
-            <li class="reveal"><h3 class="h4">Meten, niet gissen</h3><p>Search Console, Analytics en heatmaps laten zien wat werkt. Daar sturen we op bij.</p></li>
+            <li data-reveal="rise"><span class="tile__n">01</span><h3 class="tile__name">Eerst de klant, dan het design</h3><p>We beginnen bij wie je website bezoekt en wat die persoon nodig heeft om contact op te nemen.</p></li>
+            <li data-reveal="rise" data-delay="70"><span class="tile__n">02</span><h3 class="tile__name">Eerlijk over resultaten</h3><p>We tonen alleen cijfers die klanten zelf hebben gedeeld, en beloven geen posities in Google.</p></li>
+            <li data-reveal="rise" data-delay="140"><span class="tile__n">03</span><h3 class="tile__name">Zelf in de hand</h3><p>Je krijgt een website die je zelf kunt bijhouden, met uitleg bij de oplevering.</p></li>
+            <li data-reveal="rise" data-delay="210"><span class="tile__n">04</span><h3 class="tile__name">Meten, niet gissen</h3><p>Search Console, Analytics en heatmaps laten zien wat werkt. Daar sturen we op bij.</p></li>
           </ol>
         </div></section>`,
         teamSection(),
         casesSection(),
-        finalCta(),
       ].join('\n'),
     }),
 };
@@ -125,11 +124,12 @@ const contact = {
       schema: [breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact/' }]), { '@context': 'https://schema.org', '@type': 'ContactPage', name: 'Contact', url: `${site.url}/contact/` }],
       body: `
 <section class="page-hero page-hero--contact">
+  <canvas class="contour-canvas" data-contour="hero" aria-hidden="true"></canvas>
   <div class="container contact__grid">
     <div class="contact__intro">
       <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li aria-current="page">Contact</li></ol></nav>
       <p class="eyebrow">Contact</p>
-      <h1 class="page-hero__title">Vertel ons waar je <em>tegenaan</em> loopt.</h1>
+      <h1 class="page-hero__title" data-reveal="words" data-stagger="90">Vertel ons waar je <em>tegenaan</em> loopt.</h1>
       <p class="lede">${site.contact.responsePromise}, met een voorstel voor een kennismaking. Liever direct contact? Bel, app of FaceTime ons.</p>
       <ul class="contact-list">
         <li><a href="${telHref()}">${icon('phone', 22)}<span><small>Bel ons</small>${site.contact.phoneDisplay}</span></a></li>

@@ -20,8 +20,9 @@ for (const [name, vp] of [['desktop', { width: 1440, height: 900 }], ['mobile', 
   for (const p of list) {
     await page.goto('http://localhost:4511' + p, { waitUntil: 'networkidle' });
     if (p === '/' && !reduced) await page.waitForSelector('.hero__stage.is-live', { timeout: 15000 }).then(() => page.waitForTimeout(2600), () => console.log('  (geen WebGL-hero)'));
-    await page.evaluate(() => document.querySelectorAll('.reveal').forEach((e) => e.classList.add('is-visible')));
-    await page.waitForTimeout(400);
+    // Laadsluier weg en de eerste reveals uitgespeeld.
+    await page.waitForSelector('[data-veil]', { state: 'detached', timeout: 15000 }).catch(() => {});
+    await page.waitForTimeout(reduced ? 300 : 2200);
     const file = `${out}/${name}${p.replace(/[/.]/g, '_')}.png`;
     await page.screenshot({ path: file, fullPage: full });
     console.log(file);

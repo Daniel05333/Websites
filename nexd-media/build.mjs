@@ -24,10 +24,23 @@ const engine = await build({
 });
 const engineBytes = Object.values(engine.metafile.outputs)[0].bytes;
 
+// Client: beweging, canvassen en interactie (incl. Lenis), als één module.
+const client = await build({
+  entryPoints: ['src/client/main.js'],
+  bundle: true,
+  format: 'esm',
+  minify: true,
+  target: 'es2020',
+  legalComments: 'eof',
+  outfile: join(OUT, 'assets/js/main.js'),
+  metafile: true,
+});
+const clientBytes = Object.values(client.metafile.outputs)[0].bytes;
+
 // Cache-busting: korte hash van CSS + JS + engine.
 const hash = createHash('sha1')
   .update(await readFile('assets/css/main.css'))
-  .update(await readFile('assets/js/main.js'))
+  .update(await readFile(join(OUT, 'assets/js/main.js')))
   .update(await readFile(join(OUT, 'assets/js/engine.js')))
   .digest('hex')
   .slice(0, 8);
@@ -94,4 +107,4 @@ ${redirects.map(([from, to]) => `RedirectMatch 301 ^/${from}/?$ ${to}`).join('\n
 </IfModule>
 `
 );
-console.log(`Gebouwd: ${pages.length} pagina's in ./${OUT} (assets v=${hash}, engine.js ${(engineBytes / 1024).toFixed(0)} kB)`);
+console.log(`Gebouwd: ${pages.length} pagina's in ./${OUT} (assets v=${hash}, engine.js ${(engineBytes / 1024).toFixed(0)} kB, main.js ${(clientBytes / 1024).toFixed(0)} kB)`);

@@ -9,16 +9,13 @@ const exe = process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium-1194/chrome-
 const font = async (f) => `data:font/woff2;base64,${(await readFile(new URL(`../assets/fonts/${f}`, import.meta.url))).toString('base64')}`;
 const logo = `data:image/png;base64,${(await readFile(new URL('../assets/img/logo-x.png', import.meta.url))).toString('base64')}`;
 const css = `
-@font-face{font-family:'Inter Tight';src:url(${await font('inter-tight-var.woff2')});font-weight:100 900}
-@font-face{font-family:'Instrument Serif';src:url(${await font('instrument-serif-italic.woff2')});font-style:italic}
-@font-face{font-family:'JetBrains Mono';src:url(${await font('jetbrains-mono-500.woff2')})}
-:root{--paper:#f2eee6;--signal:#ff5a1f}
-*{margin:0;box-sizing:border-box}body{background:#0e0f0d;color:#f2eee6;font-family:'Inter Tight'}
+@font-face{font-family:'Oswald';src:url(${await font('oswald-var.woff2')});font-weight:200 700}
+@font-face{font-family:'Space Grotesk';src:url(${await font('space-grotesk-var.woff2')});font-weight:300 700}
+*{margin:0;box-sizing:border-box}body{background:#f7faf9;color:#0f172a;font-family:'Space Grotesk'}
 .engine-svg{position:absolute;inset:0;width:100%;height:100%}
-.engine-svg__grid line{stroke:#f2eee6;stroke-opacity:.07}
-.engine-svg__frames polygon{fill:#f2eee6;fill-opacity:.025;stroke:#f2eee6;stroke-opacity:.55;stroke-width:1.4}
-.engine-svg__dots circle{fill:#f2eee6;fill-opacity:.42}.engine-svg__dots circle.w{fill:#ff5a1f;fill-opacity:.95}
-.engine-svg__core{fill:#ff5a1f}`;
+.engine-svg__frames polygon{fill:#0f172a;fill-opacity:.025;stroke:#0f172a;stroke-opacity:.4;stroke-width:1.2}
+.engine-svg__dots circle{fill:#0f172a;fill-opacity:.3}.engine-svg__dots circle.w{fill:#12b981;fill-opacity:1}
+.engine-svg__core{fill:#12b981}`;
 
 const browser = await chromium.launch({ executablePath: exe });
 const shot = async (w, h, html, file, omitBackground = false) => {
@@ -31,14 +28,14 @@ const shot = async (w, h, html, file, omitBackground = false) => {
 };
 
 await shot(1200, 630, `
-<div style="position:relative;width:1200px;height:630px;overflow:hidden">
-  <div style="position:absolute;inset:0 -120px 0 360px;opacity:.95">${engineSvg()}</div>
-  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#0e0f0d 30%,rgba(14,15,13,.2) 75%)"></div>
-  <div style="position:absolute;left:72px;top:64px;display:flex;align-items:center;gap:12px;color:#f2eee6"><img src="${logo}" style="width:52px"><b style="font-size:30px;letter-spacing:-.04em">NEXD</b><span style="font-family:'JetBrains Mono';font-size:14px;letter-spacing:.12em;opacity:.75">MEDIA</span></div>
-  <h1 style="position:absolute;left:72px;bottom:120px;font-size:84px;line-height:.94;letter-spacing:-.045em;font-weight:600;max-width:12ch">Websites die <em style="font-family:'Instrument Serif';font-weight:400;color:#ff5a1f">aanvragen</em> opleveren.</h1>
-  <p style="position:absolute;left:72px;bottom:64px;font-family:'JetBrains Mono';font-size:16px;letter-spacing:.08em;color:#aaa59a">LEGAL · FINANCE · ZAKELIJKE DIENSTVERLENING</p>
+<div style="position:relative;width:1200px;height:630px;overflow:hidden;background:#f7faf9;border-bottom:14px solid #12b981">
+  <div style="position:absolute;inset:0 -140px 0 420px">${engineSvg()}</div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#f7faf9 36%,rgba(247,250,249,0) 78%)"></div>
+  <div style="position:absolute;left:72px;top:60px;display:flex;align-items:center;gap:12px"><img src="${logo}" style="width:50px"><b style="font-family:'Oswald';font-size:32px;letter-spacing:.02em">NEXD</b><span style="font-size:13px;letter-spacing:.16em;color:#5b6474">MEDIA</span></div>
+  <h1 style="position:absolute;left:72px;bottom:118px;font-family:'Oswald';font-weight:700;text-transform:uppercase;font-size:86px;line-height:.95;max-width:9.5em">Je website moet meer doen dan er goed uitzien<span style="color:#12b981">.</span></h1>
+  <p style="position:absolute;left:72px;bottom:62px;font-size:17px;text-transform:uppercase;color:#047857;letter-spacing:.02em">Websites voor advocatuur &amp; accountancy · Oldenzaal</p>
 </div>`, 'og-image.png');
 
 await shot(64, 64, `<style>body{background:transparent}</style><div style="width:64px;height:64px;display:grid;place-items:center"><img src="${logo}" style="width:60px"></div>`, 'favicon.png', true);
-await shot(180, 180, `<div style="width:180px;height:180px;display:grid;place-items:center;background:#f2eee6"><img src="${logo}" style="width:120px"></div>`, 'apple-touch-icon.png');
+await shot(180, 180, `<div style="width:180px;height:180px;display:grid;place-items:center;background:#f7faf9"><img src="${logo}" style="width:120px"></div>`, 'apple-touch-icon.png');
 await browser.close();

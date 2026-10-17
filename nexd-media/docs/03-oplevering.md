@@ -10,7 +10,7 @@ De nieuwe website is **gebouwd en lokaal getest**. Hij is **niet gepubliceerd**:
 
 | Pagina | Inhoud |
 |---|---|
-| `/` | hero met 3D Conversion Engine → specialisatie & feiten → probleem → De NEXD-aanpak (scrollgestuurde stapel) → diensten → cases met metric-balken → keuzehulp → team → werkwijze → FAQ → finale CTA |
+| `/` | laadsluier (desktop, één keer per sessie) → hero met 3D Conversion Engine, websitecheck en pakketprijzen → route "Van bezoeker tot aanvraag" (canvas) → tijdlijn "Van intake tot livegang" (7 stappen); deze drie als sticky stapel → cases met kiesbare strip → keuzehulp → team → FAQ → footer |
 | `/website-laten-maken.html` | overzicht: keuzehulp, overige diensten, werkwijze, FAQ |
 | 7 dienstpagina's | standaard, maatwerk, optimaliseren, WordPress, blogs, SEO, fotografie. Elk met eigen motief, doelgroep, probleem, leverlijst, prijskaart, traject, FAQ en gerelateerde diensten |
 | `/over-ons/` | principes, team, cases |
@@ -19,7 +19,7 @@ De nieuwe website is **gebouwd en lokaal getest**. Hij is **niet gepubliceerd**:
 
 **Technisch**
 
-- Statische HTML, één CSS-bestand en één klein JS-bestand (4,6 kB gzip) voor alles behalve de 3D.
+- Statische HTML, één CSS-bestand en één JS-bundle (16 kB gzip, inclusief Lenis) voor alles behalve de 3D.
 - Geen framework, geen CMS, geen trackers en geen externe scripts of CDN's. Alle fonts zijn zelf gehost.
 
 **SEO**
@@ -43,14 +43,16 @@ De nieuwe website is **gebouwd en lokaal getest**. Hij is **niet gepubliceerd**:
 | Gebruikt | Waarvoor |
 |---|---|
 | Node (build-script, ES-modules) | HTML genereren uit data |
-| three.js r160 via esbuild | alleen de 3D-hero; los bundle, pas geladen na `load` + idle |
-| CSS (custom properties, 3D-transforms, `:has`) | design system, de aanpak-stapel, keuzehulp-styling |
-| IntersectionObserver | reveals, aanpak-stappen, sticky CTA, pauzeren van de 3D |
+| three.js r160 via esbuild | alleen de 3D-hero; los bundle (lazy import) |
+| Lenis 1.3 (MIT) | smooth scroll, aangedreven door de eigen ticker |
+| Eigen client (`src/client/`, esbuild) | ticker + springs, tekstreveals, canvassen (contour, dissolve, route), sticky stapel, tijdlijn, cases, menu, formulier |
+| CSS (custom properties, container queries, `:has`, clip-path) | design system, tijdlijnplaten, afgeschuinde knoppen, keuzehulp |
+| IntersectionObserver | reveals, sticky CTA, pauzeren van canvassen en 3D |
 | Playwright + axe-core | browsertests, screenshots, OG-afbeelding |
 
 **Niet gebruikt:**
 
-- **GSAP:** het aantal animaties rechtvaardigt geen extra library.
+- **GSAP / react-spring:** een eigen ticker met springs (± 1 kB) doet hetzelfde voor deze site.
 - **React / React Three Fiber:** geen bestaande React-stack en geen interactiviteit die het nodig maakt.
 - **Tailwind**, **video** en **gegenereerde beelden**.
 
@@ -63,11 +65,14 @@ De nieuwe website is **gebouwd en lokaal getest**. Hij is **niet gepubliceerd**:
    - pauzeert buiten beeld en in een verborgen tab;
    - minder deeltjes en een lagere pixelratio op zwakke of kleine apparaten;
    - laadt niet bij `prefers-reduced-motion`, Save-Data of zonder WebGL; dan blijft de SVG-compositie staan.
-2. **De NEXD-aanpak:** de laag van de stap die in beeld is schuift op zijn plek in een 3D-stapel (CSS). Op mobiel staat de stapel compleet en lezen de stappen als lijst.
+2. **Sticky stapel + route + tijdlijn:** hero, route en tijdlijn liggen als lagen op elkaar; de onderste zakt terug als de volgende eroverheen schuift. De route-kaart rijdt één ronde (remt in de bochten, fasen lichten op); de tijdlijn heeft een rail die de scroll volgt, parallax en dimmen bij hover. Op mobiel gewoon onder elkaar.
 3. **Keuzehulp:** de situatie bepaalt welk pakket je ziet. De CTA neemt de keuze mee naar het formulier (`?project=…`).
 4. **Contactformulier:** validatie, foutsamenvatting, honeypot en drie eerlijke eindtoestanden (zie hieronder).
 5. **Kleinere interacties:**
-   - mobiel menu (focus en Esc);
+   - cases kiezen via de strip (beugel schuift mee, balken groeien opnieuw);
+   - contourlijnen (de hero reageert op de cursor) en pixel-dissolve op de naden;
+   - cursorring en voortgangsstreepjes (desktop);
+   - volledig-scherm menu (focus vast, Esc);
    - sticky mobiele CTA (verborgen bij hero, formulier en footer);
    - FAQ;
    - metric-balken die groeien;
@@ -87,7 +92,7 @@ Beide paden zijn getest met een gemockt endpoint (200 en 500).
 
 ## Uitgevoerde tests (`npm test`)
 
-Alle tests zijn op deze oplevering uitgevoerd en geslaagd, in Chromium 141 (Playwright 1.56, headless, WebGL via SwiftShader).
+Alle tests zijn op deze oplevering (v3) uitgevoerd en geslaagd, in Chromium 141 (Playwright 1.56, headless, WebGL via SwiftShader).
 
 **Statisch** (`tests/check-static.mjs`), over 13 pagina's:
 
@@ -117,7 +122,8 @@ Alle tests zijn op deze oplevering uitgevoerd en geslaagd, in Chromium 141 (Play
   - 301-regels voor de oude URL's;
   - FAQ met het toetsenbord;
   - de skip-link;
-  - de aanpak-stap activeert de juiste laag.
+  - de case-strip wisselt de getoonde case;
+  - de tijdlijn heeft 7 stappen en de rail volgt de scroll.
 - **Mobiel:** het menu (focus, Esc, navigatie), het gedrag van de sticky CTA en touch targets.
 - **Formulier:**
   - lege en ongeldige invoer;
@@ -126,22 +132,24 @@ Alle tests zijn op deze oplevering uitgevoerd en geslaagd, in Chromium 141 (Play
   - "gegevens aanpassen";
   - endpoint met status 200 en 500;
   - de honeypot.
-- **Zonder JavaScript:** hero, cases en alle drie de pakketten zichtbaar.
+- **Zonder JavaScript:** hero, alle drie de cases, alle drie de pakketten en de tijdlijn zichtbaar.
 
 **Performance**, gemeten met Playwright tegen de lokale server. Dit is geen productiehosting en geen Lighthouse; het gaat om relatieve waarden.
 
 | | LCP | CLS |
 |---|---|---|
-| Desktop: home / maatwerk / contact | 0,68 s / 0,36 s / 0,42 s | 0,001 |
-| Mobiel (4× CPU-vertraging, ~9 Mbit/s, 150 ms latency): home / maatwerk / contact | 0,72 s / 0,66 s / 0,70 s | 0,000 |
+| Desktop: home / maatwerk / contact | 0,2–0,5 s / 0,1–0,2 s / 0,1 s | 0,000 |
+| Mobiel (4× CPU-vertraging, ~9 Mbit/s, 150 ms latency): home / maatwerk / contact | 0,6 s / 1,5–1,9 s / 0,6 s | 0,000 |
+
+De koppen komen woord voor woord binnen; LCP telt pas als ze zichtbaar zijn. Op telefoons is de laadsluier daarom uitgezet (met sluier was home mobiel 2,9 s).
 
 **Gewicht** (gzip):
 
-- HTML homepage: 14 kB
-- CSS: 9,5 kB
-- main.js: 4,6 kB
-- Fonts: 89 kB (drie woff2, waarvan twee met preload)
-- 3D-bundle: 121 kB (geladen ná `load` en idle, dus niet in het kritieke pad)
+- HTML homepage: 15 kB
+- CSS: 12 kB
+- main.js: 16 kB (inclusief Lenis)
+- Fonts: 50 kB (twee variabele woff2, beide met preload)
+- 3D-bundle: 121 kB (lazy import; niet in de HTML, niet bij reduced motion of zonder WebGL)
 
 **Niet getest:**
 
@@ -153,11 +161,11 @@ Alle tests zijn op deze oplevering uitgevoerd en geslaagd, in Chromium 141 (Play
 
 ## Verwerkt uit de screencapture van de huidige site (17-10-2026)
 
-- **Huisstijl:** het echte logo, uitgesneden en vrijgesteld, staat in header, footer, favicon, apple-touch-icon en OG-afbeelding. De signaalkleur sluit aan op het oranje van het logo.
+- **Huisstijl:** het echte logo, uitgesneden en vrijgesteld, staat in header, footer, favicon, apple-touch-icon en OG-afbeelding. Sinds v3 is het groen van de huidige site (`#12b981`) weer de accentkleur, inclusief de groene rand rond de footer.
 - **Team:** zes teamleden met hun eigen portretten, functies en specialismen.
 - **Cases:** drie cases met het volledige citaat, de naam en de datum. De cijfers in de balken komen uit die citaten.
 - **Pakketten:** de inhoud zoals op de huidige site: standaard "binnen 20 dagen online"; maatwerk met copy, fotografie en 6 maanden conversie-optimalisatie.
-- **Gratis websitecheck:** de laagdrempelige ingang van de huidige site staat als link onder de hero-knoppen, op de contactpagina en als onderwerp in het formulier.
+- **Gratis websitecheck:** de laagdrempelige ingang van de huidige site staat als paneel in de hero, op de contactpagina en als onderwerp in het formulier.
 - **Contact:** FaceTime als extra contactroute; bezoekadres en btw-nummer in footer, contactpagina en structured data; de belofte "Reactie binnen 2 uur" op de contactpagina.
 - **Overig:** twee extra FAQ's van de huidige site ("Wat maakt jullie anders?", "Kan ik niet gewoon een template kopen?"); het menu-item "Resultaten".
 
