@@ -29,7 +29,8 @@ for (const width of [320, 375, 768, 1024, 1440]) {
   const problems = [];
   page.on('console', (m) => m.type() === 'error' && problems.push(m.text()));
   page.on('pageerror', (e) => problems.push(e.message));
-  page.on('requestfailed', (r) => problems.push(`request failed ${r.url()}`));
+  // ERR_ABORTED = download afgebroken doordat de test al naar de volgende pagina gaat (bv. de lazy 3D-module); geen kapot bestand.
+  page.on('requestfailed', (r) => !/ERR_ABORTED/.test(r.failure()?.errorText) && problems.push(`request failed ${r.url()} ${r.failure()?.errorText}`));
   page.on('response', (r) => r.status() >= 400 && !r.url().endsWith('/404.html') && problems.push(`${r.status()} ${r.url()}`));
   for (const p of pages) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
@@ -117,8 +118,8 @@ console.log('Navigatie en contact');
       return (await page.locator('.main-nav [aria-current="page"]').textContent()) === text;
     });
   }
-  await check('"Werk" → cases-sectie op home', async () => {
-    await page.getByRole('navigation', { name: 'Hoofdmenu' }).getByRole('link', { name: 'Werk', exact: true }).click();
+  await check('"Resultaten" → cases-sectie op home', async () => {
+    await page.getByRole('navigation', { name: 'Hoofdmenu' }).getByRole('link', { name: 'Resultaten', exact: true }).click();
     await page.waitForURL(base + '/#werk');
     return page.locator('#werk').isVisible();
   });
@@ -156,6 +157,18 @@ console.log('Navigatie en contact');
     await page.getByRole('link', { name: 'Bespreek een maatwerk website' }).click();
     await page.waitForURL(/\/contact\/\?project=maatwerk/);
     return (await page.locator('#project').inputValue()) === 'maatwerk';
+  });
+  await check('gratis websitecheck in de hero vult het onderwerp in het formulier', async () => {
+    await page.goto(base + '/');
+    await page.locator('.hero__offer a').click();
+    await page.waitForURL(/\/contact\/\?project=websitecheck/);
+    return (await page.locator('#project').inputValue()) === 'websitecheck';
+  });
+  await check('alle 6 teamportretten laden', async () => {
+    await page.goto(base + '/over-ons/');
+    await page.locator('.team-grid').scrollIntoViewIfNeeded();
+    await page.waitForLoadState('networkidle');
+    return page.$$eval('.member__portrait img', (is) => is.length === 6 && is.every((i) => i.complete && i.naturalWidth === 256));
   });
   await check('oude WordPress-URL\'s hebben een 301 in .htaccess', async () => {
     const ht = await readFile(new URL('../public/.htaccess', import.meta.url), 'utf8');

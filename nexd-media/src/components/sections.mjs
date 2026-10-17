@@ -60,9 +60,12 @@ export const homeHero = () => `
     <h1 id="hero-title" class="hero__title">Je website moet meer doen dan er <em>goed uitzien.</em></h1>
     <div class="hero__bottom">
       <p class="hero__lead">We combineren strategie, design en techniek tot websites die duidelijk communiceren, vertrouwen opbouwen en bezoekers naar de juiste actie begeleiden. Voor advocaten, accountants en zakelijke dienstverleners.</p>
-      <div class="hero__actions">
-        ${btn({ href: '/contact/', label: 'Bespreek je website' })}
-        ${btn({ href: '#werk', label: 'Bekijk ons werk', variant: 'ghost-dark', iconName: '' })}
+      <div class="hero__cta">
+        <div class="hero__actions">
+          ${btn({ href: '/contact/', label: 'Bespreek je website' })}
+          ${btn({ href: '#werk', label: 'Bekijk ons werk', variant: 'ghost-dark', iconName: '' })}
+        </div>
+        <p class="hero__offer">Eerst vrijblijvend kijken? <a href="/contact/?project=${site.offer.key}">${site.offer.title}</a>: 3 concrete verbeterpunten.</p>
       </div>
     </div>
     <ol class="engine-stages" aria-label="Van bezoeker tot aanvraag">
@@ -76,7 +79,7 @@ export const trust = () => `
   <div class="container">
     <div class="trust__head reveal">
       <h2 id="trust-title" class="h2">Gespecialiseerd in dienstverleners waar <em>vertrouwen</em> de doorslag geeft.</h2>
-      <p class="lede">Een cliënt kiest een advocaat of accountant niet op basis van een mooie homepage, maar op het gevoel dat je zijn vraag begrijpt. Daar ontwerpen we voor.</p>
+      <p class="lede">Een cliënt kiest een advocaat of accountant op het gevoel dat je zijn vraag begrijpt. Daar ontwerpen we voor.</p>
     </div>
     <ul class="sectors">
       ${sectors.map((s, i) => `<li class="sector reveal" style="--d:${i}"><span class="sector__index">${pad(i + 1)}</span><h3 class="h4">${s.name}</h3><p>${s.text}</p></li>`).join('')}
@@ -92,7 +95,7 @@ export const problemSection = () => `
   <div class="container problems__grid">
     <div class="problems__head reveal">
       <p class="eyebrow">Herkenbaar?</p>
-      <h2 id="problems-title" class="h2">De meeste websites falen niet op design, maar op <em>de volgende stap.</em></h2>
+      <h2 id="problems-title" class="h2">De meeste websites verliezen bezoekers bij <em>de volgende stap.</em></h2>
       ${btn({ href: '/website-laten-optimaliseren/', label: 'Laat je website analyseren', variant: 'link' })}
     </div>
     <ol class="problem-list">
@@ -117,7 +120,7 @@ export const approachSection = () => `
     <div class="approach__head reveal">
       <p class="eyebrow eyebrow--on-dark">De NEXD-aanpak</p>
       <h2 id="approach-title" class="h2">Zes lagen. <em>Eén</em> website die werkt.</h2>
-      <p class="lede">Een website die aanvragen oplevert is geen ontwerp met een formulier eronder. Het is een stapel beslissingen die op elkaar moeten passen.</p>
+      <p class="lede">Een website die aanvragen oplevert is een stapel beslissingen die op elkaar moeten passen, van doelgroep tot meting.</p>
     </div>
     <div class="approach__grid">
       <div class="approach__visual" aria-hidden="true">
@@ -167,8 +170,8 @@ const metricBars = (m) => {
   return `
   <figure class="metric">
     <figcaption>${m.label}</figcaption>
-    <div class="metric__row"><span class="metric__key">Voorheen</span><span class="metric__bar"><span style="--w:${((m.before / max) * 100).toFixed(1)}%"></span></span><span class="metric__val">${m.before}</span></div>
-    <div class="metric__row metric__row--after"><span class="metric__key">Na NEXD</span><span class="metric__bar"><span style="--w:100%"></span></span><span class="metric__val">${m.after}</span></div>
+    <div class="metric__row"><span class="metric__key">Voorheen</span><span class="metric__bar"><span style="--w:${((m.before / max) * 100).toFixed(1)}%"></span></span><span class="metric__val">${m.beforeLabel ?? m.before}</span></div>
+    <div class="metric__row metric__row--after"><span class="metric__key">Na NEXD</span><span class="metric__bar"><span style="--w:${((m.after / max) * 100).toFixed(1)}%"></span></span><span class="metric__val">${m.afterLabel ?? m.after}</span></div>
   </figure>`;
 };
 
@@ -197,7 +200,7 @@ export const casesSection = () => `
         <div class="case__result">
           ${c.highlight ? `<p class="case__highlight"><strong>${c.highlight.value}</strong> ${c.highlight.label}</p>` : ''}
           ${c.metrics.map(metricBars).join('')}
-          ${c.quote ? `<blockquote class="case__quote"><p>“${c.quote}”</p><footer>${c.person}, ${c.client} · ${c.date}</footer></blockquote>` : `<p class="case__source">${c.source}</p>`}
+          <blockquote class="case__quote"><p>“${c.quote}”</p><footer>${c.person}, ${c.client} · ${c.date}</footer></blockquote>
           ${c.url ? `<a class="link-arrow" href="${c.url}" ${ext}>Bekijk de website${icon('arrowUpRight', 16)}<span class="visually-hidden"> van ${c.client} (opent in nieuw tabblad)</span></a>` : ''}
         </div>
       </article>`).join('')}
@@ -247,17 +250,20 @@ export const teamSection = (headingLevel = 'h2') => `
     <div class="section-head section-head--split reveal">
       <div>
         <p class="eyebrow">Het team</p>
-        <${headingLevel} id="team-title" class="h2">Vier specialisten, <em>één</em> aanspreekpunt.</${headingLevel}>
+        <${headingLevel} id="team-title" class="h2">Zes specialisten, <em>één</em> aanspreekpunt.</${headingLevel}>
       </div>
-      <p class="lede">Strategie, content, conversie en techniek aan één tafel. Je praat met de mensen die je website ook echt maken.</p>
+      <p class="lede">Strategie, copy, conversie, techniek en projectmanagement aan één tafel. Je praat met de mensen die je website ook echt maken.</p>
     </div>
     <ul class="team-grid">
       ${team.map((m, i) => `
       <li class="member reveal" style="--d:${i}">
-        <div class="member__portrait${m.photo ? '' : ' member__portrait--initial'}">${m.photo ? `<img src="${m.photo}" alt="Portret van ${m.name}" width="480" height="600" loading="lazy">` : `<span aria-hidden="true">${m.short[0]}</span>`}</div>
-        <h3 class="h4">${m.name}</h3>
-        <p class="member__role">${m.role}</p>
-        <p>${m.text}</p>
+        <div class="member__portrait${m.photo ? '' : ' member__portrait--initial'}">${m.photo ? `<img src="${m.photo}" alt="Portret van ${m.name}" width="256" height="256" loading="lazy">` : `<span aria-hidden="true">${m.short[0]}</span>`}</div>
+        <div class="member__body">
+          <h3 class="h4">${m.name}</h3>
+          <p class="member__role">${m.role}</p>
+          <p class="member__text">${m.text}</p>
+          <ul class="member__skills">${m.skills.map((k) => `<li>${k}</li>`).join('')}</ul>
+        </div>
       </li>`).join('')}
     </ul>
   </div>
@@ -273,7 +279,7 @@ export const processSection = () => `
     <ol class="timeline">
       ${process.map((p, i) => `<li class="timeline__item reveal" style="--d:${i}"><span class="timeline__n">${pad(i + 1)}</span><h3 class="h4">${p.title}</h3><p>${p.text}</p></li>`).join('')}
     </ol>
-    <p class="process__note reveal">Een standaard website staat in de regel binnen 4 weken live, een maatwerk website binnen 4 tot 6 weken. De klok begint zodra je content en huisstijl compleet zijn.</p>
+    <p class="process__note reveal">Een standaard website staat binnen 20 dagen online, een maatwerk website meestal binnen 4 tot 6 weken. De klok begint zodra je content en huisstijl compleet zijn.</p>
   </div>
 </section>`;
 
@@ -449,6 +455,7 @@ export const contactForm = () => `
       <label for="project">Waar kunnen we je mee helpen?</label>
       <select id="project" name="project">
         <option value="">Weet ik nog niet</option>
+        <option value="${site.offer.key}">${site.offer.title}</option>
         ${services.map((s) => `<option value="${s.key}">${s.nav}</option>`).join('')}
         <option value="anders">Iets anders</option>
       </select>

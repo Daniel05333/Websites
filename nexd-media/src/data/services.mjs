@@ -12,7 +12,7 @@ export const services = [
     nav: 'Standaard website',
     group: 'website',
     title: 'Standaard website laten maken vanaf € 1.795 | NEXD Media',
-    description: 'Een professionele standaard website in jouw huisstijl: responsive, met webteksten, CMS, SSL en contactformulier. Binnen 4 weken live, vanaf € 1.795.',
+    description: 'Een professionele standaard website in jouw huisstijl: responsive, met webteksten, CMS, SSL en contactformulier. Binnen 20 dagen online, vanaf € 1.795.',
     eyebrow: 'Website laten maken · Standaard',
     h1: 'Snel professioneel online, <em>zonder concessies</em> aan duidelijkheid.',
     lead: 'Een standaard website geeft je een verzorgde, overzichtelijke basis die vertelt wat je doet en bezoekers naar contact leidt. Wij schrijven de teksten en richten alles in; jij levert je huisstijl aan.',
@@ -51,7 +51,7 @@ export const services = [
     description: 'Een maatwerk website rond jouw klantreis: doelgroepanalyse, wireframes, uniek design, fotografie en een conversiestructuur. Binnen 4 tot 6 weken online.',
     eyebrow: 'Website laten maken · Maatwerk',
     h1: 'Een website die werkt <em>zoals jouw klant</em> beslist.',
-    lead: 'Bij maatwerk ontwerpen we niet eerst een mooie pagina, maar de route die een bezoeker aflegt: van eerste zoekvraag tot intake of offerteaanvraag. Daarna pas het design, de fotografie en de techniek.',
+    lead: 'Bij maatwerk ontwerpen we eerst de route die een bezoeker aflegt: van eerste zoekvraag tot intake of offerteaanvraag. Daarna pas het design, de fotografie en de techniek.',
     motif: 'route',
     package: pkg('maatwerk'),
     forWho: [
@@ -87,7 +87,7 @@ export const services = [
     description: 'Je website hoeft niet altijd opnieuw. Met heatmaps, een UX- en conversieanalyse en een technische check vinden we de quick wins en meten we het effect.',
     eyebrow: 'Website optimaliseren',
     h1: 'Niet alles opnieuw. <em>Eerst meten</em> waar het weglekt.',
-    lead: 'Vaak zit het probleem niet in de hele website, maar in een paar pagina’s, een formulier of een onduidelijke knop. We analyseren waar bezoekers afhaken, voeren de quick wins door en meten wat het oplevert.',
+    lead: 'Vaak zit het probleem in een paar pagina’s, een formulier of een onduidelijke knop. We analyseren waar bezoekers afhaken, voeren de quick wins door en meten wat het oplevert.',
     motif: 'heatmap',
     package: pkg('optimaliseren'),
     forWho: [

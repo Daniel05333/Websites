@@ -1,5 +1,5 @@
 // Alle bedrijfsgegevens en content van NEXD Media op één plek.
-// Bron per gegeven: de bestaande website (nexdmedia.com) en het KvK-register, geraadpleegd oktober 2026.
+// Bron per gegeven: de bestaande website (nexdmedia.com, screencapture 16-10-2026) en het KvK-register.
 // Alles wat nog bevestigd moet worden staat in docs/03-oplevering.md onder "Te bevestigen".
 
 export const site = {
@@ -16,9 +16,19 @@ export const site = {
     // Aanname: WhatsApp loopt via hetzelfde mobiele nummer. Te bevestigen.
     whatsapp: '31611907255',
     whatsappMessage: 'Hoi NEXD Media, ik wil graag mijn website bespreken.',
-    postal: 'Postbus 146, 7577 AR Oldenzaal',
+    street: 'H.M. Corwinstraat 12',
+    postalCode: '7576 ZD',
     city: 'Oldenzaal',
     kvk: '89065506',
+    vat: 'NL1005212B01',
+    // Belofte zoals op de huidige site ("Reactie binnen 2 uur").
+    responsePromise: 'Reactie binnen 2 uur',
+  },
+  // Laagdrempelig aanbod van de huidige site.
+  offer: {
+    key: 'websitecheck',
+    title: 'Gratis websitecheck',
+    text: 'Je ontvangt 3 concrete verbeterpunten voor je huidige website.',
   },
   social: {
     linkedin: 'https://nl.linkedin.com/company/nexdmediabv',
@@ -32,7 +42,7 @@ export const site = {
 export const nav = [
   { href: '/website-laten-maken.html', label: 'Diensten' },
   { href: '/website-laten-optimaliseren/', label: 'Optimaliseren' },
-  { href: '/#werk', label: 'Werk' },
+  { href: '/#werk', label: 'Resultaten' },
   { href: '/over-ons/', label: 'Over ons' },
   { href: '/contact/', label: 'Contact' },
 ];
@@ -48,9 +58,9 @@ export const sectors = [
 
 export const facts = [
   { value: 'Legal & finance', label: 'Onze specialisatie' },
-  { value: '4', label: 'Specialisten: strategie, content, conversie, techniek' },
-  { value: 'WordPress', label: 'Zelf je content beheren, met of zonder Elementor' },
-  { value: 'In-house', label: 'Fotografie en webteksten door ons eigen team' },
+  { value: 'Baymard', label: 'UX op basis van onderzoek naar gebruikersgedrag' },
+  { value: 'Core Web Vitals', label: 'Snel en stabiel online, gemeten met Googles normen' },
+  { value: 'WCAG', label: 'Gebouwd volgens de richtlijnen voor toegankelijkheid' },
 ];
 
 export const problems = [
@@ -92,9 +102,9 @@ export const packages = [
     priceNote: 'eenmalig, vanaf',
     situation: 'Ik wil snel en professioneel online',
     for: 'Voor ondernemers die snel een professionele, overzichtelijke basis willen die bezoekers helder naar contact leidt.',
-    timeline: 'In de regel binnen 4 weken live, zodra content en huisstijl compleet zijn',
+    timeline: 'Binnen 20 dagen online, zodra content en huisstijl compleet zijn',
     features: [
-      'Professioneel webdesign in jouw huisstijl',
+      'Bewezen structuur in jouw huisstijl',
       'Responsive design voor mobiel, tablet en desktop',
       'Webteksten',
       'Meerdere pagina’s',
@@ -111,15 +121,15 @@ export const packages = [
     href: '/maatwerk-website.html',
     price: 4495,
     priceNote: 'eenmalig, vanaf',
-    situation: 'Ik wil me echt onderscheiden',
-    for: 'Voor kantoren met een specifieke positionering, een complexere klantreis of een uitgebreide conversiestrategie.',
+    situation: 'Ik wil structureel meer aanvragen',
+    for: 'Voor kantoren die hun website echt als acquisitiekanaal willen inzetten, gebouwd rond doelgroep, propositie en groeidoelen.',
     timeline: 'In de regel binnen 4 tot 6 weken online; grotere projecten duren langer',
     features: [
-      'Intake en doelgroepanalyse',
-      'Wireframes en een uniek ontwerp',
-      'Conversiestructuur per pagina',
+      'Strategie en ontwerp volledig op maat',
+      'Intake, doelgroepanalyse en wireframes',
+      'Professionele copy en fotografie',
+      '6 maanden conversie-optimalisatie',
       'WordPress, desgewenst met Elementor',
-      'Inclusief fotografie',
       'Hosting voor € 25 per maand',
     ],
     cta: 'Bespreek een maatwerk website',
@@ -146,8 +156,9 @@ export const packages = [
   },
 ];
 
-// Cases. Alleen gegevens die de klant zelf publiek heeft bevestigd (testimonial op de huidige site).
-// Niet getoond, wel in de docs: het geaggregeerde "+164%" bij Dresschers (sluit niet aan op de getallen hieronder).
+// Cases. Alleen cijfers die de klant zelf noemt in een citaat met naam (huidige site).
+// Niet getoond, wel in de docs: de koppen "+164%", "bouncerate -37% en 2× zoveel afspraken" en "+89%":
+// die staan niet in de citaten en zijn niet te herleiden.
 export const cases = [
   {
     key: 'dresschers',
@@ -156,47 +167,69 @@ export const cases = [
     place: 'Brunssum',
     url: 'https://www.dresschers.nl/',
     challenge: 'Meer cliënten die na het bekijken van de website ook echt een intake aanvragen.',
-    approach: 'Een nieuwe conversiestructuur: duidelijke routes per vraag en een laagdrempelige eerste stap naar een intakegesprek.',
-    metrics: [
-      { label: 'Betaalde adviesgesprekken in Q2 2023', before: 37, after: 61 },
-    ],
-    highlight: { value: '+38%', label: 'intakeformulieren, al in de tweede week' },
-    source: 'Volgens Advocatenkantoor Dresschers',
+    approach: 'Conversiestructuur en copy aangepast op basis van gebruikersgedrag en data.',
+    metrics: [{ label: 'Betaalde adviesgesprekken in Q2 2023', before: 37, after: 61 }],
+    highlight: { value: '+38%', label: 'ingevulde intakeformulieren, vanaf week 2' },
+    quote: 'Vanaf week 2 zagen we al +38% meer ingevulde intakeformulieren. In Q2 2023 kwamen er 61 nieuwe betaalde adviesgesprekken binnen (dit was 37).',
+    person: 'mr. Marije van Dijk, partner huurrecht',
+    date: 'mei 2023',
   },
   {
     key: 'countus',
     client: 'Countus Accountants',
     sector: 'Accountancy',
     challenge: 'Startende ondernemers sneller laten kiezen voor het pakket dat bij hen past.',
-    approach: 'Een nieuwe Starterspakketten-module die de keuze overzichtelijk maakt en direct naar een aanvraag leidt.',
-    metrics: [{ label: 'Aanvragen via de Starterspakketten in drie maanden', before: 32, after: 124 }],
-    quote: 'De nieuwe Starterspakketten-module leverde in drie maanden 124 aanvragen op, waar dat er voorheen 32 waren.',
+    approach: 'Optimalisatie van de homepage en dienstenpagina, met een nieuwe Starterspakketten-module.',
+    metrics: [{ label: 'Aanvragen via de Starterspakketten, april tot en met juni 2024', before: 32, after: 124 }],
+    highlight: { value: '+31%', label: 'vaker doorgeklikt naar het bel-script op mobiel' },
+    quote: 'De nieuwe ‘Starterspakketten’-module gaf in april–juni 2024 precies 124 aanvragen (voorheen 32). Vooral mobiel klikte men 31% vaker door naar het bel-script. Dit stemt ons bijzonder tevreden!',
     person: 'Rick-Jan Lennep',
     date: 'juli 2024',
-    source: 'Rick-Jan Lennep, Countus Accountants',
+  },
+  {
+    key: 'delta',
+    client: 'Consultancy Bureau Delta',
+    sector: 'Advies',
+    challenge: 'Minder losse aanvragen, meer gesprekken met beslissers die echt passen.',
+    approach: 'Een scherpere propositie, ondersteund met cases en whitepapers per sector.',
+    metrics: [{ label: 'Gesloten deals per lead', before: 1 / 7, after: 1 / 3, beforeLabel: '1 op 7', afterLabel: '1 op 3' }],
+    highlight: { value: '212', label: 'demo-aanvragen via whitepapers in Q1 en Q2' },
+    quote: 'Leadkwaliteit maakt met de nieuwe site echt het verschil: van 1 op 7 naar 1 op 3 gesloten deals. Whitepapers per sector zorgden in Q1 en Q2 voor 212 demo-aanvragen.',
+    person: 'drs. Alexander van Rosendael',
+    date: 'januari 2025',
   },
 ];
 
-// Het team zoals op de huidige homepage. Portretten ontbreken nog (zie docs): tot die er zijn tonen we initialen.
+// Het team zoals op de huidige homepage, met de portretten van die pagina.
 export const team = [
-  { name: 'Maikel Latour', short: 'Maikel', role: 'Oprichter · strategie & fotografie', text: 'Vertaalt jouw doelen naar een websiteplan en fotografeert mensen en kantoren zo dat ze vertrouwen wekken.', photo: null },
-  { name: 'Bas', short: 'Bas', role: 'Full-stack developer', text: '14+ jaar ervaring in B2B-webarchitectuur. Zorgt dat alles snel, veilig en goed onderhoudbaar is.', photo: null },
-  { name: 'Ron', short: 'Ron', role: 'Contentspecialist', text: 'Schrijft webteksten en blogs die aansluiten op de zoekvragen en de taal van jouw klanten.', photo: null },
-  { name: 'Sara', short: 'Sara', role: 'Conversiespecialist', text: 'Analyseert met heatmaps en funnels waar bezoekers afhaken, en wat er nodig is om ze te laten doorklikken.', photo: null },
+  { name: 'Maikel Latour', short: 'Maikel', role: 'Oprichter · conversiestrateeg & fotograaf', text: 'Het strategische brein achter elke website, en de foto- en videograaf die je kantoor in beeld brengt.', skills: ['Conversiestrategie en aanbod', 'Design dat keuzes aanstuurt', 'Beeld dat vertrouwen wekt'], photo: '/assets/img/team/team-maikel.webp' },
+  { name: 'Bas', short: 'Bas', role: 'Full-stack developer', text: '14+ jaar ervaring in schaalbare B2B-webarchitectuur en automatisering.', skills: ['Schaalbare architectuur en API’s', 'Automatisering en integraties', 'Core Web Vitals'], photo: '/assets/img/team/team-bas.webp' },
+  { name: 'Ron', short: 'Ron', role: 'Contentspecialist', text: 'Conversiegerichte content met journalistieke precisie.', skills: ['B1-copy die converteert', 'Propositie en structuur', 'SEO zonder blabla'], photo: '/assets/img/team/team-ron.webp' },
+  { name: 'Sara', short: 'Sara', role: 'Conversiespecialist', text: 'Expert in gedragspsychologie die met data stuurt op meer aanvragen.', skills: ['Overtuigingsprincipes van Cialdini', 'Dashboards en heatmaps', 'CRO en A/B-testen'], photo: '/assets/img/team/team-sara.webp' },
+  { name: 'Cristiano', short: 'Cristiano', role: 'Front-end developer', text: 'Bouwt snelle interfaces die goed scoren op Core Web Vitals.', skills: ['Toegankelijkheid (WCAG)', 'React en Tailwind', 'Snelle interfaces'], photo: '/assets/img/team/team-cristiano.webp' },
+  { name: 'Noor', short: 'Noor', role: 'Projectmanager', text: 'Houdt scope, snelheid en kwaliteit strak op koers.', skills: ['Planning en QA', 'Efficiënte oplevering', 'Eén aanspreekpunt'], photo: '/assets/img/team/team-noor.webp' },
 ];
 
 export const faq = [
   {
     q: 'Wat kost een website bij NEXD Media?',
-    a: 'Een standaard website start vanaf € 1.795 eenmalig, een maatwerk website vanaf € 4.495. Voor maatwerk komt daar hosting bij van € 25 per maand. Wil je je huidige website verbeteren, dan start je met het optimalisatiepakket van € 1.395. Na de kennismaking krijg je een voorstel met een vaste prijs.',
+    a: 'Een standaard website start vanaf € 1.795 eenmalig, een maatwerk website vanaf € 4.495. Voor maatwerk komt daar hosting bij van € 25 per maand. Wil je je huidige website verbeteren, dan start je met het optimalisatiepakket van € 1.395. Twijfel je? Begin met de gratis websitecheck: je krijgt 3 concrete verbeterpunten.',
   },
   {
     q: 'Hoe lang duurt het voordat mijn website live staat?',
-    a: 'Een standaard website staat in de regel binnen 4 weken live, zodra je content en huisstijl compleet zijn. Een maatwerk website is meestal binnen 4 tot 6 weken online. Grotere projecten duren langer; dat staat dan in de planning.',
+    a: 'Een standaard website staat binnen 20 dagen online, zodra je content en huisstijl compleet zijn. Een maatwerk website is meestal binnen 4 tot 6 weken online. Grotere projecten duren langer; dat staat dan in de planning.',
   },
   {
     q: 'Wat is het verschil tussen een standaard en een maatwerk website?',
     a: 'Een standaard website is een professionele, overzichtelijke basis in jouw huisstijl. Bij maatwerk beginnen we met een intake en doelgroepanalyse, werken we met wireframes en een uniek ontwerp, en bouwen we de conversiestructuur rond jouw klantreis. Twijfel je? In de kennismaking adviseren we welke route past.',
+  },
+  {
+    q: 'Wat maakt jullie anders dan andere webbouwers?',
+    a: 'We zijn gespecialiseerd in advocaten, accountants en adviseurs, en we beginnen bij de route naar een aanvraag in plaats van bij het design. Strategie, copy, fotografie, conversie en techniek zitten in één team. Na de lancering meten we met heatmaps en dashboards wat werkt.',
+  },
+  {
+    q: 'Kan ik niet gewoon een WordPress-template kopen?',
+    a: 'Dat kan. Een template geeft je een vormgeving, maar geen structuur die past bij hoe jouw cliënten kiezen, geen teksten in hun taal en geen meting. Daar zit meestal het verschil in aanvragen.',
   },
   {
     q: 'Bouwen jullie in WordPress?',

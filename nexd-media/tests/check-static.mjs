@@ -50,11 +50,11 @@ for (const f of files) {
     }
   }
 }
-for (const extra of ['sitemap.xml', 'robots.txt', 'assets/img/og-image.png', 'assets/img/logo.png', 'assets/img/apple-touch-icon.png', 'assets/img/favicon.svg', 'assets/js/engine.js', '.htaccess'])
+for (const extra of ['sitemap.xml', 'robots.txt', 'assets/img/og-image.png', 'assets/img/logo-x.png', 'assets/img/apple-touch-icon.png', 'assets/img/favicon.png', 'assets/js/engine.js', '.htaccess'])
   if (!(await exists(join(root, extra)))) errors.push(`ontbreekt: ${extra}`);
 
 // Claims die niet (eenduidig) zijn bevestigd mogen niet op de site staan (zie docs/03-oplevering.md).
-const banned = [/\+73\s?%/, /\+164\s?%/, /200\+/, /1500\+/, /26 jaar/, /binnen één werkdag/i, /€\s?(795|1\.495|3\.475|3\.795|3\.997|7\.795)\b/];
+const banned = [/\+1?73\s?%/, /\+164\s?%/, /\+89\s?%/, /-37\s?%/, /543,8/, /2× zoveel/, /200\+/, /1500\+/, /26 jaar/, /binnen één werkdag/i, /€\s?(795|1\.495|3\.475|3\.795|3\.997|7\.795)\b/];
 for (const f of files) {
   const text = (await readFile(f, 'utf8')).replace(/<[^>]+>/g, ' ');
   for (const re of banned) if (re.test(text)) errors.push(`${f}: onbevestigde claim ${re}`);

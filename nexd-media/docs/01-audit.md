@@ -2,6 +2,34 @@
 
 Uitgevoerd: oktober 2026.
 
+## Update 17-10-2026: screencapture van de huidige homepage
+
+NEXD Media leverde een volledige schermopname van de huidige homepage (PDF, 16-10-2026). Daarmee zijn de huisstijl en de echte inhoud alsnog gecontroleerd:
+
+- **Huisstijl:** een "X"-logo in oranje → rood met geel en grijs; groene knoppen (#16b47c-achtig) op een witte, lichte lay-out; een groot fotoportret in de hero.
+- **Navigatie:** Home, Website laten maken (submenu), Website laten optimaliseren, Resultaten, Direct Contact. Daarboven een balk: "Gespecialiseerd in legal en finance. Reactie binnen 2 uur!" met een link naar een gratis conversiecheck.
+- **Hero:** "Krijg wekelijks de juiste cliënten via je website", met de bullets "Gemiddeld +173% meer resultaat" en "1500+ kantoren geholpen". De CTA's zijn "Gratis websitecheck, ontvang 3 verbeterpunten" en "App ons direct".
+- **Pakketten:** standaard € 1.795 ("binnen 20 dagen online"), maatwerk € 4.495 (copy, fotografie, 6 maanden conversie-optimalisatie, label "Meest gekozen") en optimaliseren € 1.395. Dit bevestigt de prijzen die al in de nieuwe site stonden.
+- **Team:** zes mensen met portret: Bas, Ron, Maikel, Sara, Cristiano en Noor.
+- **Cases met volledige citaten:**
+  - Dresschers: mr. Marije van Dijk, partner huurrecht, mei 2023.
+  - Countus: Rick-Jan Lennep, juli 2024.
+  - Consultancy Bureau Delta: drs. Alexander van Rosendael, januari 2025.
+  - Concept Security B.V.: alleen een kop, zonder citaat.
+- **Contact:** bellen, WhatsApp en FaceTime; een formulier met naam, e-mail en bericht. Bezoekadres H.M. Corwinstraat 12, 7576 ZD Oldenzaal; KvK 89065506; btw NL1005212B01.
+- **FAQ:** 12 vragen.
+
+**Nieuwe tegenstrijdigheden en onbevestigde claims:**
+
+- **Gemiddelde resultaat:** de hero zegt nu "+173%", eerder was het "+73%".
+- **Klanten:** "1500+ kantoren geholpen" past niet bij een bedrijf dat in 2023 is opgericht.
+- **Dresschers:** het citaat staat er in twee versies. De ene noemt "27% lagere CPA", de andere "61 (dit was 37)". De kop "+164%" komt in geen van beide voor.
+- **Countus:** de kop "Bouncerate -37% en 2× zoveel afspraken" staat niet in het citaat; het citaat noemt 124 i.p.v. 32 aanvragen en +31% doorkliks.
+- **Delta:** de kop "+89% gekwalificeerde leads" staat niet in het citaat; het citaat noemt 1 op 7 → 1 op 3 deals en 212 demo-aanvragen.
+- **Concept Security:** "+543,8% meer aanmeldingen in 34 dagen" heeft geen citaat of bron.
+
+**Beeld:** de klantfoto's bij de cases (en de hero-foto) lijken stock- of AI-beelden. Ze zijn in de nieuwe site niet gebruikt. De teamportretten zijn wel overgenomen, omdat ze op de huidige site als het eigen team worden gepresenteerd.
+
 ## Hoe deze audit tot stand kwam (en wat de beperking is)
 
 `nexdmedia.com` en `www.nexdmedia.com` waren vanuit de ontwikkelomgeving **niet bereikbaar** (DNS-fout bij elke poging; het webarchief was niet toegankelijk). Er was ook geen toegang tot de bestaande codebase, het CMS, analytics of de formulierkoppeling.
@@ -70,7 +98,7 @@ Een onbevestigde of tegenstrijdige claim op een site die "conversie" verkoopt, i
 ## Bedrijfsgegevens
 
 - NEXD Media B.V., KvK 89065506, Oldenzaal.
-- Postadres volgens de site: Postbus 146, 7577 AR Oldenzaal. Het KvK-vestigingsadres is bewust **niet** gepubliceerd, omdat het mogelijk een woonadres is.
+- Adres: de huidige site publiceert zelf het bezoekadres H.M. Corwinstraat 12, 7576 ZD Oldenzaal, en btw-nummer NL1005212B01. Die staan daarom nu ook op de nieuwe site. Eerder zoekresultaat: Postbus 146, 7577 AR Oldenzaal.
 - Contact: info@nexdmedia.com, 06 11 90 72 55.
 - Social: LinkedIn (`company/nexdmediabv`), X (`@NexdMedia`).
 

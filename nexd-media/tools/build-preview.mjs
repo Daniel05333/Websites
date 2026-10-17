@@ -100,5 +100,11 @@ ${views.map((v) => `<template data-view="${v.key}" data-title="${v.title}" data-
 <script>${inline(js)}</script>
 <script>${router}</script>
 `;
-await writeFile(out, page);
-console.log(`${out}: ${views.length} pagina's, ${(page.length / 1024).toFixed(0)} kB`);
+// Afbeeldingen (logo, teamportretten) inbedden, zodat het voorbeeld één los bestand blijft.
+let html = page;
+for (const src of new Set([...page.matchAll(/\/assets\/img\/[\w./-]+\.(?:webp|png)/g)].map((m) => m[0]))) {
+  const type = src.endsWith('.png') ? 'image/png' : 'image/webp';
+  html = html.replaceAll(src, `data:${type};base64,${(await readFile(src.slice(1))).toString('base64')}`);
+}
+await writeFile(out, html);
+console.log(`${out}: ${views.length} pagina's, ${(html.length / 1024).toFixed(0)} kB`);

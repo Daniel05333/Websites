@@ -130,13 +130,15 @@ const contact = {
       <nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/">Home</a></li><li aria-current="page">Contact</li></ol></nav>
       <p class="eyebrow">Contact</p>
       <h1 class="page-hero__title">Vertel ons waar je <em>tegenaan</em> loopt.</h1>
-      <p class="lede">Je krijgt een persoonlijke reactie met een voorstel voor een kennismaking. Liever direct contact? Dat kan ook.</p>
+      <p class="lede">${site.contact.responsePromise}, met een voorstel voor een kennismaking. Liever direct contact? Bel, app of FaceTime ons.</p>
       <ul class="contact-list">
         <li><a href="${telHref()}">${icon('phone', 22)}<span><small>Bel ons</small>${site.contact.phoneDisplay}</span></a></li>
         <li><a href="${mailHref('Vraag aan NEXD Media')}">${icon('mail', 22)}<span><small>Mail ons</small>${site.contact.email}</span></a></li>
         <li><a href="${waHref()}" ${ext}>${icon('whatsapp', 22)}<span><small>WhatsApp</small>Stuur een bericht</span></a></li>
+        <li><a href="facetime:${site.contact.phoneE164}">${icon('video', 22)}<span><small>FaceTime</small>Videobellen vanaf iPhone of Mac</span></a></li>
       </ul>
-      <p class="contact__meta">${site.legalName}<br>${site.contact.postal}<br>KvK ${site.contact.kvk}</p>
+      <p class="contact__offer"><strong>${site.offer.title}.</strong> ${site.offer.text} <a href="/contact/?project=${site.offer.key}" data-offer-link>Vraag hem aan</a>.</p>
+      <p class="contact__meta">${site.legalName}<br>${site.contact.street}<br>${site.contact.postalCode} ${site.contact.city}<br>KvK ${site.contact.kvk} · btw ${site.contact.vat}</p>
     </div>
     ${contactForm()}
   </div>
@@ -167,7 +169,7 @@ ${pageHero({ eyebrow: 'Privacy', h1: 'Privacyverklaring', lead: `Deze verklaring
   <h2>Je rechten</h2>
   <p>Je kunt ons altijd vragen welke gegevens we van je hebben, en ze laten aanpassen of verwijderen. Mail naar <a href="${mailHref('Privacyverzoek')}">${site.contact.email}</a>.</p>
   <h2>Contact</h2>
-  <p>${site.legalName}, ${site.contact.postal}. KvK ${site.contact.kvk}.</p>
+  <p>${site.legalName}, ${site.contact.street}, ${site.contact.postalCode} ${site.contact.city}. KvK ${site.contact.kvk}, btw ${site.contact.vat}.</p>
 </div></section>`,
     }),
 };

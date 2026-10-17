@@ -25,7 +25,8 @@ export const mark = (size = 28) => `<svg class="mark" width="${size}" height="${
   <rect x="25" y="13.5" width="6" height="5" rx="1" fill="var(--signal)"/>
 </svg>`;
 
-const brand = () => `<a class="brand" href="/">${mark()}<span class="brand__name">NEXD</span> <span class="brand__sub">Media</span></a>`;
+// Het echte logo (uit de huidige site) + woordmerk.
+const brand = () => `<a class="brand" href="/"><img class="brand__logo" src="/assets/img/logo-x.png" alt="" width="41" height="33"><span class="brand__name">NEXD</span> <span class="brand__sub">Media</span></a>`;
 
 const header = (path, theme) => `
 <header class="site-header${theme === 'dark' ? ' site-header--on-dark' : ''}" data-header>
@@ -96,7 +97,7 @@ const footer = () => `
       </div>
     </div>
     <div class="site-footer__bottom">
-      <p>© ${new Date().getFullYear()} ${site.legalName} · ${site.contact.postal} · KvK ${site.contact.kvk}</p>
+      <p>© ${new Date().getFullYear()} ${site.legalName} · ${site.contact.street}, ${site.contact.postalCode} ${site.contact.city} · KvK ${site.contact.kvk} · btw ${site.contact.vat}</p>
       <a href="/privacy/">Privacyverklaring</a>
     </div>
   </div>
@@ -115,11 +116,12 @@ const orgSchema = () => ({
   name: site.name,
   legalName: site.legalName,
   url: `${site.url}/`,
-  logo: `${site.url}/assets/img/logo.png`,
+  logo: `${site.url}/assets/img/logo-x.png`,
   image: `${site.url}/assets/img/og-image.png`,
   email: site.contact.email,
   telephone: site.contact.phoneE164,
-  address: { '@type': 'PostalAddress', postOfficeBoxNumber: '146', postalCode: '7577 AR', addressLocality: 'Oldenzaal', addressCountry: 'NL' },
+  address: { '@type': 'PostalAddress', streetAddress: site.contact.street, postalCode: site.contact.postalCode, addressLocality: site.contact.city, addressCountry: 'NL' },
+  vatID: site.contact.vat,
   areaServed: { '@type': 'Country', name: 'Nederland' },
   knowsAbout: ['Webdesign', 'Conversieoptimalisatie', 'WordPress', 'SEO', 'Contentmarketing', 'Fotografie'],
   sameAs: [site.social.linkedin, site.social.x],
@@ -146,7 +148,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>

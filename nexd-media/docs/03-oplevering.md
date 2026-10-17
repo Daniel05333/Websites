@@ -151,27 +151,39 @@ Alle tests zijn op deze oplevering uitgevoerd en geslaagd, in Chromium 141 (Play
 - een schermlezer (alleen geautomatiseerd met axe);
 - het daadwerkelijk afleveren van e-mail en WhatsApp-berichten.
 
+## Verwerkt uit de screencapture van de huidige site (17-10-2026)
+
+- **Huisstijl:** het echte logo, uitgesneden en vrijgesteld, staat in header, footer, favicon, apple-touch-icon en OG-afbeelding. De signaalkleur sluit aan op het oranje van het logo.
+- **Team:** zes teamleden met hun eigen portretten, functies en specialismen.
+- **Cases:** drie cases met het volledige citaat, de naam en de datum. De cijfers in de balken komen uit die citaten.
+- **Pakketten:** de inhoud zoals op de huidige site: standaard "binnen 20 dagen online"; maatwerk met copy, fotografie en 6 maanden conversie-optimalisatie.
+- **Gratis websitecheck:** de laagdrempelige ingang van de huidige site staat als link onder de hero-knoppen, op de contactpagina en als onderwerp in het formulier.
+- **Contact:** FaceTime als extra contactroute; bezoekadres en btw-nummer in footer, contactpagina en structured data; de belofte "Reactie binnen 2 uur" op de contactpagina.
+- **Overig:** twee extra FAQ's van de huidige site ("Wat maakt jullie anders?", "Kan ik niet gewoon een template kopen?"); het menu-item "Resultaten".
+
+**AI-beelden met de briefing-prompts:** de Higgsfield-koppeling werkt, maar het account heeft 0 credits en geen gratis proefgeneraties. Er is daarom niets gegenereerd. Het is ook niet nodig: de echte portretten en het echte logo gaan voor. De prompts staan klaar in [02-designrichting.md](02-designrichting.md) voor als er credits zijn.
+
 ## Te bevestigen door NEXD Media
 
 | # | Wat | Waarom | Waar aanpassen |
 |---|---|---|---|
-| 1 | **Actuele prijzen** standaard (€ 1.795) en maatwerk (€ 4.495), en of ze incl. of excl. btw zijn | de huidige site noemt 3–4 verschillende bedragen | `packages` in `src/data/site.mjs` + teksten in `faq` en `services.mjs` |
-| 2 | Bestaat het **premium-pakket** (€ 7.795) nog? | maar één bron | `packages` |
-| 3 | Inhoud maatwerkpakket: "inclusief fotografie" en de hosting van € 25/mnd; hoeveel maanden conversie-optimalisatie? | bronnen verschillen | `packages`, `services.mjs` |
-| 4 | **Case Dresschers**: welk cijfer klopt (+164% of 37 → 61 / +38%)? Mag de naam gebruikt worden? | tegenstrijdig | `cases` |
-| 5 | **"124 i.p.v. 32"**: Countus of Dresschers? Toestemming voor de quote | aan beide toegeschreven | `cases` |
-| 6 | Claims "26 jaar ervaring", "1500+ websites", "200+ klanten", "+73% gemiddeld": onderbouwing? | onverenigbaar met oprichting 2023 | pas na onderbouwing toevoegen, en dan uit de guard in `tests/check-static.mjs` halen |
-| 7 | **WhatsApp-nummer** = 06 11 90 72 55? | aanname | `contact.whatsapp` |
-| 8 | **Formulier-endpoint** / CRM | onbekend | `form.endpoint` |
-| 9 | **Teamportretten**, volledige namen en functies van Bas, Ron en Sara | nu monogrammen | `team[].photo`, afbeelding in `assets/img/` |
-| 10 | **Logo en huisstijl** | de huidige site was niet te inspecteren; nu een typografisch woordmerk met kadermotief | `mark()` in `src/components/layout.mjs`, tokens in `main.css` |
-| 11 | **Privacyverklaring** | nu een basistekst voor contactgegevens; afstemmen op de bestaande verklaring en eventuele analytics | `privacy` in `src/pages/pages.mjs` |
-| 12 | **Analytics** (GA4 / Search Console) | niet toegevoegd zonder akkoord en cookiekeuze | `head` in `layout()` |
-| 13 | Projectbeelden of screenshots van de websites van Dresschers en Countus | cases zijn nu typografisch, zonder beeld | `cases` + component in `sections.mjs` |
+| 1 | Prijzen incl. of excl. btw | staat nergens | `packages` in `src/data/site.mjs` |
+| 2 | Bestaat het **premium-pakket** (€ 7.795) nog? | stond eerder online, niet op de huidige homepage | `packages` |
+| 3 | Doorlooptijd standaard: **20 dagen** (homepage) of 4 weken (dienstpagina)? | beide online | `packages`, `faq`, `services.mjs` |
+| 4 | **Dresschers:** de juiste versie van het citaat ("27% lagere CPA" of "61, dit was 37"); toestemming voor naam en citaat | twee versies online | `cases` |
+| 5 | **Toestemming voor de citaten** van Countus en Delta | namen van klanten | `cases` |
+| 6 | Claims "+173%", "1500+ kantoren", "+164%", "-37% bouncerate", "2× zoveel afspraken", "+89%", "+543,8%" | niet te herleiden of in strijd met oprichting 2023; daarom niet getoond | pas na onderbouwing toevoegen, en dan uit de guard in `tests/check-static.mjs` halen |
+| 7 | **Teamportretten:** zijn dit echte foto's van deze mensen, en geven ze toestemming? Achternamen van Bas, Ron, Sara, Cristiano en Noor? | portretten overgenomen van de huidige site | `team` + `assets/img/team/` |
+| 8 | **Logo als vectorbestand** (SVG of groot PNG) | de uitsnede is 82×66 px: genoeg voor header en icoon, te klein voor groot gebruik | `assets/img/logo-x.png` |
+| 9 | "**Reactie binnen 2 uur**": ook 's avonds en in het weekend? | belofte op de contactpagina | `contact.responsePromise` |
+| 10 | **Formulier-endpoint** / CRM | onbekend | `form.endpoint` |
+| 11 | Het WhatsApp-nummer = 06 11 90 72 55? | aanname ("App ons direct" op de huidige site) | `contact.whatsapp` |
+| 12 | **Privacyverklaring** en **analytics** | basistekst, geen tracking toegevoegd | `privacy` in `pages.mjs`, `head` in `layout()` |
+| 13 | De pagina's **Resultaten**, **Werkwijze**, **Login** en **Blogs** van de huidige site | niet in de screencapture, dus niet nagebouwd | zie hieronder |
 
 ## Bekende beperkingen
 
-- **De blog en kennisbank** (`/blogs.html`, `/blog/`, losse artikelen, `/knowledge-base/…`) zijn **niet gemigreerd**. De artikelen waren niet op te halen. Neem ze over op hun huidige URL's (of voeg 301's toe) vóór livegang, anders gaan die zoekposities verloren. Er is daarom ook geen "Kennis"-item in het menu.
+- **De blog, de kennisbank en de losse pagina's Resultaten, Werkwijze en Login** zijn **niet gemigreerd**. De artikelen waren niet op te halen. Neem ze over op hun huidige URL's (of voeg 301's toe) vóór livegang, anders gaan die zoekposities verloren. Er is daarom ook geen "Kennis"-item in het menu.
 - **3D-bundle:** ondanks tree-shaking is die 121 kB gzip, omdat `WebGLRenderer` het grootste deel van three.js-core meebrengt. Hij blokkeert niets. Wil je hem kleiner, dan kan een eigen minimale WebGL-renderer van ± 15 kB, maar dat kost onderhoudbaarheid.
 - **Hosting:** de `.htaccess` gaat uit van Apache. Bij andere hosting (Netlify, Vercel, nginx) moeten de redirects worden omgezet.
 - **Copy:** de copy is nieuw geschreven op basis van de bestaande positionering en diensten. Laat NEXD de tone of voice controleren.
