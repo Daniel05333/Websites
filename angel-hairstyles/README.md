@@ -7,6 +7,7 @@ npm install        # alleen voor tests (Playwright + axe)
 npm run build      # genereert ./public uit src/site.mjs en assets/
 npm run serve      # lokaal bekijken op http://localhost:4400
 npm test           # build + browsertests (5 breedtes, axe, interactie, reduced motion)
+node tools/build-preview.mjs voorbeeld/index.html   # de homepage als één los HTML-bestand
 ```
 
 Upload na `npm run build` de inhoud van **`public/`** naar elke webhosting.
