@@ -17,7 +17,7 @@ Upload na `npm run build` de inhoud van **`public/`** naar elke webhosting.
 
 Livegang: vul alle todo's in → zet `draft: false` → `npm test` (faalt zolang er nog todo's open staan) → upload `public/`.
 
-- **Boekingssysteem:** vul `booking.url` in; alle afspraakknoppen (header, hero, kaarten, prijzen, mobiele balk, slot) gaan dan direct daarheen. Zonder url leiden ze naar de contactsectie.
+- **Afspraken:** er is geen online agenda; alle afspraakknoppen openen WhatsApp (06 16509984) met een ingevuld bericht per behandeling. Komt er een boekingssysteem, vul dan `booking.url` in en alle knoppen gaan daarheen.
 - **Foto's:** zet echte foto's in `assets/img/`; vul `portfolio` met `{ src, w, h, alt }`. Fotovlakken met "Foto volgt" zijn bewust leeg — er staan geen stock- of AI-beelden als klantresultaat op de site.
 - **Behandelingen:** de vijf kaarten zijn concept-categorieën uit de briefing (`confirmed: false` → label "concept"). Verwijder wat de salon niet doet.
 

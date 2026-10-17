@@ -1,18 +1,29 @@
 # Rapportage — Angel Hairstyles
 
-## 1. Audit: wat kon wel en niet worden vastgesteld
+## 1. Audit: bronnen per gegeven
 
-| Onderdeel | Status |
-|---|---|
-| Gedeelde referentie (share.google/QJ4c0OhZ4QT33faJN) | **Niet bereikbaar** vanuit de ontwikkelomgeving (proxy 403). |
-| Bedrijfsidentiteit | **Niet vastgesteld.** Zoeken leverde alleen naamgenoten op: Angel's Hairstyling (Roosendaal), Angels Hairstyle (Lanaken, BE), Kapsalon Angel (Zevenaar), Hair by Angel (Epe) e.a. De opdrachtgever gaf aan dat het om een andere salon gaat; naam en plaats zijn nog niet doorgegeven. |
-| Bestaande website, logo, huisstijl, fotografie | Onbekend → niet overgenomen. |
-| Diensten, prijzen, duur, voorwaarden | Onbekend → concept-categorieën met gemarkeerde placeholders. |
-| Boekingssoftware | Onbekend → afspraakknoppen leiden naar de contactsectie tot `booking.url` is ingevuld. Er is géén nepkalender en er worden geen tijden getoond. |
-| Reviews | Geen bron → de sectie wordt niet getoond. Geen verzonnen testimonials of aantallen. |
-| Bestaande URL's / SEO-posities | Onbekend → geen redirects ingericht. Zodra de oude site bekend is: oude URL's inventariseren en 301's toevoegen (`.htaccess` of hostingpanel). |
+Websites zijn vanuit de ontwikkelomgeving niet rechtstreeks op te halen (proxy). Gegevens komen uit het Google-bedrijfsprofiel (screenshot van de opdrachtgever, oktober 2026) en uit zoekresultaten.
 
-Alle 38 open waarden staan als `todo()` in `src/site.mjs`.
+| Gegeven | Waarde | Bron | Status |
+|---|---|---|---|
+| Naam | Angel Hairstyles (kapper) | Google-profiel, Instagram | bevestigd |
+| Adres | Pathmossingel 1E, 7513 CA Enschede | Google-profiel | bevestigd |
+| Telefoon | 06 16509984 | Google-profiel | bevestigd |
+| Instagram | @angelhairstyles1 (3,5K+ volgers) | Google-profiel | bevestigd |
+| Facebook | facebook.com/p/Angel-Hairstyles-100054488558009 | zoekresultaat | waarschijnlijk; pagina noemt nog oude naam "salim_hairstyles" |
+| Beoordeling | 4,8 · 163 Google-reviews | Google-profiel | bevestigd, stand okt 2026; wordt niet als structured data gebruikt |
+| Erkend leerbedrijf | ja | Stagemarkt.nl (SBB) | bevestigd |
+| Openingstijden | ma gesloten · di–vr 10–18 · za 10–17 | Social Deal-bedrijfspagina; Google: "gaat open di 10:00" | **door salon te bevestigen**; zondag onbekend |
+| Boeken | WhatsApp / Instagram-DM / telefoon | Instagram-bio (via zoeksamenvatting) | WhatsApp op het 06-nummer **aangenomen** |
+| Behandelingen | wassen, knippen, föhnen (dames); highlights | Social Deal-deals 2022–2025 | bevestigd aangeboden; balayage, verzorging en gelegenheidskapsels zijn **concept** |
+| Prijzen | — | geen actuele prijslijst gevonden (dealprijzen zijn geen tarieven) | open |
+| "24+ jaar ervaring" | — | Instagram-bio (via zoeksamenvatting) | niet als feit gebruikt; placeholder |
+| Website | geen eigen site gevonden (Stagemarkt verwijst naar Facebook) | — | geen redirects nodig |
+| Huisstijl | interieur: zwarte zeshoektegels, houten lamellenbalie, zwart/wit, grote "STYLES"-belettering | Google-foto's | palet (inkt, ivoor, houtkleurig accent) sluit hierop aan; geen logobestand beschikbaar |
+
+**Bewust niet gepubliceerd:** de naam van de eigenaar en een privé-hotmailadres uit de Stagemarkt-vermelding.
+
+**Afspraakroute:** omdat er geen online agenda is, openen alle afspraakknoppen WhatsApp met een ingevuld bericht, per behandeling ("…een afspraak maken voor highlights"). De site zegt expliciet dat een bericht een aanvraag is, en dat de afspraak pas vaststaat na bevestiging door de salon. Komt er een online systeem, dan vul je `booking.url` in en gaan alle knoppen daarheen.
 
 ## 2. Art direction — "Your Signature Look"
 
@@ -31,7 +42,7 @@ Homepage met hero, verhaal, behandelingen (kaarten met prijs/duur/voorwaarden + 
 
 ## 4. Uitgevoerde tests (`npm test`, Chromium)
 
-Alle 41 checks geslaagd:
+Alle checks geslaagd:
 - geen horizontale scroll op 320 / 390 / 768 / 1024 / 1440 px (3 pagina's);
 - axe-core WCAG 2.1 A/AA + best practices: geen serious/critical bevindingen (390 en 1440 px, 3 pagina's);
 - geen console- of netwerkfouten; geen externe verzoeken;
@@ -45,13 +56,13 @@ Alle 41 checks geslaagd:
 
 ## 5. Open punten voor livegang
 
-1. Officiële naam, plaats en adres bevestigen (en daarmee de share.google-referentie).
-2. Telefoon, e-mail, openingstijden, sociale media.
-3. Echte behandelingen, prijzen, duur, toeslagen en voorwaarden.
-4. Boekingssysteem-URL + de echte bevestigings-, annulerings- en betaalregels.
-5. Eigen fotografie (salon, stylist, portfolio) met toestemming van herkenbare klanten.
-6. Logo/huisstijl als die bestaat (tokens en het merkteken in `build.mjs` aanpassen).
-7. Privacytekst laten controleren; huidige tekst beschrijft alleen wat de site technisch doet.
-8. Domein → `site.url`; dan worden canonical, Open Graph-url en sitemap automatisch gezet.
-9. Oude URL's → 301-redirects.
-10. `draft: false`, `npm test`, uploaden, Lighthouse meten.
+1. WhatsApp: loopt WhatsApp op 06 16509984? (Zo niet: `contact.whatsapp` aanpassen of op `null` zetten; de knoppen vallen dan terug op de contactsectie.)
+2. Openingstijden laten bevestigen, inclusief zondag; daarna `hoursVerified: true` (dan gaan ze ook in de structured data).
+3. Actuele prijzen en duur per behandeling, eventuele toeslagen (lengte/hoeveelheid haar).
+4. Welke concept-behandelingen echt aangeboden worden (balayage, verzorging, gelegenheid), plus eventueel herenknippen.
+5. Annuleringsvoorwaarden en betaalmogelijkheden.
+6. Een eigen korte tekst over ervaring en werkwijze.
+7. Foto's: het interieur en het portfolio van Google/Instagram, met toestemming van de salon (en van herkenbare klanten) aanleveren als bestanden.
+8. Logo, als dat bestaat.
+9. Domein → `site.url`; privacytekst laten controleren.
+10. `draft: false`, `npm test`, uploaden, Lighthouse meten op de echte hosting.

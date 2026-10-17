@@ -23,46 +23,61 @@ export const site = {
   name: 'Angel Hairstyles',
   // Basis-URL zonder slash aan het eind, bv. 'https://www.angelhairstyles.nl'
   url: todo('domeinnaam'),
+  // Bronnen per gegeven: zie docs/rapportage.md (§1).
   lang: 'nl',
 
   location: {
-    city: todo('plaats'),
-    street: todo('straat + huisnummer'),
-    postalCode: todo('postcode'),
+    city: 'Enschede',                        // bron: Google-bedrijfsprofiel
+    street: 'Pathmossingel 1E',
+    postalCode: '7513 CA',
     country: 'NL',
-    // Alleen invullen met de officiële Google Maps-link of coördinaten.
-    mapsUrl: todo('Google Maps-link'),
-    parking: todo('parkeren (alleen als bevestigd)'),
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Angel+Hairstyles+Pathmossingel+1E+7513+CA+Enschede',
+    parking: null,                           // alleen invullen als bevestigd
   },
 
+  // Google-beoordeling zoals getoond op het bedrijfsprofiel. Wordt NIET als
+  // structured data (aggregateRating) uitgestuurd. Datum bijwerken bij wijziging.
+  rating: { score: '4,8', count: 163, source: 'Google', asOf: 'oktober 2026' },
+
   contact: {
-    phone: todo('telefoonnummer'),          // weergave, bv. '0165 – 55 17 71'
-    phoneHref: null,                         // bv. 'tel:+31165551771'
-    whatsappHref: null,                      // bv. 'https://wa.me/31612345678' — alleen als de salon WhatsApp gebruikt
-    email: todo('e-mailadres'),
-    instagram: null,                         // bv. 'https://www.instagram.com/…'
-    facebook: null,
+    phone: '06 16509984',                    // bron: Google-bedrijfsprofiel
+    phoneHref: 'tel:+31616509984',
+    // Instagram-bio: boeken via DM of WhatsApp. Aangenomen dat WhatsApp op
+    // hetzelfde 06-nummer loopt — bevestigen (zie open punten).
+    whatsapp: '31616509984',
+    email: null,                             // geen openbaar zakelijk e-mailadres gevonden
+    instagram: 'https://www.instagram.com/angelhairstyles1/',
+    facebook: 'https://www.facebook.com/p/Angel-Hairstyles-100054488558009/',
   },
 
   // De bestaande, werkende boekingsroute. Laat `url` leeg tot die bekend is;
   // de afspraakknoppen sturen bezoekers dan naar de contactsectie.
+  //
+  // Er is geen online agenda gevonden; de salon boekt via WhatsApp, Instagram-DM
+  // en telefoon. De afspraakknoppen openen daarom WhatsApp met een ingevuld
+  // bericht (per behandeling). Komt er een online systeem, vul dan `url` in:
+  // alle knoppen gaan dan daarheen.
   booking: {
-    url: null,                               // bv. Salonized / Treatwell / Fresha / eigen widget
-    provider: todo('boekingssysteem'),
-    // Beschrijf de ECHTE stappen; niets beloven wat het systeem niet doet.
-    confirmation: todo('hoe wordt een afspraak bevestigd (direct online, per mail, telefonisch)?'),
+    url: null,
+    provider: null,
+    // Eerlijk over het proces: een bericht is een aanvraag, geen boeking.
+    confirmation: 'Je afspraak staat vast zodra de salon je tijd heeft bevestigd. Tot die tijd is je bericht een aanvraag.',
     cancellation: todo('annuleringsvoorwaarden'),
     payment: todo('betaalmogelijkheden in de salon'),
   },
 
+  // Bron: Social Deal-bedrijfspagina; consistent met Google ("gaat open di 10:00").
+  // Niet rechtstreeks door de salon bevestigd → `hoursVerified: false` toont
+  // een korte controle-opmerking onder de tabel. Zondag stond niet vermeld.
+  hoursVerified: false,
   hours: [
-    { day: 'Maandag', value: todo('openingstijd') },
-    { day: 'Dinsdag', value: todo('openingstijd') },
-    { day: 'Woensdag', value: todo('openingstijd') },
-    { day: 'Donderdag', value: todo('openingstijd') },
-    { day: 'Vrijdag', value: todo('openingstijd') },
-    { day: 'Zaterdag', value: todo('openingstijd') },
-    { day: 'Zondag', value: todo('openingstijd') },
+    { day: 'Maandag', value: 'Gesloten', open: null },
+    { day: 'Dinsdag', value: '10:00 – 18:00', open: ['10:00', '18:00'] },
+    { day: 'Woensdag', value: '10:00 – 18:00', open: ['10:00', '18:00'] },
+    { day: 'Donderdag', value: '10:00 – 18:00', open: ['10:00', '18:00'] },
+    { day: 'Vrijdag', value: '10:00 – 18:00', open: ['10:00', '18:00'] },
+    { day: 'Zaterdag', value: '10:00 – 17:00', open: ['10:00', '17:00'] },
+    { day: 'Zondag', value: todo('zondag'), open: null },
   ],
 
   story: {
@@ -70,7 +85,8 @@ export const site = {
     // ervaring of kwalificaties verzinnen.
     paragraphs: [
       'Goed haar is meer dan een behandeling. Het is hoe je jezelf herkent in de spiegel — verzorgd, eigen, en precies zoals jij het wilt.',
-      todo('2–3 zinnen over de eigenaar/stylist(en), sinds wanneer de salon bestaat en de werkwijze'),
+      'Angel Hairstyles is een kapsalon aan de Pathmossingel in Enschede, en een erkend leerbedrijf: hier worden ook nieuwe kappers opgeleid.',
+      todo('ervaring en werkwijze — de Instagram-bio noemt "24+ jaar ervaring"; laat de salon dit zelf formuleren'),
     ],
     photoAlt: todo('foto van de salon of stylist'),
   },
@@ -80,15 +96,17 @@ export const site = {
   // `confirmed: false` toont een label "concept" bij de kaart.
   treatments: [
     {
-      id: 'knippen-stylen', confirmed: false, nr: '01',
-      name: 'Knippen & stylen',
-      short: 'Een vorm die past bij je haartype, je gezicht en je dagelijkse routine — afgewerkt met styling.',
+      // Bron: Social Deal (2022–2025): wassen, knippen, drogen of in model föhnen.
+      id: 'knippen-fohnen', confirmed: true, nr: '01',
+      name: 'Wassen, knippen & föhnen',
+      short: 'Een vorm die past bij je haartype, je gezicht en je dagelijkse routine — gewassen, geknipt en in model geföhnd.',
       price: todo('prijs'), duration: todo('duur'), note: null,
     },
     {
-      id: 'kleuren', confirmed: false, nr: '02',
-      name: 'Kleuren & highlights',
-      short: 'Van een subtiele opfrissing tot een nieuwe kleur, afgestemd op je huidtint en je wensen.',
+      // Bron: Social Deal (highlights als onderdeel van de kappersbehandeling).
+      id: 'highlights', confirmed: true, nr: '02',
+      name: 'Highlights',
+      short: 'Lichte accenten die je kleur opfrissen en diepte geven, afgestemd op je huidtint en je wensen.',
       price: todo('vanafprijs'), duration: todo('duur'),
       note: todo('afhankelijk van lengte/hoeveelheid? alleen als bevestigd'),
     },
@@ -124,8 +142,8 @@ export const site = {
 
   // Inspiratie: koppelt een wens aan een behandeling.
   occasions: [
-    { title: 'Een frisse nieuwe look', to: 'knippen-stylen' },
-    { title: 'Een andere haarkleur', to: 'kleuren' },
+    { title: 'Een frisse nieuwe look', to: 'knippen-fohnen' },
+    { title: 'Meer licht in je haar', to: 'highlights' },
     { title: 'Zacht en natuurlijk lichter', to: 'balayage' },
     { title: 'Een bijzondere dag', to: 'gelegenheid' },
     { title: 'Gezond, glanzend haar', to: 'verzorging' },
@@ -142,7 +160,7 @@ export const site = {
   reviewsSourceUrl: null,
 
   faq: [
-    { q: 'Hoe maak ik een afspraak?', a: todo('de echte afspraakroute (online systeem, telefoon, WhatsApp)') },
+    { q: 'Hoe maak ik een afspraak?', a: 'Stuur een WhatsApp-bericht of een DM via Instagram, of bel 06 16509984. De salon stemt een moment met je af; je afspraak staat vast zodra die bevestigd is.' },
     { q: 'Wat kost mijn behandeling?', a: 'In het prijsoverzicht op deze pagina staan de tarieven per behandeling. Hangt de prijs af van je haarlengte of de hoeveelheid kleur, dan staat dat er bij.' },
     { q: 'Hoe lang duurt een behandeling?', a: 'De verwachte duur staat per behandeling in het overzicht.' },
     { q: 'Kan ik mijn afspraak wijzigen of annuleren?', a: todo('annuleringsvoorwaarden') },

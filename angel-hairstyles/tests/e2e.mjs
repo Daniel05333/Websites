@@ -55,14 +55,15 @@ console.log('Inhoud en SEO');
   await page.goto(base + '/', { waitUntil: 'networkidle' });
   await check('precies één h1', async () => (await page.locator('h1').count()) === 1);
   await check('alle ankers wijzen naar een bestaand id', async () => {
-    const missing = await page.evaluate(() => [...document.querySelectorAll('a[href*="#"]')]
+    const missing = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"], a[href^="/#"]')]
       .map((a) => new URL(a.href).hash.slice(1)).filter((id) => id && !document.getElementById(id)));
     if (missing.length) throw new Error([...new Set(missing)].join(', '));
   });
   await check('elke afspraakknop gaat naar de boekingsroute', async () => {
     const hrefs = await page.$$eval('[data-track]', (as) => as.map((a) => a.getAttribute('href')));
-    const want = site.booking.url ?? '#contact';
-    if (!hrefs.length || hrefs.some((h) => h !== want)) throw new Error(hrefs.join(', '));
+    const ok = (h) => site.booking.url ? h === site.booking.url
+      : site.contact.whatsapp ? h.startsWith(`https://wa.me/${site.contact.whatsapp}?text=`) : h === '#contact';
+    if (!hrefs.length || !hrefs.every(ok)) throw new Error(hrefs.filter((h) => !ok(h)).join(', '));
   });
   await check('concept: noindex + robots.txt blokkeert', async () => {
     if (!site.draft) return true;

@@ -28,14 +28,27 @@ const photoSlot = (label, ratio = '4/5', extra = '') =>
      <figcaption class="slot__label" aria-hidden="true"><span>Foto volgt</span>${esc(label)}</figcaption>
    </figure>`;
 
-const booking = site.booking.url ?? '#contact';
-const bookingAttrs = site.booking.url ? ' rel="noopener" data-track="booking"' : ' data-track="booking-fallback"';
+// Boekingsroute: online systeem als dat er is, anders WhatsApp met een ingevuld
+// bericht (per behandeling), anders de contactsectie.
+const wa = (text) => `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(text)}`;
+const bookingFor = (treatment) => site.booking.url
+  ?? (site.contact.whatsapp
+    ? wa(`Hallo ${site.name}, ik wil graag een afspraak maken${treatment ? ` voor ${treatment.toLowerCase()}` : ''}. Wanneer is er plek?`)
+    : '#contact');
+const booking = bookingFor();
+const viaWa = !site.booking.url && !!site.contact.whatsapp;
+const bookingAttrs = site.booking.url ? ' rel="noopener" data-track="booking"'
+  : viaWa ? ' target="_blank" rel="noopener" data-track="booking-whatsapp"' : ' data-track="booking-fallback"';
+const waNote = viaWa ? '<span class="sr-only"> via WhatsApp (opent in een nieuw venster)</span>' : '';
 const city = site.location.city;
 const year = new Date().getFullYear();
 
 const arrow = `<svg class="arr" viewBox="0 0 14 11" aria-hidden="true"><path d="M0 5.35H13M8 10.35L13 5.35L8 0.35" fill="none" stroke="currentColor"/></svg>`;
 const btn = (href, label, cls = 'btn', attrs = '') => `<a class="${cls}" href="${href}"${attrs}><span>${label}</span>${arrow}</a>`;
-const bookBtn = (label = 'Maak een afspraak', cls = 'btn') => btn(booking, label, cls, bookingAttrs);
+const bookBtn = (label = 'Maak een afspraak', cls = 'btn', treatment) => btn(bookingFor(treatment), label + waNote, cls, bookingAttrs);
+const stars = () => site.rating
+  ? `<a class="rating" href="${esc(site.location.mapsUrl)}" target="_blank" rel="noopener"><span class="rating__stars" aria-hidden="true">★★★★★</span><span><strong>${esc(site.rating.score)}</strong> op ${esc(site.rating.source)} · ${site.rating.count} reviews<span class="sr-only"> (stand ${esc(site.rating.asOf)}, opent Google Maps)</span></span></a>`
+  : '';
 
 const nav = [
   ['#verhaal', 'Over ons'],
@@ -94,6 +107,11 @@ function jsonLd() {
     } : undefined,
     hasMap: plain(l.mapsUrl) || undefined,
     sameAs: [site.contact.instagram, site.contact.facebook].filter(Boolean),
+    openingHoursSpecification: site.hoursVerified ? site.hours.filter((h) => h.open).map((h) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: { Maandag: 'Monday', Dinsdag: 'Tuesday', Woensdag: 'Wednesday', Donderdag: 'Thursday', Vrijdag: 'Friday', Zaterdag: 'Saturday', Zondag: 'Sunday' }[h.day],
+      opens: h.open[0], closes: h.open[1],
+    })) : undefined,
   };
   return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
 }
@@ -109,7 +127,7 @@ ${site.draft ? `<div class="draftbar" role="note">Ontwikkelversie — gemarkeerd
   <nav class="nav" aria-label="Hoofdmenu">
     <ul>${nav.map(([h, l], i) => `${i ? '<li class="nav__dot" aria-hidden="true"></li>' : ''}<li><a href="/${h}">${l}</a></li>`).join('')}</ul>
   </nav>
-  ${btn(booking, 'Maak een afspraak', 'pill', bookingAttrs)}
+  ${btn(booking, 'Maak een afspraak' + waNote, 'pill', bookingAttrs)}
   <button class="burger" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Menu openen"><span></span><span></span></button>
 </header>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Menu" hidden>
@@ -163,7 +181,10 @@ const hero = () => `
     <p class="eyebrow reveal">Angel Hairstyles · ${v(city)}</p>
     <h1 id="hero-title" class="display reveal" data-split>${split(['Jouw haar.', 'Jouw stijl.', 'Jouw moment.'])}</h1>
     <div class="hero__foot">
-      <p class="lead reveal" style="--d:.5s">Hairstyling die bij je past, met aandacht voor detail, je persoonlijke stijl en een resultaat waarin je jezelf herkent.</p>
+      <div class="reveal" style="--d:.5s">
+        <p class="lead">Hairstyling die bij je past, met aandacht voor detail, je persoonlijke stijl en een resultaat waarin je jezelf herkent.</p>
+        ${stars()}
+      </div>
       <div class="actions reveal" style="--d:.7s">
         ${bookBtn()}
         ${btn('#behandelingen', 'Ontdek de behandelingen', 'btn btn--ghost')}
@@ -205,7 +226,7 @@ const treatments = () => `
         <h3 class="card__title">${esc(t.name)}</h3>
         <p class="body">${esc(t.short)}</p>
         ${meta(t)}
-        ${btn(booking, `Afspraak voor ${esc(t.name.toLowerCase())}`, 'link', bookingAttrs)}
+        ${bookBtn(`Afspraak voor ${esc(t.name.toLowerCase())}`, 'link', t.name)}
       </div>
     </li>`).join('')}
   </ol>
@@ -256,7 +277,8 @@ const prices = () => `
 const steps = () => {
   const items = [
     ['Kies je behandeling', 'Bekijk het aanbod en kies wat bij je wensen past. Twijfel je, kies dan de behandeling die het dichtst in de buurt komt en vraag om advies.'],
-    ['Kies een moment', site.booking.url ? `Ga naar de online agenda en kies een tijd die jou uitkomt.` : `Neem contact op via ${has(site.contact.phone) ? 'telefoon' : 'de contactgegevens hieronder'} om een moment af te spreken.`],
+    ['Vraag een moment aan', site.booking.url ? 'Ga naar de online agenda en kies een tijd die jou uitkomt.'
+      : `Stuur een WhatsApp-bericht of een DM via <a href="${esc(site.contact.instagram)}" rel="noopener">Instagram</a>, of bel <a href="${esc(site.contact.phoneHref)}">${esc(site.contact.phone)}</a>. Noem de behandeling en wanneer je kunt.`],
     ['Bevestiging', v(site.booking.confirmation)],
   ];
   return `
@@ -331,7 +353,7 @@ const contact = () => {
   const l = site.location;
   const c = site.contact;
   const phone = has(c.phone) && c.phoneHref ? `<a href="${esc(c.phoneHref)}">${esc(c.phone)}</a>` : v(c.phone);
-  const mail = has(c.email) ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : v(c.email);
+  const mail = has(c.email) ? `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>` : null;
   return `
 <section class="contact section" id="contact" aria-labelledby="contact-title">
   <div class="section__head">
@@ -343,16 +365,19 @@ const contact = () => {
       <h3>Adres</h3>
       <p>${v(l.street)}<br>${v(l.postalCode)} ${v(l.city)}</p>
       ${has(l.parking) ? `<p class="note">${esc(l.parking)}</p>` : ''}
-      ${has(l.mapsUrl) ? btn(esc(l.mapsUrl), 'Route plannen', 'link', ' rel="noopener"') : ''}
+      ${has(l.mapsUrl) ? btn(esc(l.mapsUrl), 'Route plannen<span class="sr-only"> (opent Google Maps)</span>', 'link', ' target="_blank" rel="noopener"') : ''}
       <h3>Telefoon</h3><p>${phone}</p>
-      <h3>E-mail</h3><p>${mail}</p>
-      ${c.whatsappHref ? `<h3>WhatsApp</h3><p><a href="${esc(c.whatsappHref)}" rel="noopener">Stuur een bericht</a></p>` : ''}
+      ${c.whatsapp ? `<h3>WhatsApp</h3><p><a href="${esc(wa(`Hallo ${site.name}, `))}" target="_blank" rel="noopener">Stuur een bericht</a></p>` : ''}
+      ${c.instagram ? `<h3>Instagram</h3><p><a href="${esc(c.instagram)}" target="_blank" rel="noopener">@${esc(c.instagram.split('/').filter(Boolean).pop())}</a></p>` : ''}
+      ${mail ? `<h3>E-mail</h3><p>${mail}</p>` : ''}
+      ${site.rating ? `<h3>Beoordeling</h3><p>${stars()}</p>` : ''}
     </address>
     <div class="contact__card reveal" style="--d:.1s">
       <h3>Openingstijden</h3>
       <table class="hours"><caption class="sr-only">Openingstijden</caption><tbody>
         ${site.hours.map((h) => `<tr><th scope="row">${h.day}</th><td>${v(h.value)}</td></tr>`).join('')}
       </tbody></table>
+      ${site.hoursVerified ? '' : `<p class="note">Rond feestdagen kunnen tijden afwijken. Twijfel je? Bel even of check het <a href="${esc(l.mapsUrl)}" target="_blank" rel="noopener">Google-profiel</a>.</p>`}
     </div>
   </div>
 </section>`;
@@ -370,7 +395,7 @@ const cityText = has(city) ? ` in ${city}` : '';
 const home = page(
   {
     title: `${site.name}${has(city) ? ` — kapper in ${city}` : ' — hairstyling & kapsalon'}`,
-    description: `${site.name}${cityText}: knippen, kleuren en styling met aandacht voor jouw wensen. Bekijk behandelingen en prijzen en maak direct een afspraak.`,
+    description: `${site.name}, kapper${cityText} (Pathmossingel): wassen, knippen, föhnen en highlights met aandacht voor jouw wensen. Bekijk de behandelingen en maak direct een afspraak via WhatsApp.`,
     path: '/',
   },
   [hero(), story(), treatments(), craft(), signature(), prices(), steps(), inspiration(), gallery(), reviews(), faq(), contact(), finale()].join('\n'),
@@ -387,10 +412,10 @@ const privacy = page(
     <li>Deze website plaatst geen cookies en gebruikt geen analytics, advertentie- of trackingscripts.</li>
     <li>Lettertypen en scripts worden vanaf deze website zelf geladen; er worden geen gegevens naar Google Fonts of andere externe diensten gestuurd.</li>
     <li>Er staat geen contactformulier op deze website; er worden via de website dus geen persoonsgegevens verzameld.</li>
-    <li>${site.booking.url ? `Maak je online een afspraak, dan gebeurt dat in het boekingssysteem van ${esc(plain(site.booking.provider, 'een externe partij'))}. Daarvoor geldt de privacyverklaring van die dienst.` : v({ todo: true, label: 'boekingssysteem en de privacyverklaring daarvan' })}</li>
+    <li>${site.booking.url ? `Maak je online een afspraak, dan gebeurt dat in het boekingssysteem van ${esc(plain(site.booking.provider, 'een externe partij'))}. Daarvoor geldt de privacyverklaring van die dienst.` : 'De afspraakknoppen openen WhatsApp; links naar Instagram, Facebook en Google Maps openen die diensten. Wat je daar deelt, valt onder de privacyverklaring van die diensten.'}</li>
   </ul>
   <h2>Contact</h2>
-  <p class="body">Vragen over je gegevens? Neem contact op via ${v(site.contact.email)}.</p>
+  <p class="body">Vragen over je gegevens? Bel <a href="${esc(site.contact.phoneHref)}">${esc(site.contact.phone)}</a> of kom langs aan de ${esc(site.location.street)} in ${esc(site.location.city)}.</p>
   <p>${btn('/', 'Terug naar de homepage', 'link')}</p>
 </section>`,
 );

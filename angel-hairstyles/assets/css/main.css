@@ -134,6 +134,12 @@ ul, ol { padding: 0; list-style: none; }
 .body { color: #d6cabd; max-width: 46ch; }
 .body + .body { margin-top: 16px; }
 .note { margin-top: 10px; font-size: 14px; color: var(--fg-muted); }
+.rating { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 14px; font-size: 14px; color: #e4d9cc; text-decoration: none; }
+.rating strong { font-weight: 600; color: var(--fg); }
+.rating__stars { color: var(--accent); letter-spacing: 0.12em; font-size: 13px; }
+.rating:hover span:last-child { text-decoration: underline; text-underline-offset: 3px; }
+.contact__card .rating { margin-top: 0; }
+.note a, .steps__list a { color: var(--fg); text-underline-offset: 3px; }
 .word { display: inline-block; white-space: nowrap; }
 .ch { display: inline-block; }
 
