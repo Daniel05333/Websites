@@ -54,12 +54,14 @@ const btn = (href, label, cls = 'btn btn--ghost', attrs = '') => `<a class="${cl
 
 const priceOf = (item) => item.sizes
   ? (() => { const known = item.sizes.filter((x) => x != null); return known.length ? `vanaf ${eur(Math.min(...known))}` : null; })()
-  : item.price != null ? eur(item.price) : null;
+  : item.price != null ? `${item.from ? 'vanaf ' : ''}${eur(item.price)}` : null;
 const priceHtml = (item) => {
   const pr = priceOf(item);
   return pr ? `<span class="price${menu.pricesVerified ? '' : ' price--check'}">${pr}</span>` : '<span class="price price--na">prijs in webshop</span>';
 };
-const veg = (item) => (item.veg ? '<span class="tag tag--veg" title="Vegetarisch">vega</span>' : '');
+const labels = (item, c) => item.sizeLabels ?? c.sizes;
+const veg = (item) => (item.veg ? '<span class="tag tag--veg" title="Vegetarisch">vega</span>' : '')
+  + (item.adult ? '<span class="tag tag--adult" title="Alleen 18 jaar en ouder">18+</span>' : '');
 
 const flame = `<svg viewBox="0 0 24 32" aria-hidden="true"><path d="M12 1c1.4 5.2 7.9 8.6 7.9 17.1A7.9 7.9 0 0 1 4.1 18.1c0-3.9 2-6.5 4-8.4.2 2.5 1.2 4.3 3 5.3C11 10.8 10.4 5.8 12 1Z" fill="currentColor"/></svg>`;
 const logo = (cls = '') => `<a class="logo ${cls}" href="/">
@@ -192,14 +194,14 @@ const favCard = (f, i) => {
   <p class="fav__kicker"><span class="fav__no">${String(i + 1).padStart(2, '0')}</span>${esc(f.kicker)}</p>
   <h3 class="fav__name">${esc(item.name)}</h3>
   <p class="fav__desc">${esc(desc)}</p>
-  ${item.sizes ? `<ul class="fav__sizes">${c.sizes.map((s, k) => `<li><span>${s}</span>${item.sizes[k] != null ? eur(item.sizes[k]) : 'webshop'}</li>`).join('')}</ul>` : ''}
+  ${item.sizes ? `<ul class="fav__sizes">${labels(item, c).map((s, k) => `<li><span>${s}</span>${item.sizes[k] != null ? eur(item.sizes[k]) : 'webshop'}</li>`).join('')}</ul>` : ''}
   <div class="fav__foot">${priceHtml(item)}${orderBtn('Bestel', 'btn btn--ember btn--sm', { item, c, track: 'order-product' })}</div>
 </article>`;
 };
 
 const menuRow = (item, c) => `<li class="row" data-name="${esc(slug(item.name + ' ' + (item.desc ?? '')))}">
   <div class="row__main"><h3 class="row__name">${esc(item.name)} ${veg(item)}</h3>${item.desc ? `<p class="row__desc">${esc(item.desc)}</p>` : ''}</div>
-  ${item.sizes ? `<dl class="row__sizes">${c.sizes.map((s, k) => `<div><dt>${s}</dt><dd>${item.sizes[k] != null ? `<span class="price${menu.pricesVerified ? '' : ' price--check'}">${eur(item.sizes[k])}</span>` : '<span class="price--na">webshop</span>'}</dd></div>`).join('')}</dl>` : `<div class="row__price">${priceHtml(item)}</div>`}
+  ${item.sizes ? `<dl class="row__sizes">${labels(item, c).map((s, k) => `<div><dt>${s}</dt><dd>${item.sizes[k] != null ? `<span class="price${menu.pricesVerified ? '' : ' price--check'}">${eur(item.sizes[k])}</span>` : '<span class="price--na">webshop</span>'}</dd></div>`).join('')}</dl>` : `<div class="row__price">${priceHtml(item)}</div>`}
   <a class="row__order" href="${esc(orderHref(item, c))}" data-track="order-product" data-item="${esc(item.name)}"><span class="sr-only">${esc(item.name)} bestellen</span><span aria-hidden="true">Bestel</span>${arrow}${ext}</a>
 </li>`;
 
@@ -297,7 +299,7 @@ const home = () => page({
     <header class="sec__head reveal">
       <p class="eyebrow eyebrow--amber">De grill in de hoofdrol</p>
       <h2 class="h2 h2--xl" id="grill-title">Voor wie trek heeft in meer.</h2>
-      <p class="sec__lede">Mixed grill, adana, köfte, shish kebab, pirzola, lamsreepjes en kipfilet. Allemaal als schotel.</p>
+      <p class="sec__lede">Camel mix grill, adana, shish kebab, köfte, beyti, pirzola, biefstuk en spareribs. Allemaal als schotel.</p>
     </header>
     <ol class="grilllist">${grillItems.map(([i, c], k) => `<li class="grilllist__row reveal" style="--d:${(k % 6) * 40}ms">
       <span class="grilllist__name">${esc(i.name)}${i.desc ? `<small>${esc(i.desc)}</small>` : ''}</span>
@@ -316,11 +318,11 @@ const home = () => page({
       <h2 class="h2" id="comfort-title">Kies je vlees. Kies je formaat.</h2>
     </header>
     <div class="ksize reveal">
-      <div class="ksize__head"><h3 class="h3">Kapsalon</h3><p class="muted">${esc(cat('kapsalon').blurb)}</p></div>
+      <div class="ksize__head"><h3 class="h3">Kapsalon</h3><p class="muted">${esc(cat('kapsalon').blurb)} Vanaf-prijzen: extra's kies je in de webshop.</p></div>
       <div class="ksize__table" role="region" aria-label="Kapsalon-prijzen per formaat" tabindex="0">
       <table>
         <thead><tr><th scope="col">Variant</th>${cat('kapsalon').sizes.map((s) => `<th scope="col">${s}</th>`).join('')}<th scope="col"><span class="sr-only">Bestellen</span></th></tr></thead>
-        <tbody>${cat('kapsalon').items.map((i) => `<tr><th scope="row">${esc(i.name.replace('Kapsalon ', ''))} ${veg(i)}</th>${i.sizes.map((x) => `<td>${x != null ? `<span class="price${menu.pricesVerified ? '' : ' price--check'}">${eur(x)}</span>` : '<span class="price--na">webshop</span>'}</td>`).join('')}<td><a class="row__order" href="${esc(orderHref(i, cat('kapsalon')))}" data-track="order-product" data-item="${esc(i.name)}"><span aria-hidden="true">Bestel</span><span class="sr-only">${esc(i.name)} bestellen</span>${arrow}${ext}</a></td></tr>`).join('')}</tbody>
+        <tbody>${cat('kapsalon').items.map((i) => `<tr><th scope="row">${esc(i.name.replace('Kapsalon ', ''))}${i.sizeLabels ? ` <small class="muted">(${i.sizeLabels[0].toLowerCase()})</small>` : ''} ${veg(i)}</th>${i.sizes.map((x) => `<td>${x != null ? `<span class="price${menu.pricesVerified ? '' : ' price--check'}">${eur(x)}</span>` : '<span class="price--na">webshop</span>'}</td>`).join('')}<td><a class="row__order" href="${esc(orderHref(i, cat('kapsalon')))}" data-track="order-product" data-item="${esc(i.name)}"><span aria-hidden="true">Bestel</span><span class="sr-only">${esc(i.name)} bestellen</span>${arrow}${ext}</a></td></tr>`).join('')}</tbody>
       </table></div>
     </div>
     <div class="comfort__cols">${['broodjes', 'durum', 'donerbox'].map((id, k) => { const c = cat(id); return `<article class="panel reveal" style="--d:${k * 80}ms">
@@ -479,7 +481,7 @@ const menuPage = () => page({
 <div class="wrap menu">
   ${priceNote()}
   ${menu.categories.map((c) => `<section class="mcat" id="${c.id}" aria-labelledby="h-${c.id}">
-    <header class="mcat__head"><h2 class="h2" id="h-${c.id}">${c.name}</h2><p class="muted">${esc(c.blurb)}${c.note ? ` ${v(c.note)}` : ''}</p></header>
+    <header class="mcat__head"><h2 class="h2" id="h-${c.id}">${c.name}</h2><p class="muted">${esc(c.blurb)}${c.from ? ' Alle prijzen zijn vanaf-prijzen; extra’s kies je in de webshop.' : ''}${c.note ? ` ${v(c.note)}` : ''}</p></header>
     ${c.items.length ? `<ul class="rows">${c.items.map((i) => menuRow(i, c)).join('')}</ul>` : `<div class="mcat__empty">${c.photo ? pic(c.photo, { sizes: '(min-width: 900px) 360px, 60vw' }) : ''}<div><p>Bekijk het actuele aanbod in de webshop.</p>${orderBtn(`${c.name} bekijken`, 'btn btn--ghost', { c, track: 'order-cat' })}</div></div>`}
   </section>`).join('')}
   <p class="menu__empty" data-search-empty hidden>Geen gerecht gevonden. Probeer een ander woord of <a href="${contact.phoneHref}">bel ons</a>.</p>

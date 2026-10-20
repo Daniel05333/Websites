@@ -19,7 +19,7 @@ De bestaande sites konden vanuit de ontwikkelomgeving **niet rechtstreeks worden
 | Openingstijden | elke dag vanaf 15:00. Ma, di en zo tot 02:00, do tot 03:00. | grillroomcamel.nl (geplakte tekst) | Wo, vr en za **conflicteren**: de site toont lijst A (03:00 / 04:30 / 05:00) én lijst B (02:00 / 03:30 / 03:30). Externe gidsen wijken ook af. |
 | Over Camel | gezellige grillroom, ouderwets lekker broodje shoarma, (mini)schotels, kindermenu's, ook voor alleen een drankje, zeer ruime openingstijden | grillroomcamel.nl (geplakte tekst) | bevestigd, licht ingekort gebruikt |
 | Gastreactie | "Wij vonden het magnifique…" — M. | grillroomcamel.nl | letterlijk overgenomen, met bron. Geen sterren of aggregate rating. |
-| Menu en prijzen | 16 categorieën, 77 gerechten | zoekindex van grillroomcamel.com | **te verifiëren**: de shop toonde op verschillende pagina's verschillende bedragen. Gebruikt is de hoofdpagina. Ontbrekend = "prijs in webshop". |
+| Menu en prijzen | 17 categorieën, 150 gerechten | zoekindex van grillroomcamel.com | **te verifiëren**: de shop toonde op verschillende pagina's verschillende bedragen. Gebruikt is de hoofdpagina. Ontbrekend = "prijs in webshop". |
 | Afhalen, bezorgen, kosten, minimum, betaalmethoden | — | Hapsalons noemt afhalen + bezorgen | **niet getoond**; placeholder |
 | Allergenen | — | niet gevonden | FAQ verwijst naar bellen; niets verzonnen |
 | Halal, keurmerken, reviewscores | — | — | bewust weggelaten |
@@ -27,7 +27,7 @@ De bestaande sites konden vanuit de ontwikkelomgeving **niet rechtstreeks worden
 | Sinds | 1990 ("cafe - restaurant CAMEL Since 1990" op het raam) | foto 'ingang' | gebruikt in "Over ons" |
 | Terras | terras aan de Oude Markt met uitzicht op de Grote Kerk | foto's van de opdrachtgever | bevestigd |
 | Eigenaar | portret in de keuken | foto van de opdrachtgever | naam **te bevestigen**; gebruik van de foto met toestemming van de eigenaar |
-| Menukaart | wordt aangeleverd door de opdrachtgever | — | staat in `src/menu.mjs`; huidige data is voorlopig |
+| **Menukaart** | 17 categorieën, 150 gerechten, met prijzen | menukaart van de eigenaar (20 okt 2026) | **bevestigd**; vervangt de zoekindex-prijzen |
 
 ## 2. Keuzes
 
@@ -76,7 +76,7 @@ Restaurant-JSON-LD gaat pas mee als `draft` op false staat, en de openingstijden
 - **Bestelroute:** elke bestelknop gaat naar grillroomcamel.com.
 - **Links:** alle interne links en ankers bestaan.
 - **Externe verzoeken:** geen.
-- **Menukaart:** 77 rijen; zoeken filtert en meldt het aantal; de tab volgt de categorie in beeld.
+- **Menukaart:** 150 rijen; zoeken filtert en meldt het aantal; de tab volgt de categorie in beeld.
 - **Concept:** noindex, robots.txt blokkeert en er is geen JSON-LD.
 - **Eerlijkheid:** geen labels als "bestseller" of sterren.
 - **Beweging:** de sticky stack schaalt en de woord-veren eindigen volledig zichtbaar.
@@ -91,7 +91,7 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
 
 1. **Menukaart.** De opdrachtgever stuurt de definitieve menukaart met prijzen; die vervangt `src/menu.mjs`.
 2. **Openingstijden.** Wat zijn de juiste sluitingstijden op woensdag, vrijdag en zaterdag? En wat moet er gebeuren met de tweede, afwijkende lijst op de huidige site?
-3. **Prijzen.** Leg alle 77 gerechten naast de webshop, vul de ontbrekende prijzen in en zet `pricesVerified: true`.
+3. **Prijzen.** Afgerond: de menukaart van de eigenaar staat in `src/menu.mjs`.
 4. **Bezorgen en afhalen.** Zijn ze mogelijk? Zo ja: bezorggebied, kosten, minimumbedrag en betaalmethoden.
 5. **Dagmenu's.** Op welke dagen gelden ze?
 6. **Logo.** Lever het officiële logo aan (SVG).
@@ -118,3 +118,13 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
   - "minder beweging" wordt ook live gevolgd, als iemand het aanzet terwijl de pagina open is;
   - geen twee aangrenzende secties met dezelfde opbouw.
 - **Bewust niet gedaan.** Geen AI-video of gegenereerde beelden uit de skill-pipeline. Er zijn nu echte foto's van de zaak, en voor een bestaand restaurant zijn die eerlijker en sterker.
+
+## 8. Update 20 oktober 2026: definitieve menukaart
+
+- **Menukaart.** De menukaart van de eigenaar is volledig verwerkt in `src/menu.mjs`: 17 categorieën en 150 gerechten.
+  - Nieuw zijn onder meer Combi meals, Grillgerechten (beyti, biefstuk, spareribs, saté, kippenvleugels), Bier en veel extra pizza's, dranken en sauzen.
+  - Het oude dagmenu staat niet meer op de kaart en is weggehaald.
+- **Prijzen.** "Vanaf"-prijzen worden als "vanaf €…" getoond. Kapsalon heeft per formaat een eigen prijs; falafel heet "klein / groot / XXL".
+- **Labels.** "vega" bij vegetarische gerechten, "18+" bij alcohol, met de melding dat alcohol alleen aan klanten van 18 jaar en ouder wordt verkocht.
+- **Lahmacun.** Op de aangeleverde lijst valt lahmacun onder Grillgerechten. Op de site staat het als eigen categorie, zodat het in de tabs te vinden is. De prijzen zijn ongewijzigd.
+- **Status.** `pricesVerified` staat op true: de gestippelde prijsmarkering en de prijsmelding zijn weg.

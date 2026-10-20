@@ -126,12 +126,12 @@ export const site = {
   // Favorieten op de homepage. Bewust GEEN "bestseller"-labels: daar is geen
   // bewijs voor. Selectie = herkenbare categorieën uit de briefing.
   favorites: [
-    { cat: 'kapsalon', item: 'Kapsalon döner', kicker: 'Normaal · Groot · XXL' },
-    { cat: 'broodjes', item: 'Broodje shoarma', kicker: 'Ook met kaas of groot' },
-    { cat: 'durum', item: 'Dürüm Camel', kicker: 'Huisvariant' },
+    { cat: 'kapsalon', item: 'Kapsalon shoarma', kicker: 'Normaal · Groot · XXL' },
+    { cat: 'broodjes', item: 'Broodje shoarma', kicker: 'Ook met kaas of aardappels' },
+    { cat: 'durum', item: 'Dürüm camel', kicker: 'Huisvariant' },
     { cat: 'pizza', item: 'Pizza Camel', kicker: 'Uit de oven' },
-    { cat: 'mixgrill', item: 'Camel mix grill schotel', kicker: 'Van de grill' },
-    { cat: 'donerbox', item: 'Dönerbox döner', kicker: 'Snel & compleet' },
+    { cat: 'grill', item: 'Camel mix grill schotel', kicker: 'Van de grill' },
+    { cat: 'donerbox', item: 'Dönerbox', kicker: 'Snel & compleet' },
   ],
 
   faq: [
@@ -145,7 +145,7 @@ export const site = {
     ['Kan ik sauzen of extra ingrediënten toevoegen?',
       'De beschikbare opties, sauzen en extra’s kies je per gerecht in de webshop. Losse extra’s, zoals gebakken aardappels, Turks brood en sauzen, staan ook in de categorie Extra’s.'],
     ['Zijn er vegetarische opties?',
-      'Op de menukaart staan onder meer gerechten met falafel (broodje, dürüm, kapsalon en schotel), pizza margherita en tosti kaas. Ze zijn op de menukaart gemarkeerd met “vega”. Twijfel je over de bereiding? Bel dan even.'],
+      'Ja. Op de menukaart staan onder meer falafel (broodje, dürüm, kapsalon, minischotel en schotel), dürüm gezond, pizza Margherita, funghi en vegetaria, lahmacun kaas en groenten, salades en tosti kaas. Ze zijn op de menukaart gemarkeerd met “vega”. Twijfel je over de bereiding? Bel dan even.'],
     ['Welke allergenen bevatten de gerechten?',
       'Allergeneninformatie staat (nog) niet online. Heb je een allergie of dieetwens? Bel ons op 053 432 4663 vóór je bestelt, dan vertellen we je precies wat erin zit.'],
     ['Kan ik ook alleen iets komen drinken?', 'Zeker. Ook als je alleen een glaasje wilt drinken, ben je van harte welkom aan de Oude Markt.'],
