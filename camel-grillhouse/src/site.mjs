@@ -18,11 +18,10 @@
 // geen JSON-LD en een ontwikkelbalk bovenaan.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const todo = (label) => ({ todo: true, label });
-export const isTodo = (v) => v && typeof v === 'object' && v.todo === true;
+import { todo, isTodo, SHOP, p } from './util.mjs';
+import { menu } from './menu.mjs';
 
-const SHOP = 'https://grillroomcamel.com';
-const p = (slug) => `${SHOP}/product/${slug}/`;
+export { todo, isTodo };
 
 export const site = {
   draft: true,
@@ -50,7 +49,7 @@ export const site = {
   },
 
   // De bestaande, werkende bestel- en betaalomgeving: WooCommerce op
-  // grillroomcamel.com (productpagina's met opties → winkelwagen → afrekenen).
+  // grillroomcamel.com. Bevestigd door de opdrachtgever (20 okt 2026). (productpagina's met opties → winkelwagen → afrekenen).
   // Wordt NIET vervangen. Alle bestelknoppen linken hierheen; producten met een
   // bekende productpagina linken direct naar die pagina.
   order: {
@@ -78,192 +77,51 @@ export const site = {
   ],
   hoursVerified: false,
 
-  // Echte foto's van de zaak (aangeleverd door de klant, oktober 2026).
+  // Echte foto's van de zaak (aangeleverd door de opdrachtgever, okt 2026).
   photos: {
     'doner-spies': 'Döner aan het spit voor de gloeiende branders in de keuken van Camel',
+    gevel: 'De gevel van Grillroom Camel aan de Oude Markt, met het terras en een pizzabord',
+    'terras-kerk': 'Uitzicht vanaf het terras van Camel over de Oude Markt naar de Grote Kerk',
+    'pizza-oven': 'De dubbele pizzaoven met stapels pizzadozen erboven',
+    keuken: 'De kooklijn met grillplaat, frituur, salamandergrill en het döner-spit',
+    werkbank: 'De werkbank met verse rode kool, sla, geraspte kaas en pizzadeeg',
     grill: 'De gloeiende salamandergrill in de keuken van Camel',
+    ingang: 'De ingang van Camel, met het kameellogo en Since 1990 op het glas',
+    terras: 'Witte tafels en zwarte stoelen onder de parasols op het terras',
+    'terras-bord': 'Het terras met een bord voor dürüm adana en broodje köfte',
     bar: 'De bar van Camel met flessen, rood ledlicht en foodpanelen boven de toonbank',
-    koeling: 'Koelkast met frisdranken naast de bar van Camel',
     'interieur-wand': 'Turkse sierborden en een Cappadocië-poster aan de wand bij Camel',
+    koeling: 'Koelkast met frisdranken naast de bar van Camel',
   },
+
+  // Over ons. De foto van de eigenaar is aangeleverd door de opdrachtgever.
+  // "Since 1990" staat op het raam bij de ingang (foto 'ingang').
+  owner: {
+    photo: 'eigenaar',
+    name: todo('naam van de eigenaar'),
+    since: '1990',
+  },
+
+  // De keuken: alleen wat op de foto's te zien is.
+  kitchen: [
+    { photo: 'keuken', title: 'De kooklijn', text: 'Grillplaat, frituur, salamandergrill en het spit staan op één lijn. Zo gaat je bestelling in één beweging van vuur naar bord.' },
+    { photo: 'pizza-oven', title: 'De pizzaoven', text: 'Twee ovens boven elkaar, met de pizzadozen al klaar erboven.' },
+    { photo: 'werkbank', title: 'De werkbank', text: 'Rode kool, sla en geraspte kaas liggen gekoeld klaar, naast het deeg voor pizza en lahmacun.' },
+    { photo: 'doner-spies', title: 'Het spit', text: 'De döner draait langzaam voor de gloeiende branders.' },
+  ],
 
   logo: todo('officieel Camel-logo (nu een tekstlogo)'),
 
   // Eigen tekst van grillroomcamel.nl (aangeleverd door de klant), licht ingekort.
   about: [
-    'Camel Middle East Grill House is een gezellige grillroom in het centrum van Enschede, aan de Oude Markt. Bij Camel kun je in een ontspannen sfeer terecht voor een ouderwets lekker broodje shoarma — of voor een (mini)schotel met döner kebab, kipdöner, lamsreepjes of falafel.',
+    'Camel Middle East Grill House is een gezellige grillroom in het centrum van Enschede, aan de Oude Markt. Bij Camel kun je in een ontspannen sfeer terecht voor een ouderwets lekker broodje shoarma, of voor een (mini)schotel met döner kebab, kipdöner, lamsreepjes of falafel.',
     'Voor de jongere eters staan er diverse kindermenu’s op de kaart. En wil je alleen een glaasje drinken? Ook dan ben je van harte welkom. Of je nu met je gezin komt eten of na het uitgaan nog trek hebt: dankzij de zeer ruime openingstijden houden we met iedereen rekening.',
   ],
   // Gastreactie zoals die op grillroomcamel.nl staat. Geen sterren, geen
   // aggregate rating: alleen deze ene, letterlijk overgenomen reactie.
   review: { text: 'Wij vonden het magnifique. Gerechten waren overheerlijk en een lust voor het oog. Personeel heel professioneel en zeer vriendelijk. We zullen zeker ons nog een keer laten verwennen.', author: 'M.', source: 'grillroomcamel.nl' },
 
-  menu: {
-    pricesVerified: false,
-    source: 'grillroomcamel.com, zoekindex oktober 2026',
-    categories: [
-      {
-        id: 'broodjes', name: 'Broodjes', blurb: 'Shoarma, döner, kipfilet, falafel en burgers.',
-        items: [
-          { name: 'Broodje shoarma', price: 12.0 },
-          { name: 'Broodje shoarma kaas', price: 12.5 },
-          { name: 'Broodje shoarma groot', price: 15.0 },
-          { name: 'Broodje döner kebab', price: 10.5 },
-          { name: 'Broodje kipfilet', price: 12.0 },
-          { name: 'Broodje falafel', price: 10.5, veg: true },
-          { name: 'Broodje hamburger', price: 8.0 },
-          { name: 'Broodje cheeseburger', price: 8.5 },
-          { name: 'Broodje hawaïburger', price: 9.0 },
-        ],
-      },
-      {
-        id: 'durum', name: 'Dürüm', blurb: 'Opgerold in dun brood.',
-        items: [
-          { name: 'Dürüm Camel', desc: 'Met gebakken aardappels, döner en salade.', price: 10.75 },
-          { name: 'Dürüm döner', price: 10.5 },
-          { name: 'Dürüm shoarma', price: 10.5, url: p('durum-shoarma') },
-          { name: 'Dürüm kip', price: 10.5 },
-          { name: 'Dürüm adana', price: 11.0 },
-          { name: 'Dürüm falafel', price: 10.5, veg: true, url: p('durum-falafel') },
-          { name: 'Dürüm gezond', price: 9.0 },
-        ],
-      },
-      {
-        id: 'kapsalon', name: 'Kapsalon', blurb: 'Met gebakken aardappels, salade en gesmolten kaas.',
-        url: `${SHOP}/product-category/met-gebakken-aardappels-salade-en-gesmolten-kaas/`,
-        sizes: ['Normaal', 'Groot', 'XXL'],
-        items: [
-          { name: 'Kapsalon döner', sizes: [14.0, 17.5, 21.0], url: p('kapsalon-doner-xxl') },
-          { name: 'Kapsalon kipdöner', sizes: [14.0, 17.5, 21.0] },
-          { name: 'Kapsalon shoarma', sizes: [null, 17.5, 21.0], url: p('kapsalon-shoarma-groot') },
-          { name: 'Kapsalon kipfilet', sizes: [14.5, null, 21.5], url: p('kapsalon-kipfilet-xxl') },
-          { name: 'Kapsalon lamsreepjes', sizes: [null, null, null], url: p('kapsalon-lamsreepjes-xxl') },
-          { name: 'Kapsalon mix shoarma met kip', sizes: [null, null, null], url: p('kapsalon-mix-shoarma-met-kip-xxl') },
-          { name: 'Kapsalon falafel', sizes: [null, null, null], veg: true, url: p('kapsalon-falafel-groot') },
-        ],
-      },
-      {
-        id: 'donerbox', name: 'Dönerbox', blurb: 'Snel en compleet, met gebakken aardappels en salade.',
-        items: [
-          { name: 'Dönerbox döner', price: 9.5 },
-          { name: 'Dönerbox shoarma', price: 9.5, url: p('donerbox-shoarma') },
-          { name: 'Dönerbox kipdöner', price: 9.5 },
-        ],
-      },
-      {
-        id: 'lahmacun', name: 'Lahmacun', blurb: 'Dunne, krokante Turkse pizza.',
-        items: [
-          { name: 'Lahmacun', price: 7.0 },
-          { name: 'Lahmacun kaas en groenten', price: 8.0, url: p('lahmacun-kaas-en-groenten') },
-          { name: 'Lahmacun adana', price: 13.0 },
-        ],
-      },
-      {
-        id: 'dagmenu', name: 'Dagmenu’s', blurb: 'Een complete maaltijd voor een vaste prijs.',
-        note: todo('op welke dagen geldt het dagmenu?'),
-        items: [
-          { name: 'Dagmenu shoarma', price: 16.0 },
-          { name: 'Dagmenu kipdöner', price: 16.0 },
-          { name: 'Dagmenu kalfsdöner', price: 16.0 },
-        ],
-      },
-      {
-        id: 'voorgerechten', name: 'Voorgerechten', blurb: 'Om mee te beginnen of te delen.',
-        items: [
-          { name: 'Sigara börek', price: 6.5 },
-          { name: 'Loempia', price: 6.5 },
-          { name: 'Tonijnsalade', price: null },
-          { name: 'Appel-komkommer salade', price: null, veg: true, url: p('appel-komkommer-salade') },
-        ],
-      },
-      {
-        id: 'pizza', name: 'Pizza’s', blurb: 'Uit de oven, met tomatensaus en kaas.',
-        items: [
-          { name: 'Pizza Camel', price: 15.5, url: p('pizza-camel') },
-          { name: 'Pizza margherita', desc: 'Tomatensaus en kaas.', price: 12.0, veg: true },
-          { name: 'Pizza salami kalkoen', desc: 'Tomatensaus, kaas en kalkoensalami.', price: 13.5 },
-          { name: 'Pizza tonno', desc: 'Tomatensaus, kaas, tonijn en ui.', price: 15.5 },
-          { name: 'Pizza shoarma', price: 18.0 },
-          { name: 'Calzone mix shoarma, döner en kipdöner', desc: 'Tomatensaus, kaas, shoarma, döner, kipdöner, ui, paprika en champignons.', price: null, url: p('calzone-mix-shoarma-doner-en-kipdoner') },
-        ],
-      },
-      {
-        id: 'schotels', name: 'Schotels', blurb: 'Een complete maaltijd op een bord.',
-        items: [
-          { name: 'Shoarma schotel', price: 20.5, url: p('shoarma-schotel') },
-          { name: 'Döner kebab schotel', price: 20.0, url: p('doner-kebab-schotel') },
-          { name: 'Iskender kebab schotel', price: 22.5, url: p('iskender-kebab-schotel') },
-          { name: 'Adana kebab schotel', price: 21.5, url: p('adana-kebab-schotel'), grill: true },
-          { name: 'Köfte schotel', price: 23.0, grill: true },
-          { name: 'Shish kebab schotel', price: 24.5, grill: true },
-          { name: 'Shish kebab lamsbout vleesschotel', price: 21.0, url: p('shish-kebab-lamsbout-vleesschotel'), grill: true },
-          { name: 'Lamskotelet-pirzola schotel', price: 25.0, url: p('pirzola-schotel'), grill: true },
-          { name: 'Lamsreepjes schotel', price: 21.5, grill: true },
-          { name: 'Kipfilet schotel', price: 21.5, grill: true },
-          { name: 'Kipschnitzel schotel', price: 15.0 },
-          { name: 'Falafel schotel', price: 21.0, veg: true },
-        ],
-      },
-      {
-        id: 'minischotels', name: 'Minischotels', blurb: 'Dezelfde smaak, kleinere portie.',
-        items: [
-          { name: 'Minischotel shoarma', price: 19.0 },
-          { name: 'Minischotel döner kebab', price: 19.0 },
-          { name: 'Minischotel kipdöner', price: 21.0 },
-          { name: 'Minischotel kipfilet', price: 19.0 },
-          { name: 'Minischotel lamsreepjes', price: 19.0 },
-          { name: 'Minischotel falafel', price: 19.0, veg: true },
-        ],
-      },
-      {
-        id: 'mixgrill', name: 'Camel Mix Grill', blurb: 'Voor wie trek heeft in meer.',
-        items: [
-          { name: 'Camel mix grill schotel', desc: 'Met lamsbout, kipfilet en rundergehakt.', price: 28.0, grill: true },
-          { name: 'Camel mix grill schotel speciaal', price: 30.0, grill: true },
-          { name: 'Camel mix grill voor twee personen', price: 59.0, grill: true },
-        ],
-      },
-      {
-        id: 'extras', name: 'Extra’s', blurb: 'Sauzen, brood en bijgerechten.',
-        items: [
-          { name: 'Loempia, 6 stuks', price: 9.5, url: p('loempia-6-stuks') },
-          { name: 'Gebakken aardappels', price: 5.5 },
-          { name: 'Rijst', price: null },
-          { name: 'Turks brood', price: null },
-          { name: 'Pita', price: null },
-          { name: 'Haydari', price: null },
-          { name: 'Sauzen', desc: 'Keuze uit diverse sauzen, o.a. mayonaise.', price: null },
-        ],
-      },
-      {
-        id: 'kindermenu', name: 'Kindermenu’s', blurb: 'Voor de kleine trek.',
-        items: [
-          { name: 'Kindermenu hamburger', price: 9.5 },
-          { name: 'Kindermenu kipnuggets', price: 9.5 },
-          { name: 'Kindermenu bitterballen', price: 9.5 },
-        ],
-      },
-      {
-        id: 'tosti', name: 'Tosti’s', blurb: 'Warm en knapperig.',
-        items: [
-          { name: 'Tosti kaas', price: 4.5, veg: true },
-          { name: 'Tosti sucuk', price: 7.0 },
-        ],
-      },
-      {
-        id: 'ijs', name: 'IJs & desserts', blurb: 'Pints om mee te nemen.',
-        items: [
-          { name: 'Magnum pints 440 ml', desc: 'Diverse smaken, o.a. White Chocolate & Cookies.', price: 10.0, url: p('magnum-white-chocolate-cookies-440-ml') },
-          { name: 'Ben & Jerry’s 465 ml', desc: 'Diverse smaken, o.a. Chunky Monkey.', price: 10.0, url: p('ben-jerrys-chunky-monkey-465ml') },
-        ],
-      },
-      {
-        id: 'dranken', name: 'Dranken', blurb: 'Het actuele drankenaanbod zie je in de webshop.',
-        photo: 'koeling',
-        items: [],
-      },
-    ],
-  },
+  menu,
 
   // Favorieten op de homepage. Bewust GEEN "bestseller"-labels: daar is geen
   // bewijs voor. Selectie = herkenbare categorieën uit de briefing.

@@ -14,7 +14,7 @@ De bestaande sites konden vanuit de ontwikkelomgeving **niet rechtstreeks worden
 | Adres | Oude Markt 9A, 7511 GA Enschede | briefing, grillroomcamel.nl, near-place, enschede053 | bevestigd. Thuisbezorgd noemt "Oude Markt 9". |
 | Telefoon | 053 432 4663 | briefing, grillroomcamel.nl, meerdere gidsen | bevestigd |
 | Info-site | grillroomcamel.nl (navigatie: Thuis · Bestellen · Foto's, "Online eten bestellen? Klik hier") | zoekindex + geplakte tekst | bevestigd |
-| **Bestelomgeving** | **grillroomcamel.com: WooCommerce** (`/product/<slug>/`, `/product-category/…`, "Toevoegen aan winkelwagen", `?add-to-cart=`) | zoekindex | bevestigd dat de shop bestaat. **Te bevestigen** dat dit de route achter "Klik hier" is. |
+| **Bestelomgeving** | **grillroomcamel.com: WooCommerce** (`/product/<slug>/`, `/product-category/…`, "Toevoegen aan winkelwagen") | opdrachtgever (20 okt 2026) + zoekindex | **bevestigd**: alle bestelknoppen gaan hierheen |
 | Andere bestelplatforms | camelmiddleeastgrillhouse-enschede.nl, Thuisbezorgd, Hapsalons (met hogere prijzen) | zoekindex | niet gelinkt; eigenaar kiest |
 | Openingstijden | elke dag vanaf 15:00. Ma, di en zo tot 02:00, do tot 03:00. | grillroomcamel.nl (geplakte tekst) | Wo, vr en za **conflicteren**: de site toont lijst A (03:00 / 04:30 / 05:00) én lijst B (02:00 / 03:30 / 03:30). Externe gidsen wijken ook af. |
 | Over Camel | gezellige grillroom, ouderwets lekker broodje shoarma, (mini)schotels, kindermenu's, ook voor alleen een drankje, zeer ruime openingstijden | grillroomcamel.nl (geplakte tekst) | bevestigd, licht ingekort gebruikt |
@@ -23,7 +23,11 @@ De bestaande sites konden vanuit de ontwikkelomgeving **niet rechtstreeks worden
 | Afhalen, bezorgen, kosten, minimum, betaalmethoden | — | Hapsalons noemt afhalen + bezorgen | **niet getoond**; placeholder |
 | Allergenen | — | niet gevonden | FAQ verwijst naar bellen; niets verzonnen |
 | Halal, keurmerken, reviewscores | — | — | bewust weggelaten |
-| Logo | — | niet op te halen | tekstlogo met vlam als placeholder |
+| Logo | kameelsilhouet + woordmerk "CAMEL" (raam, parasols, gevel "GRILLROOM CAMEL") | foto's van de opdrachtgever | officieel bestand nog nodig; site gebruikt een tekstlogo |
+| Sinds | 1990 ("cafe - restaurant CAMEL Since 1990" op het raam) | foto 'ingang' | gebruikt in "Over ons" |
+| Terras | terras aan de Oude Markt met uitzicht op de Grote Kerk | foto's van de opdrachtgever | bevestigd |
+| Eigenaar | portret in de keuken | foto van de opdrachtgever | naam **te bevestigen**; gebruik van de foto met toestemming van de eigenaar |
+| Menukaart | wordt aangeleverd door de opdrachtgever | — | staat in `src/menu.mjs`; huidige data is voorlopig |
 
 ## 2. Keuzes
 
@@ -85,13 +89,32 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
 
 ## 6. Open punten voor de eigenaar
 
-1. **Bestelroute.** Is grillroomcamel.com de webshop achter "Klik hier"? Zo nee, vul `order.url` in.
+1. **Menukaart.** De opdrachtgever stuurt de definitieve menukaart met prijzen; die vervangt `src/menu.mjs`.
 2. **Openingstijden.** Wat zijn de juiste sluitingstijden op woensdag, vrijdag en zaterdag? En wat moet er gebeuren met de tweede, afwijkende lijst op de huidige site?
 3. **Prijzen.** Leg alle 77 gerechten naast de webshop, vul de ontbrekende prijzen in en zet `pricesVerified: true`.
 4. **Bezorgen en afhalen.** Zijn ze mogelijk? Zo ja: bezorggebied, kosten, minimumbedrag en betaalmethoden.
 5. **Dagmenu's.** Op welke dagen gelden ze?
 6. **Logo.** Lever het officiële logo aan (SVG).
 7. **Privacy.** Lever de link naar de privacyverklaring van de webshop, het KvK-nummer en een e-mailadres.
-8. **Fotografie.** Laat productfoto's maken (de prompts B–E dienen als art direction). Daarna kunnen de favorietenkaarten een foto krijgen.
+8. **Eigenaar.** Naam voor het bijschrift bij de foto in "Over ons".
+9. **Fotografie.** Laat productfoto's maken (de prompts B–E dienen als art direction). Daarna kunnen de favorietenkaarten een foto krijgen.
 9. **Meten.** De site stuurt bij elke klik een `camel:track`-event. Een consent-conforme analysetool kan daarop aansluiten; er is nu bewust niets geladen.
 10. **Andere platforms.** Moeten Thuisbezorgd en camelmiddleeastgrillhouse-enschede.nl gelinkt worden, of juist niet? Daar staan andere prijzen.
+
+## 7. Update 20 oktober 2026: nieuwe foto's, keuken en over ons
+
+- **Nieuwe foto's.** Negen foto's van de opdrachtgever zijn verwerkt: de pizzaoven, de werkbank, de kooklijn, de eigenaar, de ingang, de gevel en drie van het terras. Ze zijn omgezet naar AVIF en WebP, en de EXIF-gegevens (zoals GPS) zijn verwijderd.
+- **Nieuwe secties op de homepage:**
+  - *De keuken*: een bento met vier foto's en een bijschrift bij elk. De tekst beschrijft alleen wat op de foto's te zien is.
+  - *Over ons*: het portret van de eigenaar met hoekhaken, de eigen tekst van de zaak, "Sinds 1990" en de gastreactie.
+  - *Terras aan de Oude Markt*: een foto over de volle breedte met uitzicht op de Grote Kerk, plus de gevel en de ingang.
+- **Galerij.** Toont nu alle 13 foto's. Staande foto's krijgen twee rijen hoogte.
+- **Navigatie.** Menukaart, Favorieten, De keuken, Over ons en Contact, plus de knop "Bestel nu" naar grillroomcamel.com.
+- **Menukaart.** Staat nu apart in `src/menu.mjs`, met uitleg bovenaan. De definitieve menukaart van de eigenaar hoeft alleen daar te worden ingevuld.
+- **Skill-richtlijnen (10k-websites) toegepast:**
+  - een copy-review: geen gedachtestreepjes en geen stockwoorden in de sitetekst;
+  - `overflow-x: clip` op zowel html als body;
+  - animaties pauzeren als het tabblad op de achtergrond staat;
+  - "minder beweging" wordt ook live gevolgd, als iemand het aanzet terwijl de pagina open is;
+  - geen twee aangrenzende secties met dezelfde opbouw.
+- **Bewust niet gedaan.** Geen AI-video of gegenereerde beelden uit de skill-pipeline. Er zijn nu echte foto's van de zaak, en voor een bestaand restaurant zijn die eerlijker en sterker.

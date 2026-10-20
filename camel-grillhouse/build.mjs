@@ -9,7 +9,7 @@ const IMG = JSON.parse(await readFile(new URL('./assets/img/manifest.json', impo
 // ── helpers ────────────────────────────────────────────────────────────────
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const has = (v) => v != null && v !== '' && !isTodo(v);
-const ph = (x) => `<span class="ph" title="Placeholder — nog te bevestigen">te bevestigen: ${esc(x.label)}</span>`;
+const ph = (x) => `<span class="ph" title="Placeholder: nog te bevestigen">te bevestigen: ${esc(x.label)}</span>`;
 const v = (x) => (isTodo(x) ? ph(x) : esc(x));
 const eur = (n) => `€${n.toFixed(2).replace('.', ',')}`;
 const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -66,10 +66,10 @@ const logo = (cls = '') => `<a class="logo ${cls}" href="/">
 <span class="logo__mark">${flame}</span><span class="logo__word">Camel</span><span class="logo__sub">Middle East<br>Grill House</span></a>`;
 
 const nav = [
-  ['/', 'Home'],
   ['/menukaart/', 'Menukaart'],
-  ['/#favorieten', 'Populaire gerechten'],
-  ['/#over', 'Over Camel'],
+  ['/#favorieten', 'Favorieten'],
+  ['/#keuken', 'De keuken'],
+  ['/#over', 'Over ons'],
   ['/#contact', 'Contact'],
 ];
 
@@ -111,7 +111,7 @@ ${ld}
 
 const header = (path) => `
 <a class="skip" href="#main">Naar de inhoud</a>
-${site.draft ? `<div class="devbar" role="note"><strong>Concept</strong> — niet publiceren. ${openTodos} gegevens te bevestigen${menu.pricesVerified ? '' : ', prijzen nog naast de webshop leggen'}. Zie docs/rapportage.md.</div>` : ''}
+${site.draft ? `<div class="devbar" role="note"><strong>Concept</strong>: niet publiceren. ${openTodos} gegevens te bevestigen${menu.pricesVerified ? '' : ', prijzen nog naast de webshop leggen'}. Zie docs/rapportage.md.</div>` : ''}
 <header class="top" data-top>
   <div class="top__in">
     ${logo()}
@@ -192,7 +192,7 @@ const favCard = (f, i) => {
   <p class="fav__kicker"><span class="fav__no">${String(i + 1).padStart(2, '0')}</span>${esc(f.kicker)}</p>
   <h3 class="fav__name">${esc(item.name)}</h3>
   <p class="fav__desc">${esc(desc)}</p>
-  ${item.sizes ? `<ul class="fav__sizes">${c.sizes.map((s, k) => `<li><span>${s}</span>${item.sizes[k] != null ? eur(item.sizes[k]) : '—'}</li>`).join('')}</ul>` : ''}
+  ${item.sizes ? `<ul class="fav__sizes">${c.sizes.map((s, k) => `<li><span>${s}</span>${item.sizes[k] != null ? eur(item.sizes[k]) : 'webshop'}</li>`).join('')}</ul>` : ''}
   <div class="fav__foot">${priceHtml(item)}${orderBtn('Bestel', 'btn btn--ember btn--sm', { item, c, track: 'order-product' })}</div>
 </article>`;
 };
@@ -209,7 +209,7 @@ const comfortIds = ['kapsalon', 'broodjes', 'durum', 'donerbox'];
 const moreIds = ['pizza', 'lahmacun', 'tosti', 'kindermenu'];
 
 const home = () => page({
-  title: `${site.name} — Grillroom aan de Oude Markt, Enschede`,
+  title: `${site.name} | Grillroom aan de Oude Markt, Enschede`,
   description: 'Kapsalon, shoarma, döner, dürüm, pizza en mixed grill bij Camel aan de Oude Markt in Enschede. Bekijk de menukaart en bestel online.',
 }, `
 <div class="stack">
@@ -297,7 +297,7 @@ const home = () => page({
     <header class="sec__head reveal">
       <p class="eyebrow eyebrow--amber">De grill in de hoofdrol</p>
       <h2 class="h2 h2--xl" id="grill-title">Voor wie trek heeft in meer.</h2>
-      <p class="sec__lede">Mixed grill, adana, köfte, shish kebab, pirzola, lamsreepjes en kipfilet — als schotel.</p>
+      <p class="sec__lede">Mixed grill, adana, köfte, shish kebab, pirzola, lamsreepjes en kipfilet. Allemaal als schotel.</p>
     </header>
     <ol class="grilllist">${grillItems.map(([i, c], k) => `<li class="grilllist__row reveal" style="--d:${(k % 6) * 40}ms">
       <span class="grilllist__name">${esc(i.name)}${i.desc ? `<small>${esc(i.desc)}</small>` : ''}</span>
@@ -353,27 +353,57 @@ const home = () => page({
   </div>
 </section>
 
-<section class="sec about" id="over" aria-labelledby="about-title">
-  <div class="wrap about__grid">
-    <div class="about__copy reveal">
-      <p class="eyebrow">Camel in Enschede</p>
-      <h2 class="h2" id="about-title">Gezellig, midden in de stad.</h2>
+<section class="sec kitchen" id="keuken" aria-labelledby="kitchen-title">
+  ${contours()}
+  <div class="wrap">
+    <header class="sec__head sec__head--row reveal">
+      <div><p class="eyebrow">De keuken</p><h2 class="h2" id="kitchen-title">Kijk mee achter de toonbank.</h2></div>
+      <p class="sec__lede">Alles wat je bestelt, komt uit deze keuken aan de Oude Markt. Dit is waar het gebeurt.</p>
+    </header>
+    <ul class="kitchen__grid">${site.kitchen.map((k, i) => `<li class="kcard kcard--${i} reveal" style="--d:${i * 90}ms">
+      ${pic(k.photo, { sizes: i === 0 ? '(min-width: 900px) 60vw, 100vw' : '(min-width: 900px) 30vw, 100vw', alt: site.photos[k.photo] })}
+      <div class="kcard__cap"><h3 class="h3">${esc(k.title)}</h3><p>${esc(k.text)}</p></div>
+    </li>`).join('')}</ul>
+  </div>
+</section>
+
+<section class="sec owner" id="over" aria-labelledby="about-title">
+  <div class="wrap owner__grid">
+    <figure class="owner__photo reveal">
+      <div class="owner__frame">${brackets}${pic(site.owner.photo, { sizes: '(min-width: 900px) 38vw, 100vw', alt: 'De eigenaar van Camel in de keuken', pos: '50% 30%' })}</div>
+      <figcaption>${v(site.owner.name)}<span class="muted">Eigenaar van Camel</span></figcaption>
+    </figure>
+    <div class="owner__copy reveal" style="--d:120ms">
+      <p class="eyebrow">Over ons</p>
+      <h2 class="h2" id="about-title">Sinds ${site.owner.since} aan de Oude Markt.</h2>
       <p class="lead">${esc(site.about[0])}</p>
       <p>${esc(site.about[1])}</p>
-      <figure class="quote">${brackets}<blockquote><p>“${esc(site.review.text)}”</p></blockquote><figcaption>— ${esc(site.review.author)}, gast <span class="muted">· via ${esc(site.review.source)}</span></figcaption></figure>
-      ${btn(loc.mapsUrl, 'Bekijk onze locatie', 'btn btn--ember', ' target="_blank" rel="noopener" data-track="route"')}
+      <figure class="quote">${brackets}<blockquote><p>“${esc(site.review.text)}”</p></blockquote><figcaption>${esc(site.review.author)}, gast <span class="muted">· via ${esc(site.review.source)}</span></figcaption></figure>
+      ${orderBtn('Bestel bij Camel', 'btn btn--ember', { track: 'order-about' })}
     </div>
-    <div class="about__media">
-      <div class="about__a reveal">${pic('bar', { sizes: '(min-width: 900px) 34vw, 100vw' })}</div>
-      <div class="about__b reveal" style="--d:120ms">${pic('interieur-wand', { sizes: '(min-width: 900px) 22vw, 60vw' })}</div>
+  </div>
+</section>
+
+<section class="terrace" id="terras" aria-labelledby="terrace-title">
+  <div class="terrace__bg" aria-hidden="true" data-parallax-bg>${pic('terras-kerk', { sizes: '100vw', pos: '50% 45%', alt: '' })}</div>
+  <div class="wrap terrace__grid">
+    <div class="terrace__copy reveal">
+      <p class="eyebrow eyebrow--amber">Camel in Enschede</p>
+      <h2 class="h2" id="terrace-title">Een terras aan de Oude Markt.</h2>
+      <p>Onder de parasols kijk je zo uit over het plein en de Grote Kerk. Schuif aan voor een maaltijd of alleen een drankje, of haal je bestelling binnen op.</p>
+      <div class="hero__ctas">${btn(loc.mapsUrl, 'Plan je route', 'btn btn--ember', ' target="_blank" rel="noopener" data-track="route"')}${btn('/#contact', 'Openingstijden', 'btn btn--ghost')}</div>
+    </div>
+    <div class="terrace__stack">
+      <div class="terrace__a reveal">${pic('gevel', { sizes: '(min-width: 900px) 24vw, 60vw' })}</div>
+      <div class="terrace__b reveal" style="--d:120ms">${pic('ingang', { sizes: '(min-width: 900px) 26vw, 70vw' })}</div>
     </div>
   </div>
 </section>
 
 <section class="sec gallery" id="fotos" aria-labelledby="gal-title">
   <div class="wrap">
-    <header class="sec__head reveal"><p class="eyebrow">Fotogalerij</p><h2 class="h2" id="gal-title">Een kijkje bij Camel.</h2></header>
-    <ul class="gallery__grid">${Object.keys(site.photos).map((n, i) => `<li class="g g--${i} reveal" style="--d:${i * 60}ms"><button class="gallery__item" type="button" data-index="${i}" aria-label="Vergroot foto: ${esc(site.photos[n])}">${pic(n, { sizes: '(min-width: 900px) 33vw, 50vw' })}</button></li>`).join('')}</ul>
+    <header class="sec__head reveal"><p class="eyebrow">Fotogalerij</p><h2 class="h2" id="gal-title">Een kijkje bij Camel.</h2><p class="sec__lede">Keuken, bar, terras en de Oude Markt. Klik op een foto om hem groot te bekijken.</p></header>
+    <ul class="gallery__grid">${Object.keys(site.photos).map((n, i) => `<li class="g g--${IMG[n].h > IMG[n].w ? 'tall' : 'wide'} reveal" style="--d:${(i % 4) * 60}ms"><button class="gallery__item" type="button" data-index="${i}" aria-label="Vergroot foto: ${esc(site.photos[n])}">${pic(n, { sizes: '(min-width: 900px) 33vw, 50vw' })}</button></li>`).join('')}</ul>
   </div>
   <dialog class="lightbox" data-lightbox aria-label="Fotoweergave">
     <figure><img data-lb-img alt=""><figcaption><span data-lb-cap></span> <span class="lightbox__count" data-count></span></figcaption></figure>
@@ -428,7 +458,7 @@ const home = () => page({
 
 // ── menukaart ──────────────────────────────────────────────────────────────
 const menuPage = () => page({
-  title: `Menukaart — ${site.short} Grillroom Enschede | Kapsalon, shoarma, pizza`,
+  title: `Menukaart ${site.short} Grillroom Enschede | Kapsalon, shoarma, pizza`,
   description: `De volledige menukaart van ${site.name}: broodjes, dürüm, kapsalon, dönerbox, lahmacun, pizza’s, schotels en Camel Mix Grill. Oude Markt 9A, Enschede.`,
 }, `
 <section class="mhero">
@@ -460,7 +490,7 @@ const menuPage = () => page({
 </section>`, '/menukaart/');
 
 // ── overige pagina's ───────────────────────────────────────────────────────
-const privacy = () => page({ title: `Privacy & cookies — ${site.name}`, description: `Privacy- en cookieverklaring van de website van ${site.name}.` }, `
+const privacy = () => page({ title: `Privacy & cookies | ${site.name}`, description: `Privacy- en cookieverklaring van de website van ${site.name}.` }, `
 <section class="mhero"><div class="wrap prose">
   <p class="eyebrow"><a href="/">Home</a> / Privacy</p>
   <h1 class="h1">Privacy &amp; cookies</h1>
@@ -473,7 +503,7 @@ const privacy = () => page({ title: `Privacy & cookies — ${site.name}`, descri
   <p>${site.name}, ${loc.street}, ${loc.postalCode} ${loc.city}. Telefoon: <a href="${contact.phoneHref}">${contact.phone}</a>. ${ph({ label: 'KvK-nummer en e-mailadres voor privacyvragen' })}</p>
 </div></section>`, '/privacy/');
 
-const notFound = () => page({ title: `Pagina niet gevonden — ${site.name}`, description: 'Deze pagina bestaat niet (meer).' }, `
+const notFound = () => page({ title: `Pagina niet gevonden | ${site.name}`, description: 'Deze pagina bestaat niet (meer).' }, `
 <section class="mhero mhero--center"><div class="wrap">
   <p class="eyebrow">404</p><h1 class="h1">Deze pagina is op.</h1>
   <p class="lead">Maar de grill staat nog aan.</p>

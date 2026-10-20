@@ -17,7 +17,7 @@ Upload na `npm run build` de inhoud van **`public/`** (inclusief `.htaccess` voo
 
 ## Gegevens invullen
 
-**Alles staat in [`src/site.mjs`](src/site.mjs):** menu, prijzen, openingstijden, teksten, FAQ en bestellinks. Een onbevestigde waarde staat als `todo('…')` en verschijnt op de site als een gestippeld gemarkeerde placeholder. Zolang `draft: true` staat:
+**Bedrijfsgegevens staan in [`src/site.mjs`](src/site.mjs)** (openingstijden, teksten, FAQ, foto's, bestellink). **De menukaart staat apart in [`src/menu.mjs`](src/menu.mjs)**: gerechten, prijzen per formaat en links naar de webshop, met uitleg bovenaan het bestand. Een onbevestigde waarde staat als `todo('…')` en verschijnt op de site als een gestippeld gemarkeerde placeholder. Zolang `draft: true` staat:
 
 - krijgt elke pagina `noindex`;
 - blokkeert `robots.txt` alles;
@@ -35,7 +35,8 @@ Upload na `npm run build` de inhoud van **`public/`** (inclusief `.htaccess` voo
 ## Structuur
 
 ```
-src/site.mjs          alle inhoud en bedrijfsgegevens (met bron per gegeven)
+src/site.mjs          bedrijfsgegevens, teksten, foto's (met bron per gegeven)
+src/menu.mjs          de menukaart (wordt vervangen door de menukaart van de eigenaar)
 build.mjs             templates; bouwt public/ (home, menukaart, privacy, 404, /contact-redirect, robots, sitemap, og.jpg)
 assets/css/main.css   design system (tokens bovenaan) en componenten
 assets/js/main.js     veren-engine, sticky stack, vonken-naden, hoogtelijnen, rail, menu-zoeken, lightbox, events

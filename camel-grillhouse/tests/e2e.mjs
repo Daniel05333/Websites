@@ -156,7 +156,7 @@ console.log('Bestelroute, inhoud en SEO');
     const t = await page.evaluate(() => window.__t);
     if (!t.includes('order-header')) throw new Error(JSON.stringify(t));
   });
-  for (const id of ['favorieten', 'grill', 'kapsalon', 'bestellen', 'over', 'contact']) {
+  for (const id of ['favorieten', 'grill', 'kapsalon', 'bestellen', 'keuken', 'over', 'terras', 'contact']) {
     await page.locator(`#${id}`).scrollIntoViewIfNeeded();
     await page.waitForTimeout(1500);
     await page.screenshot({ path: `${shots}desktop-${id}.png` });

@@ -8,6 +8,14 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   doc.classList.add('is-loaded');
+  document.addEventListener('visibilitychange', () => document.body.classList.toggle('paused', document.hidden));
+  // Minder beweging live aangezet: alles direct op de eindstand.
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+    if (!e.matches) return;
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+    document.querySelectorAll('[data-split] .w').forEach((w) => { w.style.opacity = 1; w.style.transform = 'none'; });
+    document.querySelector('[data-rail]')?.style.setProperty('--p', 1);
+  });
 
   // ── meten (privacyvriendelijk): alleen een event, geen tracker ─────────
   // Een consent-conforme tool kan luisteren op `camel:track` of dataLayer.
