@@ -200,7 +200,7 @@ console.log('Bestelroute, inhoud en SEO');
     if (!(await page.locator('#sheet').isHidden())) throw new Error('niet dicht');
   });
   await check('mobiele bestelbalk verschijnt na de hero', async () => {
-    await page.evaluate(() => scrollTo(0, innerHeight * 1.6));
+    await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, innerHeight * 1.6); });
     await page.waitForTimeout(600);
     return page.locator('[data-dock]').evaluate((d) => d.classList.contains('on') && d.getAttribute('aria-hidden') === 'false');
   });
