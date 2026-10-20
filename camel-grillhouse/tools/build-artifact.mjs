@@ -8,7 +8,7 @@ await mkdir(OUT, { recursive: true });
 await cp('public/assets', `${OUT}assets`, { recursive: true });
 
 const fix = (html, main) => html
-  .replace(/(["'(])\/assets\//g, '$1assets/')
+  .replace(/(^|[\s"'(,])\/assets\//g, '$1assets/')
   .replace(/href="\/menukaart\/(#[^"]*)?"/g, (_, h = '') => `href="menukaart.html${h}"`)
   .replace(/href="\/privacy\/"/g, 'href="privacy.html"')
   .replace(/href="\/#/g, main ? 'href="#' : 'href="index.html#')
