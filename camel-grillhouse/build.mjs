@@ -47,7 +47,8 @@ const pic = (name, { sizes = '100vw', eager = false, cls = '', alt = site.photos
 // Bestelroute: altijd de bestaande webshop. Product → productpagina, anders categorie, anders shop.
 const ext = '<span class="sr-only"> (naar de webshop van Camel)</span>';
 const arrow = `<svg class="arr" viewBox="0 0 14 11" aria-hidden="true"><path d="M0 5.35H13M8 10.35L13 5.35L8 0.35" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>`;
-const orderHref = (item, c) => item?.url ?? c?.url ?? order.url;
+// Elke bestelknop gaat naar de startpagina van de webshop (wens van de opdrachtgever).
+const orderHref = () => order.url;
 const orderBtn = (label = 'Bestel nu', cls = 'btn btn--ember', { item, c, track = 'order' } = {}) =>
   `<a class="${cls}" href="${esc(orderHref(item, c))}" data-track="${track}"${item ? ` data-item="${esc(item.name)}"` : ''}><span>${label}</span>${arrow}${ext}</a>`;
 const btn = (href, label, cls = 'btn btn--ghost', attrs = '') => `<a class="${cls}" href="${href}"${attrs}><span>${label}</span>${arrow}</a>`;
@@ -113,7 +114,7 @@ ${ld}
 
 const header = (path) => `
 <a class="skip" href="#main">Naar de inhoud</a>
-${site.draft ? `<div class="devbar" role="note"><strong>Concept</strong>: niet publiceren. ${openTodos} gegevens te bevestigen${menu.pricesVerified ? '' : ', prijzen nog naast de webshop leggen'}. Zie docs/rapportage.md.</div>` : ''}
+${site.draft ? `<div class="devbar" role="note"><strong>Concept</strong>: niet publiceren. ${openTodos} punten te bespreken met de eigenaar. Zie docs/rapportage.md.</div>` : ''}
 <header class="top" data-top>
   <div class="top__in">
     ${logo()}
@@ -139,7 +140,6 @@ const footer = () => `
     <div>
       ${logo('logo--foot')}
       <p class="foot__tag">Grillroom aan de Oude Markt in Enschede.</p>
-      ${isTodo(site.logo) ? `<p class="foot__note">${ph(site.logo)}</p>` : ''}
     </div>
     <div>
       <h2 class="foot__h">Bezoek</h2>
@@ -373,7 +373,7 @@ const home = () => page({
   <div class="wrap owner__grid">
     <figure class="owner__photo reveal">
       <div class="owner__frame">${brackets}${pic(site.owner.photo, { sizes: '(min-width: 900px) 38vw, 100vw', alt: 'De eigenaar van Camel in de keuken', pos: '50% 30%' })}</div>
-      <figcaption>${v(site.owner.name)}<span class="muted">Eigenaar van Camel</span></figcaption>
+      <figcaption>${isTodo(site.owner.name) ? 'De eigenaar' : esc(site.owner.name)}<span class="muted">${isTodo(site.owner.name) ? 'van Camel, in zijn keuken' : 'Eigenaar van Camel'}</span></figcaption>
     </figure>
     <div class="owner__copy reveal" style="--d:120ms">
       <p class="eyebrow">Over ons</p>
@@ -421,7 +421,7 @@ const home = () => page({
     <header class="sec__head reveal"><p class="eyebrow">Veelgestelde vragen</p><h2 class="h2" id="faq-title">Goed om te weten.</h2><p class="sec__lede">Staat je vraag er niet bij? Bel <a href="${contact.phoneHref}">${contact.phone}</a>.</p></header>
     <div class="faq__list">${site.faq.map(([q, a]) => {
       const ans = a === 'hours' ? `Camel is dagelijks geopend vanaf ${site.hours[0].open}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
-        : a.startsWith('order.') ? `${ph(order[a.slice(6)])} Tot die tijd: in de webshop zie je bij het afrekenen welke mogelijkheden er zijn, of bel ${contact.phone}.`
+        : a.startsWith('order.') ? ({ pickup: 'Bij het afrekenen in de webshop zie je welke mogelijkheden er op dat moment zijn. Twijfel je? Bel ons even.', delivery: 'Bij het afrekenen in de webshop zie je of bezorgen op jouw adres mogelijk is en wat het kost. Twijfel je? Bel ons even.', payment: 'De betaalmethoden zie je bij het afrekenen in de webshop.' })[a.slice(6)].replace('Bel ons even.', `Bel ons even op <a href="${contact.phoneHref}">${contact.phone}</a>.`)
         : esc(a).replace(contact.phone, `<a href="${contact.phoneHref}">${contact.phone}</a>`);
       return `<details class="reveal"><summary><span>${esc(q)}</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>${ans}</p></div></details>`;
     }).join('')}</div>
@@ -498,11 +498,11 @@ const privacy = () => page({ title: `Privacy & cookies | ${site.name}`, descript
   <h1 class="h1">Privacy &amp; cookies</h1>
   <p>Deze website (${site.url.replace('https://', '')}) verzamelt zelf geen persoonsgegevens. Er zijn geen formulieren, geen trackers en geen cookies. Lettertypen en scripts worden vanaf deze eigen server geladen, niet via derden.</p>
   <h2 class="h3">Online bestellen</h2>
-  <p>Bestellen gebeurt in de webshop van Camel op <a href="${order.url}">${order.host}</a>. Daar worden je naam, adres, telefoonnummer en bestelling verwerkt om je bestelling uit te voeren. Voor die gegevensverwerking geldt de privacyverklaring van de webshop. ${ph({ label: 'link naar privacyverklaring webshop' })}</p>
+  <p>Bestellen gebeurt in de webshop van Camel op <a href="${order.url}">${order.host}</a>. Daar worden je naam, adres, telefoonnummer en bestelling verwerkt om je bestelling uit te voeren. Voor die gegevensverwerking geldt de privacyverklaring van de webshop.</p>
   <h2 class="h3">Externe links</h2>
   <p>De knop “Route plannen” opent Google Maps. Daarvoor gelden de voorwaarden van Google.</p>
   <h2 class="h3">Vragen</h2>
-  <p>${site.name}, ${loc.street}, ${loc.postalCode} ${loc.city}. Telefoon: <a href="${contact.phoneHref}">${contact.phone}</a>. ${ph({ label: 'KvK-nummer en e-mailadres voor privacyvragen' })}</p>
+  <p>${site.name}, ${loc.street}, ${loc.postalCode} ${loc.city}. Telefoon: <a href="${contact.phoneHref}">${contact.phone}</a>.</p>
 </div></section>`, '/privacy/');
 
 const notFound = () => page({ title: `Pagina niet gevonden | ${site.name}`, description: 'Deze pagina bestaat niet (meer).' }, `

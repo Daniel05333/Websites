@@ -53,7 +53,7 @@ export const site = {
   // Wordt NIET vervangen. Alle bestelknoppen linken hierheen; producten met een
   // bekende productpagina linken direct naar die pagina.
   order: {
-    url: `${SHOP}/`,
+    url: SHOP, // https://grillroomcamel.com — elke bestelknop gaat hierheen (opdrachtgever, 21 okt 2026)
     host: 'grillroomcamel.com',
     // Bezorgen/afhalen, bezorgkosten, minimumbedrag, betaalmethoden: niet
     // betrouwbaar gevonden. Pas tonen als de eigenaar ze bevestigt.
@@ -62,20 +62,17 @@ export const site = {
     payment: todo('betaalmethoden in de webshop (bevestigen)'),
   },
 
-  // bron: grillroomcamel.nl (tekst aangeleverd door de klant, okt 2026). De
-  // site toont TWEE lijsten die elkaar tegenspreken: lijst A sluit wo 03:00,
-  // vr 04:30, za 05:00; lijst B sluit wo 02:00, vr 03:30, za 03:30. De overige
-  // dagen en de openingstijd 15:00 zijn in beide lijsten gelijk.
+  // Bevestigd door de opdrachtgever (21 okt 2026).
   hours: [
     { day: 'Maandag', dow: 'Mo', open: '15:00', close: '02:00' },
     { day: 'Dinsdag', dow: 'Tu', open: '15:00', close: '02:00' },
-    { day: 'Woensdag', dow: 'We', open: '15:00', close: todo('03:00 of 02:00') },
+    { day: 'Woensdag', dow: 'We', open: '15:00', close: '02:30' },
     { day: 'Donderdag', dow: 'Th', open: '15:00', close: '03:00' },
-    { day: 'Vrijdag', dow: 'Fr', open: '15:00', close: todo('04:30 of 03:30') },
-    { day: 'Zaterdag', dow: 'Sa', open: '15:00', close: todo('05:00 of 03:30') },
+    { day: 'Vrijdag', dow: 'Fr', open: '15:00', close: '04:00' },
+    { day: 'Zaterdag', dow: 'Sa', open: '15:00', close: '05:00' },
     { day: 'Zondag', dow: 'Su', open: '15:00', close: '02:00' },
   ],
-  hoursVerified: false,
+  hoursVerified: true,
 
   // Echte foto's van de zaak (aangeleverd door de opdrachtgever, okt 2026).
   photos: {

@@ -128,3 +128,21 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
 - **Labels.** "vega" bij vegetarische gerechten, "18+" bij alcohol, met de melding dat alcohol alleen aan klanten van 18 jaar en ouder wordt verkocht.
 - **Lahmacun.** Op de aangeleverde lijst valt lahmacun onder Grillgerechten. Op de site staat het als eigen categorie, zodat het in de tabs te vinden is. De prijzen zijn ongewijzigd.
 - **Status.** `pricesVerified` staat op true: de gestippelde prijsmarkering en de prijsmelding zijn weg.
+
+## 9. Update 21 oktober 2026: openingstijden en bestelknoppen
+
+- **Openingstijden, bevestigd door de opdrachtgever.** Elke dag open vanaf 15:00. Sluitingstijden:
+
+  | Dag | Sluit om |
+  |---|---|
+  | Maandag | 02:00 |
+  | Dinsdag | 02:00 |
+  | Woensdag | 02:30 |
+  | Donderdag | 03:00 |
+  | Vrijdag | 04:00 |
+  | Zaterdag | 05:00 |
+  | Zondag | 02:00 |
+
+  `hoursVerified` staat op true.
+- **Bestelknoppen.** Alle bestelknoppen, ook die bij losse gerechten, gaan naar https://grillroomcamel.com. Een test bewaakt dit.
+- **Open punten.** Deze punten bespreekt de opdrachtgever met de eigenaar: het logo, de naam van de eigenaar, afhalen en bezorgen, en de betaalmethoden. Ze staan als `todo` in `src/site.mjs`, maar zijn niet meer als placeholder op de site te zien. Waar nodig staat er een neutrale tekst, zoals "zie de webshop bij het afrekenen" of "De eigenaar van Camel". De conceptbalk telt de open punten.

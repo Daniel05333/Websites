@@ -59,9 +59,9 @@ console.log('Bestelroute, inhoud en SEO');
   for (const p of ['/', '/menukaart/']) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
     await check(`${p} — precies één h1`, async () => (await page.locator('h1').count()) === 1);
-    await check(`${p} — elke bestelknop gaat naar de bestaande webshop (${SHOP})`, async () => {
+    await check(`${p} — elke bestelknop gaat naar https://grillroomcamel.com`, async () => {
       const hrefs = await page.$$eval('[data-track^="order"]', (as) => as.map((a) => a.href));
-      const bad = hrefs.filter((h) => new URL(h).host !== SHOP);
+      const bad = hrefs.filter((h) => h !== 'https://grillroomcamel.com/');
       if (!hrefs.length || bad.length) throw new Error(`${bad.length}/${hrefs.length}: ${bad.slice(0, 3).join(', ')}`);
     });
     await check(`${p} — alle ankers wijzen naar een bestaand id`, async () => {
@@ -107,11 +107,7 @@ console.log('Bestelroute, inhoud en SEO');
     const hit = ['bestseller', 'meest besteld', 'populairst', '★'].filter((w) => t.includes(w));
     if (hit.length) throw new Error(hit.join(', '));
   });
-  await check('placeholders zichtbaar gemarkeerd', async () => {
-    const n = await page.locator('.ph').count();
-    if (site.draft && n === 0) throw new Error('geen');
-    console.log(`      ${n} gemarkeerde placeholders op de homepage`);
-  });
+  await check('geen placeholders in beeld (open punten staan alleen in de data)', async () => (await page.locator('.ph').count()) === 0);
   await check('vonken (WebGL) actief of netjes uitgeschakeld', async () => {
     const ready = await page.getAttribute('[data-flame]', 'data-ready');
     console.log(`      flame: ${ready != null ? 'actief' : 'uit (foto blijft staan)'}`);
