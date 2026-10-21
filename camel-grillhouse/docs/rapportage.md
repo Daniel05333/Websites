@@ -160,3 +160,24 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
 
   De launch-check in `npm test` slaagt: er staan 0 punten open, en de prijzen en tijden zijn bevestigd.
 - **Uploadpakket.** `camel-website.zip` (niet in git) is de inhoud van `public/`. Pak het uit in de hoofdmap (webroot) van de hosting.
+
+## 11. Update 21 oktober 2026: prijzen van de kaart in het restaurant
+
+De opdrachtgever wil op de site de prijzen van de papieren kaart in de zaak.
+
+- **Volledig overgenomen van de foto's:**
+  - Pizza's (23);
+  - Schotels en grillschotels (20);
+  - Extra's (met doggybag, sauzen samen als "Diverse sauzen");
+  - Nagerechten (nieuw: fruitcocktail en yoghurt, baklava met slagroom, Ben & Jerry's, Magnum);
+  - Warme dranken (nieuw);
+  - Frisdranken (met de toeslag van € 0,75 voor een blikje);
+  - Bieren;
+  - Alcoholische dranken (nieuw).
+- **Afgelezen van een half zichtbare kolom, ter controle:** de prijzen zijn op volgorde gekoppeld aan de gerechten; de namen waren niet leesbaar.
+  - Tosti's: 4,50 / 5,50 / 5,50 / 6,50 / 6,50 / 7,00.
+  - Lahmacun: 6,50 / 8,50 / 9,00 / 9,50, dan 12,00 voor shoarma, kipdöner en döner, en 12,50 voor kaas-ui-tonijn en adana.
+  - Voorgerechten: 5,50 / 6,50 / 8,00 / 8,50 / 9,00, en börek en loempia 6,50 of 9,50 (6 stuks).
+  - Minischotels: ongewijzigd, ook 19,00 en 19,50.
+- **Niet op de foto's, prijzen uit de lijst van 20 okt:** broodjes, dürüm, kapsalon, dönerbox, kindermenu's, combi meals, dürüm adana en broodje köfte.
+- **Prijsmelding op de site:** "Dit zijn de prijzen van de kaart in het restaurant. Bestel je online, dan geldt de prijs in de webshop."

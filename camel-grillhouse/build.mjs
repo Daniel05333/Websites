@@ -206,7 +206,7 @@ const hoursTable = (cls = '') => `<table class="hours ${cls}" data-hours>
 </table>${site.hoursVerified ? '' : `<p class="small muted">${ph({ label: 'openingstijden: externe vermeldingen wijken af' })}</p>`}`;
 
 const priceNote = () => menu.pricesVerified
-  ? '<p class="note">De prijs en beschikbaarheid in de webshop zijn altijd leidend.</p>'
+  ? '<p class="note">Dit zijn de prijzen van de kaart in het restaurant. Bestel je online, dan geldt de prijs in de webshop.</p>'
   : `<p class="note note--check">${ph({ label: `prijzen overgenomen uit ${menu.source}; de webshop gaf op verschillende pagina’s andere bedragen` })} De prijs in de webshop is altijd leidend.</p>`;
 
 const favCard = (f, i) => {
