@@ -11,6 +11,7 @@ npm run build        # genereert ./public uit src/site.mjs en assets/
 npm run serve        # lokaal bekijken op http://localhost:4400
 npm test             # build + 65 browsertests (5 breedtes, axe, bestelroute, interactie, reduced motion)
 npm run preview      # de homepage als één los HTML-bestand: voorbeeld/index.html
+npm run single       # de hele site (home + menukaart) als één HTML-bestand: camel-website.html
 npm run artifact     # artifact-versie (relatieve paden) in ./artifact, voor de Claude-artifactpagina
 ```
 

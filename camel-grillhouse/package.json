@@ -10,7 +10,8 @@
     "serve": "node tools/serve.mjs",
     "test": "node build.mjs && node tests/e2e.mjs",
     "preview": "node build.mjs && node tools/build-preview.mjs voorbeeld/index.html",
-    "artifact": "node build.mjs && node tools/build-artifact.mjs"
+    "artifact": "node build.mjs && node tools/build-artifact.mjs",
+    "single": "node build.mjs && node tools/build-single.mjs camel-website.html"
   },
   "devDependencies": {
     "@fontsource-variable/big-shoulders-display": "5.3.0",
