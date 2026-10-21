@@ -146,3 +146,17 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
   `hoursVerified` staat op true.
 - **Bestelknoppen.** Alle bestelknoppen, ook die bij losse gerechten, gaan naar https://grillroomcamel.com. Een test bewaakt dit.
 - **Open punten.** Deze punten bespreekt de opdrachtgever met de eigenaar: het logo, de naam van de eigenaar, afhalen en bezorgen, en de betaalmethoden. Ze staan als `todo` in `src/site.mjs`, maar zijn niet meer als placeholder op de site te zien. Waar nodig staat er een neutrale tekst, zoals "zie de webshop bij het afrekenen" of "De eigenaar van Camel". De conceptbalk telt de open punten.
+
+## 10. Livegang, 21 oktober 2026
+
+- **Logo.** Het kameelsilhouet is nagetekend naar het logo op het raam bij de ingang, en de opdrachtgever heeft het gebruik toegestaan. Het staat in het logo en in het favicon. Komt er een origineel logobestand, vervang dan `camel` in `build.mjs` en `assets/favicon.svg`.
+- **Eigenaar.** Bewust zonder naam. Het bijschrift is "De eigenaar van Camel, in zijn keuken".
+- **Afhalen, bezorgen en betaalmethoden.** De FAQ verwijst naar de webshop bij het afrekenen.
+- **`draft: false`.** Daarmee:
+  - geen noindex meer;
+  - `robots.txt` staat zoekmachines toe;
+  - de Restaurant-JSON-LD met openingstijden wordt uitgestuurd;
+  - de conceptbalk is weg.
+
+  De launch-check in `npm test` slaagt: er staan 0 punten open, en de prijzen en tijden zijn bevestigd.
+- **Uploadpakket.** `camel-website.zip` (niet in git) is de inhoud van `public/`. Pak het uit in de hoofdmap (webroot) van de hosting.

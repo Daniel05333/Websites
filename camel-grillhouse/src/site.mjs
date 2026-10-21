@@ -24,7 +24,7 @@ import { menu } from './menu.mjs';
 export { todo, isTodo };
 
 export const site = {
-  draft: true,
+  draft: false,
   name: 'Camel Middle East Grill House',
   short: 'Camel',
   url: 'https://grillroomcamel.nl',          // bron: briefing + zoekindex (huidige info-site)
@@ -57,9 +57,11 @@ export const site = {
     host: 'grillroomcamel.com',
     // Bezorgen/afhalen, bezorgkosten, minimumbedrag, betaalmethoden: niet
     // betrouwbaar gevonden. Pas tonen als de eigenaar ze bevestigt.
-    pickup: todo('afhalen mogelijk? (bevestigen)'),
-    delivery: todo('bezorgen + gebied, kosten, minimum (bevestigen)'),
-    payment: todo('betaalmethoden in de webshop (bevestigen)'),
+    // Afhalen, bezorgen en betaalmethoden staan in de webshop; de FAQ verwijst
+    // daarheen (afgesproken met de opdrachtgever, 21 okt 2026).
+    pickup: null,
+    delivery: null,
+    payment: null,
   },
 
   // Bevestigd door de opdrachtgever (21 okt 2026); wo vanaf 14:30, do t/m zo vanaf 14:00.
@@ -95,7 +97,7 @@ export const site = {
   // "Since 1990" staat op het raam bij de ingang (foto 'ingang').
   owner: {
     photo: 'eigenaar',
-    name: todo('naam van de eigenaar'),
+    name: null, // bewust zonder naam (opdrachtgever, 21 okt 2026)
     since: '1990',
   },
 
@@ -107,7 +109,9 @@ export const site = {
     { photo: 'doner-spies', title: 'Het spit', text: 'De döner draait langzaam voor de gloeiende branders.' },
   ],
 
-  logo: todo('officieel Camel-logo (nu een tekstlogo)'),
+  // Kameelsilhouet naar het logo op het raam (foto 'ingang'); gebruik toegestaan
+  // door de opdrachtgever (21 okt 2026). Vervang door het originele bestand als dat er is.
+  logo: 'camel',
 
   // Eigen tekst van grillroomcamel.nl (aangeleverd door de klant), licht ingekort.
   about: [

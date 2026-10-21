@@ -65,8 +65,9 @@ const veg = (item) => (item.veg ? '<span class="tag tag--veg" title="Vegetarisch
   + (item.adult ? '<span class="tag tag--adult" title="Alleen 18 jaar en ouder">18+</span>' : '');
 
 const flame = `<svg viewBox="0 0 24 32" aria-hidden="true"><path d="M12 1c1.4 5.2 7.9 8.6 7.9 17.1A7.9 7.9 0 0 1 4.1 18.1c0-3.9 2-6.5 4-8.4.2 2.5 1.2 4.3 3 5.3C11 10.8 10.4 5.8 12 1Z" fill="currentColor"/></svg>`;
+const camel = `<svg viewBox="0 0 60 48" aria-hidden="true"><path d="M3 15.5C3 13.2 4.8 11.2 7.6 10.9L10.4 9.6 11.6 11.6C13.6 12.6 14.8 15.4 15.8 19.4 16.8 23.4 18.6 25.8 21.6 25.8 24.2 25.8 25.4 22.2 27.8 16.6 30.6 10.2 37.2 9.6 40.6 14.8 42.4 17.8 44.8 19.4 48.6 20.4 52.2 21.4 54.4 24 54.6 28.2L56.6 34.6 55.2 35.2 53.4 31C53.2 32.8 52.6 34.2 51.6 35.2L51.8 46H48.6L48.2 37 46.8 37.2 46.6 46H43.4L43.2 36.4C38.4 37.6 31.8 37.8 26.8 36.4L26.6 46H23.4L23.2 36.6 21.8 36.2 21.4 46H18.2L18.4 34C16.2 31.4 14.2 28 12.6 23.8 11.8 21.8 10.4 20.2 8.4 19.8 5.4 19.4 3 18 3 15.5Z" fill="currentColor"/></svg>`;
 const logo = (cls = '') => `<a class="logo ${cls}" href="/">
-<span class="logo__mark">${flame}</span><span class="logo__word">Camel</span><span class="logo__sub">Middle East<br>Grill House</span></a>`;
+<span class="logo__mark">${camel}</span><span class="logo__word">Camel</span><span class="logo__sub">Middle East<br>Grill House</span></a>`;
 
 const nav = [
   ['/menukaart/', 'Menukaart'],
@@ -395,7 +396,7 @@ const home = () => page({
   <div class="wrap owner__grid">
     <figure class="owner__photo reveal">
       <div class="owner__frame">${brackets}${pic(site.owner.photo, { sizes: '(min-width: 900px) 38vw, 100vw', alt: 'De eigenaar van Camel in de keuken', pos: '50% 30%' })}</div>
-      <figcaption>${isTodo(site.owner.name) ? 'De eigenaar' : esc(site.owner.name)}<span class="muted">${isTodo(site.owner.name) ? 'van Camel, in zijn keuken' : 'Eigenaar van Camel'}</span></figcaption>
+      <figcaption>${site.owner.name ? esc(site.owner.name) : 'De eigenaar'}<span class="muted">${site.owner.name ? 'Eigenaar van Camel' : 'van Camel, in zijn keuken'}</span></figcaption>
     </figure>
     <div class="owner__copy reveal" style="--d:120ms">
       <p class="eyebrow">Over ons</p>
