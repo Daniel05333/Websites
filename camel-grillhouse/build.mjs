@@ -177,15 +177,26 @@ ${footer()}
 </html>`;
 
 // ── componenten ────────────────────────────────────────────────────────────
-/** "Ma–wo vanaf 15:00 · do–zo vanaf 14:00": opeenvolgende dagen met dezelfde openingstijd samengevoegd. */
-const openingSummary = () => {
+/** Opeenvolgende dagen met dezelfde openingstijd, samengevoegd: [{ from, to, open }]. */
+const openingGroups = () => site.hours.reduce((groups, h) => {
+  const g = groups.at(-1);
+  if (g && g.open === h.open) g.to = h; else groups.push({ from: h, to: h, open: h.open });
+  return groups;
+}, []);
+/** Kort: "Ma–di vanaf 15:00 · wo vanaf 14:30 · do–zo vanaf 14:00". */
+const openingSummary = () => openingGroups().map((g) => {
   const short = (d) => d.day.slice(0, 2).toLowerCase();
-  const groups = [];
-  for (const h of site.hours) {
-    const g = groups.at(-1);
-    if (g && g.open === h.open) g.to = h; else groups.push({ from: h, to: h, open: h.open });
-  }
-  return groups.map((g) => `${short(g.from)}${g.to !== g.from ? `–${short(g.to)}` : ''} vanaf ${g.open}`).join(' · ');
+  return `${short(g.from)}${g.to !== g.from ? `–${short(g.to)}` : ''} vanaf ${g.open}`;
+}).join(' · ');
+/** Lang, voor in een zin: "maandag en dinsdag vanaf 15:00, woensdag vanaf 14:30 en …". */
+const openingSentence = () => {
+  const days = site.hours.map((h) => h.day);
+  const parts = openingGroups().map((g) => {
+    const a = g.from.day.toLowerCase(), b = g.to.day.toLowerCase();
+    const span = days.indexOf(g.to.day) - days.indexOf(g.from.day);
+    return `${span === 0 ? a : span === 1 ? `${a} en ${b}` : `${a} tot en met ${b}`} vanaf ${g.open}`;
+  });
+  return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} en ${parts.at(-1)}` : parts[0];
 };
 
 const hoursTable = (cls = '') => `<table class="hours ${cls}" data-hours>
@@ -431,7 +442,7 @@ const home = () => page({
   <div class="wrap faq__grid">
     <header class="sec__head reveal"><p class="eyebrow">Veelgestelde vragen</p><h2 class="h2" id="faq-title">Goed om te weten.</h2><p class="sec__lede">Staat je vraag er niet bij? Bel <a href="${contact.phoneHref}">${contact.phone}</a>.</p></header>
     <div class="faq__list">${site.faq.map(([q, a]) => {
-      const ans = a === 'hours' ? `Camel is elke dag open: maandag tot en met woensdag vanaf ${site.hours[0].open}, donderdag tot en met zondag vanaf ${site.hours[3].open}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
+      const ans = a === 'hours' ? `Camel is elke dag open: ${openingSentence()}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
         : a.startsWith('order.') ? ({ pickup: 'Bij het afrekenen in de webshop zie je welke mogelijkheden er op dat moment zijn. Twijfel je? Bel ons even.', delivery: 'Bij het afrekenen in de webshop zie je of bezorgen op jouw adres mogelijk is en wat het kost. Twijfel je? Bel ons even.', payment: 'De betaalmethoden zie je bij het afrekenen in de webshop.' })[a.slice(6)].replace('Bel ons even.', `Bel ons even op <a href="${contact.phoneHref}">${contact.phone}</a>.`)
         : esc(a).replace(contact.phone, `<a href="${contact.phoneHref}">${contact.phone}</a>`);
       return `<details class="reveal"><summary><span>${esc(q)}</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>${ans}</p></div></details>`;

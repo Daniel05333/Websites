@@ -131,7 +131,7 @@ Niet getest: het afrekenen in de webshop zelf, omdat die vanuit deze omgeving on
 
 ## 9. Update 21 oktober 2026: openingstijden en bestelknoppen
 
-- **Openingstijden, bevestigd door de opdrachtgever.** Maandag t/m woensdag open vanaf 15:00, donderdag t/m zondag vanaf 14:00. Sluitingstijden:
+- **Openingstijden, bevestigd door de opdrachtgever.** Maandag en dinsdag open vanaf 15:00, woensdag vanaf 14:30, donderdag t/m zondag vanaf 14:00. Sluitingstijden:
 
   | Dag | Sluit om |
   |---|---|
