@@ -1,0 +1,11 @@
+# Apache: 301 voor oude URL's, 404-pagina en caching
+ErrorDocument 404 /404.html
+RedirectMatch 301 ^/contact/?$ /#contact
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType text/javascript "access plus 1 week"
+</IfModule>

@@ -1,0 +1,23 @@
+{
+  "name": "camel-grillhouse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website Camel Middle East Grill House — statische site, gegenereerd uit één centraal databestand.",
+  "type": "module",
+  "scripts": {
+    "images": "node tools/images.mjs",
+    "build": "node build.mjs",
+    "serve": "node tools/serve.mjs",
+    "test": "node build.mjs && node tests/e2e.mjs",
+    "preview": "node build.mjs && node tools/build-preview.mjs voorbeeld/index.html",
+    "artifact": "node build.mjs && node tools/build-artifact.mjs",
+    "single": "node build.mjs && node tools/build-single.mjs camel-website.html"
+  },
+  "devDependencies": {
+    "@fontsource-variable/big-shoulders-display": "5.3.0",
+    "@fontsource-variable/manrope": "5.3.0",
+    "axe-core": "4.14.0",
+    "playwright-core": "1.56.1",
+    "sharp": "0.35.5"
+  }
+}
