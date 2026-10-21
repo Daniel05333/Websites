@@ -181,3 +181,20 @@ De opdrachtgever wil op de site de prijzen van de papieren kaart in de zaak.
   - Minischotels: ongewijzigd, ook 19,00 en 19,50.
 - **Niet op de foto's, prijzen uit de lijst van 20 okt:** broodjes, dürüm, kapsalon, dönerbox, kindermenu's, combi meals, dürüm adana en broodje köfte.
 - **Prijsmelding op de site:** "Dit zijn de prijzen van de kaart in het restaurant. Bestel je online, dan geldt de prijs in de webshop."
+
+## 12. SEO-optimalisatie, 21 oktober 2026
+
+- **Titels.** Homepage: "Grillroom Camel Enschede | Shoarma, kapsalon, pizza & grill". Menukaart: "Menukaart Grillroom Camel Enschede | Prijzen shoarma, pizza & kapsalon". "Grillroom Camel" is de naam op de gevel en de parasols.
+- **Beschrijvingen.** Ongeveer 155 tekens, met plaatsnaam, gerechten en een oproep.
+- **H1.** Voor zoekmachines en schermlezers: "Grillroom Camel in Enschede: jouw trek, onze grill." Zichtbaar blijft de kop; het label erboven luidt "Grillroom Camel • Oude Markt, Enschede".
+- **Meta.**
+  - robots `index, follow, max-image-preview:large`;
+  - geo-tags (NL-OV, Enschede);
+  - `og:image:alt`.
+- **Gestructureerde gegevens (JSON-LD, één @graph).**
+  - `WebSite`.
+  - `Restaurant` met alternatieve namen, adres, telefoon, openingstijden, priceRange €, oprichtingsjaar 1990 en een OrderAction naar de webshop.
+  - `FAQPage` met de 11 vragen en antwoorden zoals ze op de site staan.
+  - `Menu` met 19 secties en 174 gerechten, met prijzen in EUR en vegetarische gerechten gemarkeerd. Dit staat op de menukaartpagina, en in het losse HTML-bestand op de homepage (`#kaart`).
+- **Bewust niet toegevoegd.** Geo-coördinaten (niet geverifieerd), afhalen als bezorgmethode (niet bevestigd), reviewsterren en een aggregateRating.
+- **Footer.** De tekst noemt nu het aanbod en "Sinds 1990".

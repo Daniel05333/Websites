@@ -32,6 +32,18 @@ html = html
   .replace(/href="\/"/g, 'href="#top"')
   .replace('<body class="home">', '<body class="home" id="top">');
 
+// 2b. Gestructureerde gegevens: de menukaart staat nu op deze pagina.
+const menuLd = menuPage.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+if (menuLd) {
+  const menuGraph = JSON.parse(menuLd[1])['@graph'][0].hasMenu;
+  menuGraph.url = `${site.url}/#kaart`;
+  html = html.replace(/<script type="application\/ld\+json">(.*?)<\/script>/s, (m, json) => {
+    const data = JSON.parse(json);
+    for (const node of data['@graph']) if (node['@type'] === 'Restaurant') node.hasMenu = menuGraph;
+    return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
+  });
+}
+
 // 3. CSS, fonts, scripts en favicon inbedden.
 let css = await readFile('assets/css/main.css', 'utf8');
 for (const [m, file] of [...css.matchAll(/url\('\.\.\/fonts\/([^']+)'\)/g)])

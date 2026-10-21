@@ -89,7 +89,9 @@ const head = ({ title, description, path, ld = '' }) => {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-${site.draft ? '<meta name="robots" content="noindex, nofollow">' : ''}
+${site.draft ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="robots" content="index, follow, max-image-preview:large">'}
+<meta name="geo.region" content="NL-OV">
+<meta name="geo.placename" content="Enschede">
 <link rel="canonical" href="${esc(canonical)}">
 <meta name="theme-color" content="#110e0c">
 <meta property="og:type" content="website">
@@ -101,6 +103,7 @@ ${site.draft ? '<meta name="robots" content="noindex, nofollow">' : ''}
 <meta property="og:image" content="${site.url}/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Döner aan het spit in de keuken van Grillroom Camel in Enschede">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/big-shoulders-display-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -140,7 +143,7 @@ const footer = () => `
   <div class="wrap foot__grid">
     <div>
       ${logo('logo--foot')}
-      <p class="foot__tag">Grillroom aan de Oude Markt in Enschede.</p>
+      <p class="foot__tag">Grillroom Camel aan de Oude Markt in Enschede: shoarma, döner, kapsalon, dürüm, pizza en grillgerechten. Sinds 1990.</p>
     </div>
     <div>
       <h2 class="foot__h">Bezoek</h2>
@@ -200,6 +203,12 @@ const openingSentence = () => {
   return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} en ${parts.at(-1)}` : parts[0];
 };
 
+/** Antwoord op een FAQ-vraag, als HTML (ook gebruikt voor de FAQPage-gegevens voor Google). */
+const faqAnswer = (a) =>
+  a === 'hours' ? `Camel is elke dag open: ${openingSentence()}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
+        : a.startsWith('order.') ? ({ pickup: 'Bij het afrekenen in de webshop zie je welke mogelijkheden er op dat moment zijn. Twijfel je? Bel ons even.', delivery: 'Bij het afrekenen in de webshop zie je of bezorgen op jouw adres mogelijk is en wat het kost. Twijfel je? Bel ons even.', payment: 'De betaalmethoden zie je bij het afrekenen in de webshop.' })[a.slice(6)].replace('Bel ons even.', `Bel ons even op <a href="${contact.phoneHref}">${contact.phone}</a>.`)
+        : esc(a).replace(contact.phone, `<a href="${contact.phoneHref}">${contact.phone}</a>`);
+
 const hoursTable = (cls = '') => `<table class="hours ${cls}" data-hours>
 <caption class="sr-only">Openingstijden</caption>
 <tbody>${site.hours.map((h, i) => `<tr data-dow="${(i + 1) % 7}"><th scope="row">${h.day}</th><td>${h.open} – ${v(h.close)}</td></tr>`).join('')}</tbody>
@@ -234,8 +243,8 @@ const comfortIds = ['kapsalon', 'broodjes', 'durum', 'donerbox'];
 const moreIds = ['pizza', 'lahmacun', 'tosti', 'kindermenu'];
 
 const home = () => page({
-  title: `${site.name} | Grillroom aan de Oude Markt, Enschede`,
-  description: 'Kapsalon, shoarma, döner, dürüm, pizza en mixed grill bij Camel aan de Oude Markt in Enschede. Bekijk de menukaart en bestel online.',
+  title: 'Grillroom Camel Enschede | Shoarma, kapsalon, pizza & grill',
+  description: 'Grillroom Camel, Oude Markt Enschede: shoarma, döner, kapsalon, dürüm, pizza en mixed grill. Elke dag open tot laat. Bekijk de menukaart of bestel online.',
 }, `
 <div class="stack">
 <div class="stack__pin" data-pin>
@@ -247,8 +256,8 @@ const home = () => page({
     <div class="hero__shade" aria-hidden="true"></div>
   </div>
   <div class="hero__copy wrap">
-    <p class="eyebrow hero__in" style="--d:0ms"><span class="dot" aria-hidden="true"></span>Camel Middle East Grill House • Enschede</p>
-    <h1 class="hero__title" id="hero-title"><span class="sr-only">Jouw trek. Onze grill.</span><span class="hero__line" aria-hidden="true">${chars('Jouw trek.')}</span> <span class="hero__line hero__line--ember" aria-hidden="true">${chars('Onze grill.', 9)}</span></h1>
+    <p class="eyebrow hero__in" style="--d:0ms" aria-hidden="true"><span class="dot"></span>Grillroom Camel • Oude Markt, Enschede</p>
+    <h1 class="hero__title" id="hero-title"><span class="sr-only">Grillroom Camel in Enschede: jouw trek, onze grill.</span><span class="hero__line" aria-hidden="true">${chars('Jouw trek.')}</span> <span class="hero__line hero__line--ember" aria-hidden="true">${chars('Onze grill.', 9)}</span></h1>
     <p class="hero__sub hero__in" style="--d:380ms">Van goedgevulde kapsalon en shoarma tot dürüm, pizza en mixed grill. Ontdek het menu van Camel en bestel jouw favoriet.</p>
     <div class="hero__ctas hero__in" style="--d:500ms">
       ${orderBtn('Bestel nu', 'btn btn--ember btn--lg', { track: 'order-hero' })}
@@ -443,9 +452,7 @@ const home = () => page({
   <div class="wrap faq__grid">
     <header class="sec__head reveal"><p class="eyebrow">Veelgestelde vragen</p><h2 class="h2" id="faq-title">Goed om te weten.</h2><p class="sec__lede">Staat je vraag er niet bij? Bel <a href="${contact.phoneHref}">${contact.phone}</a>.</p></header>
     <div class="faq__list">${site.faq.map(([q, a]) => {
-      const ans = a === 'hours' ? `Camel is elke dag open: ${openingSentence()}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
-        : a.startsWith('order.') ? ({ pickup: 'Bij het afrekenen in de webshop zie je welke mogelijkheden er op dat moment zijn. Twijfel je? Bel ons even.', delivery: 'Bij het afrekenen in de webshop zie je of bezorgen op jouw adres mogelijk is en wat het kost. Twijfel je? Bel ons even.', payment: 'De betaalmethoden zie je bij het afrekenen in de webshop.' })[a.slice(6)].replace('Bel ons even.', `Bel ons even op <a href="${contact.phoneHref}">${contact.phone}</a>.`)
-        : esc(a).replace(contact.phone, `<a href="${contact.phoneHref}">${contact.phone}</a>`);
+      const ans = faqAnswer(a);
       return `<details class="reveal"><summary><span>${esc(q)}</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>${ans}</p></div></details>`;
     }).join('')}</div>
   </div>
@@ -483,8 +490,8 @@ const home = () => page({
 
 // ── menukaart ──────────────────────────────────────────────────────────────
 const menuPage = () => page({
-  title: `Menukaart ${site.short} Grillroom Enschede | Kapsalon, shoarma, pizza`,
-  description: `De volledige menukaart van ${site.name}: broodjes, dürüm, kapsalon, dönerbox, lahmacun, pizza’s, schotels en Camel Mix Grill. Oude Markt 9A, Enschede.`,
+  title: 'Menukaart Grillroom Camel Enschede | Prijzen shoarma, pizza & kapsalon',
+  description: `Alle gerechten en prijzen van Grillroom Camel in Enschede: broodjes shoarma, dürüm, kapsalon, dönerbox, lahmacun, pizza’s, schotels, Camel Mix Grill en dranken. Oude Markt 9A.`,
 }, `
 <section class="mhero">
   <div class="wrap">
@@ -539,19 +546,47 @@ const notFound = () => page({ title: `Pagina niet gevonden | ${site.name}`, desc
 const redirectPage = (to) => `<!doctype html><html lang="nl"><head><meta charset="utf-8"><title>Doorsturen…</title><meta name="robots" content="noindex"><link rel="canonical" href="${site.url}${to}"><meta http-equiv="refresh" content="0; url=${to}"></head><body><p><a href="${to}">Ga verder</a></p></body></html>`;
 
 // ── structured data (alleen live, alleen zichtbare gegevens) ──────────────
-const jsonLd = () => {
-  if (site.draft) return '';
-  const days = site.hours.filter((h) => has(h.close)).map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${({ Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday', Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday' })[h.dow]}`, opens: h.open, closes: h.close }));
-  const data = {
-    '@context': 'https://schema.org', '@type': 'Restaurant', name: site.name, url: `${site.url}/`,
-    image: `${site.url}/assets/og.jpg`, telephone: '+31534324663',
-    address: { '@type': 'PostalAddress', streetAddress: loc.street, postalCode: loc.postalCode, addressLocality: loc.city, addressRegion: loc.region, addressCountry: loc.country },
-    servesCuisine: ['Midden-Oosters', 'Turks', 'Grill', 'Pizza'], hasMenu: `${site.url}/menukaart/`,
-    acceptsReservations: false, potentialAction: { '@type': 'OrderAction', target: order.url },
-    ...(site.hoursVerified ? { openingHoursSpecification: days } : {}),
-  };
-  return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
-};
+const strip = (html) => html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+const DAY = { Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday', Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday' };
+const offer = (price, name) => ({ '@type': 'Offer', price: price.toFixed(2), priceCurrency: 'EUR', ...(name ? { name } : {}) });
+/** De menukaart als schema.org Menu: secties, gerechten en prijzen (alleen wat op de site staat). */
+const menuLd = (url) => ({
+  '@type': 'Menu', name: `Menukaart ${site.short}`, url, inLanguage: 'nl',
+  hasMenuSection: menu.categories.filter((c) => c.items.length).map((c) => ({
+    '@type': 'MenuSection', name: c.name, description: c.blurb,
+    hasMenuItem: c.items.map((i) => ({
+      '@type': 'MenuItem', name: i.name, ...(i.desc ? { description: i.desc } : {}),
+      ...(i.veg ? { suitableForDiet: 'https://schema.org/VegetarianDiet' } : {}),
+      ...(i.sizes ? { offers: i.sizes.map((p, k) => p != null && offer(p, labels(i, c)[k])).filter(Boolean) }
+        : i.price != null ? { offers: offer(i.price) } : {}),
+    })),
+  })),
+});
+const restaurantLd = () => ({
+  '@type': 'Restaurant', '@id': `${site.url}/#restaurant`,
+  name: site.name, alternateName: ['Grillroom Camel', 'Camel Enschede'],
+  description: 'Grillroom aan de Oude Markt in Enschede met shoarma, döner, kapsalon, dürüm, lahmacun, pizza en grillgerechten.',
+  url: `${site.url}/`, image: [`${site.url}/assets/og.jpg`], logo: `${site.url}/assets/favicon.svg`,
+  telephone: '+31534324663', priceRange: '€',
+  foundingDate: site.owner.since,
+  address: { '@type': 'PostalAddress', streetAddress: loc.street, postalCode: loc.postalCode, addressLocality: loc.city, addressRegion: loc.region, addressCountry: loc.country },
+  areaServed: { '@type': 'City', name: 'Enschede' },
+  servesCuisine: ['Turks', 'Midden-Oosters', 'Grill', 'Pizza', 'Shoarma'],
+  hasMenu: `${site.url}/menukaart/`,
+  potentialAction: { '@type': 'OrderAction', target: { '@type': 'EntryPoint', urlTemplate: order.url, inLanguage: 'nl', actionPlatform: ['https://schema.org/DesktopWebPlatform', 'https://schema.org/MobileWebPlatform'] } },
+  ...(site.hoursVerified ? { openingHoursSpecification: site.hours.filter((h) => has(h.close)).map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${DAY[h.dow]}`, opens: h.open, closes: h.close })) } : {}),
+});
+const faqLd = () => ({
+  '@type': 'FAQPage', '@id': `${site.url}/#vragen`,
+  mainEntity: site.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: strip(faqAnswer(a)) } })),
+});
+const ld = (graph) => (site.draft ? '' : `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}</script>`);
+const jsonLd = () => ld([
+  { '@type': 'WebSite', '@id': `${site.url}/#website`, name: 'Grillroom Camel', url: `${site.url}/`, inLanguage: 'nl' },
+  restaurantLd(),
+  faqLd(),
+]);
+const menuJsonLd = () => ld([{ ...restaurantLd(), hasMenu: menuLd(`${site.url}/menukaart/`) }]);
 
 // ── schrijven ──────────────────────────────────────────────────────────────
 await rm(OUT, { recursive: true, force: true });
@@ -560,7 +595,7 @@ await cp(new URL('./assets/', import.meta.url).pathname, `${OUT}assets/`, { recu
 const w = async (path, html) => { await mkdir(`${OUT}${path}`.replace(/[^/]+$/, ''), { recursive: true }); await writeFile(`${OUT}${path}`, html); };
 
 await w('index.html', home().replace('</head>', `${jsonLd()}\n</head>`));
-await w('menukaart/index.html', menuPage());
+await w('menukaart/index.html', menuPage().replace('</head>', `${menuJsonLd()}\n</head>`));
 await w('privacy/index.html', privacy());
 await w('404.html', notFound());
 await w('contact/index.html', redirectPage('/#contact'));
