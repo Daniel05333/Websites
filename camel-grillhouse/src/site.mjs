@@ -62,15 +62,15 @@ export const site = {
     payment: todo('betaalmethoden in de webshop (bevestigen)'),
   },
 
-  // Bevestigd door de opdrachtgever (21 okt 2026).
+  // Bevestigd door de opdrachtgever (21 okt 2026); do t/m zo open vanaf 14:00.
   hours: [
     { day: 'Maandag', dow: 'Mo', open: '15:00', close: '02:00' },
     { day: 'Dinsdag', dow: 'Tu', open: '15:00', close: '02:00' },
     { day: 'Woensdag', dow: 'We', open: '15:00', close: '02:30' },
-    { day: 'Donderdag', dow: 'Th', open: '15:00', close: '03:00' },
-    { day: 'Vrijdag', dow: 'Fr', open: '15:00', close: '04:00' },
-    { day: 'Zaterdag', dow: 'Sa', open: '15:00', close: '05:00' },
-    { day: 'Zondag', dow: 'Su', open: '15:00', close: '02:00' },
+    { day: 'Donderdag', dow: 'Th', open: '14:00', close: '03:00' },
+    { day: 'Vrijdag', dow: 'Fr', open: '14:00', close: '04:00' },
+    { day: 'Zaterdag', dow: 'Sa', open: '14:00', close: '05:00' },
+    { day: 'Zondag', dow: 'Su', open: '14:00', close: '02:00' },
   ],
   hoursVerified: true,
 

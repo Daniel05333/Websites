@@ -177,6 +177,17 @@ ${footer()}
 </html>`;
 
 // ── componenten ────────────────────────────────────────────────────────────
+/** "Ma–wo vanaf 15:00 · do–zo vanaf 14:00": opeenvolgende dagen met dezelfde openingstijd samengevoegd. */
+const openingSummary = () => {
+  const short = (d) => d.day.slice(0, 2).toLowerCase();
+  const groups = [];
+  for (const h of site.hours) {
+    const g = groups.at(-1);
+    if (g && g.open === h.open) g.to = h; else groups.push({ from: h, to: h, open: h.open });
+  }
+  return groups.map((g) => `${short(g.from)}${g.to !== g.from ? `–${short(g.to)}` : ''} vanaf ${g.open}`).join(' · ');
+};
+
 const hoursTable = (cls = '') => `<table class="hours ${cls}" data-hours>
 <caption class="sr-only">Openingstijden</caption>
 <tbody>${site.hours.map((h, i) => `<tr data-dow="${(i + 1) % 7}"><th scope="row">${h.day}</th><td>${h.open} – ${v(h.close)}</td></tr>`).join('')}</tbody>
@@ -231,12 +242,12 @@ const home = () => page({
       ${orderBtn('Bestel nu', 'btn btn--ember btn--lg', { track: 'order-hero' })}
       ${btn('/menukaart/', 'Bekijk de menukaart', 'btn btn--ghost btn--lg', ' data-track="menu-hero"')}
     </div>
-    <p class="hero__meta hero__in" style="--d:620ms"><span>${loc.street}</span><span>Dagelijks vanaf ${site.hours[0].open}</span><span>Bestellen via ${order.host}</span></p>
+    <p class="hero__meta hero__in" style="--d:620ms"><span>${loc.street}</span><span>${openingSummary().replace(/^./, (c) => c.toUpperCase())}</span><span>Bestellen via ${order.host}</span></p>
   </div>
   <aside class="hero__panel hero__in" style="--d:900ms" aria-label="Snel naar">
     <div class="bpanel">${brackets}
       <p class="bpanel__eye">Vandaag</p>
-      <p class="bpanel__big">Open vanaf ${site.hours[0].open}</p>
+      <p class="bpanel__big" data-today-open>Elke dag open</p>
       <p class="bpanel__sub" data-today-close>Tot laat in de nacht</p>
     </div>
     <div class="bpanel">${brackets}
@@ -420,7 +431,7 @@ const home = () => page({
   <div class="wrap faq__grid">
     <header class="sec__head reveal"><p class="eyebrow">Veelgestelde vragen</p><h2 class="h2" id="faq-title">Goed om te weten.</h2><p class="sec__lede">Staat je vraag er niet bij? Bel <a href="${contact.phoneHref}">${contact.phone}</a>.</p></header>
     <div class="faq__list">${site.faq.map(([q, a]) => {
-      const ans = a === 'hours' ? `Camel is dagelijks geopend vanaf ${site.hours[0].open}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
+      const ans = a === 'hours' ? `Camel is elke dag open: maandag tot en met woensdag vanaf ${site.hours[0].open}, donderdag tot en met zondag vanaf ${site.hours[3].open}. De sluitingstijden per dag staan bij <a href="#contact">Contact</a>.`
         : a.startsWith('order.') ? ({ pickup: 'Bij het afrekenen in de webshop zie je welke mogelijkheden er op dat moment zijn. Twijfel je? Bel ons even.', delivery: 'Bij het afrekenen in de webshop zie je of bezorgen op jouw adres mogelijk is en wat het kost. Twijfel je? Bel ons even.', payment: 'De betaalmethoden zie je bij het afrekenen in de webshop.' })[a.slice(6)].replace('Bel ons even.', `Bel ons even op <a href="${contact.phoneHref}">${contact.phone}</a>.`)
         : esc(a).replace(contact.phone, `<a href="${contact.phoneHref}">${contact.phone}</a>`);
       return `<details class="reveal"><summary><span>${esc(q)}</span><span class="faq__icon" aria-hidden="true"></span></summary><div class="faq__a"><p>${ans}</p></div></details>`;

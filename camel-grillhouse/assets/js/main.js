@@ -266,7 +266,9 @@
     tr.classList.add('is-today');
     const td = $('td', tr);
     const out = $('[data-today-close]');
-    if (out && td && !$('.ph', td)) out.textContent = `Vandaag tot ${td.textContent.split('–')[1].trim()}`;
+    if (out && td && !$('.ph', td)) out.textContent = `Tot ${td.textContent.split('–')[1].trim()}`;
+    const open = $('[data-today-open]');
+    if (open && td) open.textContent = `Open vanaf ${td.textContent.split('–')[0].trim()}`;
   });
 
   // ── lightbox ──────────────────────────────────────────────────────────
