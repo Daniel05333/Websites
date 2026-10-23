@@ -67,7 +67,8 @@ const schemaGroups = readJSON(path.join(ROOT, 'config/settings_schema.json'));
 const globalDefs = schemaGroups.flatMap((g) => g.settings || []);
 const data = readJSON(path.join(ROOT, 'config/settings_data.json'));
 const cur = typeof data.current === 'string' ? data.presets[data.current] : data.current;
-const { sections: _s, blocks: _b, ...globals } = cur || {};
+// sections, blocks and content_for_index are written by Shopify itself, not theme settings.
+const { sections: _s, blocks: _b, content_for_index: _c, ...globals } = cur || {};
 checkSettings('config/settings_data.json', 'current', globalDefs, globals);
 // schema defaults and presets (an invalid default makes Shopify reject the whole section file)
 for (const [name, sc] of Object.entries(schemas)) {

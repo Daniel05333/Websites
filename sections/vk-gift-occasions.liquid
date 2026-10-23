@@ -1,0 +1,98 @@
+{{ 'vk-section-gift.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-gift-occasions color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading, align: 'center' -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="vk-gift-occ__grid" role="list">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign p = b.product
+            assign vk_url = b.link | default: p.url | default: '/collections/all'
+            assign vk_tip = b.tip
+            if vk_tip == blank and p != blank
+              assign vk_tip = p.title | append: ' '
+              if p.price_varies
+                assign vk_from = 'products.product.price.from' | t | downcase
+                assign vk_tip = vk_tip | append: vk_from | append: ' '
+              endif
+              assign vk_price = p.price_min | money
+              assign vk_tip = vk_tip | append: vk_price
+            endif
+          -%}
+          <li class="vk-gift-occ{% if block.type == 'wide' %} vk-gift-occ--wide{% endif %}" data-reveal {{ block.shopify_attributes }}>
+            <a class="vk-gift-occ__media" href="{{ vk_url }}" tabindex="-1" aria-hidden="true">
+              {%- render 'vk-image', image: b.image, sizes: '(min-width: 990px) 33vw, (min-width: 600px) 50vw, 100vw', placeholder: 'lifestyle', alt: '' -%}
+            </a>
+            <div class="vk-gift-occ__body">
+              <h3 class="vk-gift-occ__title">{{ b.title }}</h3>
+              {%- if b.text != blank -%}<p class="vk-gift-occ__text">{{ b.text }}</p>{%- endif -%}
+              {%- if vk_tip != blank -%}<p class="vk-gift-occ__tip"><strong>{{ b.tip_label }}</strong> {{ vk_tip }}</p>{%- endif -%}
+              {%- if b.button_label != blank -%}<a class="vk-gift-btn vk-gift-btn--sm" href="{{ vk_url }}">{{ b.button_label }}</a>{%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if s.foot_title != blank or s.foot_button_label != blank -%}
+      <div class="vk-gift-foot" data-reveal>
+        {%- if s.foot_title != blank -%}<h3 class="vk-gift-foot__title">{{ s.foot_title }}</h3>{%- endif -%}
+        {%- if s.foot_button_label != blank -%}<a class="vk-gift-btn" href="{{ s.foot_button_url | default: '/collections/all' }}">{{ s.foot_button_label }}</a>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift occasions",
+  "tag": "div",
+  "class": "vk-gift-occasions-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Elk jaar, elk moment" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Waar is het <em>voor</em>?" },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading", "default": "Momenten waarop een pan precies goed valt." },
+    { "type": "text", "id": "foot_title", "label": "Closing line", "default": "Staat het moment er niet bij?" },
+    { "type": "text", "id": "foot_button_label", "label": "Closing button", "default": "Bekijk alle pannensets" },
+    { "type": "url", "id": "foot_button_url", "label": "Closing button link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "occasion",
+      "name": "Occasion",
+      "limit": 12,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Landscape, about 4:3." },
+        { "type": "text", "id": "title", "label": "Title", "default": "Housewarming" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Een lege keuken vult zichzelf niet." },
+        { "type": "text", "id": "tip_label", "label": "Tip label", "default": "Onze tip:" },
+        { "type": "product", "id": "product", "label": "Tip product", "info": "Name and lowest price are filled in automatically." },
+        { "type": "text", "id": "tip", "label": "Tip text override" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Bekijk" },
+        { "type": "url", "id": "link", "label": "Link override", "info": "Defaults to the tip product." }
+      ]
+    },
+    {
+      "type": "wide",
+      "name": "Wide card",
+      "limit": 2,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Last-minute" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Vergeten? Geen probleem." },
+        { "type": "text", "id": "tip_label", "label": "Tip label", "default": "Onze tip:" },
+        { "type": "product", "id": "product", "label": "Tip product" },
+        { "type": "text", "id": "tip", "label": "Tip text override" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Bekijk" },
+        { "type": "url", "id": "link", "label": "Link override" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Gift occasions", "blocks": [{ "type": "occasion" }, { "type": "occasion" }, { "type": "occasion" }] }]
+}
+{% endschema %}
