@@ -671,6 +671,7 @@
     },
     "recommendations": {
       "type": "vk-product-recommendations",
+      "disabled": true,
       "settings": {
         "eyebrow": "Maak het compleet",
         "heading": "Werkt goed <em>samen</em>.",

@@ -1,58 +1,15 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "logo_width": 140,
-    "color_schemes": {
-      "scheme-1": {
-        "settings": {
-          "background": "#080808",
-          "text": "#F7F5F2",
-          "surface": "#121212",
-          "accent": "#FF4B32",
-          "button": "#D7261E",
-          "button_label": "#F7F5F2"
-        }
-      },
-      "scheme-2": {
-        "settings": {
-          "background": "#111111",
-          "text": "#F7F5F2",
-          "surface": "#1A1A1A",
-          "accent": "#FF4B32",
-          "button": "#D7261E",
-          "button_label": "#F7F5F2"
-        }
-      },
-      "scheme-3": {
-        "settings": {
-          "background": "#202020",
-          "text": "#F7F5F2",
-          "surface": "#292928",
-          "accent": "#FF4B32",
-          "button": "#D7261E",
-          "button_label": "#F7F5F2"
-        }
-      },
-      "scheme-4": {
-        "settings": {
-          "background": "#D7261E",
-          "text": "#F7F5F2",
-          "surface": "#C8221B",
-          "accent": "#080808",
-          "button": "#080808",
-          "button_label": "#F7F5F2"
-        }
-      },
-      "scheme-5": {
-        "settings": {
-          "background": "#F7F5F2",
-          "text": "#080808",
-          "surface": "#FFFFFF",
-          "accent": "#D7261E",
-          "button": "#080808",
-          "button_label": "#F7F5F2"
-        }
-      }
-    },
     "heading_scale": 100,
     "body_scale": 100,
     "page_width": 1440,
@@ -61,6 +18,7 @@
     "enable_film_grain": true,
     "enable_embers": true,
     "enable_magnetic": true,
+    "enable_luxe_cursor": true,
     "card_ratio": "square",
     "card_show_secondary_image": true,
     "card_show_quick_add": true,
@@ -69,8 +27,11 @@
     "demo_rating": "4.9",
     "demo_rating_count": 1280,
     "cart_type": "drawer",
-    "free_shipping_threshold": 0,
+    "free_shipping_threshold": -4,
+    "cart_gift_product": "okura-titanium-cookware-ebook",
+    "cart_insurance_product": "verzekerde-verzending",
     "cart_free_shipping": true,
+    "cart_upsell_product": "",
     "cart_show_note": true,
     "promise_warranty": "25 jaar garantie",
     "promise_trial": "30 dagen retour",
@@ -86,7 +47,65 @@
     "predictive_search_enabled": true,
     "show_currency_selector": true,
     "show_language_selector": true,
-    "enable_luxe_cursor": true
+    "sections": {
+      "vk-cart-drawer": {
+        "type": "vk-cart-drawer",
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#080808",
+          "text": "#f7f5f2",
+          "surface": "#121212",
+          "accent": "#ff4b32",
+          "button": "#d7261e",
+          "button_label": "#f7f5f2"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#111111",
+          "text": "#f7f5f2",
+          "surface": "#1a1a1a",
+          "accent": "#ff4b32",
+          "button": "#d7261e",
+          "button_label": "#f7f5f2"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#202020",
+          "text": "#f7f5f2",
+          "surface": "#292928",
+          "accent": "#ff4b32",
+          "button": "#d7261e",
+          "button_label": "#f7f5f2"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "#d7261e",
+          "text": "#f7f5f2",
+          "surface": "#c8221b",
+          "accent": "#080808",
+          "button": "#080808",
+          "button_label": "#f7f5f2"
+        }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "#f7f5f2",
+          "text": "#080808",
+          "surface": "#ffffff",
+          "accent": "#d7261e",
+          "button": "#080808",
+          "button_label": "#f7f5f2"
+        }
+      }
+    }
   },
   "presets": {
     "VOLKARA": {

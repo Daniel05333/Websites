@@ -193,6 +193,7 @@
     },
     "mission": {
       "type": "vk-image-text",
+      "disabled": true,
       "settings": {
         "fallback": "vk-visual-pan-angle.webp",
         "placeholder": "chef",
