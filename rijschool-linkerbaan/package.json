@@ -1,0 +1,18 @@
+{
+  "name": "rijschool-linkerbaan",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website Rijschool Linkerbaan — statische site, gegenereerd uit één centraal databestand.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node tools/serve.mjs",
+    "test": "node build.mjs && node tests/check-static.mjs && node tests/e2e.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource/poppins": "5.2.7",
+    "axe-core": "4.14.0",
+    "playwright-core": "1.56.1"
+  }
+}
