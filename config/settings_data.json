@@ -54,6 +54,13 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "3991723993231535834": {
+        "type": "shopify://apps/trackbee-connect/blocks/trackbee/4ee1d514-671e-48bf-bd4e-9373f4af089a",
+        "disabled": false,
+        "settings": {}
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
