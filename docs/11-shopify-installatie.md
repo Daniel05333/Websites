@@ -123,15 +123,16 @@ Let op: alles tussen [haken] vul je zelf in (jaartallen, teamnamen, cijfers, quo
 - Gebruik alleen echte cijfers, namen en reviews: claims die niet kloppen zijn misleidend (consumentenrecht).
 - Wil je een blok nog niet tonen? Verberg de sectie of het blok in de editor (oogje).
 
-## Cadeaupagina (template `page.cadeau`)
+## Cadeau-productpagina (template `product.cadeau`)
 
-Een cadeaugids naar het voorbeeld van een concurrent, in Volkara-stijl. Pagina: **Cadeau geven** (`/pages/cadeau-geven`).
+Een productpagina in de opbouw van een cadeaugids, in Volkara-stijl. Koppel hem aan een product:
+**Producten → (product) → Thema-template → `cadeau`**.
 
-Secties: Gift hero · lopende balk · intro (afbeelding + tekst) · budgetkaarten · gelegenheden · uitpakken · vergelijking · reviews (verborgen) · vragen · slotknop · USP-balk.
+Opbouw: Gift hero · koopblok van het product · lopende balk · intro · budgetkaarten · gelegenheden · uitpakken · vergelijking · reviews (verborgen) · vragen · slotknop · USP-balk.
 
-- **Budgetkaarten en tips** halen naam, foto en prijs live uit het gekozen product. Prijzen kloppen dus altijd.
-- **Foto's per gelegenheid**: upload in elke kaart je eigen foto (liggend, ongeveer 4:3). Tot die tijd staat er Volkara-artwork.
+- De knoppen "Bestel als cadeau" in de hero en onderaan springen naar het koopblok.
+- **Budgetkaarten en tips** halen naam, foto en prijs live uit het gekozen product.
+- **Foto's per gelegenheid**: upload in elke kaart je eigen foto (liggend, ongeveer 4:3).
 - **[Haken]**: vul de verpakking-tekst en de levertijd in de vragen zelf in.
-- **Reviews** staan verborgen. Zet ze aan zodra je echte reviews of je reviews-app-blok toevoegt.
-- **Beoordelingsregel in de hero** (sterren) is leeg; vul alleen een score in die je kunt aantonen.
-- Knoppen naar de budgetkaarten gebruiken `/pages/cadeau-geven#budget`. Geef je de pagina een andere URL, pas die links dan aan.
+- **Reviews** staan verborgen; zet ze aan zodra je echte reviews of je reviews-app-blok hebt.
+- **Sterrenregel in de hero** is leeg; vul alleen een score in die je kunt aantonen.

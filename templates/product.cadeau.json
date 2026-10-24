@@ -1,0 +1,767 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ * Gift product page: assign it to a product under Products → (product) → Theme template → "cadeau".
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-gift-hero",
+      "settings": {
+        "rating_text": "",
+        "heading": "Geef iets dat <em>blijft</em>",
+        "text": "Bloemen zijn na een week weg. Een Volkara-pan staat over jaren nog op het fornuis, en elke keer dat ze koken, denken ze even aan jou.",
+        "button_label": "Bestel als cadeau",
+        "button_url": "",
+        "checks": "Gratis verzending\n30 dagen retour\n25 jaar garantie",
+        "fallback": "vk-visual-hero.webp",
+        "image_alt": "Een Volkara-pan als cadeau",
+        "badge": "PFAS-vrij",
+        "color_scheme": "scheme-1",
+        "button_to_buy": true
+      }
+    },
+    "main": {
+      "type": "vk-main-product",
+      "settings": {
+        "gallery_chip": "",
+        "show_sticky_atc": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96,
+        "gallery_effects": true
+      },
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "text": ""
+          }
+        },
+        "title-2": {
+          "type": "title",
+          "settings": {
+            "subtitle": ""
+          }
+        },
+        "rating-3": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price-4": {
+          "type": "price",
+          "settings": {}
+        },
+        "usp_tiles-5": {
+          "type": "usp_tiles",
+          "settings": {
+            "icon_1": "truck",
+            "title_1": "Gratis verzending",
+            "text_1": "Op elke bestelling",
+            "icon_2": "return",
+            "title_2": "30 dagen retour",
+            "text_2": "Niet tevreden? Stuur het terug",
+            "icon_3": "lock",
+            "title_3": "Veilig betalen",
+            "text_3": "Via een beveiligde checkout",
+            "icon_4": "shield",
+            "title_4": "25 jaar garantie",
+            "text_4": "Op materiaal- en fabricagefouten"
+          }
+        },
+        "variant_picker-6": {
+          "type": "variant_picker",
+          "settings": {
+            "size_help": ""
+          }
+        },
+        "countdown-7": {
+          "type": "countdown",
+          "settings": {
+            "label": "Actie eindigt over",
+            "end": ""
+          }
+        },
+        "buy_buttons-8": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": false,
+            "show_dynamic_checkout": false,
+            "dispatch_text": ""
+          }
+        },
+        "trust-9": {
+          "type": "trust",
+          "settings": {
+            "show_payment_icons": true
+          }
+        },
+        "collapsible_tab-10": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Beschrijving",
+            "icon": "list",
+            "source": "description",
+            "content": "",
+            "open": true
+          }
+        },
+        "collapsible_tab-11": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Specificaties",
+            "icon": "list",
+            "source": "specs",
+            "content": "",
+            "open": false
+          }
+        },
+        "collapsible_tab-12": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Verzenden, retourneren en garantie",
+            "icon": "truck",
+            "source": "custom",
+            "content": "<p><strong>Verzenden.</strong> We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je krijgt 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "open": false
+          }
+        },
+        "complementary-13": {
+          "type": "complementary",
+          "settings": {
+            "heading": "Past hier goed bij",
+            "limit": 2
+          }
+        },
+        "share-14": {
+          "type": "share",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "badge-1",
+        "title-2",
+        "rating-3",
+        "price-4",
+        "usp_tiles-5",
+        "variant_picker-6",
+        "countdown-7",
+        "buy_buttons-8",
+        "trust-9",
+        "collapsible_tab-10",
+        "collapsible_tab-11",
+        "collapsible_tab-12",
+        "complementary-13",
+        "share-14"
+      ]
+    },
+    "ticker": {
+      "type": "vk-marquee",
+      "settings": {
+        "label": "Waarom Volkara",
+        "style": "ticker",
+        "speed": 40,
+        "double_row": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 24,
+        "padding_bottom": 24
+      },
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "text": "Massief titanium",
+            "icon": "flame"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "text": "100% PFAS-vrij",
+            "icon": "leaf"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "text": "Geen coating die slijt",
+            "icon": "shield"
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "text": "Vaatwasserbestendig",
+            "icon": "dishwasher"
+          }
+        },
+        "item-5": {
+          "type": "item",
+          "settings": {
+            "text": "Alle warmtebronnen",
+            "icon": "induction"
+          }
+        },
+        "item-6": {
+          "type": "item",
+          "settings": {
+            "text": "25 jaar garantie",
+            "icon": "warranty"
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4",
+        "item-5",
+        "item-6"
+      ]
+    },
+    "intro": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-pan-angle.webp",
+        "placeholder": "chef",
+        "image_alt": "Een Volkara-pan van bovenaf",
+        "image_position": "right",
+        "ratio": "landscape",
+        "index": "",
+        "eyebrow": "Altijd een reden",
+        "heading": "Er is altijd iemand die een goede <em>pan</em> verdient.",
+        "text": "<p>Een nieuw huis, een bruiloft, een verjaardag, of gewoon omdat iemand het verdient. Hieronder vind je per budget en per moment wat het beste past.</p>",
+        "button_label": "",
+        "button_url": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      }
+    },
+    "budget": {
+      "type": "vk-gift-budget",
+      "settings": {
+        "anchor": "budget",
+        "eyebrow": "Begin bij je budget",
+        "heading": "Wat wil je <em>uitgeven</em>?",
+        "subheading": "Kies een bedrag, wij laten zien wat het beste cadeau is.",
+        "foot_text": "Alles wat je hier ziet, vind je ook los in de collectie.",
+        "foot_button_label": "Bekijk alle pannensets",
+        "foot_button_url": "/collections/sets-bundels",
+        "foot_checks": "Gratis verzending\n30 dagen retour\n25 jaar garantie",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "tier-1": {
+          "type": "tier",
+          "settings": {
+            "badge": "Tot €100",
+            "product": "gehamerde-titanium-pan",
+            "title": "Een attentie",
+            "text": "Klein cadeau, dagelijks gebruik. Kies zelf de maat, van 20 tot 30 cm.",
+            "checks": "Gratis verzending\n30 dagen retour\n100% PFAS-vrij",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "tier-2": {
+          "type": "tier",
+          "settings": {
+            "badge": "€100 – €300",
+            "product": "gehamerde-titanium-pannenset-3-delig",
+            "title": "Een echt cadeau",
+            "text": "Drie pannen in één doos. Voor wie graag en vaak kookt.",
+            "checks": "Drie pannen in één set\n100% PFAS-vrij\n25 jaar garantie",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "tier-3": {
+          "type": "tier",
+          "settings": {
+            "badge": "€300 – €500",
+            "product": "premium-kookset-van-handgehamerd-titanium-me-t2-deksels-20-23-en-25-cm",
+            "title": "Luxe cadeau",
+            "text": "Pannen met deksels, genoeg om een hele keuken mee te draaien.",
+            "checks": "Inclusief 2 deksels\nGratis verzending\n25 jaar garantie",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "tier-4": {
+          "type": "tier",
+          "settings": {
+            "badge": "Vanaf €500",
+            "product": "handgehamerde-titanium-keukenset-met-3-deksels-25-28-30-cm",
+            "title": "Voor een bruiloft",
+            "text": "Een complete keuken in één keer. Alleen, of met een paar mensen samen.",
+            "checks": "Complete keukenset\nInclusief 3 deksels\n25 jaar garantie",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tier-1",
+        "tier-2",
+        "tier-3",
+        "tier-4"
+      ]
+    },
+    "occasions": {
+      "type": "vk-gift-occasions",
+      "settings": {
+        "eyebrow": "Elk jaar, elk moment",
+        "heading": "Waar is het <em>voor</em>?",
+        "subheading": "Negen momenten waarop een pan precies goed valt.",
+        "foot_title": "Staat het moment er niet bij?",
+        "foot_button_label": "Bekijk alle pannensets",
+        "foot_button_url": "/collections/sets-bundels",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "occ-1": {
+          "type": "occasion",
+          "settings": {
+            "title": "Housewarming",
+            "text": "Een lege keuken vult zichzelf niet.",
+            "tip_label": "Onze tip:",
+            "product": "gehamerde-titanium-familieset-4-pannen-keukengerei",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-2": {
+          "type": "occasion",
+          "settings": {
+            "title": "Bruiloft",
+            "text": "Voor de keuken die ze samen gaan gebruiken.",
+            "tip_label": "Onze tip:",
+            "product": "handgehamerde-titanium-keukenset-met-3-deksels-25-28-30-cm",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-3": {
+          "type": "occasion",
+          "settings": {
+            "title": "Verjaardag",
+            "text": "Iets dat ze niet zelf zouden kopen.",
+            "tip_label": "Onze tip:",
+            "product": "gehamerde-titanium-pannenset-3-delig",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-4": {
+          "type": "occasion",
+          "settings": {
+            "title": "Samenwonen",
+            "text": "Twee halve keukens worden er één.",
+            "tip_label": "Onze tip:",
+            "product": "gehamerde-titanium-pannenduo",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-5": {
+          "type": "occasion",
+          "settings": {
+            "title": "Kraamcadeau",
+            "text": "Voor wie nu echt elke dag kookt.",
+            "tip_label": "Onze tip:",
+            "product": "gehamerde-titanium-pan",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-6": {
+          "type": "occasion",
+          "settings": {
+            "title": "Jubileum",
+            "text": "Na al die jaren mag de keuken ook wat.",
+            "tip_label": "Onze tip:",
+            "product": "gehamerde-titanium-sauteerpan",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-7": {
+          "type": "occasion",
+          "settings": {
+            "title": "Afstuderen",
+            "text": "Eerste eigen huis, eerste echte pan.",
+            "tip_label": "Onze tip:",
+            "product": "gehamerde-titanium-pan",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-8": {
+          "type": "occasion",
+          "settings": {
+            "title": "Pensioen",
+            "text": "Eindelijk tijd om er goed voor te gaan zitten.",
+            "tip_label": "Onze tip:",
+            "product": "titanium-kookpan-met-deksel",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "occ-9": {
+          "type": "occasion",
+          "settings": {
+            "title": "Bedankje",
+            "text": "Voor wie iets voor je deed dat je niet vergeet.",
+            "tip_label": "Onze tip:",
+            "product": "japans-gehamerd-koksmes-20-cm-precisiemes",
+            "tip": "",
+            "button_label": "Bekijk",
+            "link": ""
+          }
+        },
+        "wide-1": {
+          "type": "wide",
+          "settings": {
+            "title": "Twijfel je nog?",
+            "text": "Vertel ons voor wie het is en wat ze graag koken. We denken met je mee.",
+            "tip_label": "",
+            "tip": "",
+            "button_label": "Stel je vraag",
+            "link": "/pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "occ-1",
+        "occ-2",
+        "occ-3",
+        "occ-4",
+        "occ-5",
+        "occ-6",
+        "occ-7",
+        "occ-8",
+        "occ-9",
+        "wide-1"
+      ]
+    },
+    "unboxing": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-macro.webp",
+        "placeholder": "product",
+        "image_alt": "De verpakking van een Volkara-pan",
+        "image_position": "left",
+        "ratio": "portrait",
+        "index": "",
+        "eyebrow": "Uitpakken",
+        "heading": "Zo ziet het eruit als ze hem <em>openmaken</em>.",
+        "text": "<p>[Beschrijf hier je verpakking: de doos, het papier, eventueel een kaartje.]</p><p>[Zit er een prijs of pakbon in de doos? Zo niet, vermeld dat hier: dan hoeft de gever niets weg te knippen.]</p>",
+        "button_label": "",
+        "button_url": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "compare": {
+      "type": "vk-comparison",
+      "settings": {
+        "index": "",
+        "eyebrow": "Volkara vs. een gewoon cadeau",
+        "heading": "Waarom dit cadeau zo <em>geliefd</em> is",
+        "subheading": "",
+        "competitor_1": "Anders",
+        "competitor_2": "",
+        "footnote": "",
+        "button_label": "",
+        "button_url": "",
+        "stack_effect": false,
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Staat er over jaren nog",
+            "ours": "Gebouwd voor jaren, 25 jaar garantie",
+            "c1_status": "no",
+            "c1_text": "Bloemen, wijn of een bon zijn snel op",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Wordt elke dag gebruikt",
+            "ours": "Elke dag op het fornuis",
+            "c1_status": "partial",
+            "c1_text": "Verdwijnt vaak achter in een kast",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Zonder risico",
+            "ours": "30 dagen retour",
+            "c1_status": "no",
+            "c1_text": "Vaak niet te ruilen",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Gezond koken",
+            "ours": "Zonder PFAS of PTFE",
+            "c1_status": "partial",
+            "c1_text": "Antiaanbaklagen met coating",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Gratis bezorgd",
+            "ours": "Gratis verzending",
+            "c1_status": "partial",
+            "c1_text": "Vaak verzendkosten",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5"
+      ]
+    },
+    "reviews": {
+      "type": "vk-reviews",
+      "disabled": true,
+      "settings": {
+        "index": "",
+        "eyebrow": "Reviews",
+        "heading": "Dit zeggen de mensen die hem <em>kregen</em>.",
+        "subheading": "",
+        "show_summary": false,
+        "average": "",
+        "autoplay": false,
+        "link_label": "",
+        "link": "",
+        "stack_effect": false,
+        "show_contours": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "faq": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "centered",
+        "index": "",
+        "eyebrow": "Praktisch",
+        "heading": "Vragen van mensen die iets <em>weggeven</em>",
+        "subheading": "",
+        "show_filter": false,
+        "contact_title": "Nog een vraag?",
+        "contact_text": "We helpen je graag het juiste cadeau te kiezen.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "q-1": {
+          "type": "question",
+          "settings": {
+            "question": "Kan ik het rechtstreeks laten bezorgen?",
+            "answer": "<p>Ja. Vul bij het afrekenen het adres van de ontvanger in als bezorgadres. De verzending is gratis.</p>"
+          }
+        },
+        "q-2": {
+          "type": "question",
+          "settings": {
+            "question": "Komt het op tijd?",
+            "answer": "<p>[Vul hier je levertijd in, bijvoorbeeld: binnen 2 tot 4 werkdagen in huis.] Je krijgt een track-and-tracelink zodra je pakket onderweg is.</p>"
+          }
+        },
+        "q-3": {
+          "type": "question",
+          "settings": {
+            "question": "Wat als ze al pannen hebben?",
+            "answer": "<p>Een titanium pan is iets anders dan een gewone antiaanbakpan: er zit geen coating op die slijt. En past hij toch niet, dan kan hij binnen 30 dagen retour.</p>"
+          }
+        },
+        "q-4": {
+          "type": "question",
+          "settings": {
+            "question": "Werkt het op hun kookplaat?",
+            "answer": "<p>Ja. Volkara werkt op gas, inductie, keramisch en elektrisch, en kan ook in de oven en onder de grill.</p>"
+          }
+        },
+        "q-5": {
+          "type": "question",
+          "settings": {
+            "question": "Welke maat moet ik kiezen?",
+            "answer": "<p>Twijfel je? 25 of 28 cm is voor de meeste keukens een goede keuze. Kookt de ontvanger vaak voor een gezin, kies dan 28 of 30 cm.</p>"
+          }
+        },
+        "q-6": {
+          "type": "question",
+          "settings": {
+            "question": "Kan het geruild worden?",
+            "answer": "<p>Ja, binnen 30 dagen na ontvangst. Neem contact met ons op met het ordernummer, dan regelen we het.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-1",
+        "q-2",
+        "q-3",
+        "q-4",
+        "q-5",
+        "q-6"
+      ]
+    },
+    "cta": {
+      "type": "vk-cta",
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-hero.webp",
+        "show_embers": true,
+        "eyebrow": "Klaar om te geven?",
+        "heading": "Geef iets dat <em>blijft</em>.",
+        "subheading": "Gratis verzending · 30 dagen retour · 25 jaar garantie",
+        "button_label": "Bestel als cadeau",
+        "button_url": "",
+        "button_to_buy": true,
+        "guarantee": "",
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Gratis verzending"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "icon": "return",
+            "text": "30 dagen retour"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "icon": "shield",
+            "text": "25 jaar garantie"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3"
+      ]
+    },
+    "usps": {
+      "type": "vk-usp-bar",
+      "settings": {
+        "heading": "",
+        "mobile_layout": "grid",
+        "color_scheme": "scheme-2",
+        "padding_top": 40,
+        "padding_bottom": 40
+      },
+      "blocks": {
+        "usp-1": {
+          "type": "usp",
+          "settings": {
+            "icon": "leaf",
+            "title": "100% PFAS-vrij",
+            "subtitle": "Geen chemische coating"
+          }
+        },
+        "usp-2": {
+          "type": "usp",
+          "settings": {
+            "icon": "return",
+            "title": "30 dagen retour",
+            "subtitle": "Zonder risico proberen"
+          }
+        },
+        "usp-3": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Gratis verzending",
+            "subtitle": "Op elke bestelling"
+          }
+        },
+        "usp-4": {
+          "type": "usp",
+          "settings": {
+            "icon": "warranty",
+            "title": "25 jaar garantie",
+            "subtitle": "Gebouwd om te blijven"
+          }
+        }
+      },
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3",
+        "usp-4"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "main",
+    "ticker",
+    "intro",
+    "budget",
+    "occasions",
+    "unboxing",
+    "compare",
+    "reviews",
+    "faq",
+    "cta",
+    "usps"
+  ]
+}
