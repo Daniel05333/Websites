@@ -4,7 +4,7 @@
 .vk-process__steps::before { content: ""; position: absolute; left: 1.45rem; top: 1.4rem; bottom: 1.4rem; width: 1px; background: var(--vk-border-strong); }
 .vk-process__step { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem; align-items: center; min-height: 56px; padding: .6rem .9rem .6rem .7rem; border-radius: 14px; text-align: left; color: var(--vk-fg-muted); cursor: pointer; transition: color var(--vk-dur-2), background-color var(--vk-dur-2), box-shadow var(--vk-dur-2); }
 .vk-process__step:hover { color: var(--vk-fg); }
-.vk-process__step[aria-selected="true"] { color: var(--vk-fg); background: linear-gradient(90deg, rgba(215,38,30,.14), rgba(215,38,30,.02)); box-shadow: inset 0 0 0 1px rgba(215,38,30,.5); }
+.vk-process__step[aria-selected="true"] { color: var(--vk-fg); background: linear-gradient(90deg, rgba(var(--vk-lava-rgb),.14), rgba(var(--vk-lava-rgb),.02)); box-shadow: inset 0 0 0 1px rgba(var(--vk-lava-rgb),.5); }
 .vk-process__step:focus-visible { outline: 2px solid var(--vk-molten); outline-offset: 2px; }
 .vk-process__num { position: relative; z-index: 1; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-size: .75rem; background: var(--vk-bg); box-shadow: inset 0 0 0 1px var(--vk-border-strong); transition: background-color var(--vk-dur-2), box-shadow var(--vk-dur-2), color var(--vk-dur-2); }
 .vk-process__step[aria-selected="true"] .vk-process__num { background: var(--vk-ember); color: var(--vk-white); box-shadow: none; }

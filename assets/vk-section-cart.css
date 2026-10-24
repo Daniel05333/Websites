@@ -16,7 +16,7 @@
 .vk-shipping-bar.is-unlocked .vk-shipping-bar__text { color: var(--vk-fg); }
 .vk-shipping-bar.is-unlocked svg { color: #6EDC8C; }
 .vk-shipping-bar__track { position: relative; height: 4px; border-radius: 4px; background: rgba(var(--vk-fg-rgb), .1); overflow: hidden; }
-.vk-shipping-bar__fill { position: absolute; inset: 0; width: var(--vk-pct, 0%); border-radius: inherit; background: var(--vk-ember); box-shadow: 0 0 12px rgba(255,75,50,.6); transition: width 900ms var(--vk-ease-out); }
+.vk-shipping-bar__fill { position: absolute; inset: 0; width: var(--vk-pct, 0%); border-radius: inherit; background: var(--vk-ember); box-shadow: 0 0 12px rgba(var(--vk-molten-rgb),.6); transition: width 900ms var(--vk-ease-out); }
 
 /* line items */
 .vk-lines { list-style: none; margin: 0; padding: 0; display: grid; }
@@ -62,7 +62,7 @@ vk-cart-drawer[open] .vk-line { animation: vk-fade-up 600ms var(--vk-ease-out) b
 
 /* empty */
 .vk-cart-empty { display: grid; justify-items: center; align-content: center; text-align: center; gap: 1rem; }
-.vk-cart-empty__icon { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; color: var(--vk-accent); box-shadow: inset 0 0 0 1px var(--vk-border-strong); background: radial-gradient(closest-side, rgba(255,75,50,.16), transparent); }
+.vk-cart-empty__icon { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; color: var(--vk-accent); box-shadow: inset 0 0 0 1px var(--vk-border-strong); background: radial-gradient(closest-side, rgba(var(--vk-molten-rgb),.16), transparent); }
 .vk-cart-empty__actions { justify-content: center; margin-block: .5rem 1.5rem; }
 .vk-cart-empty .vk-shipping-bar { width: 100%; }
 .vk-cart-empty--page { padding: 3rem 0 2rem; }
@@ -87,9 +87,9 @@ vk-cart-drawer[open] .vk-line { animation: vk-fade-up 600ms var(--vk-ease-out) b
 .vk-line__save { font-family: var(--vk-font-body); font-size: .75rem; font-weight: 600; color: var(--vk-molten); }
 .vk-line__variant-select { margin-top: .45rem; max-width: 11rem; }
 .vk-line__variant-select .vk-select { min-height: 38px; padding-block: .35rem; font-size: .8125rem; }
-.vk-line--gift { background: linear-gradient(90deg, rgba(215,38,30,.1), transparent 70%); margin-inline: -1.5rem; padding-inline: 1.5rem; }
+.vk-line--gift { background: linear-gradient(90deg, rgba(var(--vk-lava-rgb),.1), transparent 70%); margin-inline: -1.5rem; padding-inline: 1.5rem; }
 .vk-line--gift .vk-line__info { align-content: center; }
-.vk-line__gift { display: inline-flex; align-items: center; gap: .35rem; margin-top: .35rem; padding: .3rem .6rem; border-radius: 8px; line-height: 1.25; width: fit-content; background: rgba(255,75,50,.12); color: var(--vk-molten); font-size: .75rem; font-weight: 600; }
+.vk-line__gift { display: inline-flex; align-items: center; gap: .35rem; margin-top: .35rem; padding: .3rem .6rem; border-radius: 8px; line-height: 1.25; width: fit-content; background: rgba(var(--vk-molten-rgb),.12); color: var(--vk-molten); font-size: .75rem; font-weight: 600; }
 .vk-lines--page .vk-line--gift { margin-inline: 0; padding-inline: 1rem; border-radius: 12px; }
 /* summary */
 .vk-cart-summary { display: grid; gap: .5rem; }
@@ -100,7 +100,7 @@ vk-cart-drawer[open] .vk-line { animation: vk-fade-up 600ms var(--vk-ease-out) b
 
 /* shipping insurance switch */
 .vk-insurance { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .85rem; align-items: center; padding: .75rem .9rem; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--vk-border); transition: box-shadow var(--vk-dur-2), background-color var(--vk-dur-2); }
-.vk-insurance.is-on { box-shadow: inset 0 0 0 1px rgba(215,38,30,.6); background: rgba(215,38,30,.07); }
+.vk-insurance.is-on { box-shadow: inset 0 0 0 1px rgba(var(--vk-lava-rgb),.6); background: rgba(var(--vk-lava-rgb),.07); }
 .vk-insurance__switch { position: relative; width: 44px; height: 26px; border-radius: 999px; background: rgba(var(--vk-fg-rgb), .18); cursor: pointer; transition: background-color var(--vk-dur-2); flex: none; }
 .vk-insurance__switch[aria-checked="true"] { background: var(--vk-ember); }
 .vk-insurance__switch:focus-visible { outline: 2px solid var(--vk-molten); outline-offset: 3px; }

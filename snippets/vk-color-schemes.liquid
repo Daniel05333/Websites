@@ -11,21 +11,125 @@
   @example
   {% render 'vk-color-schemes' %}
 {%- enddoc -%}
+{%- liquid
+  # Kleurstijl (theme settings): a base and an accent that override the schemes, so the merchant can
+  # try a look without editing every scheme. 'dark' + 'lava' leaves the schemes exactly as set.
+  assign vk_base = settings.color_style_base | default: 'dark'
+  assign vk_accent = settings.color_style_accent | default: 'lava'
+  case vk_accent
+    when 'fire'
+      assign pal_lava = '#E0520E'
+      assign pal_molten = '#FF7A1A'
+      assign pal_flare = '#FFA149'
+      assign pal_deep = '130, 48, 6'
+    when 'amber'
+      assign pal_lava = '#C9780A'
+      assign pal_molten = '#F2A324'
+      assign pal_flare = '#FFC266'
+      assign pal_deep = '110, 64, 4'
+    when 'copper'
+      assign pal_lava = '#A85A2A'
+      assign pal_molten = '#D2814A'
+      assign pal_flare = '#E8A87A'
+      assign pal_deep = '90, 44, 18'
+    else
+      assign pal_lava = '#D7261E'
+      assign pal_molten = '#FF4B32'
+      assign pal_flare = '#FF6A3D'
+      assign pal_deep = '120, 14, 10'
+  endcase
+-%}
 {%- style -%}
+  {%- unless vk_accent == 'lava' -%}
+  html:root {
+    --vk-lava: {{ pal_lava }}; --vk-lava-rgb: {{ pal_lava | color_extract: 'red' }}, {{ pal_lava | color_extract: 'green' }}, {{ pal_lava | color_extract: 'blue' }};
+    --vk-molten: {{ pal_molten }}; --vk-molten-rgb: {{ pal_molten | color_extract: 'red' }}, {{ pal_molten | color_extract: 'green' }}, {{ pal_molten | color_extract: 'blue' }};
+    --vk-flare: {{ pal_flare }}; --vk-deep-rgb: {{ pal_deep }}; --vk-spark: {{ pal_flare }};
+  }
+  {%- endunless -%}
   {%- for scheme in settings.color_schemes -%}
     {%- liquid
       assign c = scheme.settings
-      assign bg_r = c.background | color_extract: 'red'
-      assign bg_g = c.background | color_extract: 'green'
-      assign bg_b = c.background | color_extract: 'blue'
-      assign fg_r = c.text | color_extract: 'red'
-      assign fg_g = c.text | color_extract: 'green'
-      assign fg_b = c.text | color_extract: 'blue'
-      assign ac_r = c.accent | color_extract: 'red'
-      assign ac_g = c.accent | color_extract: 'green'
-      assign ac_b = c.accent | color_extract: 'blue'
-      assign bg_brightness = c.background | color_brightness
-      assign bg_saturation = c.background | color_extract: 'saturation'
+      assign c_bg = c.background
+      assign c_fg = c.text
+      assign c_sf = c.surface
+      assign c_ac = c.accent
+      assign c_bt = c.button
+      assign c_bl = c.button_label
+      assign vk_idx = scheme.id | remove: 'scheme-' | plus: 0
+      if vk_accent != 'lava'
+        case vk_idx
+          when 4
+            assign c_bg = pal_lava
+            assign c_sf = pal_lava
+          when 5
+            assign c_ac = pal_lava
+          else
+            assign c_ac = pal_molten
+            assign c_bt = pal_lava
+        endcase
+      endif
+      if vk_base != 'dark' and vk_idx < 4
+        case vk_base
+          when 'graphite'
+            assign c_fg = '#F2F0ED'
+            case vk_idx
+              when 1
+                assign c_bg = '#1E1F21'
+                assign c_sf = '#26282B'
+              when 2
+                assign c_bg = '#26282B'
+                assign c_sf = '#2E3033'
+              else
+                assign c_bg = '#303236'
+                assign c_sf = '#383A3E'
+            endcase
+          when 'stone'
+            assign c_fg = '#141414'
+            assign c_ac = pal_lava
+            assign c_bl = '#F7F5F2'
+            case vk_idx
+              when 1
+                assign c_bg = '#E4E2DE'
+                assign c_sf = '#EFEDEA'
+              when 2
+                assign c_bg = '#D9D6D1'
+                assign c_sf = '#E4E2DE'
+              else
+                assign c_bg = '#CECAC4'
+                assign c_sf = '#D9D6D1'
+            endcase
+          else
+            assign c_fg = '#121212'
+            assign c_ac = pal_lava
+            assign c_bl = '#F7F5F2'
+            case vk_idx
+              when 1
+                assign c_bg = '#F7F5F2'
+                assign c_sf = '#FFFFFF'
+              when 2
+                assign c_bg = '#EDEAE5'
+                assign c_sf = '#F7F5F2'
+              else
+                assign c_bg = '#E3DFD9'
+                assign c_sf = '#EDEAE5'
+            endcase
+        endcase
+        if vk_accent == 'lava' and vk_base != 'graphite'
+          assign c_bt = pal_lava
+        endif
+      endif
+      assign bg_r = c_bg | color_extract: 'red'
+      assign bg_g = c_bg | color_extract: 'green'
+      assign bg_b = c_bg | color_extract: 'blue'
+      assign fg_r = c_fg | color_extract: 'red'
+      assign fg_g = c_fg | color_extract: 'green'
+      assign fg_b = c_fg | color_extract: 'blue'
+      assign ac_r = c_ac | color_extract: 'red'
+      assign ac_g = c_ac | color_extract: 'green'
+      assign ac_b = c_ac | color_extract: 'blue'
+      assign bg_brightness = c_bg | color_brightness
+      assign bg_saturation = c_bg | color_extract: 'saturation'
 
       assign tone = 'light'
       if bg_brightness < 70
@@ -35,15 +139,15 @@
       endif
     -%}
     {% if forloop.first %}:root, {% endif %}.color-{{ scheme.id }} {
-      --vk-bg: {{ c.background }};
+      --vk-bg: {{ c_bg }};
       --vk-bg-rgb: {{ bg_r }}, {{ bg_g }}, {{ bg_b }};
-      --vk-fg: {{ c.text }};
+      --vk-fg: {{ c_fg }};
       --vk-fg-rgb: {{ fg_r }}, {{ fg_g }}, {{ fg_b }};
-      --vk-accent: {{ c.accent }};
+      --vk-accent: {{ c_ac }};
       --vk-accent-rgb: {{ ac_r }}, {{ ac_g }}, {{ ac_b }};
-      --vk-btn-bg: {{ c.button }};
-      --vk-btn-fg: {{ c.button_label }};
-      --vk-surface: {{ c.surface | default: c.background }};
+      --vk-btn-bg: {{ c_bt }};
+      --vk-btn-fg: {{ c_bl }};
+      --vk-surface: {{ c_sf | default: c_bg }};
       --vk-surface-2: color-mix(in srgb, var(--vk-fg) 7%, var(--vk-bg));
       --vk-border: rgba(var(--vk-fg-rgb), .12);
       --vk-border-strong: rgba(var(--vk-fg-rgb), .26);
@@ -82,4 +186,19 @@
     background-color: var(--vk-bg);
     color: var(--vk-fg);
   }
+  {%- if vk_base == 'stone' or vk_base == 'light' %}
+  /* The glass header and sections that sit on a dark photo or video keep light text on a light base. */
+  .vk-header-wrapper, .vk-header-wrapper [class*="color-scheme-"], .vk-hero, .vk-col-hero, .vk-cta__panel, .vk-manifesto--image, .vk-story-hero:has(.vk-story-hero__media) {
+    --vk-bg: #080808; --vk-bg-rgb: 8, 8, 8; --vk-fg: #F7F5F2; --vk-fg-rgb: 247, 245, 242;
+    --vk-fg-muted: rgba(247, 245, 242, .72); --vk-fg-subtle: rgba(247, 245, 242, .52);
+    --vk-border: rgba(247, 245, 242, .12); --vk-border-strong: rgba(247, 245, 242, .26);
+    --vk-surface: #121212; --vk-surface-2: #1b1b1b; --vk-overlay: rgba(8, 8, 8, .72);
+    --vk-accent: var(--vk-molten); --vk-accent-rgb: var(--vk-molten-rgb);
+    --vk-btn-primary: var(--vk-ember); --vk-btn-fg: #F7F5F2;
+    --vk-em-bg: var(--vk-ember); --vk-em-color: transparent;
+    color: var(--vk-fg); color-scheme: dark;
+  }
+  /* On a light page the glass header would read as washed-out grey; make it near-solid. */
+  .vk-header-wrapper:not(.is-transparent) .vk-header, html.vk-scrolled .is-transparent .vk-header { background: rgba(12, 12, 12, .92); }
+  {%- endif %}
 {%- endstyle -%}

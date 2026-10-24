@@ -19,7 +19,7 @@
 .vk-gift-hero { padding: 0; overflow: hidden; }
 .vk-gift-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: min(78vh, 720px); }
 .vk-gift-hero__copy { position: relative; display: grid; align-content: center; gap: 1.4rem; padding: clamp(3rem, 2rem + 4vw, 6rem) clamp(1.25rem, 1rem + 4vw, 5rem); }
-.vk-gift-hero__copy::before { content: ""; position: absolute; inset: auto -20% -40% -20%; height: 80%; z-index: -1; background: radial-gradient(closest-side, rgba(215,38,30,.28), transparent 70%); pointer-events: none; }
+.vk-gift-hero__copy::before { content: ""; position: absolute; inset: auto -20% -40% -20%; height: 80%; z-index: -1; background: radial-gradient(closest-side, rgba(var(--vk-lava-rgb),.28), transparent 70%); pointer-events: none; }
 .vk-gift-hero__rating { display: inline-flex; align-items: center; gap: .6rem; margin: 0; font-size: .875rem; color: var(--vk-fg-muted); }
 .vk-gift-hero__stars { display: inline-flex; gap: 2px; color: var(--vk-molten); }
 .vk-gift-hero__title { margin: 0; font-size: clamp(2.5rem, 1.6rem + 3.6vw, 5rem); line-height: .98; letter-spacing: -.045em; text-wrap: balance; }
@@ -29,7 +29,7 @@
 .vk-gift-hero__media { position: relative; overflow: hidden; background: #0d0d0d; }
 .vk-gift-hero__media img, .vk-gift-hero__media svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .vk-gift-hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(var(--vk-bg-rgb), .55), transparent 30%); pointer-events: none; }
-.vk-gift-hero__badge { position: absolute; right: 8%; bottom: 10%; z-index: 2; display: grid; place-items: center; width: clamp(96px, 7rem + 2vw, 150px); aspect-ratio: 1; border-radius: 50%; padding: 1rem; text-align: center; background: var(--vk-ember); color: var(--vk-white); font: 700 clamp(.75rem, .7rem + .25vw, .9375rem)/1.1 var(--vk-font-display); letter-spacing: .06em; text-transform: uppercase; box-shadow: 0 0 0 6px rgba(255,75,50,.18), 0 18px 40px -12px rgba(215,38,30,.7); transform: rotate(-8deg); }
+.vk-gift-hero__badge { position: absolute; right: 8%; bottom: 10%; z-index: 2; display: grid; place-items: center; width: clamp(96px, 7rem + 2vw, 150px); aspect-ratio: 1; border-radius: 50%; padding: 1rem; text-align: center; background: var(--vk-ember); color: var(--vk-white); font: 700 clamp(.75rem, .7rem + .25vw, .9375rem)/1.1 var(--vk-font-display); letter-spacing: .06em; text-transform: uppercase; box-shadow: 0 0 0 6px rgba(var(--vk-molten-rgb),.18), 0 18px 40px -12px rgba(var(--vk-lava-rgb),.7); transform: rotate(-8deg); }
 @media (max-width: 899px) {
   .vk-gift-hero__grid { grid-template-columns: minmax(0, 1fr); min-height: 0; }
   .vk-gift-hero__media { order: -1; aspect-ratio: 4 / 3; }
@@ -42,7 +42,7 @@
 .vk-gift-anchor { position: absolute; top: 0; scroll-margin-top: var(--vk-header-h, 80px); }
 .vk-gift-budget__grid { display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 1rem; margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
 .vk-gift-tier { position: relative; display: flex; flex-direction: column; border-radius: var(--vk-radius-lg); background: color-mix(in srgb, var(--vk-fg) 4%, var(--vk-bg)); box-shadow: inset 0 0 0 1px var(--vk-border); overflow: hidden; transition: box-shadow var(--vk-dur-2), transform var(--vk-dur-3) var(--vk-ease-out); }
-.vk-gift-tier:hover { box-shadow: inset 0 0 0 1px rgba(255,75,50,.55); transform: translateY(-3px); }
+.vk-gift-tier:hover { box-shadow: inset 0 0 0 1px rgba(var(--vk-molten-rgb),.55); transform: translateY(-3px); }
 .vk-gift-tier__badge { position: absolute; top: 1rem; left: 1rem; z-index: 2; padding: .4rem .75rem; border-radius: var(--vk-radius-pill); background: var(--vk-ember); color: var(--vk-white); font: 600 .6875rem/1 var(--vk-font-mono); letter-spacing: .1em; text-transform: uppercase; }
 .vk-gift-tier__media { position: relative; display: block; aspect-ratio: 1; background: radial-gradient(70% 60% at 50% 45%, #1c1c1d, #0c0c0c); }
 .vk-gift-tier__media img, .vk-gift-tier__media svg { position: absolute; inset: 8%; width: 84%; height: 84%; object-fit: contain; transition: transform 900ms var(--vk-ease-out); }

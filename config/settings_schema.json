@@ -39,6 +39,38 @@
     "name": "Colors",
     "settings": [
       {
+        "type": "header",
+        "content": "Color style"
+      },
+      {
+        "type": "paragraph",
+        "content": "Try a different look for the whole store. Dark + Lava red keeps your color schemes exactly as set below; any other choice overrides them."
+      },
+      {
+        "type": "select",
+        "id": "color_style_base",
+        "label": "Base",
+        "options": [
+          { "value": "dark", "label": "Dark (current)" },
+          { "value": "graphite", "label": "Graphite grey" },
+          { "value": "stone", "label": "Light grey" },
+          { "value": "light", "label": "Light / white" }
+        ],
+        "default": "dark"
+      },
+      {
+        "type": "select",
+        "id": "color_style_accent",
+        "label": "Accent",
+        "options": [
+          { "value": "lava", "label": "Lava red (current)" },
+          { "value": "fire", "label": "Fire orange" },
+          { "value": "amber", "label": "Amber" },
+          { "value": "copper", "label": "Copper" }
+        ],
+        "default": "lava"
+      },
+      {
         "type": "paragraph",
         "content": "VOLKARA ships five schemes: Volcanic, Obsidian and Graphite (dark), Ember (lava red) and Porcelain (soft white). Primary buttons render the ember gradient on dark schemes and the solid button color on light or vivid schemes."
       },

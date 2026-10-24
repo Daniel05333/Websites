@@ -20,7 +20,7 @@
 }
 .vk-tech--compact .vk-stack, .vk-tech__scroller.is-exploded .vk-stack { --vk-sep: 1; }
 .vk-stack__inner { position: absolute; inset: 12%; transform-style: preserve-3d; transform: rotateX(58deg) rotateZ(-38deg) translateZ(calc(var(--vk-gap) * -1)); transition: transform 1.2s var(--vk-ease-out); }
-.vk-stack__glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,75,50,.32), rgba(215,38,30,.08) 60%, transparent); filter: blur(30px); transform: scale(calc(.8 + var(--vk-sep) * .3)); }
+.vk-stack__glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(closest-side, rgba(var(--vk-molten-rgb),.32), rgba(var(--vk-lava-rgb),.08) 60%, transparent); filter: blur(30px); transform: scale(calc(.8 + var(--vk-sep) * .3)); }
 .vk-stack__shadow { position: absolute; left: 18%; right: 18%; bottom: 4%; height: 12%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.8), transparent); filter: blur(8px); }
 .vk-layer {
   position: absolute; inset: 0; border-radius: 50%; transform-style: preserve-3d;
@@ -40,11 +40,11 @@
   background-size: 22px 38px, cover;
 }
 .vk-layer--titanium .vk-layer__face { background: conic-gradient(from 210deg, #8d8a86, #d9d6d1, #7a7774, #c9c5c0, #8d8a86); }
-.vk-layer--thermal .vk-layer__face { background: radial-gradient(circle, #FFB27A 0%, #FF4B32 32%, #D7261E 62%, #5a120e 100%); background-size: 140% 140%; background-position: center; animation: vk-heat 4s var(--vk-ease-in-out) infinite alternate; }
+.vk-layer--thermal .vk-layer__face { background: radial-gradient(circle, #FFB27A 0%, var(--vk-molten) 32%, var(--vk-lava) 62%, #5a120e 100%); background-size: 140% 140%; background-position: center; animation: vk-heat 4s var(--vk-ease-in-out) infinite alternate; }
 @keyframes vk-heat { to { background-size: 220% 220%; filter: saturate(1.25); } }
 .vk-layer--steel .vk-layer__face { background: repeating-conic-gradient(from 0deg, #9a9793 0deg 1deg, #7d7a77 1deg 2deg), #8a8784; }
 .vk-layer--magnetic .vk-layer__face { background: repeating-radial-gradient(circle, #2b2b2b 0 6px, #1b1b1b 6px 12px); }
-.vk-layer.is-active .vk-layer__face { box-shadow: inset 0 0 0 1.5px rgba(255,75,50,.9), inset 0 0 40px rgba(0,0,0,.35), 0 0 60px rgba(255,75,50,.55), 0 1px 0 #3a3a3a, 0 2px 0 #303030, 0 3px 0 #262626, 0 18px 30px -8px rgba(0,0,0,.8); }
+.vk-layer.is-active .vk-layer__face { box-shadow: inset 0 0 0 1.5px rgba(var(--vk-molten-rgb),.9), inset 0 0 40px rgba(0,0,0,.35), 0 0 60px rgba(var(--vk-molten-rgb),.55), 0 1px 0 #3a3a3a, 0 2px 0 #303030, 0 3px 0 #262626, 0 18px 30px -8px rgba(0,0,0,.8); }
 .vk-layer.is-active .vk-layer__tag { color: var(--vk-molten); }
 .vk-tech__scroller:not([data-active="1"]) .vk-layer:not(.is-active) .vk-layer__face, .vk-tech__scroller[data-active="1"] .vk-layer:not(.is-active) .vk-layer__face { filter: brightness(.72) saturate(.85); }
 .vk-tech__readout { position: relative; height: 1.4em; min-width: 18rem; text-align: center; font-size: .75rem; letter-spacing: .16em; color: var(--vk-molten); }
@@ -54,7 +54,7 @@
 /* steps */
 .vk-tech__steps { position: relative; list-style: none; margin: 0; padding: 0 0 0 2rem; display: grid; gap: .5rem; counter-reset: none; }
 .vk-tech__rail { position: absolute; left: 0; top: .5rem; bottom: .5rem; width: 1px; background: var(--vk-border-strong); }
-.vk-tech__rail span { position: absolute; left: 0; top: 0; width: 1px; height: calc(var(--vk-active, 1) / var(--vk-layers, 5) * 100%); background: var(--vk-ember); box-shadow: 0 0 10px rgba(255,75,50,.7); transition: height 600ms var(--vk-ease-out); }
+.vk-tech__rail span { position: absolute; left: 0; top: 0; width: 1px; height: calc(var(--vk-active, 1) / var(--vk-layers, 5) * 100%); background: var(--vk-ember); box-shadow: 0 0 10px rgba(var(--vk-molten-rgb),.7); transition: height 600ms var(--vk-ease-out); }
 .vk-tech__step { display: grid; gap: .4rem; padding: 1rem 1.25rem; border-radius: var(--vk-radius); cursor: pointer; opacity: .45; transition: opacity var(--vk-dur-3) var(--vk-ease-out), background-color var(--vk-dur-3); }
 .vk-tech__step.is-active { opacity: 1; background: rgba(var(--vk-fg-rgb), .04); box-shadow: inset 0 0 0 1px var(--vk-border); }
 .vk-tech__step:hover { opacity: .9; }

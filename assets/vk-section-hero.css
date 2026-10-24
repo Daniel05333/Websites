@@ -11,7 +11,7 @@
     linear-gradient(0deg, rgba(8,8,8,.95) 0%, rgba(8,8,8,0) 38%),
     linear-gradient(180deg, rgba(8,8,8,.55) 0%, rgba(8,8,8,0) 22%); }
 .vk-hero--center .vk-hero__shade { background: radial-gradient(80% 70% at 50% 60%, rgba(8,8,8,var(--vk-hero-overlay)), rgba(8,8,8,calc(var(--vk-hero-overlay) + .3))), linear-gradient(0deg, rgba(8,8,8,.95), transparent 40%); }
-.vk-hero__light { position: absolute; inset: 0; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 1s; background: radial-gradient(520px circle at var(--vk-lx, 70%) var(--vk-ly, 50%), rgba(255,75,50,.16), transparent 60%); mix-blend-mode: screen; }
+.vk-hero__light { position: absolute; inset: 0; z-index: -1; opacity: 0; pointer-events: none; transition: opacity 1s; background: radial-gradient(520px circle at var(--vk-lx, 70%) var(--vk-ly, 50%), rgba(var(--vk-molten-rgb),.16), transparent 60%); mix-blend-mode: screen; }
 .vk-hero vk-embers { z-index: 0; opacity: .9; }
 .vk-hero__container { position: relative; z-index: 1; }
 .vk-hero__content { max-width: 52rem; display: grid; gap: clamp(1.25rem, 1rem + 1vw, 2rem); will-change: transform, opacity; }

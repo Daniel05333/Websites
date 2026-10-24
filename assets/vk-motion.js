@@ -152,7 +152,8 @@
       this.canvas = document.createElement('canvas'); this.append(this.canvas);
       this.ctx = this.canvas.getContext('2d');
       this.count = Math.min(60, Number(this.getAttribute('count')) || 36);
-      this.colors = ['215,38,30', '255,75,50', '255,138,91'];
+      const cs = getComputedStyle(document.documentElement), rgb = (n, d) => (cs.getPropertyValue(n).trim() || d).replace(/\s+/g, '');
+      this.colors = [rgb('--vk-lava-rgb', '215,38,30'), rgb('--vk-molten-rgb', '255,75,50'), rgb('--vk-molten-rgb', '255,138,91')];
       this.resize = this.resize.bind(this); this.loop = this.loop.bind(this);
       this.ro = new ResizeObserver(this.resize); this.ro.observe(this); this.resize();
       this.particles = Array.from({ length: this.count }, () => this.spawn(true));
