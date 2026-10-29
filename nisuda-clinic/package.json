@@ -1,0 +1,19 @@
+{
+  "name": "nisuda-clinic",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website Nisuda Clinic — statische site, gegenereerd uit één centraal databestand.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node tools/serve.mjs",
+    "images": "python3 tools/make-images.py",
+    "test": "node build.mjs && node tests/e2e.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/bodoni-moda": "5.3.0",
+    "@fontsource-variable/jost": "5.3.0",
+    "axe-core": "4.14.0",
+    "playwright-core": "1.63.0"
+  }
+}
