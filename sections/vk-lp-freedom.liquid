@@ -1,0 +1,99 @@
+{%- comment -%}
+  Ad landing: the solution. The five ticks from the ad copy, each with one supporting line,
+  closed by the ad's promise in a red band.
+  [product] in the heading is replaced by the product title.
+{%- endcomment -%}
+{{ 'vk-lp.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_lp_title = product.title | default: 'VOLKARA' | escape
+  assign vk_lp_heading = s.heading | replace: '[product]', vk_lp_title
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-lp vk-lp-freedom color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container vk-lp-freedom__grid">
+    <div class="vk-lp-freedom__media" data-reveal>
+      {%- if s.image != blank -%}
+        {%- render 'vk-lp-media', image: s.image, alt: s.image_alt, class: 'vk-lp-freedom__img' -%}
+      {%- else -%}
+        {%- render 'vk-lp-media', fallback: 'vk-lp-pan-angle.webp', fallback_width: 880, fallback_height: 756, alt: s.image_alt, class: 'vk-lp-freedom__img' -%}
+      {%- endif -%}
+      {%- if s.media_chip != blank %}<span class="vk-lp-chip">{{ s.media_chip | escape }}</span>{% endif -%}
+    </div>
+
+    <div class="vk-lp-freedom__copy">
+      <div class="vk-lp-head" data-reveal>
+        {%- if s.eyebrow != blank %}<p class="vk-lp-eyebrow">{{ s.eyebrow | escape }}</p>{% endif -%}
+        {%- if vk_lp_heading != blank %}<h2 class="vk-lp-display vk-lp-h2">{{ vk_lp_heading }}</h2>{% endif -%}
+        {%- if s.text != blank %}<p class="vk-lp-lead">{{ s.text | escape }}</p>{% endif -%}
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <ul class="vk-lp-ticks" role="list" data-reveal-stagger>
+          {%- for block in section.blocks -%}
+            <li class="vk-lp-tick" data-reveal {{ block.shopify_attributes }}>
+              <span class="vk-lp-tick__icon" aria-hidden="true">{% render 'vk-icon', name: 'check', size: 18 %}</span>
+              <span class="vk-lp-tick__body">
+                <span class="vk-lp-tick__title">{{ block.settings.title | escape }}</span>
+                {%- if block.settings.text != blank %}<span class="vk-lp-tick__text">{{ block.settings.text | escape }}</span>{% endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if s.band != blank -%}
+    <div class="vk-container">
+      <div class="vk-lp-band" data-reveal>
+        <p class="vk-lp-display vk-lp-band__text">{{ s.band | escape }}</p>
+        {%- if s.band_button != blank -%}
+          <a href="#buy" class="vk-lp-btn vk-lp-btn--light"><span>{{ s.band_button | escape }}</span>{% render 'vk-icon', name: 'arrow-right', size: 18 %}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Ad landing: solution",
+  "tag": "div",
+  "class": "vk-lp-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Het kan anders" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "[product] becomes the product title.", "default": "De [product] heeft geen coating die kan <em>krassen</em>." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Dus kook je zoals je wilt." },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Without an image the pan from the ad creative is used." },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Gehamerd titanium kookoppervlak zonder coating" },
+    { "type": "text", "id": "media_chip", "label": "Image label", "default": "Zonder coating" },
+    { "type": "text", "id": "band", "label": "Red band text", "default": "Eindelijk een pan waar je niet voorzichtig mee hoeft te zijn." },
+    { "type": "text", "id": "band_button", "label": "Red band button", "default": "Bestel nu" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 }
+  ],
+  "blocks": [
+    {
+      "type": "tick",
+      "name": "Tick",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Schrapen met een metalen spatel? Prima." },
+        { "type": "text", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "Ad landing: solution",
+      "blocks": [
+        { "type": "tick", "settings": { "title": "Schrapen met een metalen spatel? Prima." } },
+        { "type": "tick", "settings": { "title": "Schuren na het bakken? Geen probleem." } },
+        { "type": "tick", "settings": { "title": "De vaatwasser in? Natuurlijk." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

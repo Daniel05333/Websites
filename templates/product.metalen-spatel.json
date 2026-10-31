@@ -1,0 +1,672 @@
+/*
+ * VOLKARA ad landing template: 'Metalen spatel? Ga je gang.'
+ * Separate template for the Gehamerde Titanium Pan; the existing product.gehamerde-pan template is untouched.
+ * Edit in the Shopify theme editor.
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-lp-hero",
+      "blocks": {
+        "check-1": {
+          "type": "check",
+          "settings": {
+            "text": "Metalen spatel"
+          }
+        },
+        "check-2": {
+          "type": "check",
+          "settings": {
+            "text": "Schuren mag"
+          }
+        },
+        "check-3": {
+          "type": "check",
+          "settings": {
+            "text": "Vaatwasser"
+          }
+        },
+        "check-4": {
+          "type": "check",
+          "settings": {
+            "text": "Zonder PFAS"
+          }
+        },
+        "check-5": {
+          "type": "check",
+          "settings": {
+            "text": "25 jaar garantie"
+          }
+        }
+      },
+      "block_order": [
+        "check-1",
+        "check-2",
+        "check-3",
+        "check-4",
+        "check-5"
+      ],
+      "settings": {
+        "brand": "",
+        "show_rating": true,
+        "heading_1": "Metalen spatel?",
+        "heading_2": "Ga je gang.",
+        "text_1": "Geen coating die kan krassen.",
+        "text_2": "Schrapen, schuren, vaatwasser: hij kan het hebben.",
+        "fallback": "top",
+        "image_alt": "Gehamerde titanium pan van VOLKARA",
+        "deal": "Nu tot [korting]% korting",
+        "deal_fallback": "",
+        "sub": "",
+        "show_price": true,
+        "button_label": "Bestel nu",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 56
+      }
+    },
+    "main": {
+      "type": "vk-main-product",
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "text": "Geen coating die kan krassen"
+          }
+        },
+        "title-2": {
+          "type": "title",
+          "settings": {
+            "subtitle": "Japans vakmanschap. Gebouwd voor generaties."
+          }
+        },
+        "rating-3": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price-4": {
+          "type": "price",
+          "settings": {}
+        },
+        "usp_tiles-5": {
+          "type": "usp_tiles",
+          "settings": {
+            "icon_1": "utensils",
+            "title_1": "Metalen spatel? Prima.",
+            "text_1": "Geen coating die kan krassen",
+            "icon_2": "dishwasher",
+            "title_2": "Vaatwasserbestendig",
+            "text_2": "Schrapen en schuren mag ook",
+            "icon_3": "shield",
+            "title_3": "Gemaakt zonder PFAS",
+            "text_3": "Ook zonder PFOA of PTFE",
+            "icon_4": "warranty",
+            "title_4": "25 jaar garantie",
+            "text_4": "Op materiaal- en fabricagefouten"
+          }
+        },
+        "variant_picker-6": {
+          "type": "variant_picker",
+          "settings": {
+            "size_help": "20 cm — eieren en sauzen · 24 cm — de alleskunner · 28 cm — gezinsmaaltijden · 32 cm — koken voor een groep"
+          }
+        },
+        "bundle_picker-7": {
+          "type": "bundle_picker",
+          "settings": {
+            "label": "Magazijnuitverkoop deal",
+            "nest_variants": true,
+            "size_style": "dropdown",
+            "t1_title": "Enkel",
+            "t1_text": "De perfecte titanium pan voor dagelijks koken.",
+            "t2_title": "Set",
+            "t2_text": "Twee pannen, jij kiest per pan de maat.",
+            "t2_tag": "Aanbevolen · 10% korting",
+            "t2_pick": 2,
+            "t2_discount": 10,
+            "t2_items": "",
+            "t2_addon": "",
+            "t2_product": "set-2-pannen",
+            "t3_title": "Complete set",
+            "t3_text": "Drie pannen in de maten die jij wilt, met de grootste besparing.",
+            "t3_tag": "20% korting",
+            "t3_pick": 3,
+            "t3_discount": 20,
+            "t3_items": "",
+            "t3_product": "complete-set"
+          }
+        },
+        "countdown-8": {
+          "type": "countdown",
+          "settings": {
+            "label": "Magazijnuitverkoop eindigt over",
+            "end": ""
+          }
+        },
+        "buy_buttons-9": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": false,
+            "show_dynamic_checkout": false,
+            "dispatch_text": ""
+          }
+        },
+        "gift-10": {
+          "type": "gift",
+          "settings": {
+            "title": "Gratis Titanium Kookgids inbegrepen",
+            "text": "Leer alles uit jouw titanium kookgerei halen.",
+            "link": "/pages/titanium-kookgids"
+          }
+        },
+        "trust-11": {
+          "type": "trust",
+          "settings": {
+            "show_payment_icons": true
+          }
+        },
+        "collapsible_tab-12": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Details",
+            "icon": "list",
+            "source": "description",
+            "content": "",
+            "page": "",
+            "open": true
+          }
+        },
+        "collapsible_tab-13": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Specificaties",
+            "icon": "list",
+            "source": "specs",
+            "content": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_tab-14": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Verzending & retour",
+            "icon": "truck",
+            "source": "custom",
+            "content": "<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>30 dagen retour.</strong> Niet tevreden? Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer.</p><p><strong>25 jaar garantie.</strong> Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Je wettelijke rechten blijven daarnaast gelden.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_tab-15": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Onderhoudstips",
+            "icon": "drop",
+            "source": "care",
+            "content": "<p><strong>Voor het eerste gebruik.</strong> Was de pan met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Elke dag.</strong> Verwarm de pan twee tot drie minuten voor op middelhoog vuur, tot een druppel water over het oppervlak danst. Voeg olie toe, laat die even warm worden en begin met koken.</p><p><strong>Schoonmaken.</strong> Warm water en een zachte spons, of de vaatwasser. Zit er iets aangekoekt? Laat een bodem water een minuutje koken en veeg de pan schoon.</p><p>Meer tips in de gratis <a href=\"/pages/titanium-kookgids\">Titanium Kookgids</a>.</p>",
+            "page": "",
+            "open": false
+          }
+        },
+        "video_slider-18": {
+          "type": "video_slider",
+          "settings": {
+            "heading": "Bekijk hem in actie",
+            "text": "",
+            "url_1": "",
+            "caption_1": "",
+            "url_2": "",
+            "caption_2": "",
+            "url_3": "",
+            "caption_3": "",
+            "url_4": "",
+            "caption_4": "",
+            "url_5": "",
+            "caption_5": "",
+            "url_6": "",
+            "caption_6": ""
+          }
+        },
+        "complementary-16": {
+          "type": "complementary",
+          "settings": {
+            "heading": "Past hier goed bij",
+            "limit": 2
+          }
+        }
+      },
+      "block_order": [
+        "badge-1",
+        "title-2",
+        "rating-3",
+        "price-4",
+        "usp_tiles-5",
+        "variant_picker-6",
+        "bundle_picker-7",
+        "countdown-8",
+        "buy_buttons-9",
+        "gift-10",
+        "trust-11",
+        "collapsible_tab-12",
+        "collapsible_tab-13",
+        "collapsible_tab-14",
+        "collapsible_tab-15",
+        "video_slider-18",
+        "complementary-16"
+      ],
+      "settings": {
+        "gallery_chip": "Zonder coating",
+        "gallery_effects": true,
+        "show_sticky_atc": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      }
+    },
+    "pain": {
+      "type": "vk-lp-pain",
+      "blocks": {
+        "rule-1": {
+          "type": "rule",
+          "settings": {
+            "icon": "spoon",
+            "title": "Alleen houten of siliconen spatels",
+            "text": "Metaal en een antiaanbaklaag gaan niet samen."
+          }
+        },
+        "rule-2": {
+          "type": "rule",
+          "settings": {
+            "icon": "drop",
+            "title": "Voorzichtig afwassen",
+            "text": "Geen schuurspons, want elke kras tast de coating aan."
+          }
+        },
+        "rule-3": {
+          "type": "rule",
+          "settings": {
+            "icon": "thermometer",
+            "title": "Niet te heet",
+            "text": "Hoog vuur is niet goed voor de coating."
+          }
+        },
+        "rule-4": {
+          "type": "rule",
+          "settings": {
+            "icon": "alert",
+            "title": "Eén verkeerde beweging",
+            "text": "En er zit een kras in."
+          }
+        }
+      },
+      "block_order": [
+        "rule-1",
+        "rule-2",
+        "rule-3",
+        "rule-4"
+      ],
+      "settings": {
+        "eyebrow": "Herkenbaar?",
+        "heading": "Met een antiaanbakpan sta je altijd op je <em>hoede</em>.",
+        "text": "Je kookt volgens de regels van je pan, in plaats van zoals jij wilt.",
+        "closing": "Elke keer bakken, schuren en afwassen tast de antiaanbaklaag verder aan. <strong>Daarna plakt alles en is de pan aan vervanging toe.</strong>",
+        "color_scheme": "scheme-5",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "freedom": {
+      "type": "vk-lp-freedom",
+      "blocks": {
+        "tick-1": {
+          "type": "tick",
+          "settings": {
+            "title": "Schrapen met een metalen spatel? Prima.",
+            "text": "Spatels, gardes en tangen van metaal zijn welkom. Na verloop van tijd krijgt het oppervlak een lichte patina; dat is normaal en heeft geen invloed op het koken."
+          }
+        },
+        "tick-2": {
+          "type": "tick",
+          "settings": {
+            "title": "Schuren na het bakken? Geen probleem.",
+            "text": "Er is geen laag die je wegschuurt. Zit er iets aangekoekt? Laat een bodem water een minuutje koken en veeg de pan schoon."
+          }
+        },
+        "tick-3": {
+          "type": "tick",
+          "settings": {
+            "title": "De vaatwasser in? Natuurlijk.",
+            "text": "Vaatwasserbestendig. Met warm water en een zachte spons ben je meestal nog sneller klaar."
+          }
+        },
+        "tick-4": {
+          "type": "tick",
+          "settings": {
+            "title": "Gemaakt zonder PFAS",
+            "text": "Zonder PFAS, PFOA of PTFE en zonder chemische antiaanbaklaag. Je eten komt alleen in contact met titanium."
+          }
+        },
+        "tick-5": {
+          "type": "tick",
+          "settings": {
+            "title": "25 jaar garantie",
+            "text": "Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik."
+          }
+        }
+      },
+      "block_order": [
+        "tick-1",
+        "tick-2",
+        "tick-3",
+        "tick-4",
+        "tick-5"
+      ],
+      "settings": {
+        "eyebrow": "Het kan anders",
+        "heading": "De [product] heeft geen coating die kan <em>krassen</em>.",
+        "text": "Dus kook je zoals je wilt.",
+        "image_alt": "Gehamerd titanium kookoppervlak zonder coating",
+        "media_chip": "Zonder coating",
+        "band": "Eindelijk een pan waar je niet voorzichtig mee hoeft te zijn.",
+        "band_button": "Bestel nu",
+        "color_scheme": "scheme-1",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "versus": {
+      "type": "vk-lp-versus",
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "topic": "Spatel",
+            "theirs": "Alleen hout of siliconen",
+            "ours": "Ook metaal"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "topic": "Schoonmaken",
+            "theirs": "Zacht en voorzichtig",
+            "ours": "Schuren mag, vaatwasser ook"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "topic": "Hoog vuur",
+            "theirs": "Liever niet",
+            "ours": "Hittebestendig tot 540 °C, ook in de oven"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "topic": "Kookoppervlak",
+            "theirs": "Een coating die slijt",
+            "ours": "Massief titanium, zonder coating"
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "topic": "Levensduur",
+            "theirs": "Na een paar jaar vervangen",
+            "ours": "25 jaar garantie"
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5"
+      ],
+      "settings": {
+        "eyebrow": "Het verschil",
+        "heading": "Antiaanbakpan vs. <em>titanium</em>.",
+        "topic_label": "Onderwerp",
+        "theirs_label": "Antiaanbakpan",
+        "ours_label": "VOLKARA",
+        "color_scheme": "scheme-2",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "routine": {
+      "type": "vk-lp-routine",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Voorverwarmen",
+            "text": "Twee tot drie minuten op middelhoog vuur, tot een druppel water over het oppervlak danst."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Olie erin",
+            "text": "Voeg olie toe en laat die even warm worden. Dan begin je met koken."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Koken zoals jij wilt",
+            "text": "Keren, schrapen en roeren, ook met metalen keukengerei."
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "title": "Schoonmaken",
+            "text": "In de vaatwasser, of met warm water en een spons. Aangekoekt? Laat een bodem water een minuutje koken."
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4"
+      ],
+      "settings": {
+        "eyebrow": "Eerlijk is eerlijk",
+        "heading": "Geen coating? Dan even <em>voorverwarmen</em>.",
+        "text": "Zo werk je met een pan zonder antiaanbaklaag. Het went snel.",
+        "note": "Gratis Titanium Kookgids inbegrepen",
+        "note_link": "/pages/titanium-kookgids",
+        "color_scheme": "scheme-5",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "reviews": {
+      "type": "vk-reviews",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Voelt echt anders",
+            "text": "<p>Ik heb veel pannen geprobeerd, maar deze voelt echt anders. Stevig, mooi en kookt fantastisch.</p>",
+            "author": "Anna M.",
+            "product_label": "Gehamerde Titanium Pan",
+            "verified": true
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Eindelijk een pan die blijft",
+            "text": "<p>Eindelijk een pan die niet na een paar maanden vervangen hoeft te worden.</p>",
+            "author": "Sarah J.",
+            "product_label": "Gehamerde Titanium Pan",
+            "verified": true
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Je merkt direct het verschil",
+            "text": "<p>De warmteverdeling is geweldig. Je merkt direct het verschil.</p>",
+            "author": "Jan K.",
+            "product_label": "Gehamerde Titanium Pan",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3"
+      ],
+      "settings": {
+        "index": "",
+        "eyebrow": "Reviews",
+        "heading": "Dit zeggen onze <em>klanten</em>.",
+        "subheading": "",
+        "show_summary": true,
+        "average": "",
+        "autoplay": false,
+        "link_label": "",
+        "link": "",
+        "stack_effect": true,
+        "show_contours": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "disabled": true
+    },
+    "faq": {
+      "type": "vk-faq",
+      "blocks": {
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "Wat maakt Volkara pannen anders dan gewone anti-aanbakpannen?",
+            "answer": "<p>Gewone antiaanbakpannen hebben een chemische coating die door hitte, schuren en afwassen slijt. Volkara heeft geen coating: je kookt op massief titanium met een handgehamerde afwerking. Er is dus niets dat kan afbladderen.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Zijn Volkara pannen veilig in gebruik?",
+            "answer": "<p>Ja. Volkara is gemaakt zonder PFAS, PFOA of PTFE en heeft geen chemische antiaanbaklaag. Je eten komt alleen in contact met titanium.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Kan ik metalen keukengerei gebruiken?",
+            "answer": "<p>Ja. Er is geen coating die kan krassen, dus metalen spatels, gardes en tangen zijn welkom. Na verloop van tijd krijgt het oppervlak een lichte patina. Dat is normaal en heeft geen invloed op het koken.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "Op welke warmtebronnen kan ik Volkara gebruiken?",
+            "answer": "<p>Op alle gangbare warmtebronnen: gas, inductie, keramisch en elektrisch. De pannen kunnen ook in de oven en onder de grill.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "question": "Mogen Volkara pannen in de vaatwasser?",
+            "answer": "<p>Ja, ze zijn vaatwasserbestendig. Met warm water en een zachte spons ben je meestal nog sneller klaar.</p>"
+          }
+        },
+        "question-6": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe werkt de garantie?",
+            "answer": "<p>Op Volkara pannen krijg je 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis? Neem contact met ons op met je ordernummer en een foto, dan zorgen wij voor een oplossing. Je wettelijke rechten blijven daarnaast gewoon gelden. Lees meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p>"
+          }
+        },
+        "question-7": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe zwaar zijn Volkara pannen?",
+            "answer": "<p>Stevig, maar goed in balans: zwaarder dan een dunne antiaanbakpan en duidelijk lichter dan gietijzer van hetzelfde formaat. De handgreep ligt goed in de hand, ook als de pan vol is.</p>"
+          }
+        },
+        "question-8": {
+          "type": "question",
+          "settings": {
+            "question": "Moet ik mijn pan inbranden?",
+            "answer": "<p>Nee, dat is niet nodig. Was de pan voor het eerste gebruik af. Wil je, dan kun je hem kort voorbereiden: verwarm de pan, wrijf er een theelepel neutrale olie in, laat afkoelen en veeg hem uit.</p>"
+          }
+        },
+        "question-9": {
+          "type": "question",
+          "settings": {
+            "question": "Kan ik de pan retourneren als hij me niet bevalt?",
+            "answer": "<p>Ja. Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer. Lees meer over <a href=\"/pages/verzenden-en-retourneren\">verzenden en retourneren</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-3",
+        "question-5",
+        "question-1",
+        "question-2",
+        "question-8",
+        "question-4",
+        "question-6",
+        "question-9",
+        "question-7"
+      ],
+      "settings": {
+        "layout": "split",
+        "index": "",
+        "eyebrow": "Vragen",
+        "heading": "Nog <em>vragen</em>?",
+        "subheading": "",
+        "show_filter": false,
+        "contact_title": "Nog vragen?",
+        "contact_text": "Neem contact met ons op. We helpen je graag.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "offer": {
+      "type": "vk-lp-offer",
+      "settings": {
+        "heading_1": "Eindelijk een pan",
+        "heading_2": "waar je niet voorzichtig mee hoeft te zijn.",
+        "text": "Metalen spatel, schuren, vaatwasser. Gemaakt zonder PFAS, met 25 jaar garantie.",
+        "image_alt": "Gehamerde titanium pan van VOLKARA",
+        "deal": "Nu tot [korting]% korting",
+        "deal_fallback": "",
+        "sub": "",
+        "show_price": true,
+        "button_label": "Bestel nu",
+        "show_promises": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "main",
+    "pain",
+    "freedom",
+    "versus",
+    "routine",
+    "reviews",
+    "faq",
+    "offer"
+  ]
+}

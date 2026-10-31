@@ -1,0 +1,73 @@
+{%- comment -%}
+  Ad landing: honest expectations. A pan without coating wants a short preheat; this section says so up front,
+  in the same words as the care tab of the product page.
+{%- endcomment -%}
+{{ 'vk-lp.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-lp vk-lp-routine color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-lp-head" data-reveal>
+      {%- if s.eyebrow != blank %}<p class="vk-lp-eyebrow">{{ s.eyebrow | escape }}</p>{% endif -%}
+      {%- if s.heading != blank %}<h2 class="vk-lp-display vk-lp-h2">{{ s.heading }}</h2>{% endif -%}
+      {%- if s.text != blank %}<p class="vk-lp-lead">{{ s.text | escape }}</p>{% endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ol class="vk-lp-steps" role="list" data-reveal-stagger>
+        {%- for block in section.blocks -%}
+          <li class="vk-lp-step" data-reveal {{ block.shopify_attributes }}>
+            <span class="vk-lp-step__num" aria-hidden="true">{{ forloop.index }}</span>
+            <span class="vk-lp-step__title">{{ block.settings.title | escape }}</span>
+            {%- if block.settings.text != blank %}<span class="vk-lp-step__text">{{ block.settings.text | escape }}</span>{% endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+
+    {%- if s.note != blank -%}
+      <p class="vk-lp-routine__note" data-reveal>
+        <span class="vk-lp-routine__note-icon" aria-hidden="true">{% render 'vk-icon', name: 'gift', size: 18 %}</span>
+        <span>{%- if s.note_link != blank %}<a href="{{ s.note_link }}">{{ s.note | escape }}</a>{% else %}{{ s.note | escape }}{% endif -%}</span>
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ad landing: how to cook",
+  "tag": "div",
+  "class": "vk-lp-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Eerlijk is eerlijk" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Geen coating? Dan even <em>voorverwarmen</em>." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Zo laat je eten los en krijg je een mooie korst." },
+    { "type": "text", "id": "note", "label": "Note", "default": "Gratis Titanium Kookgids inbegrepen" },
+    { "type": "url", "id": "note_link", "label": "Note link" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-5" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Voorverwarmen" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "Ad landing: how to cook",
+      "blocks": [
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

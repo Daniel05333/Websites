@@ -1,0 +1,69 @@
+{%- comment -%}
+  Ad landing: closing offer. Red panel + pan + the cream offer bar from the ad creatives, plus the store promises.
+{%- endcomment -%}
+{{ 'vk-lp.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-lp vk-lp-offer color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-lp-offer__card" data-reveal>
+      <div class="vk-lp-offer__top">
+        <div class="vk-lp-offer__copy">
+          {%- if s.heading_1 != blank or s.heading_2 != blank -%}
+            <h2 class="vk-lp-display vk-lp-offer__title">
+              {%- if s.heading_1 != blank %}<span>{{ s.heading_1 | escape }}</span>{% endif -%}
+              {%- if s.heading_2 != blank %} <span class="vk-lp-offer__title-2">{{ s.heading_2 | escape }}</span>{% endif -%}
+            </h2>
+          {%- endif -%}
+          {%- if s.text != blank %}<p class="vk-lp-offer__text">{{ s.text | escape }}</p>{% endif -%}
+        </div>
+        <div class="vk-lp-offer__media">
+          {%- if s.image != blank -%}
+            {%- render 'vk-lp-media', image: s.image, alt: s.image_alt, class: 'vk-lp-offer__img' -%}
+          {%- else -%}
+            {%- render 'vk-lp-media', fallback: 'vk-lp-pan-top.webp', fallback_width: 880, fallback_height: 674, alt: s.image_alt, class: 'vk-lp-offer__img' -%}
+          {%- endif -%}
+        </div>
+      </div>
+      {%- if product -%}
+        {%- render 'vk-lp-offer-bar', product: product, deal: s.deal, fallback: s.deal_fallback, sub: s.sub, button_label: s.button_label, show_price: s.show_price, class: 'vk-lp-bar--flush' -%}
+      {%- endif -%}
+    </div>
+
+    {%- if s.show_promises -%}
+      <ul class="vk-lp-promises" role="list">
+        {%- if settings.promise_shipping != blank %}<li>{% render 'vk-icon', name: 'truck', size: 16 %}{{ settings.promise_shipping }}</li>{% endif -%}
+        {%- if settings.promise_trial != blank %}<li>{% render 'vk-icon', name: 'return', size: 16 %}{{ settings.promise_trial }}</li>{% endif -%}
+        {%- if settings.promise_warranty != blank %}<li>{% render 'vk-icon', name: 'shield', size: 16 %}{{ settings.promise_warranty }}</li>{% endif -%}
+        {%- if settings.promise_secure != blank %}<li>{% render 'vk-icon', name: 'lock', size: 16 %}{{ settings.promise_secure }}</li>{% endif -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ad landing: offer",
+  "tag": "div",
+  "class": "vk-lp-section",
+  "settings": [
+    { "type": "text", "id": "heading_1", "label": "Heading line 1", "default": "Eindelijk een pan" },
+    { "type": "text", "id": "heading_2", "label": "Heading line 2 (dark)", "default": "waar je niet voorzichtig mee hoeft te zijn." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Metalen spatel, schuurspons, vaatwasser. Gemaakt zonder PFAS en met 25 jaar garantie." },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Without an image the pan from the ad creative is used." },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Gehamerde titanium pan van VOLKARA" },
+    { "type": "header", "content": "Offer bar" },
+    { "type": "text", "id": "deal", "label": "Deal line", "info": "[korting] becomes the highest real discount of all sizes (from compare-at prices).", "default": "Nu tot [korting]% korting" },
+    { "type": "text", "id": "deal_fallback", "label": "Line when there is no discount", "default": "" },
+    { "type": "text", "id": "sub", "label": "Line under the deal", "info": "Leave empty to use the shipping and returns promises from theme settings." },
+    { "type": "checkbox", "id": "show_price", "label": "Show 'from' price", "default": true },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Bestel nu" },
+    { "type": "checkbox", "id": "show_promises", "label": "Show store promises", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [{ "name": "Ad landing: offer" }]
+}
+{% endschema %}

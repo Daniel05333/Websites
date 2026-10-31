@@ -1,0 +1,98 @@
+{%- comment -%}
+  Ad landing hero (template product.metalen-spatel only).
+  Same message, order and look as the "Metalen spatel? Ga je gang." ad creatives, so a visitor from an ad
+  recognises the page instantly. The deal line is calculated from real compare-at prices (vk-lp-offer-bar).
+{%- endcomment -%}
+{{ 'vk-lp.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-lp vk-lp-hero color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container vk-lp-hero__grid">
+    <div class="vk-lp-hero__copy">
+      <div class="vk-lp-hero__top">
+        {%- if s.brand != blank %}<p class="vk-lp-brand">{{ s.brand | escape }}</p>{% endif -%}
+        {%- if s.show_rating and product -%}<a href="#buy" class="vk-lp-hero__rating">{% render 'vk-product-rating', product: product, size: 'sm' %}</a>{%- endif -%}
+      </div>
+      <h2 class="vk-lp-display vk-lp-hero__title">
+        {%- if s.heading_1 != blank %}<span class="vk-lp-hero__line">{{ s.heading_1 | escape }}</span>{% endif -%}
+        {%- if s.heading_2 != blank %} <span class="vk-lp-hero__line vk-lp-red">{{ s.heading_2 | escape }}</span>{% endif -%}
+      </h2>
+      {%- if s.text_1 != blank or s.text_2 != blank -%}
+        <p class="vk-lp-hero__text">
+          {%- if s.text_1 != blank %}<span>{{ s.text_1 | escape }}</span>{% endif -%}
+          {%- if s.text_2 != blank %} <span>{{ s.text_2 | escape }}</span>{% endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="vk-lp-hero__media">
+      <div class="vk-lp-hero__glow" aria-hidden="true"></div>
+      {%- if s.image != blank -%}
+        {%- render 'vk-lp-media', image: s.image, alt: s.image_alt, eager: true, class: 'vk-lp-hero__img' -%}
+      {%- elsif s.fallback == 'angle' -%}
+        {%- render 'vk-lp-media', fallback: 'vk-lp-pan-angle.webp', fallback_width: 880, fallback_height: 756, alt: s.image_alt, eager: true, class: 'vk-lp-hero__img' -%}
+      {%- else -%}
+        {%- render 'vk-lp-media', fallback: 'vk-lp-pan-top.webp', fallback_width: 880, fallback_height: 674, alt: s.image_alt, eager: true, class: 'vk-lp-hero__img' -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="vk-lp-checks vk-lp-hero__checks" role="list">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}><span class="vk-lp-checks__icon" aria-hidden="true">{% render 'vk-icon', name: 'check', size: 14 %}</span>{{ block.settings.text | escape }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if product -%}
+      <div class="vk-lp-hero__bar">
+        {%- render 'vk-lp-offer-bar', product: product, deal: s.deal, fallback: s.deal_fallback, sub: s.sub, button_label: s.button_label, show_price: s.show_price -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ad landing: hero",
+  "tag": "div",
+  "class": "vk-lp-section",
+  "settings": [
+    { "type": "paragraph", "content": "Matches the 'Metalen spatel? Ga je gang.' ad creatives. The button scrolls to the buy box." },
+    { "type": "text", "id": "brand", "label": "Brand line", "default": "VOLKARA" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show product rating", "info": "Only appears when your reviews app fills the reviews.rating metafield.", "default": true },
+    { "type": "text", "id": "heading_1", "label": "Heading line 1", "default": "Metalen spatel?" },
+    { "type": "text", "id": "heading_2", "label": "Heading line 2 (red)", "default": "Ga je gang." },
+    { "type": "text", "id": "text_1", "label": "Text line 1", "default": "Geen coating die kan krassen." },
+    { "type": "text", "id": "text_2", "label": "Text line 2", "default": "Schrapen, schuren, vaatwasser: hij kan het hebben." },
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Without an image the pan from the ad creative is used." },
+    { "type": "select", "id": "fallback", "label": "Built-in image", "default": "top", "options": [{ "value": "top", "label": "Pan from above" }, { "value": "angle", "label": "Pan at an angle" }] },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Gehamerde titanium pan van VOLKARA" },
+    { "type": "header", "content": "Offer bar" },
+    { "type": "text", "id": "deal", "label": "Deal line", "info": "[korting] becomes the highest real discount of all sizes (from compare-at prices).", "default": "Nu tot [korting]% korting" },
+    { "type": "text", "id": "deal_fallback", "label": "Line when there is no discount", "default": "" },
+    { "type": "text", "id": "sub", "label": "Line under the deal", "info": "Leave empty to use the shipping and returns promises from theme settings." },
+    { "type": "checkbox", "id": "show_price", "label": "Show 'from' price", "default": true },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Bestel nu" },
+    { "type": "header", "content": "Style" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 56 }
+  ],
+  "blocks": [
+    { "type": "check", "name": "Check", "limit": 6, "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Metalen spatel" }] }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "Ad landing: hero",
+      "blocks": [
+        { "type": "check", "settings": { "text": "Metalen spatel" } },
+        { "type": "check", "settings": { "text": "Vaatwasser" } },
+        { "type": "check", "settings": { "text": "Zonder PFAS" } },
+        { "type": "check", "settings": { "text": "25 jaar garantie" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+{%- comment -%}
+  Ad landing: non-stick pan vs. this pan. Rows are blocks; [product] in heading / column label becomes the product title.
+{%- endcomment -%}
+{{ 'vk-lp.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_lp_title = product.title | default: 'VOLKARA' | escape
+  assign vk_lp_heading = s.heading | replace: '[product]', vk_lp_title
+  assign vk_lp_ours = s.ours_label | escape | replace: '[product]', vk_lp_title
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-lp vk-lp-versus color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container vk-container--narrow">
+    <div class="vk-lp-head vk-lp-head--center" data-reveal>
+      {%- if s.eyebrow != blank %}<p class="vk-lp-eyebrow">{{ s.eyebrow | escape }}</p>{% endif -%}
+      {%- if vk_lp_heading != blank %}<h2 class="vk-lp-display vk-lp-h2">{{ vk_lp_heading }}</h2>{% endif -%}
+    </div>
+
+    <div class="vk-lp-vs" role="table" aria-label="{{ s.theirs_label | escape }} / {{ vk_lp_ours | strip_html }}" data-reveal>
+      <div class="vk-lp-vs__row vk-lp-vs__row--head" role="row">
+        <span role="columnheader"><span class="vk-visually-hidden">{{ s.topic_label | escape }}</span></span>
+        <span role="columnheader" class="vk-lp-vs__theirs">{{ s.theirs_label | escape }}</span>
+        <span role="columnheader" class="vk-lp-vs__ours">{{ vk_lp_ours }}</span>
+      </div>
+      {%- for block in section.blocks -%}
+        <div class="vk-lp-vs__row" role="row" {{ block.shopify_attributes }}>
+          <span class="vk-lp-vs__topic" role="rowheader">{{ block.settings.topic | escape }}</span>
+          <span class="vk-lp-vs__cell vk-lp-vs__cell--theirs" role="cell"><span class="vk-lp-vs__mark" aria-hidden="true">{% render 'vk-icon', name: 'close', size: 14 %}</span>{{ block.settings.theirs | escape }}</span>
+          <span class="vk-lp-vs__cell vk-lp-vs__cell--ours" role="cell"><span class="vk-lp-vs__mark" aria-hidden="true">{% render 'vk-icon', name: 'check', size: 14 %}</span>{{ block.settings.ours | escape }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ad landing: comparison",
+  "tag": "div",
+  "class": "vk-lp-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Het verschil" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Antiaanbakpan vs. <em>titanium</em>." },
+    { "type": "text", "id": "topic_label", "label": "Topic column label (screen readers)", "default": "Onderwerp" },
+    { "type": "text", "id": "theirs_label", "label": "Left column", "default": "Antiaanbakpan" },
+    { "type": "text", "id": "ours_label", "label": "Right column", "info": "[product] becomes the product title.", "default": "VOLKARA" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 112 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "topic", "label": "Topic", "default": "Spatel" },
+        { "type": "text", "id": "theirs", "label": "Non-stick pan", "default": "Alleen hout of siliconen" },
+        { "type": "text", "id": "ours", "label": "This pan", "default": "Ook metaal" }
+      ]
+    }
+  ],
+  "enabled_on": { "templates": ["product"] },
+  "presets": [
+    {
+      "name": "Ad landing: comparison",
+      "blocks": [
+        { "type": "row" }
+      ]
+    }
+  ]
+}
+{% endschema %}
