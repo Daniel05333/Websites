@@ -10,10 +10,35 @@
     {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}
     <div class="vk-versus__grid">
       <div class="vk-versus__visual" data-reveal>
-        <div class="vk-versus__media">
-          {%- render 'vk-image', image: s.image, sizes: '(min-width: 900px) 40vw, 45vw', placeholder: 'macro', alt: s.image_alt -%}
-          {%- if s.tag != blank -%}<span class="vk-versus__tag">{{ s.tag }}</span>{%- endif -%}
-        </div>
+        {%- if s.visual == 'plastic' and s.image == blank -%}
+          {%- comment -%} Drawn plastic board: knife grooves draw in, particles drift off, material labels glow. {%- endcomment -%}
+          <div class="vk-versus__media vk-plastic" aria-hidden="true">
+            {%- if s.tag != blank -%}<span class="vk-plastic__badge">{{ s.tag }}</span>{%- endif -%}
+            <svg class="vk-plastic__cuts" viewBox="0 0 400 500" preserveAspectRatio="none">
+              {%- assign vk_cuts = '60,120,140,60|210,40,190,150|300,90,380,140|120,170,40,240|90,230,170,300|240,210,330,170|170,320,140,400|290,300,370,360|60,360,30,450|210,420,300,380|330,440,380,500|110,470,180,430|260,260,250,330|30,300,110,280' | split: '|' -%}
+              {%- for c in vk_cuts -%}
+                {%- assign p = c | split: ',' -%}
+                <line x1="{{ p[0] }}" y1="{{ p[1] }}" x2="{{ p[2] }}" y2="{{ p[3] }}" style="--i: {{ forloop.index0 }}" />
+              {%- endfor -%}
+            </svg>
+            {%- assign vk_dots = '34,16,8|20,22,5|74,24,7|28,40,5|62,38,6|45,54,9|18,62,5|56,70,7|30,80,6|70,84,5|50,30,4|82,58,6|40,88,5|64,52,4' | split: '|' -%}
+            {%- for d in vk_dots -%}
+              {%- assign p = d | split: ',' -%}
+              <span class="vk-plastic__dot" style="--x: {{ p[0] }}%; --y: {{ p[1] }}%; --s: {{ p[2] }}px; --i: {{ forloop.index0 }}"></span>
+            {%- endfor -%}
+            {%- assign vk_labels = s.labels | split: ',' -%}
+            {%- assign vk_spots = '62,18|38,44|28,72|70,66|50,90' | split: '|' -%}
+            {%- for l in vk_labels limit: 5 -%}
+              {%- assign p = vk_spots[forloop.index0] | split: ',' -%}
+              <span class="vk-plastic__label" style="--x: {{ p[0] }}%; --y: {{ p[1] }}%; --i: {{ forloop.index0 }}">{{ l | strip }}</span>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="vk-versus__media">
+            {%- render 'vk-image', image: s.image, sizes: '(min-width: 900px) 40vw, 45vw', placeholder: 'macro', alt: s.image_alt -%}
+            {%- if s.tag != blank -%}<span class="vk-versus__tag">{{ s.tag }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
         {%- if s.caption_title != blank or s.caption != blank -%}
           <p class="vk-versus__caption">{% if s.caption_title != blank %}<strong>{{ s.caption_title }}</strong>{% endif %}{{ s.caption }}</p>
         {%- endif -%}
@@ -52,6 +77,8 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Volkara vs. plastic" },
     { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Elke snede <em>telt</em>" },
     { "type": "inline_richtext", "id": "subheading", "label": "Subheading" },
+    { "type": "select", "id": "visual", "label": "Visual", "default": "image", "info": "Plastic board: a drawn light board with knife grooves, drifting particles and material labels. Used when no image is set.", "options": [{ "value": "image", "label": "Image" }, { "value": "plastic", "label": "Plastic board (animated)" }] },
+    { "type": "text", "id": "labels", "label": "Material labels on the plastic board", "info": "Comma-separated, up to 5. Only name materials a plastic board really contains.", "default": "PE, PP, Microplastics, Kunststof" },
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "text", "id": "image_alt", "label": "Image alt text" },
     { "type": "text", "id": "tag", "label": "Tag on the image" },
