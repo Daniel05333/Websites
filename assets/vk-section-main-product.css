@@ -93,8 +93,8 @@
 .vk-bundle .vk-pdp__option-label { margin-bottom: .5rem; }
 .vk-bundle .vk-pill span { min-height: 42px; }
 .vk-bundle__slots { display: grid; gap: .5rem; }
-.vk-bundle__slot { display: grid; grid-template-columns: 4.25rem minmax(0, 1fr); gap: .75rem; align-items: center; }
-.vk-bundle__slot-label { margin: 0; }
+.vk-bundle__slot { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .75rem; align-items: center; }
+.vk-bundle__slot-label { margin: 0; min-width: 4.25rem; white-space: nowrap; }
 .vk-pdp__select { width: 100%; min-height: 46px; font-size: .9375rem; }
 .vk-pdp__variants--dropdown .vk-pdp__option { gap: 0; }
 .vk-pdp__variants--dropdown .vk-pdp__option-value { display: none; }

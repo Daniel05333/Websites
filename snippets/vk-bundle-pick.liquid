@@ -11,6 +11,7 @@
   @param {object} product - Current product (single option, e.g. size).
   @param {string} section_id - Section id.
   @param {boolean} [ember] - Filled red badge.
+  @param {string} [slot_label] - Item name per pick (e.g. Plank). Empty = the locale's "Pan".
   @example
   {% render 'vk-bundle-pick', key: 'pick2', count: 2, discount: 5, title: 'Set', product: product, section_id: section.id %}
 {%- enddoc -%}
@@ -43,7 +44,7 @@
         {%- assign vk_idx = i | minus: 1 -%}
         {%- assign vk_default = vk_values[vk_idx] | default: vk_values.last -%}
         <div class="vk-bundle__slot" data-pick-slot>
-          <label class="vk-bundle__slot-label vk-eyebrow" for="vk-{{ key }}-{{ i }}-{{ section_id }}">{{ 'products.product.bundle_pan' | t: number: i }}</label>
+          <label class="vk-bundle__slot-label vk-eyebrow" for="vk-{{ key }}-{{ i }}-{{ section_id }}">{% if slot_label != blank %}{{ slot_label }} {{ i }}{% else %}{{ 'products.product.bundle_pan' | t: number: i }}{% endif %}</label>
           <select class="vk-select vk-pdp__select" id="vk-{{ key }}-{{ i }}-{{ section_id }}" name="vk-{{ key }}-{{ i }}-{{ section_id }}">
             {%- for value in vk_values -%}
               {%- assign vk_v = product.variants | where: 'option1', value | first -%}

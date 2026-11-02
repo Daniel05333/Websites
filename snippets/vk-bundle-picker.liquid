@@ -60,7 +60,7 @@
       </div></div>
     </div>
     {%- if vk_t2_pick > 1 -%}
-      {%- render 'vk-bundle-pick', key: 'pick2', count: vk_t2_pick, discount: b.t2_discount, title: b.t2_title, tag: b.t2_tag, text: b.t2_text, product: product, section_id: section_id, ember: false -%}
+      {%- render 'vk-bundle-pick', key: 'pick2', count: vk_t2_pick, discount: b.t2_discount, title: b.t2_title, tag: b.t2_tag, text: b.t2_text, product: product, section_id: section_id, ember: false, slot_label: b.slot_label -%}
     {%- elsif vk_t2 != blank and vk_t2.id != product.id -%}
       {%- render 'vk-bundle-tier', key: 'bundle2', title: b.t2_title, tag: b.t2_tag, text: b.t2_text, items: b.t2_items, tier_product: vk_t2, tier_variant: vk_t2_v, section_id: section_id, ember: false -%}
     {%- elsif vk_addon != blank -%}
@@ -77,7 +77,7 @@
       </div>
     {%- endif -%}
     {%- if vk_t3_pick > 1 -%}
-      {%- render 'vk-bundle-pick', key: 'pick3', count: vk_t3_pick, discount: b.t3_discount, title: b.t3_title, tag: b.t3_tag, text: b.t3_text, product: product, section_id: section_id, ember: true -%}
+      {%- render 'vk-bundle-pick', key: 'pick3', count: vk_t3_pick, discount: b.t3_discount, title: b.t3_title, tag: b.t3_tag, text: b.t3_text, product: product, section_id: section_id, ember: true, slot_label: b.slot_label -%}
     {%- elsif vk_t3 != blank and vk_t3.id != product.id -%}
       {%- render 'vk-bundle-tier', key: 'bundle', title: b.t3_title, tag: b.t3_tag, text: b.t3_text, items: b.t3_items, tier_product: vk_t3, tier_variant: vk_t3_v, section_id: section_id, ember: true -%}
     {%- endif -%}

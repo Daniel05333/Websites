@@ -33,6 +33,28 @@
           assign vk_size_help = ''
           assign vk_vp_block = section.blocks | where: 'type', 'variant_picker' | first
           assign vk_bp_block = section.blocks | where: 'type', 'bundle_picker' | first
+          # Only show the bundle tiers when at least one extra tier can render for this product.
+          if vk_bp_block
+            assign vk_bp = vk_bp_block.settings
+            assign vk_bp_tiers = false
+            if product.options.size == 1 and product.has_only_default_variant == false
+              if vk_bp.t2_pick > 1 or vk_bp.t3_pick > 1
+                assign vk_bp_tiers = true
+              endif
+            endif
+            if vk_bp.t2_product != blank and vk_bp.t2_product.id != product.id
+              assign vk_bp_tiers = true
+            endif
+            if vk_bp.t3_product != blank and vk_bp.t3_product.id != product.id
+              assign vk_bp_tiers = true
+            endif
+            if vk_bp.t2_addon != blank
+              assign vk_bp_tiers = true
+            endif
+            unless vk_bp_tiers
+              assign vk_bp_block = nil
+            endunless
+          endif
           if vk_vp_block and vk_bp_block and vk_bp_block.settings.nest_variants and product.has_only_default_variant == false
             assign vk_nest_variants = true
             assign vk_size_help = vk_vp_block.settings.size_help
@@ -85,7 +107,9 @@
               {%- endunless -%}
 
             {%- when 'bundle_picker' -%}
-              {%- render 'vk-bundle-picker', block: block, product: product, variant: vk_v, section_id: section.id, nest_variants: vk_nest_variants, size_help: vk_size_help -%}
+              {%- if vk_bp_block -%}
+                {%- render 'vk-bundle-picker', block: block, product: product, variant: vk_v, section_id: section.id, nest_variants: vk_nest_variants, size_help: vk_size_help -%}
+              {%- endif -%}
 
             {%- when 'countdown' -%}
               {%- if block.settings.end != blank -%}<div class="vk-pdp__block vk-pdp__countdown" {{ block.shopify_attributes }}>{% render 'vk-countdown', end: block.settings.end, label: block.settings.label %}</div>{%- endif -%}
@@ -218,6 +242,7 @@
       { "type": "paragraph", "content": "Honest bundles: savings are calculated from real prices. Tier products are added to the cart as separate items." },
       { "type": "text", "id": "label", "label": "Label", "default": "Kies je set" },
       { "type": "checkbox", "id": "nest_variants", "label": "Show size options inside the first tier", "default": true },
+      { "type": "text", "id": "slot_label", "label": "Item name in the pick-your-size tiers", "info": "E.g. Pan, Plank, Mes. Shown as \"Plank 1\", \"Plank 2\". Empty = Pan." },
       { "type": "select", "id": "size_style", "label": "Size choice in the first tier", "default": "dropdown", "options": [{ "value": "dropdown", "label": "Dropdown" }, { "value": "pills", "label": "Buttons" }] },
       { "type": "text", "id": "t1_title", "label": "Tier 1 title", "default": "De pan" },
       { "type": "text", "id": "t1_text", "label": "Tier 1 detail", "default": "Eén Forge Pan in jouw maat." },

@@ -123,6 +123,32 @@
         "share-14": {
           "type": "share",
           "settings": {}
+        },
+        "bundle_picker-16": {
+          "type": "bundle_picker",
+          "settings": {
+            "label": "Kies je set",
+            "nest_variants": true,
+            "size_style": "dropdown",
+            "slot_label": "Plank",
+            "t1_title": "Eén plank",
+            "t1_text": "Eén titanium snijplank in de maat die jij wilt.",
+            "t2_title": "Duo",
+            "t2_text": "Twee planken, jij kiest per plank de maat. Handig voor vlees en groente apart.",
+            "t2_tag": "Handig",
+            "t2_pick": 2,
+            "t2_discount": 0,
+            "t2_items": "",
+            "t2_addon": "",
+            "t2_product": "",
+            "t3_title": "Trio",
+            "t3_text": "Drie planken in de maten die jij wilt, voor elke klus de juiste.",
+            "t3_tag": "Compleet",
+            "t3_pick": 3,
+            "t3_discount": 0,
+            "t3_items": "",
+            "t3_product": ""
+          }
         }
       },
       "block_order": [
@@ -132,6 +158,7 @@
         "price-4",
         "usp_tiles-5",
         "variant_picker-6",
+        "bundle_picker-16",
         "buy_buttons-8",
         "trust-9",
         "video_slider-15",

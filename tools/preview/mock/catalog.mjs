@@ -194,6 +194,13 @@ export const products = [
   P(1015, 'titanium-kookgids-ebook', 'Titanium Kookgids (e-book)', 'E-book', ['digital', 'preview-only'], [],
     single(0, 1500, 'VK-EBOOK'),
     { subtitle: 'Gratis bij elke bestelling.', description: html('Testproduct voor de preview: een digitaal e-book dat gratis bij elke bestelling wordt gevoegd.', []) }),
+  // Knife sets with the store's real handles, so the bundle tiers on the knife template render in the preview.
+  P(1017, 'japanse-gehamerde-damascus-koksmesset-3-delige-set', 'Japanse gehamerde Damascus koksmesset – 3-delige set', 'Mes', ['preview-only'], [],
+    single(17295, null, 'VK-KN-SET3'),
+    { subtitle: '', description: html('Testproduct voor de preview: messenset van drie.', []) }),
+  P(1018, 'japanse-damascus-nakama-shinku-5-delige-chefs-messenset-precisiebladen', "Japanse Damascus Nakama Shinku 5-delige Chef's Messenset", 'Mes', ['preview-only'], [],
+    single(38495, null, 'VK-KN-SET5'),
+    { subtitle: '', description: html('Testproduct voor de preview: messenset van vijf.', []) }),
 ];
 
 export const collections = [

@@ -120,6 +120,32 @@
             "heading": "Uit echte keukens",
             "text": ""
           }
+        },
+        "bundle_picker-16": {
+          "type": "bundle_picker",
+          "settings": {
+            "label": "Kies je set",
+            "nest_variants": true,
+            "size_style": "dropdown",
+            "slot_label": "Mes",
+            "t1_title": "Los mes",
+            "t1_text": "Dit mes, klaar voor elke dag.",
+            "t2_title": "Koksmesset",
+            "t2_text": "Drie gehamerde Damascus-messen voor de belangrijkste klussen in je keuken.",
+            "t2_tag": "Starter",
+            "t2_pick": 0,
+            "t2_discount": 0,
+            "t2_items": "",
+            "t2_addon": "",
+            "t2_product": "japanse-gehamerde-damascus-koksmesset-3-delige-set",
+            "t3_title": "Chef's messenset",
+            "t3_text": "Vijf Damascus-precisiemessen: alles wat je in de keuken nodig hebt.",
+            "t3_tag": "Compleet",
+            "t3_pick": 0,
+            "t3_discount": 0,
+            "t3_items": "",
+            "t3_product": "japanse-damascus-nakama-shinku-5-delige-chefs-messenset-precisiebladen"
+          }
         }
       },
       "block_order": [
@@ -129,6 +155,7 @@
         "price-4",
         "usp_tiles-5",
         "variant_picker-6",
+        "bundle_picker-16",
         "buy_buttons-8",
         "trust-9",
         "video_slider-15",
