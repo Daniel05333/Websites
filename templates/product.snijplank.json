@@ -1,20 +1,7 @@
-/*
- * VOLKARA template. Edit in the Shopify theme editor.
- * Cutting board product page: assign under Products → (titanium board) → Theme template → "snijplank".
- */
 {
   "sections": {
     "main": {
       "type": "vk-main-product",
-      "settings": {
-        "gallery_chip": "25 jaar garantie",
-        "show_sticky_atc": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 96,
-        "gallery_effects": false,
-        "gallery_layout": "grid"
-      },
       "blocks": {
         "badge-1": {
           "type": "badge",
@@ -73,6 +60,26 @@
             "show_payment_icons": true
           }
         },
+        "video_slider-15": {
+          "type": "video_slider",
+          "disabled": true,
+          "settings": {
+            "heading": "Echte koks, echt resultaat",
+            "text": "",
+            "url_1": "",
+            "caption_1": "",
+            "url_2": "",
+            "caption_2": "",
+            "url_3": "",
+            "caption_3": "",
+            "url_4": "",
+            "caption_4": "",
+            "url_5": "",
+            "caption_5": "",
+            "url_6": "",
+            "caption_6": ""
+          }
+        },
         "collapsible_tab-10": {
           "type": "collapsible_tab",
           "settings": {
@@ -80,6 +87,7 @@
             "icon": "list",
             "source": "description",
             "content": "",
+            "page": "",
             "open": false
           }
         },
@@ -90,6 +98,7 @@
             "icon": "drop",
             "source": "custom",
             "content": "<p><strong>Schoonmaken.</strong> Spoel de plank af met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Geuren.</strong> Ruikt de plank na vis of knoflook? Spoel hem na met warm water; titanium neemt geen geuren op.</p><p><strong>Je messen.</strong> Een harde plank maakt een snijkant sneller bot dan hout. Zet je messen daarom regelmatig aan.</p>",
+            "page": "",
             "open": false
           }
         },
@@ -100,6 +109,7 @@
             "icon": "truck",
             "source": "custom",
             "content": "<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>30 dagen retour.</strong> Niet tevreden? Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer.</p><p><strong>25 jaar garantie.</strong> Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Je wettelijke rechten blijven daarnaast gelden.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "page": "",
             "open": false
           }
         },
@@ -113,13 +123,6 @@
         "share-14": {
           "type": "share",
           "settings": {}
-        },
-        "video_slider-15": {
-          "type": "video_slider",
-          "settings": {
-            "heading": "Echte koks, echt resultaat",
-            "text": ""
-          }
         }
       },
       "block_order": [
@@ -137,26 +140,19 @@
         "collapsible_tab-12",
         "complementary-13",
         "share-14"
-      ]
+      ],
+      "settings": {
+        "gallery_chip": "25 jaar garantie",
+        "gallery_layout": "grid",
+        "gallery_effects": false,
+        "show_sticky_atc": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      }
     },
     "versus": {
       "type": "vk-versus",
-      "settings": {
-        "eyebrow": "Waarom een titanium snijplank",
-        "heading": "Wat er achterblijft na <em>elke snede</em>.",
-        "subheading": "Een plastic snijplank laat met elke snede iets achter. Onze plank niet.",
-        "image_alt": "Een gewone plastic snijplank",
-        "tag": "Bevat kunststof",
-        "caption_title": "Gewone plastic plank",
-        "caption": "Messen laten groeven achter waarin vocht en etensresten blijven zitten.",
-        "ours_label": "Onze plank",
-        "theirs_label": "Plastic plank",
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "visual": "plastic",
-        "labels": "PE, PP, Microplastics, Kunststof"
-      },
       "blocks": {
         "row-1": {
           "type": "row",
@@ -214,24 +210,26 @@
         "row-4",
         "row-5",
         "stat-1"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Waarom een titanium snijplank",
+        "heading": "Wat er achterblijft na <em>elke snede</em>.",
+        "subheading": "Een plastic snijplank laat met elke snede iets achter. Onze plank niet.",
+        "image_alt": "Een gewone plastic snijplank",
+        "tag": "Bevat kunststof",
+        "caption_title": "Gewone plastic plank",
+        "caption": "Messen laten groeven achter waarin vocht en etensresten blijven zitten.",
+        "ours_label": "Onze plank",
+        "theirs_label": "Plastic plank",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "visual": "plastic",
+        "labels": "PE, PP, Microplastics, Kunststof"
+      }
     },
     "difference": {
       "type": "vk-solution",
-      "settings": {
-        "index": "",
-        "eyebrow": "Het Volkara-verschil",
-        "heading": "Gemaakt om <em>niet</em> te vervangen.",
-        "subheading": "Gekozen op wat het in je keuken doet: sterk, schoon en veilig.",
-        "fallback": "vk-visual-pan-angle.webp",
-        "image_alt": "De titanium snijplank met genummerde kenmerken",
-        "button_label": "",
-        "button_url": "",
-        "stack_effect": false,
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 120
-      },
       "blocks": {
         "point-1": {
           "type": "point",
@@ -319,7 +317,22 @@
         "hotspot-2",
         "hotspot-3",
         "hotspot-4"
-      ]
+      ],
+      "settings": {
+        "index": "",
+        "eyebrow": "Het Volkara-verschil",
+        "heading": "Gemaakt om <em>niet</em> te vervangen.",
+        "subheading": "Gekozen op wat het in je keuken doet: sterk, schoon en veilig.",
+        "image": "shopify://shop_images/Untitleddesign_56.png",
+        "fallback": "vk-visual-pan-angle.webp",
+        "image_alt": "De titanium snijplank met genummerde kenmerken",
+        "button_label": "",
+        "button_url": "",
+        "stack_effect": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
     },
     "reviews": {
       "type": "vk-reviews",
@@ -343,22 +356,6 @@
     },
     "compare": {
       "type": "vk-comparison",
-      "settings": {
-        "index": "",
-        "eyebrow": "Waarom Volkara?",
-        "heading": "Titanium tegenover een <em>gewone</em> snijplank.",
-        "subheading": "Per onderwerp naast elkaar gezet.",
-        "competitor_1": "Gewone snijplanken",
-        "competitor_2": "",
-        "footnote": "Met 25 jaar garantie.",
-        "button_label": "",
-        "button_url": "",
-        "stack_effect": false,
-        "show_contours": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 96
-      },
       "blocks": {
         "row-1": {
           "type": "row",
@@ -440,17 +437,26 @@
         "row-4",
         "row-5",
         "row-6"
-      ]
+      ],
+      "settings": {
+        "index": "",
+        "eyebrow": "Waarom Volkara?",
+        "heading": "Titanium tegenover een <em>gewone</em> snijplank.",
+        "subheading": "Per onderwerp naast elkaar gezet.",
+        "competitor_1": "Gewone snijplanken",
+        "competitor_2": "",
+        "footnote": "Met 25 jaar garantie.",
+        "button_label": "",
+        "button_url": "",
+        "stack_effect": false,
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      }
     },
     "usps": {
       "type": "vk-usp-bar",
-      "settings": {
-        "heading": "",
-        "mobile_layout": "grid",
-        "color_scheme": "scheme-1",
-        "padding_top": 24,
-        "padding_bottom": 24
-      },
       "blocks": {
         "usp-1": {
           "type": "usp",
@@ -490,24 +496,17 @@
         "usp-2",
         "usp-3",
         "usp-4"
-      ]
+      ],
+      "settings": {
+        "heading": "",
+        "mobile_layout": "grid",
+        "color_scheme": "scheme-1",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
     },
     "faq": {
       "type": "vk-faq",
-      "settings": {
-        "layout": "centered",
-        "index": "",
-        "eyebrow": "FAQ",
-        "heading": "Vragen over de <em>titanium</em> snijplank.",
-        "subheading": "",
-        "show_filter": false,
-        "contact_title": "Nog vragen?",
-        "contact_text": "Neem contact op.",
-        "contact_url": "/pages/contact",
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 96
-      },
       "blocks": {
         "q-1": {
           "type": "question",
@@ -575,26 +574,24 @@
         "q-6",
         "q-7",
         "q-8"
-      ]
+      ],
+      "settings": {
+        "layout": "centered",
+        "index": "",
+        "eyebrow": "FAQ",
+        "heading": "Vragen over de <em>titanium</em> snijplank.",
+        "subheading": "",
+        "show_filter": false,
+        "contact_title": "Nog vragen?",
+        "contact_text": "Neem contact op.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      }
     },
     "cta": {
       "type": "vk-cta",
-      "settings": {
-        "layout": "inset",
-        "fallback": "vk-visual-sear.webp",
-        "show_embers": true,
-        "eyebrow": "Klaar om over te stappen?",
-        "heading": "Stap over op <em>titanium</em>.",
-        "subheading": "Een betere snijplank begint met beter materiaal.",
-        "button_label": "Kies je snijplank",
-        "button_url": "",
-        "button_to_buy": true,
-        "guarantee": "",
-        "show_contours": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 48,
-        "padding_bottom": 96
-      },
       "blocks": {
         "chip-1": {
           "type": "chip",
@@ -630,7 +627,24 @@
         "chip-2",
         "chip-3",
         "chip-4"
-      ]
+      ],
+      "settings": {
+        "layout": "inset",
+        "image": "shopify://shop_images/image_r3.webp",
+        "fallback": "vk-visual-sear.webp",
+        "show_embers": true,
+        "eyebrow": "Klaar om over te stappen?",
+        "heading": "Stap over op <em>titanium</em>.",
+        "subheading": "Een betere snijplank begint met beter materiaal.",
+        "button_label": "Kies je snijplank",
+        "button_url": "",
+        "button_to_buy": true,
+        "guarantee": "",
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      }
     },
     "newsletter": {
       "type": "vk-newsletter",
