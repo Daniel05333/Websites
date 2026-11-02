@@ -68,9 +68,12 @@ function makeProduct(raw) {
 }
 const allProducts = () => mock.products.map(makeProduct);
 const productByHandle = (h) => { const r = mock.products.find((p) => p.handle === h); return r ? makeProduct(r) : null; };
+// Store collection handles used in templates map onto the mock catalog's handles.
+const COLLECTION_ALIAS = { pannen: 'pans', messen: 'knives', snijplanken: 'cutting-boards', 'sets-bundels': 'sets' };
 function collectionByHandle(h, query) {
+  h = COLLECTION_ALIAS[h] || h;
   const raw = mock.collections.find((c) => c.handle === h); if (!raw) return null;
-  let products = h === 'all' ? allProducts() : allProducts().filter((p) => p.collections.includes(h));
+  let products = h === 'all' || h === 'restock-sale' ? allProducts() : allProducts().filter((p) => p.collections.includes(h));
   const total = products.length;
   // filters
   const q = query || new URLSearchParams();
@@ -287,7 +290,7 @@ function route(url) {
 async function handlePage(req, res, url) {
   const cart = cartFor(req); const r = route(url); const ctx = baseContext(req, url, cart);
   let template = r.template;
-  if (r.collection) { ctx.collection = collectionByHandle(r.collection, url.searchParams); if (!ctx.collection) template = '404'; }
+  if (r.collection) { ctx.collection = collectionByHandle(r.collection, url.searchParams); if (!ctx.collection) template = '404'; else if (ctx.collection.template_suffix && fs.existsSync(path.join(ROOT, `templates/collection.${ctx.collection.template_suffix}.json`))) template = `collection.${ctx.collection.template_suffix}`; }
   if (r.product) { const p = productByHandle(r.product); if (!p) template = '404'; else { const vid = url.searchParams.get('variant'); const v = p.variants.find((x) => String(x.id) === vid); ctx.product = { ...p, selected_or_first_available_variant: v || p.variants[0], selected_variant: v || null, options_with_values: p.options_with_values.map((o, i) => ({ ...o, selected_value: (v || p.variants[0]).options[i] })) }; ctx.page_title = p.title; if (p.template_suffix && fs.existsSync(path.join(ROOT, `templates/product.${p.template_suffix}.json`))) template = `product.${p.template_suffix}`; } }
   if (r.page) { const pg = mock.pages.find((x) => x.handle === r.page); if (!pg) template = '404'; else { ctx.page = pg; if (pg.template_suffix && fs.existsSync(path.join(ROOT, `templates/page.${pg.template_suffix}.json`))) template = `page.${pg.template_suffix}`; } }
   if (template === 'blog' || template === 'article') { const arts = mock.articles.map((a) => ({ ...a, url: `/blogs/journal/${a.handle}`, image: null, excerpt_or_content: a.content, comments_count: 0, comments: [] })); ctx.blog = { title: 'Journaal', url: '/blogs/journal', articles: arts, all_tags: ['Techniek', 'Verhaal', 'Technologie'], comments_enabled_q: false }; if (r.article) { ctx.article = arts.find((a) => a.handle === r.article); if (!ctx.article) template = '404'; } }

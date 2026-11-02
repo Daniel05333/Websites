@@ -206,7 +206,8 @@ export const collections = [
   ['knives', 'Messen', 'Een snede om <em>zuinig</em> op te zijn.', 'Messen van gelaagd damascusstaal'],
   ['accessories', 'Accessoires', 'De <em>details</em> die het afmaken.', 'Een titanium snijplank, keukengerei van rvs en glazen deksels in de maten van je pannen.'],
   ['bestsellers', 'Bestsellers', 'Hier <em>begin</em> je mee.', 'De stukken waarmee je een Volkara keuken begint.'],
-].map(([handle, title, hero, description], i) => ({ id: 500 + i, handle, title, hero, description: `<p>${description}</p>` }));
+  ['restock-sale', 'Restock sale', 'Restock <em>sale</em>.', 'Te veel voorraad, dus we ruimen op.'],
+].map(([handle, title, hero, description], i) => ({ id: 500 + i, handle, title, hero, description: `<p>${description}</p>`, template_suffix: handle === 'restock-sale' ? 'actie' : null }));
 
 const L = (title, url, links = []) => ({ title, url, links });
 export const menus = {
@@ -299,5 +300,11 @@ export const articles = [
 ];
 
 // Product templates (Shopify template suffix): templates/product.<suffix>.json
-const TEMPLATE_SUFFIX = {"gehamerde-titanium-pan": "gehamerde-pan", "gehamerde-titanium-wok": "cookware", "saute-pan": "cookware", "saucepan": "cookware", "stockpot": "cookware", "complete-set": "cookware", "chefs-collection": "cookware", "signature-kitchen": "cookware"};
+const TEMPLATE_SUFFIX = {"damascus-chef-knife": "mes", "santoku-knife": "mes", "titanium-board": "snijplank", "gehamerde-titanium-pan": "gehamerde-pan", "gehamerde-titanium-wok": "cookware", "saute-pan": "cookware", "saucepan": "cookware", "stockpot": "cookware", "complete-set": "cookware", "chefs-collection": "cookware", "signature-kitchen": "cookware"};
 for (const p of products) p.template_suffix = TEMPLATE_SUFFIX[p.handle] || null;
+
+// Demo specs in the format the store uses ("Specificaties" list), read by the spec table on the knife template.
+for (const [h, rows] of [['damascus-chef-knife', [['Lemmet', 'Damascusstaal met VG-10 kern, ongecoat'], ['Balans', 'Gelijkmatig verdeeld voor gecontroleerd snijden'], ['Handgreep', 'Palissanderhout, ergonomisch'], ['Hardheid', '60 ± 2 HRC'], ['Slijphoek', '15°'], ['Lemmethoogte', '51 mm'], ['Totale lengte', '345 mm'], ['Gewicht', '0,259 kg']]], ['santoku-knife', [['Lemmet', 'Damascusstaal met VG-10 kern, ongecoat'], ['Hardheid', '60 ± 2 HRC'], ['Slijphoek', '15°'], ['Lemmethoogte', '44 mm'], ['Totale lengte', '313 mm'], ['Gewicht', '0,218 kg']]]]) {
+  const p = products.find((x) => x.handle === h);
+  if (p) p.description += `<h3><strong>Specificaties</strong></h3><ul>${rows.map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('')}</ul>`;
+}
