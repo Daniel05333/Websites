@@ -1,0 +1,156 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ * Sale collection: assign under Products → Collections → (collection) → Theme template → "actie".
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "vk-sale-hero",
+      "settings": {
+        "eyebrow": "Op = op",
+        "heading": "Restock <em>sale</em>",
+        "text": "We hebben te veel voorraad en maken ruimte. Op is op.",
+        "show_description": true,
+        "show_embers": true,
+        "ends_at": "",
+        "clock_label": "Actie eindigt over",
+        "clock_note": "Daarna gelden weer de normale prijzen.",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "usp-1": {
+          "type": "usp",
+          "settings": {
+            "icon": "leaf",
+            "title": "100% PFAS-vrij",
+            "text": "Geen PFAS of PTFE"
+          }
+        },
+        "usp-2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Geen coating",
+            "text": "Niets dat kan slijten"
+          }
+        },
+        "usp-3": {
+          "type": "usp",
+          "settings": {
+            "icon": "warranty",
+            "title": "25 jaar garantie",
+            "text": "Op onze pannen"
+          }
+        },
+        "usp-4": {
+          "type": "usp",
+          "settings": {
+            "icon": "fire-ring",
+            "title": "Alle kookplaten",
+            "text": "Gas, inductie, oven en grill"
+          }
+        },
+        "usp-5": {
+          "type": "usp",
+          "settings": {
+            "icon": "hexagon",
+            "title": "Gehamerde afwerking",
+            "text": "Voor dagelijks gebruik"
+          }
+        }
+      },
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3",
+        "usp-4",
+        "usp-5"
+      ]
+    },
+    "chips": {
+      "type": "vk-collection-chips",
+      "settings": {
+        "label": "Categorieën",
+        "all_label": "Alles",
+        "show_counts": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 24,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "collection": "pannen",
+            "label": "Losse pannen"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "collection": "sets-bundels",
+            "label": "Sets"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "collection": "messen",
+            "label": "Messen"
+          }
+        },
+        "chip-4": {
+          "type": "chip",
+          "settings": {
+            "collection": "snijplanken",
+            "label": "Snijplanken"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3",
+        "chip-4"
+      ]
+    },
+    "main": {
+      "type": "vk-main-collection",
+      "blocks": {
+        "promo-1": {
+          "type": "promo",
+          "disabled": true,
+          "settings": {
+            "position": 5,
+            "fallback": "vk-visual-set.webp",
+            "eyebrow": "Voordeliger als set",
+            "title": "Bespaar tot €243",
+            "text": "Elke set kost minder dan dezelfde producten los gekocht, berekend met onze eigen losse prijzen.",
+            "link_label": "Bekijk de sets",
+            "link": "/collections/sets"
+          }
+        }
+      },
+      "block_order": [
+        "promo-1"
+      ],
+      "settings": {
+        "per_page": 24,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "enable_filtering": true,
+        "filter_layout": "drawer",
+        "color_scheme": "scheme-1",
+        "padding_top": 16,
+        "padding_bottom": 120
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "chips",
+    "main"
+  ]
+}

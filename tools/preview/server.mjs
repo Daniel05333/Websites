@@ -293,6 +293,9 @@ async function handlePage(req, res, url) {
   if (template === 'blog' || template === 'article') { const arts = mock.articles.map((a) => ({ ...a, url: `/blogs/journal/${a.handle}`, image: null, excerpt_or_content: a.content, comments_count: 0, comments: [] })); ctx.blog = { title: 'Journaal', url: '/blogs/journal', articles: arts, all_tags: ['Techniek', 'Verhaal', 'Technologie'], comments_enabled_q: false }; if (r.article) { ctx.article = arts.find((a) => a.handle === r.article); if (!ctx.article) template = '404'; } }
   if (template === 'search') { const q = (url.searchParams.get('q') || '').toLowerCase(); const results = q ? allProducts().filter((p) => p.title.toLowerCase().includes(q) || p.type.toLowerCase().includes(q)).map((p) => ({ ...p, object_type: 'product' })) : []; ctx.search = { performed: !!q, terms: q, results, results_count: results.length }; }
   if (template === 'cart' || url.pathname === '/recommendations/products') ctx.product = ctx.product || null;
+  // ?tpl=<suffix> previews an alternate collection/product template (e.g. ?tpl=actie) without editing the mock catalog.
+  const tpl = url.searchParams.get('tpl');
+  if (tpl && (template === 'collection' || template.startsWith('product')) && fs.existsSync(path.join(ROOT, `templates/${template.split('.')[0]}.${tpl}.json`))) template = `${template.split('.')[0]}.${tpl}`;
   const sid = url.searchParams.get('section_id'); const sids = url.searchParams.get('sections');
   if (url.pathname === '/search/suggest') {
     const q = (url.searchParams.get('q') || '').toLowerCase(); const prods = allProducts().filter((p) => p.title.toLowerCase().includes(q)).slice(0, 6);

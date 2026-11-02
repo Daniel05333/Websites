@@ -1,0 +1,541 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ * Cutting board product page: assign under Products → (board) → Theme template → "snijplank".
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-product",
+      "settings": {
+        "gallery_chip": "30 dagen retour",
+        "show_sticky_atc": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96,
+        "gallery_effects": true
+      },
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "text": "PFAS-vrije snijplank"
+          }
+        },
+        "title-2": {
+          "type": "title",
+          "settings": {
+            "subtitle": "Een snijplank die niet slijt."
+          }
+        },
+        "rating-3": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price-4": {
+          "type": "price",
+          "settings": {}
+        },
+        "usp_tiles-5": {
+          "type": "usp_tiles",
+          "settings": {
+            "icon_1": "leaf",
+            "title_1": "PFAS-vrij",
+            "text_1": "Geen coating",
+            "icon_2": "shield",
+            "title_2": "Niet poreus",
+            "text_2": "Neemt geen vocht op",
+            "icon_3": "truck",
+            "title_3": "Gratis verzending",
+            "text_3": "Op elke bestelling",
+            "icon_4": "return",
+            "title_4": "30 dagen retour",
+            "text_4": "Zonder risico proberen"
+          }
+        },
+        "variant_picker-6": {
+          "type": "variant_picker",
+          "settings": {
+            "size_help": ""
+          }
+        },
+        "buy_buttons-8": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": false,
+            "show_dynamic_checkout": false,
+            "dispatch_text": ""
+          }
+        },
+        "trust-9": {
+          "type": "trust",
+          "settings": {
+            "show_payment_icons": true
+          }
+        },
+        "collapsible_tab-10": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Beschrijving",
+            "icon": "list",
+            "source": "description",
+            "content": "",
+            "open": true
+          }
+        },
+        "collapsible_tab-11": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Onderhoudstips",
+            "icon": "drop",
+            "source": "custom",
+            "content": "<p><strong>Schoonmaken.</strong> Spoel de plank af met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Geuren.</strong> Ruikt de plank na vis of knoflook? Wrijf hem in met wat citroen of zout en spoel na.</p><p><strong>Je messen.</strong> Een harde plank maakt een snede sneller bot dan hout. Zet je messen daarom regelmatig aan.</p>",
+            "open": false
+          }
+        },
+        "collapsible_tab-12": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Verzenden, retourneren en garantie",
+            "icon": "truck",
+            "source": "custom",
+            "content": "<p><strong>Verzenden.</strong> We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je krijgt 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "open": false
+          }
+        },
+        "complementary-13": {
+          "type": "complementary",
+          "settings": {
+            "heading": "Past hier goed bij",
+            "limit": 2
+          }
+        },
+        "share-14": {
+          "type": "share",
+          "settings": {}
+        },
+        "video_slider-15": {
+          "type": "video_slider",
+          "settings": {
+            "heading": "Echte keukens, echt resultaat",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge-1",
+        "title-2",
+        "rating-3",
+        "price-4",
+        "usp_tiles-5",
+        "variant_picker-6",
+        "buy_buttons-8",
+        "trust-9",
+        "video_slider-15",
+        "collapsible_tab-10",
+        "collapsible_tab-11",
+        "collapsible_tab-12",
+        "complementary-13",
+        "share-14"
+      ]
+    },
+    "versus": {
+      "type": "vk-versus",
+      "settings": {
+        "eyebrow": "Volkara vs. plastic",
+        "heading": "Elke snede <em>telt</em>.",
+        "subheading": "Een plastic snijplank raakt met elke snede een beetje beschadigd. Een metalen plank niet.",
+        "image_alt": "Een gekraste plastic snijplank",
+        "tag": "Plastic plank",
+        "caption_title": "Een gewone plastic plank",
+        "caption": "Messen laten groeven achter waarin vocht en etensresten blijven zitten.",
+        "ours_label": "Onze plank",
+        "theirs_label": "Plastic plank",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "label": "Microplastics",
+            "ours": "Geen: massief metaal",
+            "theirs": "Kan bij het snijden deeltjes afgeven"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "label": "Coating",
+            "ours": "Geen coating, PFAS-vrij",
+            "theirs": "Vaak kunststof met toevoegingen"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "label": "Hygiëne",
+            "ours": "Niet poreus, neemt geen vocht op",
+            "theirs": "Snijgroeven houden vocht en resten vast"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "label": "Na een jaar",
+            "ours": "Glad en makkelijk schoon",
+            "theirs": "Diepe krassen en verkleuring"
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "label": "Levensduur",
+            "ours": "Gaat jarenlang mee",
+            "theirs": "Regelmatig vervangen"
+          }
+        },
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "number": "Tot 14,5 miljoen",
+            "text": "microplastic-deeltjes per jaar kan één polyethyleen snijplank volgens onderzoek afgeven bij dagelijks gebruik.",
+            "source": "Bron: Environmental Science & Technology, 2023. [Controleer de bron voordat je publiceert.]"
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "stat-1"
+      ]
+    },
+    "why": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-chef.webp",
+        "placeholder": "macro",
+        "image_alt": "De Volkara-snijplank van dichtbij",
+        "image_position": "right",
+        "ratio": "portrait",
+        "index": "",
+        "eyebrow": "Het Volkara-verschil",
+        "heading": "Eén plank. Voor <em>jaren</em>.",
+        "text": "<p>Elk materiaal is gekozen op wat het in de keuken doet.</p><ul><li><strong>Geen coating.</strong> Er zit niets op de plank dat kan slijten of loslaten.</li><li><strong>Massief metaal.</strong> Stevig, vlak en hittebestendig.</li><li><strong>Niet poreus.</strong> Neemt geen vocht, geuren of kleur op.</li><li><strong>Makkelijk schoon.</strong> Afspoelen, afdrogen, klaar.</li></ul>",
+        "button_label": "",
+        "button_url": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "reviews": {
+      "type": "vk-reviews",
+      "disabled": true,
+      "settings": {
+        "index": "",
+        "eyebrow": "Reviews",
+        "heading": "Dit zeggen onze <em>klanten</em>.",
+        "subheading": "",
+        "show_summary": false,
+        "average": "",
+        "autoplay": false,
+        "link_label": "",
+        "link": "",
+        "stack_effect": false,
+        "show_contours": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "compare": {
+      "type": "vk-comparison",
+      "settings": {
+        "index": "",
+        "eyebrow": "Waarom Volkara?",
+        "heading": "Niet alle snijplanken zijn <em>gelijk</em>.",
+        "subheading": "Zo verhoudt onze plank zich tot een gewone snijplank.",
+        "competitor_1": "Gewone snijplanken",
+        "competitor_2": "",
+        "footnote": "",
+        "button_label": "",
+        "button_url": "",
+        "stack_effect": false,
+        "show_contours": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "group": "Veiligheid",
+            "feature": "Veiligheid",
+            "ours": "Hittebestendig",
+            "c1_status": "no",
+            "c1_text": "Kan vervormen of smelten bij hitte",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "group": "Duurzaamheid",
+            "feature": "Duurzaamheid",
+            "ours": "Krast nauwelijks, geen groeven",
+            "c1_status": "no",
+            "c1_text": "Diepe groeven waar bacteriën in blijven",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "group": "Hygiëne",
+            "feature": "Hygiëne",
+            "ours": "Neemt geen geuren of vlekken op",
+            "c1_status": "no",
+            "c1_text": "Neemt geuren en vlekken op",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "group": "Onderhoud",
+            "feature": "Onderhoud",
+            "ours": "Afspoelen en afdrogen",
+            "c1_status": "partial",
+            "c1_text": "Schuren, bleken, vervangen",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "group": "Voedselveiligheid",
+            "feature": "Voedselveiligheid",
+            "ours": "Geen microplastics",
+            "c1_status": "no",
+            "c1_text": "Kan microplastics afgeven",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-6": {
+          "type": "row",
+          "settings": {
+            "group": "Waarde",
+            "feature": "Waarde",
+            "ours": "Gaat jarenlang mee",
+            "c1_status": "no",
+            "c1_text": "Regelmatig vervangen",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6"
+      ]
+    },
+    "usps": {
+      "type": "vk-usp-bar",
+      "settings": {
+        "heading": "",
+        "mobile_layout": "grid",
+        "color_scheme": "scheme-1",
+        "padding_top": 32,
+        "padding_bottom": 32
+      },
+      "blocks": {
+        "usp-1": {
+          "type": "usp",
+          "settings": {
+            "icon": "leaf",
+            "title": "PFAS-vrij",
+            "subtitle": "Geen coating"
+          }
+        },
+        "usp-2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Niet poreus",
+            "subtitle": "Hygiënisch en geurloos"
+          }
+        },
+        "usp-3": {
+          "type": "usp",
+          "settings": {
+            "icon": "truck",
+            "title": "Gratis verzending",
+            "subtitle": "Op elke bestelling"
+          }
+        },
+        "usp-4": {
+          "type": "usp",
+          "settings": {
+            "icon": "return",
+            "title": "30 dagen retour",
+            "subtitle": "Zonder risico proberen"
+          }
+        }
+      },
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3",
+        "usp-4"
+      ]
+    },
+    "faq": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "centered",
+        "index": "",
+        "eyebrow": "Veelgestelde vragen",
+        "heading": "Alles wat je wilt <em>weten</em>.",
+        "subheading": "",
+        "show_filter": false,
+        "contact_title": "Nog vragen?",
+        "contact_text": "Neem contact met ons op. We helpen je graag.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "q-1": {
+          "type": "question",
+          "settings": {
+            "question": "Wat is het verschil met een plastic snijplank?",
+            "answer": "<p>Een plastic plank krijgt groeven door je mes, waarin vocht en etensresten blijven zitten, en kan kleine deeltjes afgeven. Onze plank is van massief metaal: glad, niet poreus en zonder coating.</p>"
+          }
+        },
+        "q-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is een metalen snijplank veilig?",
+            "answer": "<p>Ja. Er zit geen coating op die kan loslaten, en de plank neemt geen vocht of geuren op.</p>"
+          }
+        },
+        "q-3": {
+          "type": "question",
+          "settings": {
+            "question": "Wordt mijn mes er bot van?",
+            "answer": "<p>Een harde plank maakt een snede sneller bot dan hout. Zet je messen regelmatig aan, dan blijven ze scherp.</p>"
+          }
+        },
+        "q-4": {
+          "type": "question",
+          "settings": {
+            "question": "Neemt de plank geuren of vlekken op?",
+            "answer": "<p>Nee. Na vis, knoflook of rode biet spoel je hem af en is hij weer schoon.</p>"
+          }
+        },
+        "q-5": {
+          "type": "question",
+          "settings": {
+            "question": "Mag de plank in de vaatwasser?",
+            "answer": "<p>[Vul in wat voor jouw plank geldt.] Met warm water en een beetje afwasmiddel ben je meestal sneller klaar.</p>"
+          }
+        },
+        "q-6": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe lang gaat de plank mee?",
+            "answer": "<p>Bij normaal gebruik jarenlang: er is geen coating die kan slijten.</p>"
+          }
+        },
+        "q-7": {
+          "type": "question",
+          "settings": {
+            "question": "Is de plank zwaar?",
+            "answer": "<p>[Vul het gewicht per maat in.]</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-1",
+        "q-2",
+        "q-3",
+        "q-4",
+        "q-5",
+        "q-6",
+        "q-7"
+      ]
+    },
+    "cta": {
+      "type": "vk-cta",
+      "settings": {
+        "layout": "inset",
+        "fallback": "vk-visual-sear.webp",
+        "show_embers": true,
+        "eyebrow": "Klaar voor beter?",
+        "heading": "Stap over op <em>metaal</em>.",
+        "subheading": "Een snijplank die niet slijt, zonder coating.",
+        "button_label": "Kies je snijplank",
+        "button_url": "",
+        "button_to_buy": true,
+        "guarantee": "",
+        "show_contours": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Gratis verzending"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "icon": "return",
+            "text": "30 dagen retour"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "icon": "lock",
+            "text": "Veilig betalen"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "versus",
+    "why",
+    "reviews",
+    "compare",
+    "usps",
+    "faq",
+    "cta"
+  ]
+}

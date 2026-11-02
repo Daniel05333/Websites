@@ -1,8 +1,10 @@
 {{ 'vk-section-merch.css' | asset_url | stylesheet_tag }}
 {%- render 'vk-section-styles', section: section -%}
 {%- liquid
-  assign product = section.settings.product
-  if product == blank
+  # On a product page an empty picker spotlights that page's product.
+  if section.settings.product != blank
+    assign product = section.settings.product
+  elsif template.name != 'product'
     assign product = all_products['gehamerde-titanium-pan']
   endif
   if product == blank
@@ -22,7 +24,14 @@
         {%- elsif product.featured_media -%}
           {%- render 'vk-image', image: product.featured_media, sizes: '(min-width: 990px) 50vw, 100vw', alt: product.title -%}
         {%- else -%}
-          {%- render 'vk-image', fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 768, placeholder: 'product', alt: product.title -%}
+          {%- liquid
+            assign vk_ph = 'product'
+            assign vk_type = product.type | downcase
+            if vk_type contains 'knife' or vk_type contains 'mes'
+              assign vk_ph = 'knife'
+            endif
+          -%}
+          {%- render 'vk-image', fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 768, placeholder: vk_ph, alt: product.title -%}
         {%- endif -%}
       </div>
     </div>

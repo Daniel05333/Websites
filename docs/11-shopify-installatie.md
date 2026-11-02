@@ -136,3 +136,19 @@ Opbouw: Gift hero · koopblok van het product · lopende balk · intro · budget
 - **[Haken]**: vul de verpakking-tekst en de levertijd in de vragen zelf in.
 - **Reviews** staan verborgen; zet ze aan zodra je echte reviews of je reviews-app-blok hebt.
 - **Sterrenregel in de hero** is leeg; vul alleen een score in die je kunt aantonen.
+
+## Actiecollectie, messen- en snijplankpagina (v11)
+
+**Collectie `actie`** — Collecties → (bijv. Restock sale) → Thema-template → `actie`.
+Banner met titel, tekst, USP-rij en categorieknoppen boven het productraster.
+- Aftelklok: vul in de sectie *Sale hero* bij **Sale ends at** de echte einddatum in (bijv. `2026-11-30 23:59`). Leeg = geen klok; na de datum verdwijnt hij vanzelf.
+- Categorieknoppen linken naar de collecties pannen, sets-bundels, messen en snijplanken (aan te passen per knop).
+
+**Product `mes`** — Producten → (mes) → Thema-template → `mes`.
+Koopblok, specificaties, lemmet, vergelijking, de snede, meer messen, vragen, uitlichting, reviews (verborgen).
+- Specificaties per mes komen uit metavelden: maak onder Instellingen → Aangepaste gegevens → Producten de velden `custom.lemmetlengte`, `custom.totale_lengte`, `custom.lemmethoogte`, `custom.lengte_handvat`, `custom.lemmet`, `custom.handvat`, `custom.geschikt_voor` (type: tekst) en vul ze per product in. Lege rijen worden niet getoond.
+
+**Product `snijplank`** — Producten → (titanium/rvs-plank) → Thema-template → `snijplank`.
+Koopblok, "Elke snede telt" (plank vs. plastic), Volkara-verschil, reviews (verborgen), vergelijking, USP's, vragen, slotblok.
+- Niet geschikt voor de walnoothouten plank: de teksten gaan over een metalen plank.
+- Controleer de bron van het cijfer "tot 14,5 miljoen microplastic-deeltjes" en vul de [haken] in de vragen in.

@@ -1,0 +1,102 @@
+/* ==========================================================================
+   VOLKARA — sale collection + knife / cutting-board product pages
+   Sale hero with an honest countdown · collection chips · spec table ·
+   "ours vs. the usual" comparison.
+   Accent colors use the theme variables, with the brand red as fallback.
+   ========================================================================== */
+
+/* ---------- Sale hero ---------- */
+.vk-sale-hero { position: relative; overflow: hidden; padding-bottom: 0; }
+.vk-sale-hero__media { position: absolute; inset: 0; z-index: -2; }
+.vk-sale-hero__media img, .vk-sale-hero__media svg { width: 100%; height: 100%; object-fit: cover; }
+.vk-sale-hero__shade { position: absolute; inset: 0; z-index: -1; background:
+  linear-gradient(90deg, rgba(var(--vk-bg-rgb), .92) 0%, rgba(var(--vk-bg-rgb), .55) 55%, rgba(var(--vk-bg-rgb), .25) 100%),
+  linear-gradient(0deg, rgba(var(--vk-bg-rgb), 1) 0%, transparent 40%); }
+.vk-sale-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; min-height: clamp(300px, 36vw, 460px); padding-bottom: clamp(1.75rem, 1rem + 2vw, 3rem); }
+.vk-sale-hero__copy { display: grid; gap: 1rem; max-width: 40rem; }
+.vk-sale-hero__title { margin: 0; font-size: clamp(2.5rem, 1.6rem + 3.6vw, 5rem); line-height: .98; letter-spacing: -.045em; }
+.vk-sale-hero__text { margin: 0; color: var(--vk-fg-muted); font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); }
+.vk-sale-clock { display: grid; gap: .65rem; justify-items: center; padding: 1.1rem 1.4rem; border-radius: var(--vk-radius-lg); background: rgba(var(--vk-fg-rgb), .04); box-shadow: inset 0 0 0 1px var(--vk-border); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-align: center; }
+.vk-sale-clock[hidden] { display: none; }
+.vk-sale-clock__label { margin: 0; font: 500 .6875rem/1 var(--vk-font-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--vk-fg-subtle); }
+.vk-sale-clock__digits { display: flex; align-items: flex-start; gap: .5rem; }
+.vk-sale-clock__unit { display: grid; justify-items: center; gap: .3rem; min-width: 3.1rem; }
+.vk-sale-clock__num { font: 500 clamp(1.75rem, 1.4rem + 1vw, 2.375rem)/1 var(--vk-font-display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.vk-sale-clock__sub { font: 500 .5625rem/1 var(--vk-font-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--vk-fg-subtle); }
+.vk-sale-clock__sep { font: 500 1.75rem/1 var(--vk-font-display); color: var(--vk-molten, #FF4B32); }
+.vk-sale-clock__note { margin: 0; font-size: .75rem; color: var(--vk-fg-subtle); }
+.vk-sale-usps { list-style: none; margin: 0; padding: 1.1rem 0; display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); border-top: 1px solid var(--vk-border); }
+.vk-sale-usp { display: flex; align-items: center; gap: .7rem; padding: .25rem 1rem; }
+.vk-sale-usp + .vk-sale-usp { border-left: 1px solid var(--vk-border); }
+.vk-sale-usp svg { flex: none; color: var(--vk-molten, #FF4B32); }
+.vk-sale-usp__title { display: block; font: 600 .6875rem/1.2 var(--vk-font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.vk-sale-usp__text { display: block; font-size: .75rem; color: var(--vk-fg-subtle); }
+@media (max-width: 989px) {
+  .vk-sale-hero__grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .vk-sale-clock { justify-self: start; }
+  .vk-sale-usps { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: max-content; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--vk-gutter) * -1); padding-inline: var(--vk-gutter); }
+  .vk-sale-usps::-webkit-scrollbar { display: none; }
+}
+
+/* ---------- Collection chips ---------- */
+.vk-coll-chips { padding-top: 1.25rem; padding-bottom: .5rem; }
+.vk-coll-chips__row { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.vk-coll-chip { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; padding: .3rem .9rem .3rem .35rem; border-radius: 10px; color: var(--vk-fg); text-decoration: none; background: rgba(var(--vk-fg-rgb), .03); box-shadow: inset 0 0 0 1px var(--vk-border); font: 600 .6875rem/1 var(--vk-font-mono); letter-spacing: .12em; text-transform: uppercase; transition: box-shadow var(--vk-dur-2), background-color var(--vk-dur-2); }
+.vk-coll-chip:hover { box-shadow: inset 0 0 0 1px var(--vk-border-strong); }
+.vk-coll-chip.is-active { background: var(--vk-ember); color: var(--vk-white, #F7F5F2); box-shadow: none; }
+.vk-coll-chip:focus-visible { outline: 2px solid var(--vk-molten, #FF4B32); outline-offset: 2px; }
+.vk-coll-chip__thumb { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 7px; overflow: hidden; background: #0d0d0d; flex: none; }
+.vk-coll-chip__thumb img, .vk-coll-chip__thumb svg { width: 100%; height: 100%; object-fit: cover; }
+.vk-coll-chip.is-active .vk-coll-chip__thumb { background: rgba(0, 0, 0, .2); }
+.vk-coll-chip__count { opacity: .55; font-weight: 500; }
+@media (max-width: 749px) {
+  .vk-coll-chips__row { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--vk-gutter) * -1); padding-inline: var(--vk-gutter); }
+  .vk-coll-chips__row::-webkit-scrollbar { display: none; }
+  .vk-coll-chip { flex: none; }
+}
+
+/* ---------- Spec table ---------- */
+.vk-specs__panel { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); gap: 2rem; align-items: start; padding: clamp(1.75rem, 1rem + 3vw, 3.5rem); border-radius: var(--vk-radius-lg); background: radial-gradient(80% 70% at 85% 0%, rgba(var(--vk-molten-rgb, 255, 75, 50), .08), transparent 60%), color-mix(in srgb, var(--vk-fg) 3%, var(--vk-bg)); box-shadow: inset 0 0 0 1px var(--vk-border); overflow: hidden; }
+.vk-specs__title { margin: 0 0 1.5rem; font-size: clamp(2rem, 1.4rem + 2.4vw, 3.5rem); letter-spacing: -.04em; }
+.vk-specs__list { margin: 0; display: grid; }
+.vk-specs__row { display: grid; grid-template-columns: minmax(8rem, .45fr) minmax(0, 1fr); gap: 1rem; padding: 1.05rem 0; border-top: 1px solid var(--vk-border); }
+.vk-specs__row:last-child { border-bottom: 1px solid var(--vk-border); }
+.vk-specs__row dt { font: 600 .6875rem/1.6 var(--vk-font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--vk-molten, #FF4B32); }
+.vk-specs__row dd { margin: 0; font-size: clamp(1rem, .95rem + .2vw, 1.125rem); }
+.vk-specs__media { position: relative; aspect-ratio: 1; border-radius: 50%; overflow: hidden; max-width: 320px; justify-self: end; -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent); mask-image: radial-gradient(closest-side, #000 60%, transparent); }
+.vk-specs__media img, .vk-specs__media svg { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 749px) {
+  .vk-specs__panel { grid-template-columns: minmax(0, 1fr); }
+  .vk-specs__media { order: -1; justify-self: center; max-width: 200px; }
+  .vk-specs__row { grid-template-columns: minmax(0, 1fr); gap: .25rem; }
+}
+
+/* ---------- Versus (ours vs. the usual) ---------- */
+.vk-versus__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1fr); gap: clamp(1.5rem, 1rem + 3vw, 4rem); align-items: start; margin-top: clamp(1.5rem, 1rem + 2vw, 3rem); }
+.vk-versus__visual { display: grid; gap: .75rem; position: sticky; top: calc(var(--vk-header-h, 80px) + 1rem); }
+.vk-versus__media { position: relative; aspect-ratio: 4 / 5; border-radius: var(--vk-radius-lg); overflow: hidden; background: #0d0d0d; }
+.vk-versus__media img, .vk-versus__media svg { width: 100%; height: 100%; object-fit: cover; }
+.vk-versus__tag { position: absolute; top: 1rem; left: 1rem; padding: .4rem .7rem; border-radius: var(--vk-radius-pill); background: rgba(8, 8, 8, .7); color: #F7F5F2; font: 600 .625rem/1 var(--vk-font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.vk-versus__caption { margin: 0; color: var(--vk-fg-subtle); font-size: .8125rem; }
+.vk-versus__caption strong { display: block; color: var(--vk-fg); font-size: .9375rem; }
+.vk-versus__legend { display: flex; gap: 1.25rem; margin: 0 0 1rem; font-size: .8125rem; color: var(--vk-fg-muted); }
+.vk-versus__legend span { display: inline-flex; align-items: center; gap: .45rem; }
+.vk-versus__legend i { width: 8px; height: 8px; border-radius: 50%; background: var(--vk-molten, #FF4B32); }
+.vk-versus__legend span + span i { background: rgba(var(--vk-fg-rgb), .35); }
+.vk-versus__rows { list-style: none; margin: 0; padding: 0; }
+.vk-versus__row { padding: 1rem 0; border-top: 1px solid var(--vk-border); display: grid; gap: .35rem; }
+.vk-versus__label { margin: 0 0 .15rem; font: 500 .6875rem/1 var(--vk-font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--vk-fg-subtle); }
+.vk-versus__ours, .vk-versus__theirs { margin: 0; display: flex; gap: .6rem; align-items: baseline; font-size: .9375rem; }
+.vk-versus__ours::before, .vk-versus__theirs::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; transform: translateY(-1px); background: var(--vk-molten, #FF4B32); }
+.vk-versus__ours { font-weight: 600; }
+.vk-versus__theirs { color: var(--vk-fg-muted); }
+.vk-versus__theirs::before { background: rgba(var(--vk-fg-rgb), .35); }
+.vk-versus__stat { margin-top: 1.5rem; padding: 1.4rem 1.5rem; border-radius: var(--vk-radius-lg); background: linear-gradient(135deg, rgba(var(--vk-lava-rgb, 215, 38, 30), .16), rgba(var(--vk-lava-rgb, 215, 38, 30), .04)); box-shadow: inset 0 0 0 1px rgba(var(--vk-molten-rgb, 255, 75, 50), .25); }
+.vk-versus__stat-num { margin: 0; font: 500 clamp(2rem, 1.5rem + 2vw, 3rem)/1 var(--vk-font-display); letter-spacing: -.04em; color: var(--vk-molten, #FF4B32); }
+.vk-versus__stat-text { margin: .5rem 0 0; color: var(--vk-fg-muted); font-size: .9375rem; }
+.vk-versus__stat-source { margin: .6rem 0 0; color: var(--vk-fg-subtle); font-size: .75rem; }
+@media (max-width: 899px) {
+  .vk-versus__grid { grid-template-columns: minmax(0, 1fr); }
+  .vk-versus__visual { position: static; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: center; }
+  .vk-versus__media { aspect-ratio: 1; }
+}

@@ -1,0 +1,72 @@
+{{ 'vk-section-shop.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_all = s.all_collection | default: collection
+-%}
+<nav id="vk-{{ section.id }}" class="vk-section vk-coll-chips color-{{ s.color_scheme }}" data-section-id="{{ section.id }}" aria-label="{{ s.label | escape }}">
+  <div class="vk-container">
+    <ul class="vk-coll-chips__row" role="list">
+      {%- if s.all_label != blank and vk_all != blank -%}
+        <li>
+          <a class="vk-coll-chip{% if collection.handle == vk_all.handle %} is-active{% endif %}" href="{{ vk_all.url }}"{% if collection.handle == vk_all.handle %} aria-current="page"{% endif %}>
+            <span class="vk-coll-chip__thumb" aria-hidden="true">{% render 'vk-icon', name: 'grid', size: 16 %}</span>
+            {{ s.all_label }}{% if s.show_counts %} <span class="vk-coll-chip__count">{{ vk_all.products_count }}</span>{% endif %}
+          </a>
+        </li>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign c = block.settings.collection
+          assign vk_label = block.settings.label | default: c.title
+          assign vk_thumb = block.settings.image | default: c.image | default: c.products.first.featured_image
+          assign vk_active = false
+          if collection.handle == c.handle
+            assign vk_active = true
+          endif
+        -%}
+        {%- if c != blank -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="vk-coll-chip{% if vk_active %} is-active{% endif %}" href="{{ c.url }}"{% if vk_active %} aria-current="page"{% endif %}>
+            <span class="vk-coll-chip__thumb" aria-hidden="true">
+              {%- if vk_thumb != blank -%}{{ vk_thumb | image_url: width: 80 | image_tag: loading: 'lazy', alt: '', width: 34, height: 34 }}{%- else -%}{% render 'vk-icon', name: 'hexagon', size: 16 %}{%- endif -%}
+            </span>
+            {{ vk_label }}{% if s.show_counts %} <span class="vk-coll-chip__count">{{ c.products_count }}</span>{% endif %}
+          </a>
+        </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Collection chips",
+  "tag": "div",
+  "class": "vk-collection-chips-section",
+  "settings": [
+    { "type": "paragraph", "content": "Quick links to other collections, shown as chips above the product grid. The chip of the collection you are on is highlighted." },
+    { "type": "text", "id": "label", "label": "Label (screen readers)", "default": "Categorieën" },
+    { "type": "text", "id": "all_label", "label": "First chip label", "default": "Alles" },
+    { "type": "collection", "id": "all_collection", "label": "First chip collection", "info": "Empty uses the collection you are on." },
+    { "type": "checkbox", "id": "show_counts", "label": "Show product counts", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 20 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Chip",
+      "limit": 12,
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Label", "info": "Empty uses the collection title." },
+        { "type": "image_picker", "id": "image", "label": "Thumbnail", "info": "Empty uses the collection image or its first product." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Collection chips", "blocks": [{ "type": "chip" }, { "type": "chip" }, { "type": "chip" }] }]
+}
+{% endschema %}

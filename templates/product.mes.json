@@ -1,0 +1,480 @@
+/*
+ * VOLKARA template. Edit in the Shopify theme editor.
+ * Knife product page: assign under Products → (knife) → Theme template → "mes".
+ */
+{
+  "sections": {
+    "main": {
+      "type": "vk-main-product",
+      "settings": {
+        "gallery_chip": "30 dagen retour",
+        "show_sticky_atc": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96,
+        "gallery_effects": true
+      },
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "text": "Japans precisiemes"
+          }
+        },
+        "title-2": {
+          "type": "title",
+          "settings": {
+            "subtitle": "Het mes dat je elke dag als eerste pakt."
+          }
+        },
+        "rating-3": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price-4": {
+          "type": "price",
+          "settings": {}
+        },
+        "usp_tiles-5": {
+          "type": "usp_tiles",
+          "settings": {
+            "icon_1": "award",
+            "title_1": "Precisieblad",
+            "text_1": "Scherp vanaf de eerste snede",
+            "icon_2": "utensils",
+            "title_2": "Goede balans",
+            "text_2": "Ligt rustig in de hand",
+            "icon_3": "truck",
+            "title_3": "Gratis verzending",
+            "text_3": "Op elke bestelling",
+            "icon_4": "return",
+            "title_4": "30 dagen retour",
+            "text_4": "Zonder risico proberen"
+          }
+        },
+        "variant_picker-6": {
+          "type": "variant_picker",
+          "settings": {
+            "size_help": ""
+          }
+        },
+        "buy_buttons-8": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": false,
+            "show_dynamic_checkout": false,
+            "dispatch_text": ""
+          }
+        },
+        "trust-9": {
+          "type": "trust",
+          "settings": {
+            "show_payment_icons": true
+          }
+        },
+        "collapsible_tab-10": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Beschrijving",
+            "icon": "list",
+            "source": "description",
+            "content": "",
+            "open": true
+          }
+        },
+        "collapsible_tab-11": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Houd je mes scherp",
+            "icon": "drop",
+            "source": "custom",
+            "content": "<p><strong>Na gebruik.</strong> Spoel het mes af met warm water, droog het direct en berg het op in een messenblok of magneetstrip.</p><p><strong>Niet in de vaatwasser.</strong> Hitte, zout en botsende pannen maken een snede sneller bot.</p><p><strong>Snijondergrond.</strong> Gebruik hout of kunststof. Glas, steen en metaal maken het lemmet sneller bot.</p><p><strong>Aanzetten.</strong> Zet het mes regelmatig aan; slijp het als aanzetten niet meer helpt.</p>",
+            "open": false
+          }
+        },
+        "collapsible_tab-12": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Verzenden, retourneren en garantie",
+            "icon": "truck",
+            "source": "custom",
+            "content": "<p><strong>Verzenden.</strong> We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je krijgt 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "open": false
+          }
+        },
+        "complementary-13": {
+          "type": "complementary",
+          "settings": {
+            "heading": "Past hier goed bij",
+            "limit": 2
+          }
+        },
+        "share-14": {
+          "type": "share",
+          "settings": {}
+        },
+        "video_slider-15": {
+          "type": "video_slider",
+          "settings": {
+            "heading": "Echte keukens, echt resultaat",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge-1",
+        "title-2",
+        "rating-3",
+        "price-4",
+        "usp_tiles-5",
+        "variant_picker-6",
+        "buy_buttons-8",
+        "trust-9",
+        "video_slider-15",
+        "collapsible_tab-10",
+        "collapsible_tab-11",
+        "collapsible_tab-12",
+        "complementary-13",
+        "share-14"
+      ]
+    },
+    "specs": {
+      "type": "vk-spec-table",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Specificaties",
+        "use_product_image": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "label": "Lemmetlengte",
+            "metafield": "custom.lemmetlengte",
+            "value": ""
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "label": "Totale lengte",
+            "metafield": "custom.totale_lengte",
+            "value": ""
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "label": "Lemmethoogte",
+            "metafield": "custom.lemmethoogte",
+            "value": ""
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "label": "Lengte handvat",
+            "metafield": "custom.lengte_handvat",
+            "value": ""
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "label": "Lemmet",
+            "metafield": "custom.lemmet",
+            "value": ""
+          }
+        },
+        "row-6": {
+          "type": "row",
+          "settings": {
+            "label": "Handvat",
+            "metafield": "custom.handvat",
+            "value": ""
+          }
+        },
+        "row-7": {
+          "type": "row",
+          "settings": {
+            "label": "Geschikt voor",
+            "metafield": "custom.geschikt_voor",
+            "value": ""
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6",
+        "row-7"
+      ]
+    },
+    "blade": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-chef.webp",
+        "placeholder": "macro",
+        "image_alt": "Close-up van het lemmet",
+        "image_position": "right",
+        "ratio": "portrait",
+        "index": "",
+        "eyebrow": "Het lemmet",
+        "heading": "Gesmeed voor <em>precisie</em>.",
+        "text": "<p>Een goed mes begint bij het staal. Het lemmet is hard genoeg om lang scherp te blijven en taai genoeg om niet snel te chippen.</p><p>[Beschrijf hier het staal en de afwerking van dit mes, bijvoorbeeld gelaagd Damascusstaal of een gehamerde afwerking. Noem alleen wat klopt.]</p>",
+        "button_label": "",
+        "button_url": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "compare": {
+      "type": "vk-comparison",
+      "settings": {
+        "index": "",
+        "eyebrow": "De eerlijke vergelijking",
+        "heading": "Hetzelfde vakmanschap, een eerlijke <em>prijs</em>.",
+        "subheading": "Wat telt in de keuken, zonder winkelmarge.",
+        "competitor_1": "Mes uit de speciaalzaak",
+        "competitor_2": "",
+        "footnote": "",
+        "button_label": "Bestel dit mes",
+        "button_url": "",
+        "stack_effect": false,
+        "show_contours": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      },
+      "blocks": {
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Scherp precisieblad",
+            "ours": "Ja",
+            "c1_status": "yes",
+            "c1_text": "Ja",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Goed uitgebalanceerd",
+            "ours": "Ja",
+            "c1_status": "yes",
+            "c1_text": "Ja",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Gratis verzending",
+            "ours": "Ja",
+            "c1_status": "partial",
+            "c1_text": "Soms",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "30 dagen retour",
+            "ours": "Ja",
+            "c1_status": "partial",
+            "c1_text": "Verschilt per winkel",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "group": "",
+            "feature": "Prijs",
+            "ours": "Direct van ons, zonder tussenhandel",
+            "c1_status": "no",
+            "c1_text": "Inclusief winkelmarge",
+            "c2_status": "no",
+            "c2_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5"
+      ]
+    },
+    "edge": {
+      "type": "vk-image-text",
+      "settings": {
+        "fallback": "vk-visual-chef.webp",
+        "placeholder": "chef",
+        "image_alt": "Groente snijden met een Volkara-mes",
+        "image_position": "left",
+        "ratio": "portrait",
+        "index": "",
+        "eyebrow": "De snede",
+        "heading": "Scherpte die je bij de eerste snede <em>voelt</em>.",
+        "text": "<p>Een dunne snijkant en een rustige balans laten het mes door tomaat, ui en vlees glijden, zonder te duwen of te scheuren.</p><p>Houd hem zo: snijd op hout, was met de hand en droog direct af. Dan blijft het mes jarenlang precies.</p>",
+        "button_label": "",
+        "button_url": "",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "more": {
+      "type": "vk-featured-collection",
+      "settings": {
+        "index": "",
+        "eyebrow": "Klantfavorieten",
+        "heading": "Vind je volgende <em>favoriete</em> mes.",
+        "subheading": "Van je eerste koksmes tot een complete set.",
+        "limit": 8,
+        "link_label": "Bekijk alle messen",
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "tab-1": {
+          "type": "tab",
+          "settings": {
+            "label": "Messen",
+            "collection": "messen"
+          }
+        }
+      },
+      "block_order": [
+        "tab-1"
+      ]
+    },
+    "faq": {
+      "type": "vk-faq",
+      "settings": {
+        "layout": "centered",
+        "index": "",
+        "eyebrow": "Veelgestelde vragen",
+        "heading": "Goede vragen, eerlijke <em>antwoorden</em>.",
+        "subheading": "",
+        "show_filter": false,
+        "contact_title": "Nog een vraag?",
+        "contact_text": "Neem contact met ons op. We helpen je graag.",
+        "contact_url": "/pages/contact",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "q-1": {
+          "type": "question",
+          "settings": {
+            "question": "Welk mes moet ik als eerste kopen?",
+            "answer": "<p>Begin met een koksmes van ongeveer 20 cm: daarmee snijd je groente, vlees en kruiden. Een santoku is een goed alternatief als je liever een kortere, hogere kling hebt.</p>"
+          }
+        },
+        "q-2": {
+          "type": "question",
+          "settings": {
+            "question": "Mag het mes in de vaatwasser?",
+            "answer": "<p>Liever niet. De hitte, het zout en het botsen tegen ander vaatwerk maken de snede sneller bot. Spoel het mes af met warm water en droog het direct.</p>"
+          }
+        },
+        "q-3": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe houd ik het mes scherp?",
+            "answer": "<p>Snijd op een houten of kunststof plank, zet het mes regelmatig aan en laat het slijpen als aanzetten niet meer helpt.</p>"
+          }
+        },
+        "q-4": {
+          "type": "question",
+          "settings": {
+            "question": "Is het een goed cadeau?",
+            "answer": "<p>Ja. Een goed mes wordt elke dag gebruikt. En past het toch niet, dan kan het binnen 30 dagen retour.</p>"
+          }
+        },
+        "q-5": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe zit het met verzenden en retourneren?",
+            "answer": "<p>Verzenden is gratis. Je hebt 30 dagen om je bestelling terug te sturen; lees meer op de pagina <a href=\"/pages/verzenden-en-retourneren\">Verzenden en retourneren</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-1",
+        "q-2",
+        "q-3",
+        "q-4",
+        "q-5"
+      ]
+    },
+    "spotlight": {
+      "type": "vk-product-spotlight",
+      "settings": {
+        "fallback": "vk-visual-sear.webp",
+        "eyebrow": "De Volkara messencollectie",
+        "heading": "",
+        "text": "Gratis verzending · 30 dagen retour",
+        "size_helper": "",
+        "link_label": "Bestel dit mes",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 96
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "reviews": {
+      "type": "vk-reviews",
+      "disabled": true,
+      "settings": {
+        "index": "",
+        "eyebrow": "Reviews",
+        "heading": "Dit zeggen onze <em>klanten</em>.",
+        "subheading": "",
+        "show_summary": false,
+        "average": "",
+        "autoplay": false,
+        "link_label": "",
+        "link": "",
+        "stack_effect": false,
+        "show_contours": false,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specs",
+    "blade",
+    "compare",
+    "edge",
+    "more",
+    "faq",
+    "spotlight",
+    "reviews"
+  ]
+}

@@ -1,0 +1,83 @@
+{{ 'vk-section-shop.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- assign s = section.settings -%}
+{%- comment -%} Each row shows the product's metafield when it has one, otherwise the fixed text. Empty rows are skipped. {%- endcomment -%}
+{%- capture vk_rows -%}
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign b = block.settings
+      assign vk_val = ''
+      if b.metafield != blank and product != blank
+        assign vk_keys = b.metafield | strip | split: '.'
+        if vk_keys.size == 2
+          assign vk_ns = vk_keys[0]
+          assign vk_key = vk_keys[1]
+          assign vk_mf = product.metafields[vk_ns][vk_key]
+          if vk_mf != blank
+            assign vk_val = vk_mf.value | default: vk_mf
+          endif
+        endif
+      endif
+      if vk_val == blank
+        assign vk_val = b.value
+      endif
+    -%}
+    {%- if vk_val != blank and b.label != blank -%}
+      <div class="vk-specs__row" {{ block.shopify_attributes }}><dt>{{ b.label }}</dt><dd>{{ vk_val }}</dd></div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if vk_rows != blank or request.design_mode -%}
+<section id="vk-{{ section.id }}" class="vk-section vk-specs color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-specs__panel" data-reveal>
+      <div>
+        {%- if s.eyebrow != blank -%}<p class="vk-eyebrow"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+        <h2 class="vk-specs__title">{{ s.heading }}</h2>
+        <dl class="vk-specs__list">{{ vk_rows }}</dl>
+        {%- if vk_rows == blank -%}<p class="vk-muted">Nog geen specificaties: vul per rij een tekst of een metaveld in. Deze melding zien bezoekers niet.</p>{%- endif -%}
+      </div>
+      {%- liquid
+        assign vk_img = s.image
+        if vk_img == blank and s.use_product_image
+          assign vk_img = product.featured_image
+        endif
+      -%}
+      {%- if vk_img != blank -%}
+        <div class="vk-specs__media" aria-hidden="true">{%- render 'vk-image', image: vk_img, sizes: '(min-width: 750px) 320px, 200px', alt: '' -%}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Specifications",
+  "tag": "div",
+  "class": "vk-spec-table-section",
+  "settings": [
+    { "type": "paragraph", "content": "Each row shows the product's metafield (for example custom.lemmetlengte) when the product has one, otherwise the fixed text. Rows without a value are hidden, so one template works for products with different specs." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Specificaties" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "checkbox", "id": "use_product_image", "label": "Use the product photo when no image is set", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "limit": 14,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Lemmetlengte" },
+        { "type": "text", "id": "metafield", "label": "Product metafield", "info": "namespace.key, e.g. custom.lemmetlengte. Leave empty to always use the text below." },
+        { "type": "text", "id": "value", "label": "Text", "info": "Used when the product has no value in the metafield." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Specifications", "blocks": [{ "type": "row" }] }]
+}
+{% endschema %}

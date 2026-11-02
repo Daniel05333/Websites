@@ -1,0 +1,91 @@
+{{ 'vk-section-shop.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_rows = section.blocks | where: 'type', 'row'
+  assign vk_stats = section.blocks | where: 'type', 'stat'
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-versus color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    {%- render 'vk-heading', eyebrow: s.eyebrow, heading: s.heading, subheading: s.subheading -%}
+    <div class="vk-versus__grid">
+      <div class="vk-versus__visual" data-reveal>
+        <div class="vk-versus__media">
+          {%- render 'vk-image', image: s.image, sizes: '(min-width: 900px) 40vw, 45vw', placeholder: 'macro', alt: s.image_alt -%}
+          {%- if s.tag != blank -%}<span class="vk-versus__tag">{{ s.tag }}</span>{%- endif -%}
+        </div>
+        {%- if s.caption_title != blank or s.caption != blank -%}
+          <p class="vk-versus__caption">{% if s.caption_title != blank %}<strong>{{ s.caption_title }}</strong>{% endif %}{{ s.caption }}</p>
+        {%- endif -%}
+      </div>
+      <div data-reveal>
+        <p class="vk-versus__legend"><span><i aria-hidden="true"></i>{{ s.ours_label }}</span><span><i aria-hidden="true"></i>{{ s.theirs_label }}</span></p>
+        <ul class="vk-versus__rows" role="list">
+          {%- for block in vk_rows -%}
+            <li class="vk-versus__row" {{ block.shopify_attributes }}>
+              <p class="vk-versus__label">{{ block.settings.label }}</p>
+              {%- if block.settings.ours != blank -%}<p class="vk-versus__ours"><span class="vk-visually-hidden">{{ s.ours_label }}:</span>{{ block.settings.ours }}</p>{%- endif -%}
+              {%- if block.settings.theirs != blank -%}<p class="vk-versus__theirs"><span class="vk-visually-hidden">{{ s.theirs_label }}:</span>{{ block.settings.theirs }}</p>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- for block in vk_stats -%}
+          {%- if block.settings.number != blank -%}
+            <div class="vk-versus__stat" {{ block.shopify_attributes }}>
+              <p class="vk-versus__stat-num">{{ block.settings.number }}</p>
+              {%- if block.settings.text != blank -%}<p class="vk-versus__stat-text">{{ block.settings.text }}</p>{%- endif -%}
+              {%- if block.settings.source != blank -%}<p class="vk-versus__stat-source">{{ block.settings.source }}</p>{%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ours vs. the usual",
+  "tag": "div",
+  "class": "vk-versus-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Volkara vs. plastic" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Elke snede <em>telt</em>" },
+    { "type": "inline_richtext", "id": "subheading", "label": "Subheading" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "tag", "label": "Tag on the image" },
+    { "type": "text", "id": "caption_title", "label": "Caption title" },
+    { "type": "text", "id": "caption", "label": "Caption" },
+    { "type": "text", "id": "ours_label", "label": "Our label", "default": "Onze plank" },
+    { "type": "text", "id": "theirs_label", "label": "Their label", "default": "Plastic plank" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison row",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Topic", "default": "Onderwerp" },
+        { "type": "text", "id": "ours", "label": "Ours", "default": "Zo doen wij het" },
+        { "type": "text", "id": "theirs", "label": "Theirs", "default": "Zo is het vaak" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Fact box",
+      "limit": 2,
+      "settings": [
+        { "type": "paragraph", "content": "Only use a figure from a source you can name." },
+        { "type": "text", "id": "number", "label": "Figure" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "source", "label": "Source" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Ours vs. the usual", "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }] }]
+}
+{% endschema %}
