@@ -7,24 +7,25 @@
     "main": {
       "type": "vk-main-product",
       "settings": {
-        "gallery_chip": "30 dagen retour",
+        "gallery_chip": "25 jaar garantie",
         "show_sticky_atc": true,
         "color_scheme": "scheme-1",
         "padding_top": 120,
         "padding_bottom": 96,
-        "gallery_effects": true
+        "gallery_effects": false,
+        "gallery_layout": "grid"
       },
       "blocks": {
         "badge-1": {
           "type": "badge",
           "settings": {
-            "text": "Japans precisiemes"
+            "text": ""
           }
         },
         "title-2": {
           "type": "title",
           "settings": {
-            "subtitle": "Het mes dat je elke dag als eerste pakt."
+            "subtitle": "Japans vakmanschap voor elke dag."
           }
         },
         "rating-3": {
@@ -39,17 +40,17 @@
           "type": "usp_tiles",
           "settings": {
             "icon_1": "award",
-            "title_1": "Precisieblad",
-            "text_1": "Scherp vanaf de eerste snede",
-            "icon_2": "utensils",
-            "title_2": "Goede balans",
-            "text_2": "Ligt rustig in de hand",
-            "icon_3": "truck",
-            "title_3": "Gratis verzending",
-            "text_3": "Op elke bestelling",
-            "icon_4": "return",
-            "title_4": "30 dagen retour",
-            "text_4": "Zonder risico proberen"
+            "title_1": "Japans staal",
+            "text_1": "Gelaagd en gehard",
+            "icon_2": "flame",
+            "title_2": "Vlijmscherp",
+            "text_2": "Slijphoek van 15°",
+            "icon_3": "utensils",
+            "title_3": "Goede balans",
+            "text_3": "Comfort en controle",
+            "icon_4": "warranty",
+            "title_4": "25 jaar garantie",
+            "text_4": "Gebouwd voor jaren"
           }
         },
         "variant_picker-6": {
@@ -75,30 +76,30 @@
         "collapsible_tab-10": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Beschrijving",
+            "heading": "Details",
             "icon": "list",
             "source": "description",
             "content": "",
-            "open": true
+            "open": false
           }
         },
         "collapsible_tab-11": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Houd je mes scherp",
-            "icon": "drop",
+            "icon": "info",
             "source": "custom",
-            "content": "<p><strong>Na gebruik.</strong> Spoel het mes af met warm water, droog het direct en berg het op in een messenblok of magneetstrip.</p><p><strong>Niet in de vaatwasser.</strong> Hitte, zout en botsende pannen maken een snede sneller bot.</p><p><strong>Snijondergrond.</strong> Gebruik hout of kunststof. Glas, steen en metaal maken het lemmet sneller bot.</p><p><strong>Aanzetten.</strong> Zet het mes regelmatig aan; slijp het als aanzetten niet meer helpt.</p>",
+            "content": "<p><strong>Na gebruik.</strong> Spoel het mes af met warm water, droog het direct en berg het veilig op.</p><p><strong>Niet in de vaatwasser.</strong> Hitte en zout maken de snijkant sneller bot.</p><p><strong>Snij op hout.</strong> Een houten plank spaart de snijkant; glas en steen maken hem bot.</p><p><strong>Aanzetten.</strong> Zet het mes regelmatig aan en laat het slijpen als dat niet meer helpt.</p>",
             "open": false
           }
         },
         "collapsible_tab-12": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Verzenden, retourneren en garantie",
+            "heading": "Verzending & retour",
             "icon": "truck",
             "source": "custom",
-            "content": "<p><strong>Verzenden.</strong> We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je krijgt 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "content": "<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>30 dagen retour.</strong> Niet tevreden? Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer.</p><p><strong>25 jaar garantie.</strong> Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Je wettelijke rechten blijven daarnaast gelden.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
             "open": false
           }
         },
@@ -116,7 +117,7 @@
         "video_slider-15": {
           "type": "video_slider",
           "settings": {
-            "heading": "Echte keukens, echt resultaat",
+            "heading": "Uit echte keukens",
             "text": ""
           }
         }
@@ -141,6 +142,8 @@
     "specs": {
       "type": "vk-spec-table",
       "settings": {
+        "from_description": true,
+        "desc_heading": "Specificaties",
         "eyebrow": "",
         "heading": "Specificaties",
         "use_product_image": true,
@@ -148,86 +151,21 @@
         "padding_top": 48,
         "padding_bottom": 96
       },
-      "blocks": {
-        "row-1": {
-          "type": "row",
-          "settings": {
-            "label": "Lemmetlengte",
-            "metafield": "custom.lemmetlengte",
-            "value": ""
-          }
-        },
-        "row-2": {
-          "type": "row",
-          "settings": {
-            "label": "Totale lengte",
-            "metafield": "custom.totale_lengte",
-            "value": ""
-          }
-        },
-        "row-3": {
-          "type": "row",
-          "settings": {
-            "label": "Lemmethoogte",
-            "metafield": "custom.lemmethoogte",
-            "value": ""
-          }
-        },
-        "row-4": {
-          "type": "row",
-          "settings": {
-            "label": "Lengte handvat",
-            "metafield": "custom.lengte_handvat",
-            "value": ""
-          }
-        },
-        "row-5": {
-          "type": "row",
-          "settings": {
-            "label": "Lemmet",
-            "metafield": "custom.lemmet",
-            "value": ""
-          }
-        },
-        "row-6": {
-          "type": "row",
-          "settings": {
-            "label": "Handvat",
-            "metafield": "custom.handvat",
-            "value": ""
-          }
-        },
-        "row-7": {
-          "type": "row",
-          "settings": {
-            "label": "Geschikt voor",
-            "metafield": "custom.geschikt_voor",
-            "value": ""
-          }
-        }
-      },
-      "block_order": [
-        "row-1",
-        "row-2",
-        "row-3",
-        "row-4",
-        "row-5",
-        "row-6",
-        "row-7"
-      ]
+      "blocks": {},
+      "block_order": []
     },
-    "blade": {
+    "steel": {
       "type": "vk-image-text",
       "settings": {
         "fallback": "vk-visual-chef.webp",
         "placeholder": "macro",
-        "image_alt": "Close-up van het lemmet",
+        "image_alt": "Het gelaagde staal van een Volkara-mes",
         "image_position": "right",
         "ratio": "portrait",
         "index": "",
-        "eyebrow": "Het lemmet",
-        "heading": "Gesmeed voor <em>precisie</em>.",
-        "text": "<p>Een goed mes begint bij het staal. Het lemmet is hard genoeg om lang scherp te blijven en taai genoeg om niet snel te chippen.</p><p>[Beschrijf hier het staal en de afwerking van dit mes, bijvoorbeeld gelaagd Damascusstaal of een gehamerde afwerking. Noem alleen wat klopt.]</p>",
+        "eyebrow": "Damascusstaal",
+        "heading": "Gelaagd staal met een <em>harde kern</em>.",
+        "text": "<p>Onze Damascus-messen bestaan uit 67 lagen staal rond een kern van VG-10, gehard tot ongeveer 60 HRC. De harde kern houdt de snijkant lang scherp; de lagen eromheen maken het lemmet taai en geven elk mes een eigen golfpatroon.</p><p>Het lemmet is niet gecoat. Je snijdt dus direct met het staal, met een natuurlijk en precies snijgevoel.</p>",
         "button_label": "",
         "button_url": "",
         "color_scheme": "scheme-1",
@@ -236,82 +174,63 @@
       }
     },
     "compare": {
-      "type": "vk-comparison",
+      "type": "vk-price-compare",
       "settings": {
-        "index": "",
+        "image_alt": "Volkara-messen op een rij",
+        "image_caption": "De Volkara messencollectie",
         "eyebrow": "De eerlijke vergelijking",
-        "heading": "Hetzelfde vakmanschap, een eerlijke <em>prijs</em>.",
-        "subheading": "Wat telt in de keuken, zonder winkelmarge.",
-        "competitor_1": "Mes uit de speciaalzaak",
-        "competitor_2": "",
-        "footnote": "",
+        "heading": "Hetzelfde vakmanschap, zonder de <em>speciaalzaakprijs</em>.",
+        "text": "Handgemaakte Japanse messen zijn prachtig, maar kosten in de speciaalzaak al snel honderden euro's. Wij verkopen direct aan jou, zonder tussenhandel.",
+        "them_label": "Speciaalzaak",
+        "them_price": "€ 300+",
+        "us_label": "Volkara",
+        "us_price": "",
         "button_label": "Bestel dit mes",
         "button_url": "",
-        "stack_effect": false,
-        "show_contours": true,
+        "button_to_buy": true,
         "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 120
+        "padding_top": 96,
+        "padding_bottom": 96
       },
       "blocks": {
         "row-1": {
           "type": "row",
           "settings": {
-            "group": "",
-            "feature": "Scherp precisieblad",
-            "ours": "Ja",
-            "c1_status": "yes",
-            "c1_text": "Ja",
-            "c2_status": "no",
-            "c2_text": ""
+            "label": "Gelaagd Damascusstaal",
+            "them": "Ja",
+            "us": "Ja"
           }
         },
         "row-2": {
           "type": "row",
           "settings": {
-            "group": "",
-            "feature": "Goed uitgebalanceerd",
-            "ours": "Ja",
-            "c1_status": "yes",
-            "c1_text": "Ja",
-            "c2_status": "no",
-            "c2_text": ""
+            "label": "Uniek golfpatroon",
+            "them": "Ja",
+            "us": "Ja"
           }
         },
         "row-3": {
           "type": "row",
           "settings": {
-            "group": "",
-            "feature": "Gratis verzending",
-            "ours": "Ja",
-            "c1_status": "partial",
-            "c1_text": "Soms",
-            "c2_status": "no",
-            "c2_text": ""
+            "label": "Slijphoek van 15°",
+            "them": "Vaak",
+            "us": "Ja"
           }
         },
         "row-4": {
           "type": "row",
           "settings": {
-            "group": "",
-            "feature": "30 dagen retour",
-            "ours": "Ja",
-            "c1_status": "partial",
-            "c1_text": "Verschilt per winkel",
-            "c2_status": "no",
-            "c2_text": ""
+            "label": "Garantie",
+            "them": "Verschilt",
+            "us": "25 jaar"
           }
         },
         "row-5": {
           "type": "row",
           "settings": {
-            "group": "",
-            "feature": "Prijs",
-            "ours": "Direct van ons, zonder tussenhandel",
-            "c1_status": "no",
-            "c1_text": "Inclusief winkelmarge",
-            "c2_status": "no",
-            "c2_text": ""
+            "label": "Verzending",
+            "them": "Ophalen of betalen",
+            "us": "Gratis"
           }
         }
       },
@@ -323,18 +242,144 @@
         "row-5"
       ]
     },
+    "anatomy": {
+      "type": "vk-solution",
+      "settings": {
+        "index": "",
+        "eyebrow": "Anatomie van het lemmet",
+        "heading": "Elk detail, <em>bewust gekozen</em>.",
+        "subheading": "",
+        "fallback": "vk-visual-pan-angle.webp",
+        "image_alt": "Het mes met genummerde onderdelen",
+        "button_label": "",
+        "button_url": "",
+        "stack_effect": false,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      },
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": {
+            "title": "Gelaagd lemmet",
+            "text": "<p>Lagen Damascusstaal rond een harde kern: sterk, taai en elk lemmet met een eigen patroon.</p>",
+            "hotspot": 1
+          }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": {
+            "title": "Gehamerde of gepolijste afwerking",
+            "text": "<p>Het oppervlak helpt ingrediënten los te laten van het lemmet tijdens het snijden.</p>",
+            "hotspot": 2
+          }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": {
+            "title": "Precisie-snijkant",
+            "text": "<p>Aan beide zijden vlak geslepen onder 15°, voor links- en rechtshandigen.</p>",
+            "hotspot": 3
+          }
+        },
+        "point-4": {
+          "type": "point",
+          "settings": {
+            "title": "Naadloze bolster",
+            "text": "<p>De overgang van lemmet naar greep is glad afgewerkt, zodat je hand er comfortabel tegenaan ligt.</p>",
+            "hotspot": 4
+          }
+        },
+        "point-5": {
+          "type": "point",
+          "settings": {
+            "title": "Uitgebalanceerde houten greep",
+            "text": "<p>Ergonomisch gevormd en gelijkmatig in balans, ook bij lang snijwerk.</p>",
+            "hotspot": 5
+          }
+        },
+        "hotspot-1": {
+          "type": "hotspot",
+          "settings": {
+            "number": 1,
+            "x": 38,
+            "y": 40,
+            "label_side": "right",
+            "label": "Lemmet",
+            "text": "Gelaagd staal rond een harde kern."
+          }
+        },
+        "hotspot-2": {
+          "type": "hotspot",
+          "settings": {
+            "number": 2,
+            "x": 30,
+            "y": 55,
+            "label_side": "right",
+            "label": "Afwerking",
+            "text": "Helpt ingrediënten loslaten."
+          }
+        },
+        "hotspot-3": {
+          "type": "hotspot",
+          "settings": {
+            "number": 3,
+            "x": 22,
+            "y": 68,
+            "label_side": "right",
+            "label": "Snijkant",
+            "text": "Vlak geslepen onder 15°."
+          }
+        },
+        "hotspot-4": {
+          "type": "hotspot",
+          "settings": {
+            "number": 4,
+            "x": 58,
+            "y": 47,
+            "label_side": "left",
+            "label": "Bolster",
+            "text": "Glad afgewerkte overgang."
+          }
+        },
+        "hotspot-5": {
+          "type": "hotspot",
+          "settings": {
+            "number": 5,
+            "x": 80,
+            "y": 40,
+            "label_side": "left",
+            "label": "Greep",
+            "text": "Ergonomisch en in balans."
+          }
+        }
+      },
+      "block_order": [
+        "point-1",
+        "point-2",
+        "point-3",
+        "point-4",
+        "point-5",
+        "hotspot-1",
+        "hotspot-2",
+        "hotspot-3",
+        "hotspot-4",
+        "hotspot-5"
+      ]
+    },
     "edge": {
       "type": "vk-image-text",
       "settings": {
         "fallback": "vk-visual-chef.webp",
         "placeholder": "chef",
-        "image_alt": "Groente snijden met een Volkara-mes",
+        "image_alt": "Tomaat snijden met een Volkara-mes",
         "image_position": "left",
         "ratio": "portrait",
         "index": "",
-        "eyebrow": "De snede",
-        "heading": "Scherpte die je bij de eerste snede <em>voelt</em>.",
-        "text": "<p>Een dunne snijkant en een rustige balans laten het mes door tomaat, ui en vlees glijden, zonder te duwen of te scheuren.</p><p>Houd hem zo: snijd op hout, was met de hand en droog direct af. Dan blijft het mes jarenlang precies.</p>",
+        "eyebrow": "De snijkant",
+        "heading": "Scherpte die je bij de eerste snede voelt.",
+        "text": "<p>Het staal is maar de helft van het verhaal. Een dunne snijkant, een goede slijphoek en een zorgvuldige afwerking zorgen samen voor een snede die moeiteloos door tomaat, ui en vlees gaat.</p><p>Zo houd je hem scherp: snijd op hout, was met de hand en droog direct af. Dan blijft het mes jarenlang precies.</p><blockquote><p>Gelaagd staal. Precisie tot op de snijkant.</p></blockquote>",
         "button_label": "",
         "button_url": "",
         "color_scheme": "scheme-1",
@@ -350,9 +395,9 @@
         "heading": "Vind je volgende <em>favoriete</em> mes.",
         "subheading": "Van je eerste koksmes tot een complete set.",
         "limit": 8,
-        "link_label": "Bekijk alle messen",
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
+        "link_label": "Bekijk alle Japanse messen",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
         "padding_bottom": 96
       },
       "blocks": {
@@ -373,51 +418,58 @@
       "settings": {
         "layout": "centered",
         "index": "",
-        "eyebrow": "Veelgestelde vragen",
-        "heading": "Goede vragen, eerlijke <em>antwoorden</em>.",
+        "eyebrow": "",
+        "heading": "Je vragen, <em>beantwoord</em>.",
         "subheading": "",
         "show_filter": false,
         "contact_title": "Nog een vraag?",
         "contact_text": "Neem contact met ons op. We helpen je graag.",
         "contact_url": "/pages/contact",
         "color_scheme": "scheme-1",
-        "padding_top": 120,
+        "padding_top": 96,
         "padding_bottom": 96
       },
       "blocks": {
         "q-1": {
           "type": "question",
           "settings": {
-            "question": "Welk mes moet ik als eerste kopen?",
-            "answer": "<p>Begin met een koksmes van ongeveer 20 cm: daarmee snijd je groente, vlees en kruiden. Een santoku is een goed alternatief als je liever een kortere, hogere kling hebt.</p>"
+            "question": "Is dit echt Damascusstaal?",
+            "answer": "<p>Ja. Onze Damascus-messen bestaan uit 67 lagen staal rond een VG-10 kern. Het golfpatroon ontstaat doordat die lagen samen worden gesmeed; het is dus geen print of ets.</p>"
           }
         },
         "q-2": {
           "type": "question",
           "settings": {
-            "question": "Mag het mes in de vaatwasser?",
-            "answer": "<p>Liever niet. De hitte, het zout en het botsen tegen ander vaatwerk maken de snede sneller bot. Spoel het mes af met warm water en droog het direct.</p>"
+            "question": "Waarom is dit mes goedkoper dan in de speciaalzaak?",
+            "answer": "<p>We verkopen direct aan jou, zonder groothandel of winkel ertussen. Daardoor betaal je voor het mes, niet voor de marges onderweg.</p>"
           }
         },
         "q-3": {
           "type": "question",
           "settings": {
-            "question": "Hoe houd ik het mes scherp?",
-            "answer": "<p>Snijd op een houten of kunststof plank, zet het mes regelmatig aan en laat het slijpen als aanzetten niet meer helpt.</p>"
+            "question": "Met welk Volkara-mes begin ik het best?",
+            "answer": "<p>Met een koksmes (gyuto) van ongeveer 20 cm: daarmee snijd je groente, vlees en vis. Heb je liever een kortere, hogere kling, kies dan een santoku.</p>"
           }
         },
         "q-4": {
           "type": "question",
           "settings": {
-            "question": "Is het een goed cadeau?",
-            "answer": "<p>Ja. Een goed mes wordt elke dag gebruikt. En past het toch niet, dan kan het binnen 30 dagen retour.</p>"
+            "question": "Mag het mes in de vaatwasser?",
+            "answer": "<p>Liever niet. Hitte, zout en botsend vaatwerk maken de snijkant sneller bot. Afspoelen met warm water en direct afdrogen is genoeg.</p>"
           }
         },
         "q-5": {
           "type": "question",
           "settings": {
-            "question": "Hoe zit het met verzenden en retourneren?",
-            "answer": "<p>Verzenden is gratis. Je hebt 30 dagen om je bestelling terug te sturen; lees meer op de pagina <a href=\"/pages/verzenden-en-retourneren\">Verzenden en retourneren</a>.</p>"
+            "question": "Is het een goed cadeau?",
+            "answer": "<p>Ja. Personalisatie met naam of initialen is mogelijk, en elke gegraveerde bestelling komt in een gratis geschenkverpakking.</p>"
+          }
+        },
+        "q-6": {
+          "type": "question",
+          "settings": {
+            "question": "Hoe zit het met verzending, retour en garantie?",
+            "answer": "<p>Verzenden is gratis, je hebt 30 dagen om je bestelling terug te sturen en je krijgt 25 jaar garantie op materiaal- en fabricagefouten.</p>"
           }
         }
       },
@@ -426,7 +478,8 @@
         "q-2",
         "q-3",
         "q-4",
-        "q-5"
+        "q-5",
+        "q-6"
       ]
     },
     "spotlight": {
@@ -435,7 +488,7 @@
         "fallback": "vk-visual-sear.webp",
         "eyebrow": "De Volkara messencollectie",
         "heading": "",
-        "text": "Gratis verzending · 30 dagen retour",
+        "text": "Gratis verzending · 25 jaar garantie",
         "size_helper": "",
         "link_label": "Bestel dit mes",
         "color_scheme": "scheme-1",
@@ -460,17 +513,18 @@
         "link": "",
         "stack_effect": false,
         "show_contours": false,
-        "color_scheme": "scheme-2",
-        "padding_top": 120,
-        "padding_bottom": 120
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     }
   },
   "order": [
     "main",
     "specs",
-    "blade",
+    "steel",
     "compare",
+    "anatomy",
     "edge",
     "more",
     "faq",

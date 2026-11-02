@@ -1,30 +1,31 @@
 /*
  * VOLKARA template. Edit in the Shopify theme editor.
- * Cutting board product page: assign under Products → (board) → Theme template → "snijplank".
+ * Cutting board product page: assign under Products → (titanium board) → Theme template → "snijplank".
  */
 {
   "sections": {
     "main": {
       "type": "vk-main-product",
       "settings": {
-        "gallery_chip": "30 dagen retour",
+        "gallery_chip": "25 jaar garantie",
         "show_sticky_atc": true,
         "color_scheme": "scheme-1",
         "padding_top": 120,
         "padding_bottom": 96,
-        "gallery_effects": true
+        "gallery_effects": false,
+        "gallery_layout": "grid"
       },
       "blocks": {
         "badge-1": {
           "type": "badge",
           "settings": {
-            "text": "PFAS-vrije snijplank"
+            "text": "Titanium snijplank"
           }
         },
         "title-2": {
           "type": "title",
           "settings": {
-            "subtitle": "Een snijplank die niet slijt."
+            "subtitle": "Gemaakt in de geest van Japans vakmanschap."
           }
         },
         "rating-3": {
@@ -39,17 +40,17 @@
           "type": "usp_tiles",
           "settings": {
             "icon_1": "leaf",
-            "title_1": "PFAS-vrij",
-            "text_1": "Geen coating",
-            "icon_2": "shield",
-            "title_2": "Niet poreus",
-            "text_2": "Neemt geen vocht op",
-            "icon_3": "truck",
-            "title_3": "Gratis verzending",
-            "text_3": "Op elke bestelling",
-            "icon_4": "return",
-            "title_4": "30 dagen retour",
-            "text_4": "Zonder risico proberen"
+            "title_1": "100% puur titanium",
+            "text_1": "Geen coating, PFAS-vrij",
+            "icon_2": "warranty",
+            "title_2": "25 jaar garantie",
+            "text_2": "Gebouwd om te blijven",
+            "icon_3": "drop",
+            "title_3": "Even spoelen, klaar",
+            "text_3": "Neemt geen vocht op",
+            "icon_4": "shield",
+            "title_4": "Geur- en vlekbestendig",
+            "text_4": "Ook na dagelijks gebruik"
           }
         },
         "variant_picker-6": {
@@ -75,11 +76,11 @@
         "collapsible_tab-10": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Beschrijving",
+            "heading": "Details",
             "icon": "list",
             "source": "description",
             "content": "",
-            "open": true
+            "open": false
           }
         },
         "collapsible_tab-11": {
@@ -88,17 +89,17 @@
             "heading": "Onderhoudstips",
             "icon": "drop",
             "source": "custom",
-            "content": "<p><strong>Schoonmaken.</strong> Spoel de plank af met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Geuren.</strong> Ruikt de plank na vis of knoflook? Wrijf hem in met wat citroen of zout en spoel na.</p><p><strong>Je messen.</strong> Een harde plank maakt een snede sneller bot dan hout. Zet je messen daarom regelmatig aan.</p>",
+            "content": "<p><strong>Schoonmaken.</strong> Spoel de plank af met warm water en een beetje afwasmiddel en droog hem af.</p><p><strong>Geuren.</strong> Ruikt de plank na vis of knoflook? Spoel hem na met warm water; titanium neemt geen geuren op.</p><p><strong>Je messen.</strong> Een harde plank maakt een snijkant sneller bot dan hout. Zet je messen daarom regelmatig aan.</p>",
             "open": false
           }
         },
         "collapsible_tab-12": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Verzenden, retourneren en garantie",
+            "heading": "Verzending & retour",
             "icon": "truck",
             "source": "custom",
-            "content": "<p><strong>Verzenden.</strong> We verzenden je bestelling gratis. De verwachte levertijd zie je bij het afrekenen, voordat je betaalt. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>Retourneren.</strong> Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons binnen die termijn weten en stuur het product compleet terug; je krijgt het aankoopbedrag terug.</p><p><strong>Garantie.</strong> Je krijgt 25 jaar garantie op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Is er iets mis met het materiaal of de afwerking? Neem <a href=\"/pages/contact\">contact</a> met ons op. Meer op de <a href=\"/pages/warranty\">garantiepagina</a>.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
+            "content": "<p><strong>Gratis verzending.</strong> We verzenden je bestelling gratis. Zodra je pakket onderweg is, krijg je een track-and-tracelink.</p><p><strong>30 dagen retour.</strong> Niet tevreden? Je kunt je bestelling binnen 30 dagen na ontvangst retourneren. Laat het ons weten via de contactpagina, met je ordernummer.</p><p><strong>25 jaar garantie.</strong> Op materiaal- en fabricagefouten bij normaal huishoudelijk gebruik. Je wettelijke rechten blijven daarnaast gelden.</p><p><a href=\"/pages/verzenden-en-retourneren\">Alles over verzenden en retourneren</a></p>",
             "open": false
           }
         },
@@ -116,7 +117,7 @@
         "video_slider-15": {
           "type": "video_slider",
           "settings": {
-            "heading": "Echte keukens, echt resultaat",
+            "heading": "Echte koks, echt resultaat",
             "text": ""
           }
         }
@@ -141,12 +142,12 @@
     "versus": {
       "type": "vk-versus",
       "settings": {
-        "eyebrow": "Volkara vs. plastic",
-        "heading": "Elke snede <em>telt</em>.",
-        "subheading": "Een plastic snijplank raakt met elke snede een beetje beschadigd. Een metalen plank niet.",
-        "image_alt": "Een gekraste plastic snijplank",
-        "tag": "Plastic plank",
-        "caption_title": "Een gewone plastic plank",
+        "eyebrow": "Waarom een titanium snijplank",
+        "heading": "Wat er achterblijft na <em>elke snede</em>.",
+        "subheading": "Een plastic snijplank laat met elke snede iets achter. Onze plank niet.",
+        "image_alt": "Een gewone plastic snijplank",
+        "tag": "Bevat kunststof",
+        "caption_title": "Gewone plastic plank",
         "caption": "Messen laten groeven achter waarin vocht en etensresten blijven zitten.",
         "ours_label": "Onze plank",
         "theirs_label": "Plastic plank",
@@ -158,49 +159,49 @@
         "row-1": {
           "type": "row",
           "settings": {
-            "label": "Microplastics",
-            "ours": "Geen: massief metaal",
-            "theirs": "Kan bij het snijden deeltjes afgeven"
+            "label": "Microplastics per snede",
+            "ours": "Geen: massief titanium",
+            "theirs": "Kan bij elke snede deeltjes afgeven"
           }
         },
         "row-2": {
           "type": "row",
           "settings": {
-            "label": "Coating",
-            "ours": "Geen coating, PFAS-vrij",
-            "theirs": "Vaak kunststof met toevoegingen"
+            "label": "Chemische uitloging",
+            "ours": "Geen coating, geen PFAS",
+            "theirs": "Kunststof met toevoegingen"
           }
         },
         "row-3": {
           "type": "row",
           "settings": {
-            "label": "Hygiëne",
-            "ours": "Niet poreus, neemt geen vocht op",
+            "label": "Bacteriën",
+            "ours": "Niet poreus, neemt niets op",
             "theirs": "Snijgroeven houden vocht en resten vast"
           }
         },
         "row-4": {
           "type": "row",
           "settings": {
-            "label": "Na een jaar",
-            "ours": "Glad en makkelijk schoon",
-            "theirs": "Diepe krassen en verkleuring"
+            "label": "Oppervlak na een jaar",
+            "ours": "Glad en ultrasterk",
+            "theirs": "Diepe krassen waarin vuil blijft zitten"
           }
         },
         "row-5": {
           "type": "row",
           "settings": {
             "label": "Levensduur",
-            "ours": "Gaat jarenlang mee",
-            "theirs": "Regelmatig vervangen"
+            "ours": "Jarenlang, met eenvoudig onderhoud",
+            "theirs": "Elke 1 tot 3 jaar vervangen"
           }
         },
         "stat-1": {
           "type": "stat",
           "settings": {
-            "number": "Tot 14,5 miljoen",
-            "text": "microplastic-deeltjes per jaar kan één polyethyleen snijplank volgens onderzoek afgeven bij dagelijks gebruik.",
-            "source": "Bron: Environmental Science & Technology, 2023. [Controleer de bron voordat je publiceert.]"
+            "number": "14,5 miljoen",
+            "text": "microplastic-deeltjes per jaar kan één plastic snijplank volgens onderzoek afgeven bij dagelijks gebruik.",
+            "source": "Bron: Environmental Science & Technology, 2023."
           }
         }
       },
@@ -213,24 +214,110 @@
         "stat-1"
       ]
     },
-    "why": {
-      "type": "vk-image-text",
+    "difference": {
+      "type": "vk-solution",
       "settings": {
-        "fallback": "vk-visual-chef.webp",
-        "placeholder": "macro",
-        "image_alt": "De Volkara-snijplank van dichtbij",
-        "image_position": "right",
-        "ratio": "portrait",
         "index": "",
         "eyebrow": "Het Volkara-verschil",
-        "heading": "Eén plank. Voor <em>jaren</em>.",
-        "text": "<p>Elk materiaal is gekozen op wat het in de keuken doet.</p><ul><li><strong>Geen coating.</strong> Er zit niets op de plank dat kan slijten of loslaten.</li><li><strong>Massief metaal.</strong> Stevig, vlak en hittebestendig.</li><li><strong>Niet poreus.</strong> Neemt geen vocht, geuren of kleur op.</li><li><strong>Makkelijk schoon.</strong> Afspoelen, afdrogen, klaar.</li></ul>",
+        "heading": "Gemaakt om <em>niet</em> te vervangen.",
+        "subheading": "Gekozen op wat het in je keuken doet: sterk, schoon en veilig.",
+        "fallback": "vk-visual-pan-angle.webp",
+        "image_alt": "De titanium snijplank met genummerde kenmerken",
         "button_label": "",
         "button_url": "",
+        "stack_effect": false,
         "color_scheme": "scheme-2",
         "padding_top": 120,
         "padding_bottom": 120
-      }
+      },
+      "blocks": {
+        "point-1": {
+          "type": "point",
+          "settings": {
+            "title": "Geen PFAS. Geen coatings.",
+            "text": "<p>De plank is van massief titanium, zonder PFAS, PFOA of synthetische coating. Er zit dus niets op dat kan slijten of loslaten.</p>",
+            "hotspot": 1
+          }
+        },
+        "point-2": {
+          "type": "point",
+          "settings": {
+            "title": "Massief titanium oppervlak",
+            "text": "<p>Dun, licht en uitzonderlijk sterk. Het oppervlak trekt niet krom en is bestand tegen corrosie.</p>",
+            "hotspot": 2
+          }
+        },
+        "point-3": {
+          "type": "point",
+          "settings": {
+            "title": "Niet-poreus en makkelijk schoon",
+            "text": "<p>Titanium neemt geen vocht op. Even afspoelen en afdrogen is genoeg.</p>",
+            "hotspot": 3
+          }
+        },
+        "point-4": {
+          "type": "point",
+          "settings": {
+            "title": "Bestand tegen geuren en vlekken",
+            "text": "<p>Na vis, knoflook of rode biet ruikt en oogt de plank weer als nieuw.</p>",
+            "hotspot": 4
+          }
+        },
+        "hotspot-1": {
+          "type": "hotspot",
+          "settings": {
+            "number": 1,
+            "x": 30,
+            "y": 26,
+            "label_side": "right",
+            "label": "Geen chemische coating",
+            "text": "Massief titanium, PFAS-vrij."
+          }
+        },
+        "hotspot-2": {
+          "type": "hotspot",
+          "settings": {
+            "number": 2,
+            "x": 50,
+            "y": 50,
+            "label_side": "right",
+            "label": "Puur titanium",
+            "text": "Sterk, licht en vlak."
+          }
+        },
+        "hotspot-3": {
+          "type": "hotspot",
+          "settings": {
+            "number": 3,
+            "x": 70,
+            "y": 72,
+            "label_side": "left",
+            "label": "Niet-poreus",
+            "text": "Neemt geen vocht op."
+          }
+        },
+        "hotspot-4": {
+          "type": "hotspot",
+          "settings": {
+            "number": 4,
+            "x": 72,
+            "y": 22,
+            "label_side": "left",
+            "label": "Geur- en vlekvrij",
+            "text": "Spoel af en klaar."
+          }
+        }
+      },
+      "block_order": [
+        "point-1",
+        "point-2",
+        "point-3",
+        "point-4",
+        "hotspot-1",
+        "hotspot-2",
+        "hotspot-3",
+        "hotspot-4"
+      ]
     },
     "reviews": {
       "type": "vk-reviews",
@@ -257,18 +344,18 @@
       "settings": {
         "index": "",
         "eyebrow": "Waarom Volkara?",
-        "heading": "Niet alle snijplanken zijn <em>gelijk</em>.",
-        "subheading": "Zo verhoudt onze plank zich tot een gewone snijplank.",
+        "heading": "Titanium tegenover een <em>gewone</em> snijplank.",
+        "subheading": "Per onderwerp naast elkaar gezet.",
         "competitor_1": "Gewone snijplanken",
         "competitor_2": "",
-        "footnote": "",
+        "footnote": "Met 25 jaar garantie.",
         "button_label": "",
         "button_url": "",
         "stack_effect": false,
         "show_contours": true,
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 120
+        "padding_bottom": 96
       },
       "blocks": {
         "row-1": {
@@ -276,9 +363,9 @@
           "settings": {
             "group": "Veiligheid",
             "feature": "Veiligheid",
-            "ours": "Hittebestendig",
+            "ours": "Natuurlijk hittebestendig",
             "c1_status": "no",
-            "c1_text": "Kan vervormen of smelten bij hitte",
+            "c1_text": "Vervormt of smelt bij hitte",
             "c2_status": "no",
             "c2_text": ""
           }
@@ -288,9 +375,9 @@
           "settings": {
             "group": "Duurzaamheid",
             "feature": "Duurzaamheid",
-            "ours": "Krast nauwelijks, geen groeven",
+            "ours": "Vrijwel krasvrij, geen groeven",
             "c1_status": "no",
-            "c1_text": "Diepe groeven waar bacteriën in blijven",
+            "c1_text": "Diepe groeven waarin bacteriën blijven",
             "c2_status": "no",
             "c2_text": ""
           }
@@ -314,7 +401,7 @@
             "feature": "Onderhoud",
             "ours": "Afspoelen en afdrogen",
             "c1_status": "partial",
-            "c1_text": "Schuren, bleken, vervangen",
+            "c1_text": "Schuren, bleken en sneller slijten",
             "c2_status": "no",
             "c2_text": ""
           }
@@ -334,11 +421,11 @@
         "row-6": {
           "type": "row",
           "settings": {
-            "group": "Waarde",
-            "feature": "Waarde",
+            "group": "Waarde op lange termijn",
+            "feature": "Waarde op lange termijn",
             "ours": "Gaat jarenlang mee",
             "c1_status": "no",
-            "c1_text": "Regelmatig vervangen",
+            "c1_text": "Elke 6 tot 12 maanden vervangen",
             "c2_status": "no",
             "c2_text": ""
           }
@@ -359,40 +446,40 @@
         "heading": "",
         "mobile_layout": "grid",
         "color_scheme": "scheme-1",
-        "padding_top": 32,
-        "padding_bottom": 32
+        "padding_top": 24,
+        "padding_bottom": 24
       },
       "blocks": {
         "usp-1": {
           "type": "usp",
           "settings": {
             "icon": "leaf",
-            "title": "PFAS-vrij",
-            "subtitle": "Geen coating"
+            "title": "100% PFAS-vrij",
+            "subtitle": "Geen PFAS, PTFE of chemicaliën"
           }
         },
         "usp-2": {
           "type": "usp",
           "settings": {
             "icon": "shield",
-            "title": "Niet poreus",
-            "subtitle": "Hygiënisch en geurloos"
+            "title": "Puur titanium",
+            "subtitle": "Geen coating die slijt"
           }
         },
         "usp-3": {
           "type": "usp",
           "settings": {
-            "icon": "truck",
-            "title": "Gratis verzending",
-            "subtitle": "Op elke bestelling"
+            "icon": "warranty",
+            "title": "25 jaar garantie",
+            "subtitle": "Gebouwd voor jaren"
           }
         },
         "usp-4": {
           "type": "usp",
           "settings": {
-            "icon": "return",
-            "title": "30 dagen retour",
-            "subtitle": "Zonder risico proberen"
+            "icon": "hexagon",
+            "title": "Ultrasterk",
+            "subtitle": "Krast nauwelijks"
           }
         }
       },
@@ -408,12 +495,12 @@
       "settings": {
         "layout": "centered",
         "index": "",
-        "eyebrow": "Veelgestelde vragen",
-        "heading": "Alles wat je wilt <em>weten</em>.",
+        "eyebrow": "FAQ",
+        "heading": "Vragen over de <em>titanium</em> snijplank.",
         "subheading": "",
         "show_filter": false,
         "contact_title": "Nog vragen?",
-        "contact_text": "Neem contact met ons op. We helpen je graag.",
+        "contact_text": "Neem contact op.",
         "contact_url": "/pages/contact",
         "color_scheme": "scheme-1",
         "padding_top": 120,
@@ -423,50 +510,57 @@
         "q-1": {
           "type": "question",
           "settings": {
-            "question": "Wat is het verschil met een plastic snijplank?",
-            "answer": "<p>Een plastic plank krijgt groeven door je mes, waarin vocht en etensresten blijven zitten, en kan kleine deeltjes afgeven. Onze plank is van massief metaal: glad, niet poreus en zonder coating.</p>"
+            "question": "Waarin verschilt titanium van een plastic plank?",
+            "answer": "<p>Een plastic plank krijgt groeven waarin vocht en resten blijven zitten, en kan kleine deeltjes afgeven. Onze plank is van 100% puur titanium: glad, niet-poreus en zonder coating.</p>"
           }
         },
         "q-2": {
           "type": "question",
           "settings": {
-            "question": "Is een metalen snijplank veilig?",
-            "answer": "<p>Ja. Er zit geen coating op die kan loslaten, en de plank neemt geen vocht of geuren op.</p>"
+            "question": "Is titanium veilig om op te snijden?",
+            "answer": "<p>Ja. Er zit geen PFAS of coating op, en het oppervlak neemt geen vocht, geuren of vlekken op.</p>"
           }
         },
         "q-3": {
           "type": "question",
           "settings": {
-            "question": "Wordt mijn mes er bot van?",
-            "answer": "<p>Een harde plank maakt een snede sneller bot dan hout. Zet je messen regelmatig aan, dan blijven ze scherp.</p>"
+            "question": "Worden mijn messen er bot van?",
+            "answer": "<p>Een harde plank maakt een snijkant sneller bot dan hout. Zet je messen daarom regelmatig aan; dan blijven ze scherp.</p>"
           }
         },
         "q-4": {
           "type": "question",
           "settings": {
             "question": "Neemt de plank geuren of vlekken op?",
-            "answer": "<p>Nee. Na vis, knoflook of rode biet spoel je hem af en is hij weer schoon.</p>"
+            "answer": "<p>Nee. Titanium is niet-poreus: na vis, knoflook of rode biet spoel je hem af en is hij weer schoon.</p>"
           }
         },
         "q-5": {
           "type": "question",
           "settings": {
             "question": "Mag de plank in de vaatwasser?",
-            "answer": "<p>[Vul in wat voor jouw plank geldt.] Met warm water en een beetje afwasmiddel ben je meestal sneller klaar.</p>"
+            "answer": "<p>De plank is eenvoudig met de hand schoon te maken: warm water, een beetje afwasmiddel en afdrogen. Zo blijft hij het mooist.</p>"
           }
         },
         "q-6": {
           "type": "question",
           "settings": {
-            "question": "Hoe lang gaat de plank mee?",
-            "answer": "<p>Bij normaal gebruik jarenlang: er is geen coating die kan slijten.</p>"
+            "question": "Hoe lang kan ik de plank gebruiken?",
+            "answer": "<p>Bij normaal gebruik jarenlang: er is geen coating die kan slijten, en je krijgt 25 jaar garantie.</p>"
           }
         },
         "q-7": {
           "type": "question",
           "settings": {
             "question": "Is de plank zwaar?",
-            "answer": "<p>[Vul het gewicht per maat in.]</p>"
+            "answer": "<p>Nee. Titanium is licht en dun, maar uitzonderlijk sterk. Daardoor is de plank makkelijk te hanteren en op te bergen.</p>"
+          }
+        },
+        "q-8": {
+          "type": "question",
+          "settings": {
+            "question": "Heeft de plank onderhoud nodig?",
+            "answer": "<p>Nee. Anders dan hout hoeft titanium niet geolied te worden. Afspoelen en afdrogen is genoeg.</p>"
           }
         }
       },
@@ -477,7 +571,8 @@
         "q-4",
         "q-5",
         "q-6",
-        "q-7"
+        "q-7",
+        "q-8"
       ]
     },
     "cta": {
@@ -486,9 +581,9 @@
         "layout": "inset",
         "fallback": "vk-visual-sear.webp",
         "show_embers": true,
-        "eyebrow": "Klaar voor beter?",
-        "heading": "Stap over op <em>metaal</em>.",
-        "subheading": "Een snijplank die niet slijt, zonder coating.",
+        "eyebrow": "Klaar om over te stappen?",
+        "heading": "Stap over op <em>titanium</em>.",
+        "subheading": "Een betere snijplank begint met beter materiaal.",
         "button_label": "Kies je snijplank",
         "button_url": "",
         "button_to_buy": true,
@@ -509,11 +604,18 @@
         "chip-2": {
           "type": "chip",
           "settings": {
+            "icon": "shield",
+            "text": "25 jaar garantie"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
             "icon": "return",
             "text": "30 dagen retour"
           }
         },
-        "chip-3": {
+        "chip-4": {
           "type": "chip",
           "settings": {
             "icon": "lock",
@@ -524,18 +626,62 @@
       "block_order": [
         "chip-1",
         "chip-2",
-        "chip-3"
+        "chip-3",
+        "chip-4"
       ]
+    },
+    "newsletter": {
+      "type": "vk-newsletter",
+      "blocks": {
+        "perk-1": {
+          "type": "perk",
+          "settings": {
+            "text": "Als eerste nieuwe producten zien"
+          }
+        },
+        "perk-2": {
+          "type": "perk",
+          "settings": {
+            "text": "Recepten en kooktechniek"
+          }
+        },
+        "perk-3": {
+          "type": "perk",
+          "settings": {
+            "text": "Tips voor gebruik en onderhoud"
+          }
+        }
+      },
+      "block_order": [
+        "perk-1",
+        "perk-2",
+        "perk-3"
+      ],
+      "settings": {
+        "eyebrow": "Nieuwsbrief",
+        "heading": "Blijf dicht bij het <em>vuur</em>.",
+        "subheading": "Kooktechniek, onderhoudstips en als eerste horen over nieuwe producten. Afmelden kan altijd met één klik.",
+        "placeholder": "Je e-mailadres",
+        "button_label": "Aanmelden",
+        "success_text": "Gelukt, je bent aangemeld. De volgende nieuwsbrief komt naar je toe.",
+        "error_text": "Dit e-mailadres lijkt niet te kloppen. Controleer het en probeer het opnieuw.",
+        "consent": "<p>Door je aan te melden ga je akkoord met het ontvangen van e-mails van Volkara. Afmelden kan altijd met één klik. Lees onze <a href=\"/policies/privacy-policy\">privacyverklaring</a>.</p>",
+        "show_embers": true,
+        "color_scheme": "scheme-2",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
     }
   },
   "order": [
     "main",
     "versus",
-    "why",
+    "difference",
     "reviews",
     "compare",
     "usps",
     "faq",
-    "cta"
+    "cta",
+    "newsletter"
   ]
 }

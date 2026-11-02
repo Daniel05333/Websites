@@ -36,7 +36,8 @@
       </div>
     </div>
     <div class="vk-spotlight__info">
-      {%- render 'vk-heading', eyebrow: section.settings.eyebrow, heading: section.settings.heading, subheading: section.settings.text -%}
+      {%- assign vk_spot_heading = section.settings.heading | default: product.title -%}
+      {%- render 'vk-heading', eyebrow: section.settings.eyebrow, heading: vk_spot_heading, subheading: section.settings.text -%}
       {%- if product != blank -%}
         <div class="vk-spotlight__meta" data-reveal>
           {%- render 'vk-product-rating', product: product, size: 'md' -%}

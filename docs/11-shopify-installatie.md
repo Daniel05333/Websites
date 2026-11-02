@@ -137,18 +137,18 @@ Opbouw: Gift hero · koopblok van het product · lopende balk · intro · budget
 - **Reviews** staan verborgen; zet ze aan zodra je echte reviews of je reviews-app-blok hebt.
 - **Sterrenregel in de hero** is leeg; vul alleen een score in die je kunt aantonen.
 
-## Actiecollectie, messen- en snijplankpagina (v11)
+## Actiecollectie, messen- en snijplankpagina (v12)
 
-**Collectie `actie`** — Collecties → (bijv. Restock sale) → Thema-template → `actie`.
-Banner met titel, tekst, USP-rij en categorieknoppen boven het productraster.
-- Aftelklok: vul in de sectie *Sale hero* bij **Sale ends at** de echte einddatum in (bijv. `2026-11-30 23:59`). Leeg = geen klok; na de datum verdwijnt hij vanzelf.
-- Categorieknoppen linken naar de collecties pannen, sets-bundels, messen en snijplanken (aan te passen per knop).
+**Collectie `actie`** — Collecties → Restock sale → Thema-template → `actie`.
+Banner "Restock sale / tot 70% korting", USP-rij, categorieknoppen en productkaarten in sale-stijl (label, prijs, oude prijs, "Bespaar €X").
+- Aftelklok: vul in *Sale hero* bij **Sale ends at** de echte einddatum in (bijv. `2026-11-30 23:59`). Leeg = geen klok.
+- Labels op kaarten: tag het product met `bestseller`, `nieuw` of `weinig-voorraad`.
 
 **Product `mes`** — Producten → (mes) → Thema-template → `mes`.
-Koopblok, specificaties, lemmet, vergelijking, de snede, meer messen, vragen, uitlichting, reviews (verborgen).
-- Specificaties per mes komen uit metavelden: maak onder Instellingen → Aangepaste gegevens → Producten de velden `custom.lemmetlengte`, `custom.totale_lengte`, `custom.lemmethoogte`, `custom.lengte_handvat`, `custom.lemmet`, `custom.handvat`, `custom.geschikt_voor` (type: tekst) en vul ze per product in. Lege rijen worden niet getoond.
+Galerij als raster, USP-tegels, specificaties (automatisch uit de lijst onder "Specificaties" in de productbeschrijving), Damascusstaal, prijsvergelijking (met je live prijs), anatomie met genummerde punten, de snijkant, meer messen, vragen, uitlichting.
+- Hotspots op de mesfoto staan op een standaardpositie; verschuif ze in de editor als je foto anders is.
 
-**Product `snijplank`** — Producten → (titanium/rvs-plank) → Thema-template → `snijplank`.
-Koopblok, "Elke snede telt" (plank vs. plastic), Volkara-verschil, reviews (verborgen), vergelijking, USP's, vragen, slotblok.
-- Niet geschikt voor de walnoothouten plank: de teksten gaan over een metalen plank.
-- Controleer de bron van het cijfer "tot 14,5 miljoen microplastic-deeltjes" en vul de [haken] in de vragen in.
+**Product `snijplank`** — Producten → Titanium snijplank → Thema-template → `snijplank`.
+Galerij als raster, USP-tegels uit je kenmerkenlijst, plank vs. plastic, het Volkara-verschil met genummerde punten, vergelijkingstabel per onderwerp, USP-strook, vragen, slotkaart, nieuwsbrief.
+- Alleen voor de metalen planken (niet voor walnoot).
+- Reviews staan verborgen tot je echte reviews of je reviews-app-blok toevoegt.

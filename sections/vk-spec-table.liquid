@@ -3,6 +3,23 @@
 {%- assign s = section.settings -%}
 {%- comment -%} Each row shows the product's metafield when it has one, otherwise the fixed text. Empty rows are skipped. {%- endcomment -%}
 {%- capture vk_rows -%}
+  {%- comment -%} 1. Rows read from the product description: the list under a heading such as "Specificaties", one "Label: waarde" per bullet. {%- endcomment -%}
+  {%- if s.from_description and product != blank and s.desc_heading != blank -%}
+    {%- assign vk_parts = product.description | split: s.desc_heading -%}
+    {%- if vk_parts.size > 1 -%}
+      {%- assign vk_list = vk_parts[1] | split: '</ul>' | first -%}
+      {%- assign vk_items = vk_list | split: '</li>' -%}
+      {%- for vk_item in vk_items -%}
+        {%- assign vk_text = vk_item | strip_html | strip -%}
+        {%- if vk_text contains ':' -%}
+          {%- assign vk_label = vk_text | split: ':' | first | strip -%}
+          {%- assign vk_value = vk_text | remove_first: vk_label | remove_first: ':' | strip -%}
+          {%- if vk_label != blank and vk_value != blank -%}<div class="vk-specs__row"><dt>{{ vk_label }}</dt><dd>{{ vk_value }}</dd></div>{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- comment -%} 2. Extra rows from blocks (metafield or fixed text). {%- endcomment -%}
   {%- for block in section.blocks -%}
     {%- liquid
       assign b = block.settings
@@ -35,7 +52,7 @@
         {%- if s.eyebrow != blank -%}<p class="vk-eyebrow"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
         <h2 class="vk-specs__title">{{ s.heading }}</h2>
         <dl class="vk-specs__list">{{ vk_rows }}</dl>
-        {%- if vk_rows == blank -%}<p class="vk-muted">Nog geen specificaties: vul per rij een tekst of een metaveld in. Deze melding zien bezoekers niet.</p>{%- endif -%}
+        {%- if vk_rows == blank -%}<p class="vk-muted">Nog geen specificaties: zet een lijst onder het kopje "Specificaties" in de productbeschrijving, of voeg rijen toe. Deze melding zien bezoekers niet.</p>{%- endif -%}
       </div>
       {%- liquid
         assign vk_img = s.image
@@ -57,7 +74,9 @@
   "tag": "div",
   "class": "vk-spec-table-section",
   "settings": [
-    { "type": "paragraph", "content": "Each row shows the product's metafield (for example custom.lemmetlengte) when the product has one, otherwise the fixed text. Rows without a value are hidden, so one template works for products with different specs." },
+    { "type": "paragraph", "content": "Rows come from the product description (the list under the heading below, one 'Label: value' per bullet) and from the rows you add here. A row shows the product's metafield when it has one, otherwise its fixed text. Empty rows are hidden." },
+    { "type": "checkbox", "id": "from_description", "label": "Read specs from the product description", "default": true },
+    { "type": "text", "id": "desc_heading", "label": "Heading in the description", "default": "Specificaties" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Specificaties" },
     { "type": "image_picker", "id": "image", "label": "Image" },
@@ -78,6 +97,6 @@
       ]
     }
   ],
-  "presets": [{ "name": "Specifications", "blocks": [{ "type": "row" }] }]
+  "presets": [{ "name": "Specifications" }]
 }
 {% endschema %}

@@ -28,7 +28,14 @@
       <div class="vk-solution__glow" aria-hidden="true"></div>
       <div class="vk-solution__stage" data-tilt="4">
         <div class="vk-solution__media">
-          {%- render 'vk-image', image: section.settings.image, sizes: '(min-width: 990px) 50vw, 100vw', fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: section.settings.image_alt -%}
+          {%- liquid
+            # On a product page an empty image picker shows that product's photo.
+            assign vk_sol_img = section.settings.image
+            if vk_sol_img == blank and template.name == 'product'
+              assign vk_sol_img = product.featured_image
+            endif
+          -%}
+          {%- render 'vk-image', image: vk_sol_img, sizes: '(min-width: 990px) 50vw, 100vw', fallback: section.settings.fallback, fallback_width: 1024, fallback_height: 1024, placeholder: 'product', alt: section.settings.image_alt -%}
         </div>
         {%- for block in vk_spots -%}
           <div class="vk-hotspot{% if block.settings.label_side == 'left' %} vk-hotspot--left{% endif %}" style="--x: {{ block.settings.x }}%; --y: {{ block.settings.y }}%;" data-hotspot="{{ block.settings.number }}" {{ block.shopify_attributes }}>

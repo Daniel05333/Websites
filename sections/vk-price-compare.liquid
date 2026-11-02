@@ -1,0 +1,90 @@
+{{ 'vk-section-shop.css' | asset_url | stylesheet_tag }}
+{%- render 'vk-section-styles', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign vk_url = s.button_url | default: '#'
+  if s.button_to_buy and template.name == 'product'
+    assign vk_url = '#buy'
+  endif
+-%}
+<section id="vk-{{ section.id }}" class="vk-section vk-pcompare color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+  <div class="vk-container">
+    <div class="vk-pcompare__grid">
+      <div class="vk-pcompare__media" data-reveal="mask">
+        {%- liquid
+          assign vk_img = s.image
+          if vk_img == blank and template.name == 'product' and product.media.size > 1
+            assign vk_img = product.media[1].preview_image
+          elsif vk_img == blank and template.name == 'product'
+            assign vk_img = product.featured_image
+          endif
+        -%}
+        {%- render 'vk-image', image: vk_img, sizes: '(min-width: 900px) 40vw, 100vw', placeholder: 'knife', alt: s.image_alt -%}
+        {%- if s.image_caption != blank -%}<span class="vk-pcompare__caption">{{ s.image_caption }}</span>{%- endif -%}
+      </div>
+      <div class="vk-pcompare__body" data-reveal>
+        {%- if s.eyebrow != blank -%}<p class="vk-eyebrow"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
+        <h2 class="vk-pcompare__title">{{ s.heading }}</h2>
+        {%- if s.text != blank -%}<p class="vk-pcompare__text">{{ s.text }}</p>{%- endif -%}
+        <table class="vk-pcompare__table">
+          <thead>
+            <tr>
+              <th scope="col"><span class="vk-visually-hidden">{{ s.eyebrow }}</span></th>
+              <th scope="col"><span class="vk-pcompare__col">{{ s.them_label }}</span><span class="vk-pcompare__price">{{ s.them_price }}</span></th>
+              <th scope="col" class="is-ours"><span class="vk-pcompare__col">{{ s.us_label }}</span><span class="vk-pcompare__price">{% if template.name == 'product' %}{{ product.price | money }}{% else %}{{ s.us_price }}{% endif %}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for block in section.blocks -%}
+              <tr {{ block.shopify_attributes }}>
+                <th scope="row">{{ block.settings.label }}</th>
+                <td>{{ block.settings.them }}</td>
+                <td class="is-ours">{{ block.settings.us }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+        {%- if s.button_label != blank -%}<a class="vk-btn vk-btn--primary vk-pcompare__btn" href="{{ vk_url }}"><span class="vk-btn__label">{{ s.button_label }}{% render 'vk-icon', name: 'arrow-right', size: 16 %}</span></a>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Price comparison",
+  "tag": "div",
+  "class": "vk-price-compare-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "On a product page an empty picker uses the product's second photo." },
+    { "type": "text", "id": "image_alt", "label": "Image alt text" },
+    { "type": "text", "id": "image_caption", "label": "Image caption" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "De eerlijke vergelijking" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Hetzelfde karakter. Een fractie van de <em>prijs</em>." },
+    { "type": "inline_richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "them_label", "label": "Their column", "default": "Speciaalzaak" },
+    { "type": "text", "id": "them_price", "label": "Their price", "default": "€ 300+" },
+    { "type": "text", "id": "us_label", "label": "Our column", "default": "Volkara" },
+    { "type": "text", "id": "us_price", "label": "Our price (outside product pages)" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Bestel dit mes" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "checkbox", "id": "button_to_buy", "label": "Button scrolls to the buy box", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 96 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "limit": 8,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Topic", "default": "Onderwerp" },
+        { "type": "text", "id": "them", "label": "Theirs", "default": "Ja" },
+        { "type": "text", "id": "us", "label": "Ours", "default": "Ja" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Price comparison", "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }] }]
+}
+{% endschema %}

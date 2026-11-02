@@ -1,0 +1,59 @@
+{%- doc -%}
+  Sale-style product card: dark stage, outlined tag, title, price and an honest "Bespaar €X" chip.
+  Tag comes from the custom.badge metafield or the product tags bestseller / nieuw (new) / weinig-voorraad.
+
+  @param {object} product - Product.
+  @param {number} [index] - Position for staggered reveal.
+  @param {string} [loading] - 'lazy' (default) | 'eager'.
+  @example
+  {% render 'vk-sale-card', product: product, index: forloop.index %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_first = product.featured_media.preview_image | default: product.featured_image
+  assign vk_hover = nil
+  if product.media.size > 1
+    assign vk_hover = product.media[1].preview_image
+  endif
+  assign vk_tag = product.metafields.custom.badge.value | default: product.metafields.custom.badge
+  assign vk_tag_class = ''
+  if product.available == false
+    assign vk_tag = 'products.product.sold_out' | t
+    assign vk_tag_class = ' vk-sale-card__tag--soldout'
+  elsif vk_tag == blank
+    if product.tags contains 'bestseller' or product.tags contains 'Bestseller'
+      assign vk_tag = 'Bestseller'
+    elsif product.tags contains 'weinig-voorraad' or product.tags contains 'low-stock'
+      assign vk_tag = 'Weinig voorraad'
+    elsif product.tags contains 'nieuw' or product.tags contains 'new'
+      assign vk_tag = 'products.product.new' | t
+    endif
+  endif
+  assign vk_compare = product.compare_at_price
+  assign vk_saving = 0
+  if vk_compare > product.price
+    assign vk_saving = vk_compare | minus: product.price
+  endif
+  assign vk_ph = 'product'
+  assign vk_type = product.type | downcase
+  if vk_type contains 'knife' or vk_type contains 'mes'
+    assign vk_ph = 'knife'
+  endif
+-%}
+<a href="{{ product.url }}" class="vk-sale-card{% unless product.available %} is-sold-out{% endunless %}" data-reveal style="--vk-i: {{ index | default: 1 | minus: 1 | modulo: 8 }};">
+  <div class="vk-sale-card__media">
+    {%- if vk_first != blank -%}
+      {%- render 'vk-image', image: vk_first, sizes: '(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw', loading: loading, alt: product.title -%}
+      {%- if vk_hover != blank -%}{{ vk_hover | image_url: width: 900 | image_tag: loading: 'lazy', alt: '', class: 'is-hover', sizes: '(min-width: 1200px) 25vw, 50vw', widths: '450,700,900' }}{%- endif -%}
+    {%- else -%}
+      {%- render 'vk-placeholder', type: vk_ph, label: product.title -%}
+    {%- endif -%}
+    {%- if vk_tag != blank -%}<span class="vk-sale-card__tag{{ vk_tag_class }}">{{ vk_tag }}</span>{%- endif -%}
+  </div>
+  <div class="vk-sale-card__body">
+    <h3 class="vk-sale-card__title">{{ product.title | escape }}</h3>
+    <p class="vk-sale-card__price">{% if product.price_varies %}{{ 'products.product.price.from' | t }} {% endif %}{{ product.price | money_with_currency }}</p>
+    {%- if vk_saving > 0 -%}
+      <p class="vk-sale-card__was"><s>{{ vk_compare | money_with_currency }}</s><span class="vk-sale-card__save">{{ 'products.product.price.save' | t: amount: '' | strip }} {{ vk_saving | money_without_trailing_zeros }}</span></p>
+    {%- endif -%}
+  </div>
+</a>

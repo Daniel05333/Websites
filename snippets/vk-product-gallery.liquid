@@ -4,11 +4,12 @@
   @param {string} section_id - Section id.
   @param {string} [chip] - Overlay chip text.
   @param {boolean} [effects] - Floating LavaCell™ flakes and embers, pointer tilt (desktop).
+  @param {string} [layout] - 'slider' (default) or 'grid' (desktop: one large photo with the next two side by side).
   @example
   {% render 'vk-product-gallery', product: product, section_id: section.id %}
 {%- enddoc -%}
 {%- assign vk_featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
-<vk-product-gallery class="vk-gallery" data-section="{{ section_id }}">
+<vk-product-gallery class="vk-gallery{% if layout == 'grid' %} vk-gallery--grid{% endif %}" data-section="{{ section_id }}">
   <div class="vk-gallery__stage" data-float-host>
     {%- if chip != blank %}<span class="vk-gallery__chip vk-badge vk-badge--dark">{% render 'vk-icon', name: 'shield', size: 12 %}{{ chip }}</span>{% endif -%}
     <ul class="vk-gallery__track" data-gallery-track{% if effects %} data-float-tilt{% endif %} role="list" aria-label="{{ 'products.product.media.gallery' | t }}">

@@ -244,3 +244,15 @@ html.vk-scroll-locked .vk-sticky-atc { transform: translateY(110%); }
 .vk-vslider__slider:not([data-scrollable]) .vk-vslider__controls { display: none; }
 @media (max-width: 749px) { .vk-vslider__track { --vk-vslide-w: 46%; } }
 @media (prefers-reduced-motion: reduce) { .vk-vslider__play { transition: none; } }
+
+/* Grid gallery (desktop): one large photo, the next two side by side, the rest in pairs. Phones keep the swipe stage. */
+@media (min-width: 990px) {
+  .vk-gallery--grid { position: static; }
+  .vk-gallery--grid .vk-gallery__track { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; overflow: visible; }
+  .vk-gallery--grid .vk-gallery__slide { flex: none; }
+  .vk-gallery--grid .vk-gallery__slide:first-child { grid-column: 1 / -1; }
+  .vk-gallery--grid .vk-gallery__slide:not(:first-child) .vk-pmedia { aspect-ratio: 1; }
+  .vk-gallery--grid .vk-gallery__nav, .vk-gallery--grid .vk-gallery__counter, .vk-gallery--grid .vk-gallery__thumbs { display: none; }
+  .vk-gallery--grid .vk-gallery__zoom { opacity: 0; }
+  .vk-gallery--grid .vk-gallery__slide:hover .vk-gallery__zoom { opacity: 1; }
+}

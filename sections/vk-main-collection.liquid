@@ -1,4 +1,5 @@
 {{ 'vk-section-collection.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.card_style == 'sale' %}{{ 'vk-section-shop.css' | asset_url | stylesheet_tag }}{% endif -%}
 {%- render 'vk-section-styles', section: section -%}
 {%- liquid
   assign s = section.settings
@@ -10,7 +11,7 @@
     assign vk_has_filters = true
   endif
 -%}
-<section id="vk-{{ section.id }}" class="vk-section vk-collection vk-collection--{{ s.filter_layout }} color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
+<section id="vk-{{ section.id }}" class="vk-section vk-collection vk-collection--{{ s.filter_layout }}{% if s.card_style == 'sale' %} vk-collection--cards-sale{% endif %} color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
   {%- paginate collection.products by s.per_page -%}
   <vk-facets class="vk-container vk-collection__inner" data-section-id="{{ section.id }}" data-density-key="vk-density">
     <div class="vk-toolbar" data-toolbar>
@@ -89,7 +90,7 @@
                   <li class="vk-collection__promo-cell" {{ promo.shopify_attributes }}>{% render 'vk-collection-promo', block: promo %}</li>
                 {%- endif -%}
               {%- endfor -%}
-              <li data-grid-item>{% render 'vk-product-card', product: product, index: forloop.index, loading: 'lazy' %}</li>
+              <li data-grid-item>{%- if s.card_style == 'sale' -%}{% render 'vk-sale-card', product: product, index: forloop.index, loading: 'lazy' %}{%- else -%}{% render 'vk-product-card', product: product, index: forloop.index, loading: 'lazy' %}{%- endif -%}</li>
             {%- endfor -%}
           </ul>
           {%- if paginate.pages > 1 -%}
@@ -131,6 +132,17 @@
   "tag": "div",
   "class": "vk-collection-section",
   "settings": [
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Card style",
+      "default": "default",
+      "info": "Sale: dark card with tag, price and saving, without quick add (used on the sale collection template).",
+      "options": [
+        { "value": "default", "label": "Standard" },
+        { "value": "sale", "label": "Sale" }
+      ]
+    },
     {
       "type": "range",
       "id": "per_page",

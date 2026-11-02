@@ -12,9 +12,10 @@
 .vk-sale-hero__shade { position: absolute; inset: 0; z-index: -1; background:
   linear-gradient(90deg, rgba(var(--vk-bg-rgb), .92) 0%, rgba(var(--vk-bg-rgb), .55) 55%, rgba(var(--vk-bg-rgb), .25) 100%),
   linear-gradient(0deg, rgba(var(--vk-bg-rgb), 1) 0%, transparent 40%); }
-.vk-sale-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; min-height: clamp(300px, 36vw, 460px); padding-bottom: clamp(1.75rem, 1rem + 2vw, 3rem); }
+.vk-sale-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; min-height: clamp(340px, 38vw, 520px); padding-bottom: clamp(1.75rem, 1rem + 2vw, 3rem); }
 .vk-sale-hero__copy { display: grid; gap: 1rem; max-width: 40rem; }
-.vk-sale-hero__title { margin: 0; font-size: clamp(2.5rem, 1.6rem + 3.6vw, 5rem); line-height: .98; letter-spacing: -.045em; }
+.vk-sale-hero__title { margin: 0; font-size: clamp(2.75rem, 1.6rem + 4.4vw, 5.75rem); line-height: .95; letter-spacing: -.045em; }
+.vk-sale-hero__title em { display: block; }
 .vk-sale-hero__text { margin: 0; color: var(--vk-fg-muted); font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); }
 .vk-sale-clock { display: grid; gap: .65rem; justify-items: center; padding: 1.1rem 1.4rem; border-radius: var(--vk-radius-lg); background: rgba(var(--vk-fg-rgb), .04); box-shadow: inset 0 0 0 1px var(--vk-border); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-align: center; }
 .vk-sale-clock[hidden] { display: none; }
@@ -100,3 +101,49 @@
   .vk-versus__visual { position: static; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: center; }
   .vk-versus__media { aspect-ratio: 1; }
 }
+
+/* ---------- Price comparison (image + table) ---------- */
+.vk-pcompare__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 1rem + 3vw, 4rem); align-items: center; }
+.vk-pcompare__media { position: relative; aspect-ratio: 4 / 5; border-radius: var(--vk-radius-lg); overflow: hidden; background: #0d0d0d; }
+.vk-pcompare__media img, .vk-pcompare__media svg { width: 100%; height: 100%; object-fit: cover; }
+.vk-pcompare__caption { position: absolute; left: 1rem; bottom: 1rem; font: 500 .625rem/1 var(--vk-font-mono); letter-spacing: .16em; text-transform: uppercase; color: rgba(247, 245, 242, .8); }
+.vk-pcompare__body { display: grid; gap: 1rem; }
+.vk-pcompare__title { margin: 0; font-size: clamp(1.875rem, 1.3rem + 2vw, 3rem); letter-spacing: -.035em; line-height: 1.05; }
+.vk-pcompare__text { margin: 0; color: var(--vk-fg-muted); }
+.vk-pcompare__table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: .5rem; border-radius: var(--vk-radius-lg); overflow: hidden; box-shadow: inset 0 0 0 1px var(--vk-border); font-size: .875rem; }
+.vk-pcompare__table th, .vk-pcompare__table td { padding: .8rem 1rem; text-align: left; border-top: 1px solid var(--vk-border); }
+.vk-pcompare__table thead th { border-top: 0; vertical-align: bottom; }
+.vk-pcompare__table tbody th { font-weight: 500; }
+.vk-pcompare__table td { color: var(--vk-fg-muted); }
+.vk-pcompare__table .is-ours { background: rgba(var(--vk-molten-rgb, 255, 75, 50), .07); color: var(--vk-fg); }
+.vk-pcompare__table td.is-ours { color: var(--vk-molten, #FF4B32); font-weight: 500; }
+.vk-pcompare__col { display: block; font: 500 .625rem/1 var(--vk-font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--vk-fg-subtle); }
+.vk-pcompare__price { display: block; margin-top: .45rem; font: 500 1.375rem/1 var(--vk-font-display); letter-spacing: -.02em; }
+th:not(.is-ours) > .vk-pcompare__price { color: var(--vk-fg-subtle); }
+.vk-pcompare__btn { justify-self: start; margin-top: .5rem; }
+@media (max-width: 899px) {
+  .vk-pcompare__grid { grid-template-columns: minmax(0, 1fr); }
+  .vk-pcompare__media { aspect-ratio: 4 / 3; }
+  .vk-pcompare__table th, .vk-pcompare__table td { padding: .7rem .65rem; }
+}
+
+/* ---------- Sale collection: Okura-style cards and toolbar ---------- */
+.vk-collection--cards-sale .vk-toolbar { flex-direction: row-reverse; }
+.vk-collection--cards-sale .vk-toolbar__right { margin-right: auto; }
+.vk-collection--cards-sale .vk-density { display: none; }
+.vk-sale-card { position: relative; display: flex; flex-direction: column; height: 100%; border-radius: 10px; overflow: hidden; background: color-mix(in srgb, var(--vk-fg) 4%, var(--vk-bg)); box-shadow: inset 0 0 0 1px var(--vk-border); color: var(--vk-fg); text-decoration: none; transition: box-shadow var(--vk-dur-2), transform var(--vk-dur-3) var(--vk-ease-out); }
+.vk-sale-card:hover { box-shadow: inset 0 0 0 1px rgba(var(--vk-molten-rgb, 255, 75, 50), .5); transform: translateY(-2px); }
+.vk-sale-card:focus-visible { outline: 2px solid var(--vk-molten, #FF4B32); outline-offset: 3px; }
+.vk-sale-card__media { position: relative; aspect-ratio: 1; overflow: hidden; background: radial-gradient(80% 70% at 50% 40%, #2a2724 0%, #121110 70%, #0b0b0b 100%); }
+.vk-sale-card__media img, .vk-sale-card__media svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--vk-ease-out), opacity 500ms; }
+.vk-sale-card__media .is-hover { opacity: 0; }
+.vk-sale-card:hover .vk-sale-card__media .is-hover { opacity: 1; }
+.vk-sale-card:hover .vk-sale-card__media img { transform: scale(1.03); }
+.vk-sale-card__tag { position: absolute; top: .75rem; left: .75rem; z-index: 2; padding: .35rem .55rem; border-radius: 4px; background: rgba(8, 8, 8, .55); box-shadow: inset 0 0 0 1px rgba(var(--vk-molten-rgb, 255, 75, 50), .55); color: color-mix(in srgb, var(--vk-molten, #FF4B32) 55%, #fff); font: 600 .5625rem/1 var(--vk-font-mono); letter-spacing: .16em; text-transform: uppercase; }
+.vk-sale-card__tag--soldout { box-shadow: inset 0 0 0 1px rgba(247, 245, 242, .35); color: rgba(247, 245, 242, .85); }
+.vk-sale-card__body { display: grid; gap: .5rem; padding: .9rem 1rem 1.1rem; }
+.vk-sale-card__title { margin: 0; font: 500 .875rem/1.35 var(--vk-font-body); min-height: 2.7em; }
+.vk-sale-card__price { margin: 0; font: 600 .9375rem/1 var(--vk-font-display); letter-spacing: -.01em; }
+.vk-sale-card__was { display: flex; align-items: center; gap: .5rem; margin: 0; font-size: .6875rem; color: var(--vk-fg-subtle); }
+.vk-sale-card__save { padding: .25rem .45rem; border-radius: 3px; background: var(--vk-ember); color: #F7F5F2; font: 700 .5625rem/1 var(--vk-font-mono); letter-spacing: .12em; text-transform: uppercase; }
+.vk-sale-card.is-sold-out .vk-sale-card__media { opacity: .6; }

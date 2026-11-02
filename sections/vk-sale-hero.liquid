@@ -37,7 +37,7 @@
         {%- if vk_text != blank -%}<p class="vk-sale-hero__text" data-reveal>{{ vk_text }}</p>{%- endif -%}
       </div>
       {%- if vk_show_clock -%}
-        <vk-sale-clock class="vk-sale-clock" data-end="{{ vk_end_ts }}" data-reveal>
+        <vk-sale-clock class="vk-sale-clock" data-end="{{ vk_end_ts }}" data-dhm="{{ 'general.countdown.days' | t }}|{{ 'general.countdown.hours' | t }}|{{ 'general.countdown.minutes' | t }}" data-hms="{{ 'general.countdown.hours' | t }}|{{ 'general.countdown.minutes' | t }}|{{ 'general.countdown.seconds' | t }}" data-reveal>
           <p class="vk-sale-clock__label">{{ s.clock_label }}</p>
           <div class="vk-sale-clock__digits" aria-hidden="true">
             <span class="vk-sale-clock__unit"><span class="vk-sale-clock__num" data-d>00</span><span class="vk-sale-clock__sub">{{ 'general.countdown.days' | t }}</span></span>
@@ -72,9 +72,14 @@
       const tick = () => {
         const left = end - Date.now();
         if (left <= 0) { this.hidden = true; clearInterval(this.timer); return; }
-        d.textContent = pad(Math.floor(left / 864e5)); h.textContent = pad(Math.floor(left / 36e5) % 24); m.textContent = pad(Math.floor(left / 6e4) % 60);
+        // More than a day left: days : hours : minutes. Last day: hours : minutes : seconds.
+        const lastDay = left < 864e5;
+        if (lastDay !== this.lastDay) { this.lastDay = lastDay; this.labels.forEach((el, i) => { el.textContent = (lastDay ? this.dataset.hms : this.dataset.dhm).split('|')[i]; }); }
+        const parts = lastDay ? [Math.floor(left / 36e5), Math.floor(left / 6e4) % 60, Math.floor(left / 1e3) % 60] : [Math.floor(left / 864e5), Math.floor(left / 36e5) % 24, Math.floor(left / 6e4) % 60];
+        d.textContent = pad(parts[0]); h.textContent = pad(parts[1]); m.textContent = pad(parts[2]);
       };
-      tick(); this.timer = setInterval(tick, 15000);
+      this.labels = [...this.querySelectorAll('.vk-sale-clock__sub')];
+      tick(); this.timer = setInterval(tick, 1000);
     }
     disconnectedCallback() { clearInterval(this.timer); }
   });

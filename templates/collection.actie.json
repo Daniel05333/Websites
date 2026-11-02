@@ -7,10 +7,10 @@
     "hero": {
       "type": "vk-sale-hero",
       "settings": {
-        "eyebrow": "Op = op",
-        "heading": "Restock <em>sale</em>",
-        "text": "We hebben te veel voorraad en maken ruimte. Op is op.",
-        "show_description": true,
+        "eyebrow": "Beperkte voorraad",
+        "heading": "Restock sale <em>tot 70% korting</em>",
+        "text": "Te veel voorraad, dus we ruimen op. Zolang de voorraad strekt.",
+        "show_description": false,
         "show_embers": true,
         "ends_at": "",
         "clock_label": "Actie eindigt over",
@@ -24,16 +24,16 @@
           "type": "usp",
           "settings": {
             "icon": "leaf",
-            "title": "100% PFAS-vrij",
-            "text": "Geen PFAS of PTFE"
+            "title": "100% gifvrij",
+            "text": "Geen PFAS, PTFE of chemicaliën"
           }
         },
         "usp-2": {
           "type": "usp",
           "settings": {
             "icon": "shield",
-            "title": "Geen coating",
-            "text": "Niets dat kan slijten"
+            "title": "Van nature antiaanbak",
+            "text": "Geen coating die slijt"
           }
         },
         "usp-3": {
@@ -41,14 +41,14 @@
           "settings": {
             "icon": "warranty",
             "title": "25 jaar garantie",
-            "text": "Op onze pannen"
+            "text": "Gebouwd om lang mee te gaan"
           }
         },
         "usp-4": {
           "type": "usp",
           "settings": {
             "icon": "fire-ring",
-            "title": "Alle kookplaten",
+            "title": "Voor alle kookplaten",
             "text": "Gas, inductie, oven en grill"
           }
         },
@@ -57,7 +57,7 @@
           "settings": {
             "icon": "hexagon",
             "title": "Gehamerde afwerking",
-            "text": "Voor dagelijks gebruik"
+            "text": "Voor precisie en duurzaamheid"
           }
         }
       },
@@ -118,33 +118,18 @@
     },
     "main": {
       "type": "vk-main-collection",
-      "blocks": {
-        "promo-1": {
-          "type": "promo",
-          "disabled": true,
-          "settings": {
-            "position": 5,
-            "fallback": "vk-visual-set.webp",
-            "eyebrow": "Voordeliger als set",
-            "title": "Bespaar tot €243",
-            "text": "Elke set kost minder dan dezelfde producten los gekocht, berekend met onze eigen losse prijzen.",
-            "link_label": "Bekijk de sets",
-            "link": "/collections/sets"
-          }
-        }
-      },
-      "block_order": [
-        "promo-1"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
-        "per_page": 24,
+        "per_page": 48,
         "columns_desktop": 4,
         "columns_mobile": "2",
         "enable_filtering": true,
         "filter_layout": "drawer",
         "color_scheme": "scheme-1",
         "padding_top": 16,
-        "padding_bottom": 120
+        "padding_bottom": 120,
+        "card_style": "sale"
       }
     }
   },

@@ -10,7 +10,7 @@
 <section id="vk-{{ section.id }}" class="vk-section vk-pdp color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
   <div class="vk-container vk-pdp__grid">
     <div class="vk-pdp__media">
-      {%- render 'vk-product-gallery', product: product, section_id: section.id, chip: s.gallery_chip, effects: s.gallery_effects -%}
+      {%- render 'vk-product-gallery', product: product, section_id: section.id, chip: s.gallery_chip, effects: s.gallery_effects, layout: s.gallery_layout -%}
     </div>
 
     <div class="vk-pdp__info" id="buy">
@@ -193,6 +193,7 @@
   "class": "vk-pdp-section",
   "settings": [
     { "type": "text", "id": "gallery_chip", "label": "Gallery chip", "default": "Zonder coating" },
+    { "type": "select", "id": "gallery_layout", "label": "Gallery layout", "default": "slider", "info": "Grid shows one large photo with the next two side by side on desktop; phones always swipe.", "options": [{ "value": "slider", "label": "Slider with thumbnails" }, { "value": "grid", "label": "Grid" }] },
     { "type": "checkbox", "id": "gallery_effects", "label": "Gallery effects", "info": "Floating flakes and embers that move away from the pointer; the photo tilts toward it.", "default": true },
     { "type": "checkbox", "id": "show_sticky_atc", "label": "Sticky add-to-cart bar", "default": true },
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
