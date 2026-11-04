@@ -57,7 +57,7 @@
     "shipping": "Shipping",
     "shipping_free": "Free",
     "summary": "Order summary",
-    "taxes_shipping": "Taxes included. Shipping calculated at checkout.",
+    "taxes_shipping": "Shipping calculated at checkout.",
     "title": "Your bag",
     "update": "Update bag",
     "upsell_heading": "Made to go with it",
@@ -304,7 +304,7 @@
       },
       "shipping_calculated": "Shipping calculated at checkout.",
       "sold_out": "Sold out",
-      "tax_included": "Tax included.",
+      "tax_included": "",
       "unavailable": "Unavailable in this size"
     }
   },

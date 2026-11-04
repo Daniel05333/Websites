@@ -83,7 +83,6 @@
               <div class="vk-pdp__block vk-pdp__price" {{ block.shopify_attributes }} data-pdp-price>
                 {%- render 'vk-price', product: product, variant: vk_v, size: 'lg', dynamic: true -%}
                 <p class="vk-pdp__tax vk-small vk-subtle">
-                  {%- if cart.taxes_included %}{{ 'products.product.tax_included' | t }}{% endif -%}
                   {%- if shop.shipping_policy.body != blank %} <a href="{{ shop.shipping_policy.url }}" class="vk-link">{{ 'products.product.shipping_calculated' | t }}</a>{% endif -%}
                 </p>
               </div>
