@@ -24,7 +24,11 @@
   endif
 -%}
 <section id="vk-{{ section.id }}" class="vk-section vk-sale-hero color-{{ s.color_scheme }}" data-section-id="{{ section.id }}">
-  {%- if vk_img != blank -%}
+  {%- if s.video != blank -%}
+    <div class="vk-sale-hero__media vk-sale-hero__media--video" aria-hidden="true">{{ s.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}</div>
+  {%- elsif s.video_url != blank -%}
+    <div class="vk-sale-hero__media vk-sale-hero__media--video" aria-hidden="true"><video src="{{ s.video_url }}" autoplay muted loop playsinline preload="metadata"{% if vk_img != blank %} poster="{{ vk_img | image_url: width: 1920 }}"{% endif %}></video></div>
+  {%- elsif vk_img != blank -%}
     <div class="vk-sale-hero__media" aria-hidden="true">{%- render 'vk-image', image: vk_img, sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: '' -%}</div>
   {%- endif -%}
   <div class="vk-sale-hero__shade" aria-hidden="true"></div>
@@ -32,6 +36,7 @@
   <div class="vk-container">
     <div class="vk-sale-hero__grid">
       <div class="vk-sale-hero__copy">
+        {%- if s.rating_text != blank -%}<p class="vk-sale-hero__rating" data-reveal="fade"><span class="vk-sale-hero__stars" aria-hidden="true">★★★★★</span><span>{{ s.rating_text }}</span></p>{%- endif -%}
         {%- if s.eyebrow != blank -%}<p class="vk-eyebrow" data-reveal="fade"><span class="vk-eyebrow__line" aria-hidden="true"></span>{{ s.eyebrow }}</p>{%- endif -%}
         <h1 class="vk-sale-hero__title" data-split>{{ vk_heading }}</h1>
         {%- if vk_text != blank -%}<p class="vk-sale-hero__text" data-reveal>{{ vk_text }}</p>{%- endif -%}
@@ -92,20 +97,113 @@
   "tag": "div",
   "class": "vk-sale-hero-section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Op = op" },
-    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Empty uses the collection title.", "default": "Restock <em>sale</em>" },
-    { "type": "inline_richtext", "id": "text", "label": "Text", "default": "We hebben te veel voorraad en maken ruimte. Op is op." },
-    { "type": "checkbox", "id": "show_description", "label": "Use collection description when text is empty", "default": true },
-    { "type": "image_picker", "id": "image", "label": "Background image", "info": "Empty uses the collection image." },
-    { "type": "checkbox", "id": "show_embers", "label": "Embers", "default": true },
-    { "type": "header", "content": "Countdown" },
-    { "type": "paragraph", "content": "Only shown with a real end date and hidden once it has passed. Use the actual end of your sale: a countdown that restarts is misleading and not allowed in the EU." },
-    { "type": "text", "id": "ends_at", "label": "Sale ends at", "info": "Format: 2026-11-30 23:59 (store time zone). Leave empty to hide the countdown." },
-    { "type": "text", "id": "clock_label", "label": "Countdown label", "default": "Actie eindigt over" },
-    { "type": "text", "id": "clock_note", "label": "Note under the countdown", "default": "Daarna gelden weer de normale prijzen." },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
-    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 120 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 200, "step": 8, "unit": "px", "default": 0 }
+    {
+      "type": "inline_richtext",
+      "id": "rating_text",
+      "label": "Rating line above the heading",
+      "info": "Five stars plus your text, e.g. Beoordeeld met <b>Uitstekend</b> | 1.200+ klanten. Only use numbers you can show."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Op = op"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Empty uses the collection title.",
+      "default": "Restock <em>sale</em>"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "We hebben te veel voorraad en maken ruimte. Op is op."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Use collection description when text is empty",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Empty uses the collection image."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video",
+      "info": "Upload a short, silent loop (mp4). Plays muted behind the text; the image is used until it loads."
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Background video URL",
+      "info": "Alternative to the upload: a direct .mp4 link."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_embers",
+      "label": "Embers",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "paragraph",
+      "content": "Only shown with a real end date and hidden once it has passed. Use the actual end of your sale: a countdown that restarts is misleading and not allowed in the EU."
+    },
+    {
+      "type": "text",
+      "id": "ends_at",
+      "label": "Sale ends at",
+      "info": "Format: 2026-11-30 23:59 (store time zone). Leave empty to hide the countdown."
+    },
+    {
+      "type": "text",
+      "id": "clock_label",
+      "label": "Countdown label",
+      "default": "Actie eindigt over"
+    },
+    {
+      "type": "text",
+      "id": "clock_note",
+      "label": "Note under the countdown",
+      "default": "Daarna gelden weer de normale prijzen."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    }
   ],
   "blocks": [
     {
@@ -113,17 +211,92 @@
       "name": "USP",
       "limit": 6,
       "settings": [
-        { "type": "select", "id": "icon", "label": "Icon", "default": "leaf", "options": [
-          { "value": "leaf", "label": "Leaf" }, { "value": "shield", "label": "Shield" }, { "value": "warranty", "label": "Warranty" },
-          { "value": "flame", "label": "Flame" }, { "value": "fire-ring", "label": "Cooktop" }, { "value": "induction", "label": "Induction" },
-          { "value": "hexagon", "label": "Hexagon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return" },
-          { "value": "award", "label": "Award" }, { "value": "knife", "label": "Knife" }, { "value": "check-circle", "label": "Check" }
-        ] },
-        { "type": "text", "id": "title", "label": "Title", "default": "100% PFAS-vrij" },
-        { "type": "text", "id": "text", "label": "Text", "default": "Geen PFAS of PTFE" }
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "warranty",
+              "label": "Warranty"
+            },
+            {
+              "value": "flame",
+              "label": "Flame"
+            },
+            {
+              "value": "fire-ring",
+              "label": "Cooktop"
+            },
+            {
+              "value": "induction",
+              "label": "Induction"
+            },
+            {
+              "value": "hexagon",
+              "label": "Hexagon"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "award",
+              "label": "Award"
+            },
+            {
+              "value": "knife",
+              "label": "Knife"
+            },
+            {
+              "value": "check-circle",
+              "label": "Check"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "100% PFAS-vrij"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Geen PFAS of PTFE"
+        }
       ]
     }
   ],
-  "presets": [{ "name": "Sale hero", "blocks": [{ "type": "usp" }, { "type": "usp" }, { "type": "usp" }] }]
+  "presets": [
+    {
+      "name": "Sale hero",
+      "blocks": [
+        {
+          "type": "usp"
+        },
+        {
+          "type": "usp"
+        },
+        {
+          "type": "usp"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

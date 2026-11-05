@@ -52,9 +52,9 @@
         "usp-5"
       ],
       "settings": {
-        "eyebrow": "Beperkte voorraad",
-        "heading": "Restock sale <em>tot 70% korting</em>",
-        "text": "Te veel voorraad, dus we ruimen op. Zolang de voorraad strekt.",
+        "eyebrow": "",
+        "heading": "Early Black Friday Sale <em>tot 70% korting</em>",
+        "text": "Onze beste prijzen van het jaar, nog vóór Black Friday — plus een gratis kookgids. Op = op.",
         "show_description": false,
         "image": "shopify://shop_images/openart-gpt-image-2-edit-1_1779527955177_311a950f.png",
         "show_embers": true,
@@ -63,7 +63,8 @@
         "clock_note": "Daarna gelden weer de normale prijzen.",
         "color_scheme": "scheme-1",
         "padding_top": 120,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "rating_text": ""
       }
     },
     "chips": {
@@ -118,7 +119,7 @@
       "type": "vk-main-collection",
       "settings": {
         "card_style": "sale",
-        "per_page": 48,
+        "per_page": 60,
         "columns_desktop": 4,
         "columns_mobile": "2",
         "enable_filtering": true,

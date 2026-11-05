@@ -39,7 +39,8 @@
     assign vk_ph = 'knife'
   endif
 -%}
-<a href="{{ product.url }}" class="vk-sale-card{% unless product.available %} is-sold-out{% endunless %}" data-reveal style="--vk-i: {{ index | default: 1 | minus: 1 | modulo: 8 }};">
+<div class="vk-sale-card{% unless product.available %} is-sold-out{% endunless %}" data-reveal style="--vk-i: {{ index | default: 1 | minus: 1 | modulo: 8 }};">
+  <a href="{{ product.url }}" class="vk-sale-card__link">
   <div class="vk-sale-card__media">
     {%- if vk_first != blank -%}
       {%- render 'vk-image', image: vk_first, sizes: '(min-width: 1200px) 25vw, (min-width: 750px) 33vw, 50vw', loading: loading, alt: product.title -%}
@@ -59,4 +60,25 @@
       <p class="vk-sale-card__was"><s>{{ vk_compare | money_with_currency }}</s><span class="vk-sale-card__save">{{ 'products.product.price.save' | t: amount: '' | strip }} {{ vk_saving | money_without_trailing_zeros }}</span></p>
     {%- endif -%}
   </div>
-</a>
+  </a>
+  {%- comment -%} One consistent "In winkelmand" button on every card; products with sizes get a size choice first. {%- endcomment -%}
+  <vk-product-form class="vk-sale-card__buy">
+    {%- form 'product', product, novalidate: 'novalidate', class: 'vk-sale-card__form' -%}
+      {%- assign vk_sel = product.selected_or_first_available_variant -%}
+      {%- if product.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ vk_sel.id }}">
+      {%- else -%}
+        <label class="vk-visually-hidden" for="vk-sc-{{ product.id }}">{{ product.options.first }}</label>
+        <select class="vk-sale-card__select" id="vk-sc-{{ product.id }}" name="id"{% unless product.available %} disabled{% endunless %}>
+          {%- for v in product.variants -%}
+            <option value="{{ v.id }}"{% if v.id == vk_sel.id %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }}{% if product.price_varies %} · {{ v.price | money_without_trailing_zeros }}{% endif %}{% unless v.available %} · {{ 'products.product.sold_out' | t }}{% endunless %}</option>
+          {%- endfor -%}
+        </select>
+      {%- endif -%}
+      <button type="submit" class="vk-btn vk-btn--primary vk-sale-card__btn"{% unless product.available %} disabled{% endunless %}>
+        <span class="vk-btn__label">{%- if product.available -%}{% render 'vk-icon', name: 'bag', size: 16 %}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}</span>
+      </button>
+      <p class="vk-sale-card__error" data-form-error role="alert" hidden></p>
+    {%- endform -%}
+  </vk-product-form>
+</div>
