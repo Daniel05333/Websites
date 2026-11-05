@@ -23,10 +23,9 @@
         {%- assign g = settings[k] -%}
         {%- if g != blank -%}
           <li class="vk-bf-gifts__item">
-            <span class="vk-bf-gifts__check" aria-hidden="true">{% render 'vk-icon', name: 'check', size: 12 %}</span>
-            <span class="vk-bf-gifts__img">{%- if g.featured_image -%}{{ g.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'vk-icon', name: 'gift', size: 22 %}{%- endif -%}</span>
+            <span class="vk-bf-gifts__icon" aria-hidden="true">{% render 'vk-icon', name: 'gift', size: 20 %}</span>
             <span class="vk-bf-gifts__title">{{ g.title }}</span>
-            <span class="vk-bf-gifts__free">{{ 'cart.free' | t }}</span>
+            <span class="vk-bf-gifts__free">{% render 'vk-icon', name: 'check', size: 12 %}{{ 'cart.free' | t }}</span>
           </li>
         {%- endif -%}
       {%- endfor -%}
