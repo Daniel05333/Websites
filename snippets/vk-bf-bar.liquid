@@ -1,0 +1,16 @@
+{%- doc -%}
+  Black Friday announcement marquee (replaces the rotating messages while settings.bf_enabled is on).
+  @example
+  {% render 'vk-bf-bar' %}
+{%- enddoc -%}
+{%- capture vk_bf_item -%}
+  <span class="vk-bf-bar__item">{% render 'vk-bf-pill', label: settings.bf_bar_label %}<span class="vk-bf-bar__text">{{ settings.bf_bar_text }}</span></span>
+{%- endcapture -%}
+<div class="vk-bf-bar">
+  {%- if settings.bf_bar_link != blank -%}<a href="{{ settings.bf_bar_link }}" class="vk-bf-bar__link">{%- endif -%}
+  <span class="vk-visually-hidden">{{ settings.bf_bar_label }}: {{ settings.bf_bar_text }}</span>
+  <span class="vk-bf-bar__track" aria-hidden="true">
+    {%- for i in (1..2) -%}<span class="vk-bf-bar__group">{%- for j in (1..4) -%}{{ vk_bf_item }}{%- endfor -%}</span>{%- endfor -%}
+  </span>
+  {%- if settings.bf_bar_link != blank -%}</a>{%- endif -%}
+</div>

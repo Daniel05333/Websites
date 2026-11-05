@@ -15,6 +15,7 @@
       {%- if cart.item_count > 0 -%}
         <div class="vk-cart-drawer__shipping">{% render 'vk-free-shipping-bar', cart: cart %}</div>
         <div class="vk-drawer__body">
+          {%- if settings.bf_enabled and settings.bf_cart_text != blank -%}<p class="vk-bf-cart">{% render 'vk-bf-pill' %}<span>{{ settings.bf_cart_text }}</span></p>{%- endif -%}
           <vk-cart-items>
             <ul class="vk-lines" role="list">
               {%- for item in cart.items -%}

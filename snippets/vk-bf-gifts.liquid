@@ -1,0 +1,35 @@
+{%- doc -%}
+  Black Friday gift row on the product page: the gift products set in Theme settings > Black Friday, each marked free.
+  Shows nothing when no gift product is set. Only list gifts the customer really receives.
+  @example
+  {% render 'vk-bf-gifts' %}
+{%- enddoc -%}
+{%- liquid
+  assign vk_gifts = ''
+  if settings.bf_gift_1 != blank
+    assign vk_gifts = 'x'
+  elsif settings.bf_gift_2 != blank
+    assign vk_gifts = 'x'
+  elsif settings.bf_gift_3 != blank
+    assign vk_gifts = 'x'
+  endif
+-%}
+{%- if vk_gifts != blank -%}
+  <div class="vk-pdp__block vk-bf-gifts">
+    <p class="vk-bf-gifts__head">{% render 'vk-bf-pill' %}<span>{{ settings.bf_gifts_heading }}</span></p>
+    <ul class="vk-bf-gifts__list" role="list">
+      {%- for i in (1..3) -%}
+        {%- capture k %}bf_gift_{{ i }}{% endcapture -%}
+        {%- assign g = settings[k] -%}
+        {%- if g != blank -%}
+          <li class="vk-bf-gifts__item">
+            <span class="vk-bf-gifts__check" aria-hidden="true">{% render 'vk-icon', name: 'check', size: 12 %}</span>
+            <span class="vk-bf-gifts__img">{%- if g.featured_image -%}{{ g.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{% render 'vk-icon', name: 'gift', size: 22 %}{%- endif -%}</span>
+            <span class="vk-bf-gifts__title">{{ g.title }}</span>
+            <span class="vk-bf-gifts__free">{{ 'cart.free' | t }}</span>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

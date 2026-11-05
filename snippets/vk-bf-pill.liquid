@@ -1,0 +1,10 @@
+{%- doc -%}
+  Black Friday pill: red label with a dot, plus an optional "-X%" part. Only rendered while settings.bf_enabled is on.
+  @param {number} [pct] - Discount percent to show next to the label.
+  @param {string} [label] - Overrides settings.bf_label.
+  @param {string} [class] - Extra class.
+  @example
+  {% render 'vk-bf-pill', pct: 70 %}
+{%- enddoc -%}
+{%- assign vk_bf_label = label | default: settings.bf_label | default: 'Black Friday' -%}
+<span class="vk-bf-pill{% if class != blank %} {{ class }}{% endif %}"><span class="vk-bf-pill__label"><i aria-hidden="true"></i>{{ vk_bf_label }}</span>{%- if pct > 0 -%}<span class="vk-bf-pill__off">-{{ pct }}%</span>{%- endif -%}</span>

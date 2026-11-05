@@ -82,6 +82,10 @@
             {%- when 'price' -%}
               <div class="vk-pdp__block vk-pdp__price" {{ block.shopify_attributes }} data-pdp-price>
                 {%- render 'vk-price', product: product, variant: vk_v, size: 'lg', dynamic: true -%}
+                {%- if settings.bf_enabled and settings.bf_pdp_text != blank -%}
+                  {%- assign vk_bf_pct = 0 -%}{%- if vk_v.compare_at_price > vk_v.price -%}{%- assign vk_bf_pct = vk_v.compare_at_price | minus: vk_v.price | times: 100.0 | divided_by: vk_v.compare_at_price | round -%}{%- endif -%}
+                  <p class="vk-bf-pdp">{% render 'vk-bf-pill', pct: vk_bf_pct %}<span>{{ settings.bf_pdp_text }}</span></p>
+                {%- endif -%}
                 <p class="vk-pdp__tax vk-small vk-subtle">
                   {%- if shop.shipping_policy.body != blank %} <a href="{{ shop.shipping_policy.url }}" class="vk-link">{{ 'products.product.shipping_calculated' | t }}</a>{% endif -%}
                 </p>
@@ -133,9 +137,12 @@
                 </vk-product-form>
                 {%- if block.settings.dispatch_text != blank %}<p class="vk-pdp__dispatch vk-small">{% render 'vk-icon', name: 'truck', size: 16 %}{{ block.settings.dispatch_text }}</p>{% endif -%}
               </div>
+              {%- if settings.bf_enabled %}{% render 'vk-bf-gifts' %}{% endif -%}
 
             {%- when 'gift' -%}
+              {%- unless settings.bf_enabled and settings.bf_gift_1 != blank -%}
               <div class="vk-pdp__block vk-pdp__gift" {{ block.shopify_attributes }}><span class="vk-pdp__gift-icon">{% render 'vk-icon', name: 'gift', size: 18 %}</span><div><p class="vk-pdp__gift-title">{% if block.settings.link != blank %}<a href="{{ block.settings.link }}" class="vk-link">{{ block.settings.title }}</a>{% else %}{{ block.settings.title }}{% endif %}</p><p class="vk-small vk-muted">{{ block.settings.text }}</p></div></div>
+              {%- endunless -%}
 
             {%- when 'trust' -%}
               <div class="vk-pdp__block vk-pdp__trust" {{ block.shopify_attributes }}>

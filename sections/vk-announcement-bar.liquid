@@ -2,6 +2,9 @@
 {%- liquid
   assign vk_messages = section.blocks | where: 'type', 'message'
 -%}
+{%- if settings.bf_enabled and settings.bf_bar_text != blank -%}
+<div id="vk-{{ section.id }}" data-section-id="{{ section.id }}">{% render 'vk-bf-bar' %}</div>
+{%- else -%}
 <div id="vk-{{ section.id }}" class="vk-announcement color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}">
   <div class="vk-container vk-announcement__inner">
     {%- if vk_messages.size > 1 -%}
@@ -29,6 +32,7 @@
     {%- endif -%}
   </div>
 </div>
+{%- endif -%}
 <script src="{{ 'vk-header.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}

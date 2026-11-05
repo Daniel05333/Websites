@@ -11,6 +11,7 @@
 {%- assign vk_featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
 <vk-product-gallery class="vk-gallery{% if layout == 'grid' %} vk-gallery--grid{% endif %}" data-section="{{ section_id }}">
   <div class="vk-gallery__stage" data-float-host>
+    {%- if settings.bf_enabled %}{% render 'vk-bf-pill', class: 'vk-gallery__bf' %}{% endif -%}
     {%- if chip != blank %}<span class="vk-gallery__chip vk-badge vk-badge--dark">{% render 'vk-icon', name: 'shield', size: 12 %}{{ chip }}</span>{% endif -%}
     <ul class="vk-gallery__track" data-gallery-track{% if effects %} data-float-tilt{% endif %} role="list" aria-label="{{ 'products.product.media.gallery' | t }}">
       {%- if product.media.size > 0 -%}

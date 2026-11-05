@@ -47,7 +47,10 @@
     {%- else -%}
       {%- render 'vk-placeholder', type: vk_ph, label: product.title -%}
     {%- endif -%}
-    {%- if vk_tag != blank -%}<span class="vk-sale-card__tag{{ vk_tag_class }}">{{ vk_tag }}</span>{%- endif -%}
+    {%- if settings.bf_enabled and product.available -%}
+      {%- assign vk_bf_pct = 0 -%}{%- if vk_saving > 0 %}{% assign vk_bf_pct = vk_saving | times: 100.0 | divided_by: vk_compare | round %}{% endif -%}
+      {%- render 'vk-bf-pill', pct: vk_bf_pct, class: 'vk-bf-pill--card' -%}
+    {%- elsif vk_tag != blank -%}<span class="vk-sale-card__tag{{ vk_tag_class }}">{{ vk_tag }}</span>{%- endif -%}
   </div>
   <div class="vk-sale-card__body">
     <h3 class="vk-sale-card__title">{{ product.title | escape }}</h3>

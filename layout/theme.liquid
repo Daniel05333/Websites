@@ -41,6 +41,7 @@
     {{ 'vk-base.css' | asset_url | stylesheet_tag }}
     {{ 'vk-motion.css' | asset_url | stylesheet_tag }}
     {{ 'vk-product-card.css' | asset_url | stylesheet_tag }}
+    {%- if settings.bf_enabled %}{{ 'vk-black-friday.css' | asset_url | stylesheet_tag }}{% endif -%}
 
     {%- style -%}
       :root {

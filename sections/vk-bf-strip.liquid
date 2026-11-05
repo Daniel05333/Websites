@@ -1,0 +1,36 @@
+{%- comment -%} Red running Black Friday strip. Shows only while Theme settings > Black Friday is on. {%- endcomment -%}
+{%- liquid
+  assign vk_src = section.settings.items | default: settings.bf_strip_text
+  assign vk_items = vk_src | split: '|'
+-%}
+{%- if settings.bf_enabled and vk_items.size > 0 -%}
+<div id="vk-{{ section.id }}" class="vk-bf-strip" data-section-id="{{ section.id }}">
+  <span class="vk-visually-hidden">{{ vk_items | join: ', ' }}</span>
+  <span class="vk-bf-strip__track" aria-hidden="true">
+    {%- for r in (1..2) -%}
+      <span class="vk-bf-strip__group">
+        {%- for i in (1..2) -%}
+          {%- for item in vk_items -%}
+            <span class="vk-bf-strip__item">{% if forloop.first %}{% render 'vk-icon', name: 'gift', size: 14 %}<strong>{{ item | strip }}</strong>{% else %}{{ item | strip }}{% endif %}</span>
+          {%- endfor -%}
+        {%- endfor -%}
+      </span>
+    {%- endfor -%}
+  </span>
+</div>
+{%- elsif request.design_mode -%}
+<div class="vk-bf-strip vk-bf-strip--off"><span>Black Friday strip: turn on Theme settings › Black Friday to show it.</span></div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Black Friday strip",
+  "tag": "div",
+  "class": "vk-bf-strip-section",
+  "settings": [
+    { "type": "paragraph", "content": "Only visible while Theme settings › Black Friday is on." },
+    { "type": "textarea", "id": "items", "label": "Items", "info": "Separate with |. Empty = the text from Theme settings › Black Friday." }
+  ],
+  "presets": [{ "name": "Black Friday strip" }]
+}
+{% endschema %}

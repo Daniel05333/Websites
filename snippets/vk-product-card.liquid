@@ -38,6 +38,10 @@
 
   assign vk_badge = product.metafields.custom.badge.value | default: product.metafields.custom.badge
   assign vk_badge_style = 'dark'
+  assign vk_pct = 0
+  if product.compare_at_price > product.price
+    assign vk_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+  endif
   if product.available == false
     assign vk_badge = 'products.product.sold_out' | t
     assign vk_badge_style = 'outline'
@@ -76,7 +80,7 @@
       {%- render 'vk-placeholder', type: vk_placeholder, class: 'vk-product-card__img', label: product.title -%}
     {%- endif -%}
     {%- if vk_badge != blank -%}
-      <div class="vk-product-card__badges">{% render 'vk-badge', text: vk_badge, style: vk_badge_style %}</div>
+      <div class="vk-product-card__badges">{%- if settings.bf_enabled and product.available -%}{% render 'vk-bf-pill', pct: vk_pct %}{%- else -%}{% render 'vk-badge', text: vk_badge, style: vk_badge_style %}{%- endif -%}</div>
     {%- endif -%}
   </div>
 

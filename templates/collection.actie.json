@@ -1,1 +1,144 @@
-{"sections":{"hero":{"type":"vk-sale-hero","blocks":{"usp-1":{"type":"usp","settings":{"icon":"leaf","title":"100% gifvrij","text":"Geen PFAS, PTFE of chemicaliën"}},"usp-2":{"type":"usp","settings":{"icon":"shield","title":"Van nature antiaanbak","text":"Geen coating die slijt"}},"usp-3":{"type":"usp","settings":{"icon":"warranty","title":"25 jaar garantie","text":"Gebouwd om lang mee te gaan"}},"usp-4":{"type":"usp","settings":{"icon":"fire-ring","title":"Voor alle kookplaten","text":"Gas, inductie, oven en grill"}},"usp-5":{"type":"usp","settings":{"icon":"hexagon","title":"Gehamerde afwerking","text":"Voor precisie en duurzaamheid"}}},"block_order":["usp-1","usp-2","usp-3","usp-4","usp-5"],"settings":{"eyebrow":"Beperkte voorraad","heading":"Restock sale <em>tot 70% korting<\/em>","text":"Te veel voorraad, dus we ruimen op. Zolang de voorraad strekt.","show_description":false,"image":"shopify:\/\/shop_images\/openart-gpt-image-2-edit-1_1779527955177_311a950f.png","show_embers":true,"ends_at":"","clock_label":"Actie eindigt over","clock_note":"Daarna gelden weer de normale prijzen.","color_scheme":"scheme-1","padding_top":120,"padding_bottom":0}},"chips":{"type":"vk-collection-chips","blocks":{"chip-1":{"type":"chip","settings":{"collection":"pannen","label":"Losse pannen"}},"chip-2":{"type":"chip","settings":{"collection":"sets-bundels","label":"Sets"}},"chip-3":{"type":"chip","settings":{"collection":"messen","label":"Messen"}},"chip-4":{"type":"chip","settings":{"collection":"snijplanken","label":"Snijplanken"}}},"block_order":["chip-1","chip-2","chip-3","chip-4"],"settings":{"label":"Categorieën","all_label":"Alles","all_collection":"","show_counts":true,"color_scheme":"scheme-1","padding_top":24,"padding_bottom":0}},"main":{"type":"vk-main-collection","settings":{"card_style":"sale","per_page":48,"columns_desktop":4,"columns_mobile":"2","enable_filtering":true,"filter_layout":"drawer","color_scheme":"scheme-1","padding_top":16,"padding_bottom":120}}},"order":["hero","chips","main"]}
+{
+  "sections": {
+    "hero": {
+      "type": "vk-sale-hero",
+      "blocks": {
+        "usp-1": {
+          "type": "usp",
+          "settings": {
+            "icon": "leaf",
+            "title": "100% gifvrij",
+            "text": "Geen PFAS, PTFE of chemicaliën"
+          }
+        },
+        "usp-2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shield",
+            "title": "Van nature antiaanbak",
+            "text": "Geen coating die slijt"
+          }
+        },
+        "usp-3": {
+          "type": "usp",
+          "settings": {
+            "icon": "warranty",
+            "title": "25 jaar garantie",
+            "text": "Gebouwd om lang mee te gaan"
+          }
+        },
+        "usp-4": {
+          "type": "usp",
+          "settings": {
+            "icon": "fire-ring",
+            "title": "Voor alle kookplaten",
+            "text": "Gas, inductie, oven en grill"
+          }
+        },
+        "usp-5": {
+          "type": "usp",
+          "settings": {
+            "icon": "hexagon",
+            "title": "Gehamerde afwerking",
+            "text": "Voor precisie en duurzaamheid"
+          }
+        }
+      },
+      "block_order": [
+        "usp-1",
+        "usp-2",
+        "usp-3",
+        "usp-4",
+        "usp-5"
+      ],
+      "settings": {
+        "eyebrow": "Early Black Friday",
+        "heading": "Early Black Friday Sale <em>tot 70% korting</em>",
+        "text": "Onze beste prijzen van het jaar, nog vóór Black Friday. Zolang de voorraad strekt.",
+        "show_description": false,
+        "image": "shopify://shop_images/openart-gpt-image-2-edit-1_1779527955177_311a950f.png",
+        "show_embers": true,
+        "ends_at": "",
+        "clock_label": "Actie eindigt over",
+        "clock_note": "Daarna gelden weer de normale prijzen.",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 0
+      }
+    },
+    "chips": {
+      "type": "vk-collection-chips",
+      "blocks": {
+        "chip-1": {
+          "type": "chip",
+          "settings": {
+            "collection": "pannen",
+            "label": "Losse pannen"
+          }
+        },
+        "chip-2": {
+          "type": "chip",
+          "settings": {
+            "collection": "sets-bundels",
+            "label": "Sets"
+          }
+        },
+        "chip-3": {
+          "type": "chip",
+          "settings": {
+            "collection": "messen",
+            "label": "Messen"
+          }
+        },
+        "chip-4": {
+          "type": "chip",
+          "settings": {
+            "collection": "snijplanken",
+            "label": "Snijplanken"
+          }
+        }
+      },
+      "block_order": [
+        "chip-1",
+        "chip-2",
+        "chip-3",
+        "chip-4"
+      ],
+      "settings": {
+        "label": "Categorieën",
+        "all_label": "Alles",
+        "all_collection": "",
+        "show_counts": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 24,
+        "padding_bottom": 0
+      }
+    },
+    "main": {
+      "type": "vk-main-collection",
+      "settings": {
+        "card_style": "sale",
+        "per_page": 48,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "enable_filtering": true,
+        "filter_layout": "drawer",
+        "color_scheme": "scheme-1",
+        "padding_top": 16,
+        "padding_bottom": 120
+      }
+    },
+    "bf-strip": {
+      "type": "vk-bf-strip",
+      "settings": {
+        "items": ""
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "bf-strip",
+    "chips",
+    "main"
+  ]
+}
