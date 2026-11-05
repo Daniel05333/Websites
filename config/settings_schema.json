@@ -54,7 +54,8 @@
           { "value": "dark", "label": "Dark (current)" },
           { "value": "graphite", "label": "Graphite grey" },
           { "value": "stone", "label": "Light grey" },
-          { "value": "light", "label": "Light / white" }
+          { "value": "light", "label": "Light / white" },
+          { "value": "luxe", "label": "Luxe ivory" }
         ],
         "default": "dark"
       },
@@ -66,7 +67,8 @@
           { "value": "lava", "label": "Lava red (current)" },
           { "value": "fire", "label": "Fire orange" },
           { "value": "amber", "label": "Amber" },
-          { "value": "copper", "label": "Copper" }
+          { "value": "copper", "label": "Copper" },
+          { "value": "crimson", "label": "Crimson (deep red)" }
         ],
         "default": "lava"
       },

@@ -27,6 +27,11 @@
       assign pal_molten = '#F2A324'
       assign pal_flare = '#FFC266'
       assign pal_deep = '110, 64, 4'
+    when 'crimson'
+      assign pal_lava = '#9F1D20'
+      assign pal_molten = '#C42A2C'
+      assign pal_flare = '#E04A3A'
+      assign pal_deep = '86, 10, 12'
     when 'copper'
       assign pal_lava = '#A85A2A'
       assign pal_molten = '#D2814A'
@@ -84,6 +89,21 @@
                 assign c_bg = '#303236'
                 assign c_sf = '#383A3E'
             endcase
+          when 'luxe'
+            assign c_fg = '#1A1715'
+            assign c_ac = pal_lava
+            assign c_bl = '#FBF9F6'
+            case vk_idx
+              when 1
+                assign c_bg = '#FBF9F6'
+                assign c_sf = '#FFFFFF'
+              when 2
+                assign c_bg = '#F3F0EB'
+                assign c_sf = '#FBF9F6'
+              else
+                assign c_bg = '#E9E4DD'
+                assign c_sf = '#F3F0EB'
+            endcase
           when 'stone'
             assign c_fg = '#141414'
             assign c_ac = pal_lava
@@ -117,6 +137,9 @@
         endcase
         if vk_accent == 'lava' and vk_base != 'graphite'
           assign c_bt = pal_lava
+        endif
+        if vk_base == 'luxe'
+          assign c_bt = '#1A1715'
         endif
       endif
       assign bg_r = c_bg | color_extract: 'red'
@@ -186,7 +209,7 @@
     background-color: var(--vk-bg);
     color: var(--vk-fg);
   }
-  {%- if vk_base == 'stone' or vk_base == 'light' %}
+  {%- if vk_base == 'stone' or vk_base == 'light' or vk_base == 'luxe' %}
   /* The glass header and sections that sit on a dark photo or video keep light text on a light base. */
   .vk-header-wrapper, .vk-header-wrapper [class*="color-scheme-"], .vk-hero, .vk-col-hero, .vk-cta__panel, .vk-manifesto--image, .vk-story-hero:has(.vk-story-hero__media) {
     --vk-bg: #080808; --vk-bg-rgb: 8, 8, 8; --vk-fg: #F7F5F2; --vk-fg-rgb: 247, 245, 242;
@@ -200,5 +223,12 @@
   }
   /* On a light page the glass header would read as washed-out grey; make it near-solid. */
   .vk-header-wrapper:not(.is-transparent) .vk-header, html.vk-scrolled .is-transparent .vk-header { background: rgba(12, 12, 12, .92); }
+  {%- endif %}
+  {%- if vk_base == 'luxe' %}
+  /* Luxe: ivory page, warm hairlines, black buttons, crimson details. The header turns to light glass once the page scrolls. */
+  html:root { --vk-ember: linear-gradient(115deg, var(--vk-lava) 0%, var(--vk-molten) 60%, var(--vk-flare) 100%); }
+  .color-scheme-1, .color-scheme-2, .color-scheme-3 { --vk-border: rgba(26, 23, 21, .1); --vk-border-strong: rgba(26, 23, 21, .22); --vk-btn-primary-shadow: 0 18px 40px -22px rgba(26, 23, 21, .55); }
+  .vk-header-wrapper:not(.is-transparent) .vk-header, html.vk-scrolled .is-transparent .vk-header { background: rgba(251, 249, 246, .9); box-shadow: 0 1px 0 rgba(26, 23, 21, .08), 0 18px 40px -30px rgba(26, 23, 21, .4); }
+  .vk-header-wrapper:not(.is-transparent), .vk-header-wrapper:not(.is-transparent) [class*="color-scheme-"], html.vk-scrolled .vk-header-wrapper.is-transparent, html.vk-scrolled .vk-header-wrapper.is-transparent [class*="color-scheme-"] { --vk-bg: #FBF9F6; --vk-bg-rgb: 251, 249, 246; --vk-fg: #1A1715; --vk-fg-rgb: 26, 23, 21; --vk-fg-muted: rgba(26, 23, 21, .7); --vk-fg-subtle: rgba(26, 23, 21, .5); --vk-border: rgba(26, 23, 21, .1); --vk-border-strong: rgba(26, 23, 21, .22); --vk-surface: #FFFFFF; --vk-surface-2: #F3F0EB; color: #1A1715; color-scheme: light; }
   {%- endif %}
 {%- endstyle -%}

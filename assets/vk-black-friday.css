@@ -39,7 +39,7 @@
 .vk-bf-gifts { padding: 1.1rem 1rem 1rem; border: 1px solid rgba(224, 38, 27, .35); border-radius: 10px; background: rgba(224, 38, 27, .05); }
 .vk-bf-gifts__head { display: flex; flex-direction: column; align-items: center; gap: .55rem; margin: 0 0 .9rem; font-weight: 600; text-align: center; }
 .vk-bf-gifts__list { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
-.vk-bf-gifts__item { display: flex; align-items: center; gap: .85rem; padding: .7rem .8rem; border: 1px solid rgba(247, 245, 242, .1); border-radius: 8px; background: rgba(0, 0, 0, .25); font-size: .9375rem; font-weight: 500; line-height: 1.3; }
+.vk-bf-gifts__item { display: flex; align-items: center; gap: .85rem; padding: .7rem .8rem; border: 1px solid var(--vk-border, rgba(247, 245, 242, .1)); border-radius: 8px; background: var(--vk-surface, rgba(0, 0, 0, .25)); font-size: .9375rem; font-weight: 500; line-height: 1.3; }
 .vk-bf-gifts__icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff6a3d, var(--vk-bf-red) 55%, var(--vk-bf-red-deep)); color: #fff; box-shadow: 0 0 18px rgba(224, 38, 27, .45); }
 .vk-bf-gifts__title { flex: 1; min-width: 0; }
 .vk-bf-gifts__free { flex: none; display: inline-flex; align-items: center; gap: .35em; padding: .45em .6em; border-radius: 3px; background: var(--vk-bf-red); color: #fff; font: 700 10px/1 var(--vk-font-mono, ui-monospace, monospace); letter-spacing: .12em; text-transform: uppercase; }
