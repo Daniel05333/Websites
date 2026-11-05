@@ -52,9 +52,9 @@
         "usp-5"
       ],
       "settings": {
-        "eyebrow": "Early Black Friday",
-        "heading": "Early Black Friday Sale <em>tot 70% korting</em>",
-        "text": "Onze beste prijzen van het jaar, nog vóór Black Friday. Zolang de voorraad strekt.",
+        "eyebrow": "Beperkte voorraad",
+        "heading": "Restock sale <em>tot 70% korting</em>",
+        "text": "Te veel voorraad, dus we ruimen op. Zolang de voorraad strekt.",
         "show_description": false,
         "image": "shopify://shop_images/openart-gpt-image-2-edit-1_1779527955177_311a950f.png",
         "show_embers": true,

@@ -140,9 +140,7 @@
               {%- if settings.bf_enabled %}{% render 'vk-bf-gifts' %}{% endif -%}
 
             {%- when 'gift' -%}
-              {%- unless settings.bf_enabled and settings.bf_gift_1 != blank -%}
               <div class="vk-pdp__block vk-pdp__gift" {{ block.shopify_attributes }}><span class="vk-pdp__gift-icon">{% render 'vk-icon', name: 'gift', size: 18 %}</span><div><p class="vk-pdp__gift-title">{% if block.settings.link != blank %}<a href="{{ block.settings.link }}" class="vk-link">{{ block.settings.title }}</a>{% else %}{{ block.settings.title }}{% endif %}</p><p class="vk-small vk-muted">{{ block.settings.text }}</p></div></div>
-              {%- endunless -%}
 
             {%- when 'trust' -%}
               <div class="vk-pdp__block vk-pdp__trust" {{ block.shopify_attributes }}>
