@@ -51,11 +51,30 @@
         "id": "color_style_base",
         "label": "Base",
         "options": [
-          { "value": "dark", "label": "Dark (current)" },
-          { "value": "graphite", "label": "Graphite grey" },
-          { "value": "stone", "label": "Light grey" },
-          { "value": "light", "label": "Light / white" },
-          { "value": "luxe", "label": "Luxe ivory" }
+          {
+            "value": "dark",
+            "label": "Dark (current)"
+          },
+          {
+            "value": "graphite",
+            "label": "Graphite grey"
+          },
+          {
+            "value": "espresso",
+            "label": "Espresso (warm dark)"
+          },
+          {
+            "value": "stone",
+            "label": "Light grey"
+          },
+          {
+            "value": "light",
+            "label": "Light / white"
+          },
+          {
+            "value": "luxe",
+            "label": "Luxe ivory"
+          }
         ],
         "default": "dark"
       },
@@ -64,11 +83,30 @@
         "id": "color_style_accent",
         "label": "Accent",
         "options": [
-          { "value": "lava", "label": "Lava red (current)" },
-          { "value": "fire", "label": "Fire orange" },
-          { "value": "amber", "label": "Amber" },
-          { "value": "copper", "label": "Copper" },
-          { "value": "crimson", "label": "Crimson (deep red)" }
+          {
+            "value": "lava",
+            "label": "Lava red (current)"
+          },
+          {
+            "value": "fire",
+            "label": "Fire orange"
+          },
+          {
+            "value": "amber",
+            "label": "Amber"
+          },
+          {
+            "value": "copper",
+            "label": "Copper"
+          },
+          {
+            "value": "crimson",
+            "label": "Crimson (deep red)"
+          },
+          {
+            "value": "bronze",
+            "label": "Bronze"
+          }
         ],
         "default": "lava"
       },
@@ -143,6 +181,23 @@
   {
     "name": "Typography",
     "settings": [
+      {
+        "type": "select",
+        "id": "type_style",
+        "label": "Heading style",
+        "default": "modern",
+        "options": [
+          {
+            "value": "modern",
+            "label": "Modern sans (Inter Tight)"
+          },
+          {
+            "value": "signature",
+            "label": "Signature serif (Bodoni Moda)"
+          }
+        ],
+        "info": "Signature uses a classic high-contrast serif for headings and italic accents, with calm solid buttons."
+      },
       {
         "type": "paragraph",
         "content": "Fonts are self-hosted for speed and privacy: Inter Tight (display), Inter (body), Instrument Serif italic (accent word) and JetBrains Mono (technical labels)."
@@ -511,5 +566,100 @@
       }
     ]
   },
-  {"name": "Black Friday", "settings": [{"type": "paragraph", "content": "Turns on the Black Friday look across the store: the announcement marquee, red badges on product cards, the product page strip and gifts, and the cart notice. Turn it off when the promotion ends."}, {"type": "checkbox", "id": "bf_enabled", "label": "Show Black Friday branding", "default": false}, {"type": "text", "id": "bf_label", "label": "Badge label", "default": "Black Friday"}, {"type": "header", "content": "Announcement marquee"}, {"type": "text", "id": "bf_bar_label", "label": "Pill text", "default": "Early Black Friday Sale"}, {"type": "text", "id": "bf_bar_text", "label": "Message", "default": "Tot 70% korting + gratis kookgids", "info": "Only promise discounts that are real against your recent prices."}, {"type": "url", "id": "bf_bar_link", "label": "Link"}, {"type": "header", "content": "Red strip"}, {"type": "textarea", "id": "bf_strip_text", "label": "Strip items", "default": "Black Friday-aanbieding|Gratis Titanium Kookgids bij elke bestelling|Setkorting tot 20%|Gratis verzending|30 dagen retour", "info": "Separate with |. Add the 'Black Friday strip' section where you want it."}, {"type": "header", "content": "Product page"}, {"type": "text", "id": "bf_pdp_text", "label": "Strip under the price", "default": "Black Friday-prijs, zolang de voorraad strekt"}, {"type": "text", "id": "bf_gifts_heading", "label": "Gifts heading", "default": "Gratis bij je bestelling"}, {"type": "product", "id": "bf_gift_1", "label": "Gift 1", "info": "Only list gifts every customer really receives."}, {"type": "product", "id": "bf_gift_2", "label": "Gift 2"}, {"type": "product", "id": "bf_gift_3", "label": "Gift 3"}, {"type": "header", "content": "Cart"}, {"type": "text", "id": "bf_cart_text", "label": "Cart notice", "default": "Je Black Friday-korting zit al in de prijzen"}]}
+  {
+    "name": "Black Friday",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Turns on the Black Friday look across the store: the announcement marquee, red badges on product cards, the product page strip and gifts, and the cart notice. Turn it off when the promotion ends."
+      },
+      {
+        "type": "checkbox",
+        "id": "bf_enabled",
+        "label": "Show Black Friday branding",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "bf_label",
+        "label": "Badge label",
+        "default": "Black Friday"
+      },
+      {
+        "type": "header",
+        "content": "Announcement marquee"
+      },
+      {
+        "type": "text",
+        "id": "bf_bar_label",
+        "label": "Pill text",
+        "default": "Early Black Friday Sale"
+      },
+      {
+        "type": "text",
+        "id": "bf_bar_text",
+        "label": "Message",
+        "default": "Tot 70% korting + gratis kookgids",
+        "info": "Only promise discounts that are real against your recent prices."
+      },
+      {
+        "type": "url",
+        "id": "bf_bar_link",
+        "label": "Link"
+      },
+      {
+        "type": "header",
+        "content": "Red strip"
+      },
+      {
+        "type": "textarea",
+        "id": "bf_strip_text",
+        "label": "Strip items",
+        "default": "Black Friday-aanbieding|Gratis Titanium Kookgids bij elke bestelling|Setkorting tot 20%|Gratis verzending|30 dagen retour",
+        "info": "Separate with |. Add the 'Black Friday strip' section where you want it."
+      },
+      {
+        "type": "header",
+        "content": "Product page"
+      },
+      {
+        "type": "text",
+        "id": "bf_pdp_text",
+        "label": "Strip under the price",
+        "default": "Black Friday-prijs, zolang de voorraad strekt"
+      },
+      {
+        "type": "text",
+        "id": "bf_gifts_heading",
+        "label": "Gifts heading",
+        "default": "Gratis bij je bestelling"
+      },
+      {
+        "type": "product",
+        "id": "bf_gift_1",
+        "label": "Gift 1",
+        "info": "Only list gifts every customer really receives."
+      },
+      {
+        "type": "product",
+        "id": "bf_gift_2",
+        "label": "Gift 2"
+      },
+      {
+        "type": "product",
+        "id": "bf_gift_3",
+        "label": "Gift 3"
+      },
+      {
+        "type": "header",
+        "content": "Cart"
+      },
+      {
+        "type": "text",
+        "id": "bf_cart_text",
+        "label": "Cart notice",
+        "default": "Je Black Friday-korting zit al in de prijzen"
+      }
+    ]
+  }
 ]

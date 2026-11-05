@@ -1,0 +1,37 @@
+{%- doc -%}
+  Signature heading style (Theme settings › Typography › Heading style = Signature serif).
+  Classic high-contrast serif for headings and italic accents (Bodoni Moda, OFL), calm solid primary buttons
+  without glow, and sans-serif kept for buttons, prices and body copy so everything stays easy to read.
+  @example
+  {% render 'vk-signature' %}
+{%- enddoc -%}
+{%- if settings.type_style == 'signature' -%}
+  <link rel="preload" href="{{ 'vk-bodoni-moda.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+  {%- style -%}
+    @font-face { font-family: "Bodoni Moda"; src: url("{{ 'vk-bodoni-moda.woff2' | asset_url }}") format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Bodoni Moda"; src: url("{{ 'vk-bodoni-moda-italic.woff2' | asset_url }}") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+    html:root {
+      --vk-font-display: "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
+      --vk-font-accent: "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
+    }
+    h1, h2, h3, .vk-h1, .vk-h2, .vk-h3, .vk-display, [class*="__heading"], [class*="__title"]:is(h1, h2, h3) {
+      font-weight: 500; letter-spacing: -0.012em; line-height: 1.06; font-optical-sizing: auto;
+    }
+    h1 em, h2 em, h3 em, .vk-h1 em, .vk-h2 em, .vk-display em { font-weight: 400; letter-spacing: -0.005em; padding-right: .04em; }
+    /* Keep UI type in the sans: buttons, prices, drawers, inputs. */
+    /* (The stylesheets load after this block, so these rules carry extra specificity.) */
+    html body :is(.vk-btn, .vk-price, .vk-price *, .vk-drawer__title, .vk-line__title, .vk-line__price, .vk-cart-summary, .vk-sale-card__price, .vk-product-card__price, .vk-bundle__price, .vk-sticky-atc__price, .vk-insurance__price, .vk-select, input, textarea) { font-family: var(--vk-font-body); }
+    html body .vk-btn { font-weight: 600; letter-spacing: .02em; }
+    html body .vk-price { font-weight: 600; }
+    /* Calm, solid primary buttons: no gradient glow. */
+    html body .vk-btn--primary { background: var(--vk-btn-bg); color: var(--vk-btn-fg); box-shadow: 0 10px 28px -18px rgba(0, 0, 0, .7); }
+    html body .vk-btn--primary:hover { filter: brightness(1.06); box-shadow: 0 14px 32px -18px rgba(0, 0, 0, .75); }
+    html body .vk-btn--primary::before { display: none; }
+  {%- endstyle -%}
+  {%- if settings.color_style_accent == 'bronze' -%}
+    {%- style -%}
+      /* Bronze buttons read best with dark ink, like a jeweller's label. */
+      .color-scheme-1, .color-scheme-2, .color-scheme-3 { --vk-btn-bg: var(--vk-molten); --vk-btn-fg: #16120F; }
+    {%- endstyle -%}
+  {%- endif -%}
+{%- endif -%}

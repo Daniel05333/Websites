@@ -27,6 +27,11 @@
       assign pal_molten = '#F2A324'
       assign pal_flare = '#FFC266'
       assign pal_deep = '110, 64, 4'
+    when 'bronze'
+      assign pal_lava = '#A87B50'
+      assign pal_molten = '#C99A6B'
+      assign pal_flare = '#E2BC8F'
+      assign pal_deep = '78, 50, 26'
     when 'crimson'
       assign pal_lava = '#9F1D20'
       assign pal_molten = '#C42A2C'
@@ -88,6 +93,19 @@
               else
                 assign c_bg = '#303236'
                 assign c_sf = '#383A3E'
+            endcase
+          when 'espresso'
+            assign c_fg = '#F4EFE8'
+            case vk_idx
+              when 1
+                assign c_bg = '#14110F'
+                assign c_sf = '#1C1815'
+              when 2
+                assign c_bg = '#1A1613'
+                assign c_sf = '#231E1A'
+              else
+                assign c_bg = '#221C18'
+                assign c_sf = '#2B2420'
             endcase
           when 'luxe'
             assign c_fg = '#1A1715'

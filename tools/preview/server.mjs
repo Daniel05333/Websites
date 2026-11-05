@@ -248,6 +248,8 @@ function baseContext(req, url, cart) {
   // ?base=light&accent=fire previews a color style without touching settings_data.
   if (url.searchParams.get('base')) settings.color_style_base = url.searchParams.get('base');
   if (url.searchParams.get('accent')) settings.color_style_accent = url.searchParams.get('accent');
+  if (url.searchParams.get('type')) settings.type_style = url.searchParams.get('type');
+  if (url.searchParams.has('calm')) { settings.enable_film_grain = false; settings.enable_embers = false; }
   const all = allProducts();
   return {
     shop: { name: 'VOLKARA', url: `http://localhost:${PORT}`, currency: 'EUR', money_format: '€{{amount_with_comma_separator}}', money_with_currency_format: '€{{amount_with_comma_separator}} EUR', enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'ideal', 'klarna'], customer_accounts_enabled: true, policies: [], shipping_policy: { body: 'x', url: '/pages/verzenden-en-retourneren' } },
