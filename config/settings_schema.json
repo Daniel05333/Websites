@@ -192,6 +192,10 @@
             "label": "Modern sans (Inter Tight)"
           },
           {
+            "value": "classic",
+            "label": "Classic serif (Playfair Display + DM Sans)"
+          },
+          {
             "value": "signature",
             "label": "Signature serif (Bodoni Moda)"
           }

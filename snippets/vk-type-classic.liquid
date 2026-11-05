@@ -1,0 +1,32 @@
+{%- doc -%}
+  Classic type pairing (Theme settings › Typography › Heading style = Classic serif).
+  Fonts only — colors, buttons and layout stay as they are:
+  - headings and italic accents: Playfair Display (OFL)
+  - body, labels, buttons and prices: DM Sans (OFL); small uppercase labels switch from mono to DM Sans.
+  @example
+  {% render 'vk-type-classic' %}
+{%- enddoc -%}
+{%- if settings.type_style == 'classic' -%}
+  <link rel="preload" href="{{ 'vk-playfair-display.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ 'vk-dm-sans.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+  {%- style -%}
+    @font-face { font-family: "Playfair Display"; src: url("{{ 'vk-playfair-display.woff2' | asset_url }}") format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Playfair Display"; src: url("{{ 'vk-playfair-display-italic.woff2' | asset_url }}") format("woff2"); font-weight: 400 900; font-style: italic; font-display: swap; }
+    @font-face { font-family: "DM Sans"; src: url("{{ 'vk-dm-sans.woff2' | asset_url }}") format("woff2"); font-weight: 100 1000; font-style: normal; font-display: swap; }
+    html:root {
+      --vk-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+      --vk-font-accent: "Playfair Display", Georgia, "Times New Roman", serif;
+      --vk-font-body: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --vk-font-mono: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+    }
+    /* Serif headings want more air than the tight sans did. */
+    html body :is(h1, h2, h3, .vk-h1, .vk-h2, .vk-h3, .vk-display) { font-weight: 500; letter-spacing: -0.01em; line-height: 1.08; }
+    html body :is(h1, h2, h3, .vk-h1, .vk-h2, .vk-h3, .vk-display) em { font-weight: 400; letter-spacing: 0; padding-right: .03em; }
+    /* UI stays in the sans (the stylesheets load after this block, hence the extra specificity). */
+    html body :is(.vk-btn, .vk-price, .vk-price *, .vk-drawer__title, .vk-line__title, .vk-line__price, .vk-cart-summary, .vk-sale-card__price, .vk-product-card__price, .vk-bundle__price, .vk-sticky-atc__price, .vk-insurance__price, .vk-select, input, textarea) { font-family: var(--vk-font-body); }
+    html body .vk-btn { font-weight: 600; letter-spacing: .02em; }
+    html body .vk-price { font-weight: 700; }
+    /* Labels that used the mono font: a little bolder so the uppercase sans holds up at small sizes. */
+    html body :is(.vk-eyebrow, .vk-badge, .vk-bf-pill, .vk-bf-strip__item, .vk-sale-card__tag) { font-weight: 600; }
+  {%- endstyle -%}
+{%- endif -%}
