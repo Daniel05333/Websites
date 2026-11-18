@@ -10,7 +10,7 @@ for (const [m, path] of [...css.matchAll(/url\('\.\.\/((?:fonts|img)\/[^']+)'\)/
   css = css.replaceAll(m, `url('${await data(`assets/${path}`)}')`);
 const js = await readFile('assets/js/main.js', 'utf8');
 
-const pages = [['public/index.html', 'voorbeeld/index.html'], ['public/academy/index.html', 'voorbeeld/academy.html']];
+const pages = [['public/index.html', 'voorbeeld/index.html']];
 await mkdir('voorbeeld', { recursive: true });
 for (const [src, out] of pages) {
   let html = (await readFile(src, 'utf8'))

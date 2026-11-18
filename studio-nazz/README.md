@@ -1,14 +1,14 @@
 # Studio Nazz: concept-website
 
-Concept voor Studio Nazz, aesthetics & academy. Het is een statische site (HTML, CSS en JavaScript zonder bibliotheken) met een homepage en een aparte academy-pagina. Er zijn geen trackers en geen cookies. Lettertypen, scripts en foto's staan op de eigen server.
+Concept voor Studio Nazz, aesthetics & academy. Het is een statische site (HTML, CSS en JavaScript zonder bibliotheken) op één pagina, met de academy als eigen sectie. Er zijn geen trackers en geen cookies. Lettertypen, scripts en foto's staan op de eigen server.
 
 ```
 npm install        # alleen voor tests (Playwright + axe)
 npm run build      # genereert ./public uit src/site.mjs en assets/
 npm run serve      # lokaal bekijken op http://localhost:4600
-npm test           # build + 37 browsertests (5 breedtes, axe, tabs, boeken, slider, zonder JS, reduced motion)
+npm test           # build + 29 browsertests (5 breedtes, axe, tabs, boeken, slider, zonder JS, reduced motion)
 npm run images     # snijdt foto's en logo opnieuw uit de screenshots in bron/ (Python + Pillow)
-npm run preview    # voorbeeld/index.html en voorbeeld/academy.html als losse bestanden
+npm run preview    # de hele site als één los bestand: voorbeeld/index.html
 ```
 
 ## Wat er op de site staat
@@ -18,7 +18,7 @@ npm run preview    # voorbeeld/index.html en voorbeeld/academy.html als losse be
 - **Portfolio:** een horizontale 3D-galerij (coverflow) die je met de muis kunt slepen.
 - **Brow tint voor & na:** drie sleepbare vergelijkers.
 - **Bring a Friend**, de academy-teaser en een slot-CTA.
-- **Academy-pagina:** de lesonderdelen, 1-op-1 vs. groepscursus, de private courses (1 of 2 dagen), de stappen van aanmelding tot certificaat, en bij elke cursus een aanmeldknop.
+- **Academy-sectie** (menu "Academy"): de lesonderdelen, 1-op-1 vs. groepscursus, de private courses (1 of 2 dagen), de stappen van aanmelding tot certificaat, en bij elke cursus een aanmeldknop.
 - **Boeken:** een venster waarin de klant een behandeling of cursus, een voorkeursdag, een dagdeel en haar naam kiest. Het bericht wordt gekopieerd en Instagram-DM opent. Er wordt niets automatisch bevestigd: Studio Nazz bevestigt zelf.
 
 ## Nog in te vullen (src/site.mjs)
@@ -38,7 +38,7 @@ Alles staat in [`src/site.mjs`](src/site.mjs). Waarden met `todo('…')` tonen o
 
 ```
 src/site.mjs            alle inhoud: behandelingen, cursussen, actie, gegevens
-build.mjs               templates + bouwt public/ (home, academy, 404, robots)
+build.mjs               templates + bouwt public/ (index, 404, robots)
 assets/css/main.css     design system (tokens bovenaan) en componenten
 assets/js/main.js       wimperwaaier, scroll, tabs, galerij, vergelijkers, boeken
 assets/img/             foto's en logo, gesneden uit de Instagram-screenshots

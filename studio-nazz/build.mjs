@@ -65,7 +65,7 @@ const header = (page) => `<a class="skip" href="#main">Naar de inhoud</a>
   <nav class="masthead__nav" aria-label="Hoofdmenu">
     <a href="/#behandelingen">Behandelingen</a>
     <a href="/#portfolio">Portfolio</a>
-    <a href="/academy/"${page === 'academy' ? ' aria-current="page"' : ''}>Academy</a>
+    <a href="/#academy">Academy</a>
     <a href="/#bring-a-friend">Acties</a>
   </nav>
   ${bookBtn('Boek nu', 'btn btn--sm btn--light masthead__cta')}
@@ -189,7 +189,7 @@ const promo = P.active ? `<section class="promo" id="bring-a-friend" aria-labell
   </div>
 </section>` : '';
 
-const academyTeaser = `<section class="section teaser" aria-labelledby="teaser-titel">
+const academyTeaser = `<section class="section teaser" id="academy" aria-labelledby="teaser-titel">
   <div class="wrap teaser__grid">
     <div class="teaser__stack" aria-hidden="true">
       <img class="teaser__a reveal-img" data-parallax=".05" src="/assets/img/lashlift-behandeling.webp" alt="" loading="lazy">
@@ -201,7 +201,7 @@ const academyTeaser = `<section class="section teaser" aria-labelledby="teaser-t
       <h2 class="title" id="teaser-titel">Leer het vak van <em>de praktijk.</em></h2>
       <p class="section__lead">${esc(A.intro)}</p>
       <ul class="ticks">${['1-op-1 en groepscursussen', 'Starterspakket inbegrepen', 'Certificaat na afronding', 'Nazorg en blijvende ondersteuning'].map((t) => `<li>${icon.check}${t}</li>`).join('')}</ul>
-      <a class="btn btn--dark magnetic" href="/academy/"><span>Bekijk de academy</span>${icon.arrow}</a>
+      <div class="hero__actions" style="margin-top:0">${bookBtn('Schrijf je in', 'btn btn--dark magnetic', `Cursus: ${A.courses[0].name}`)}<a class="btn btn--line magnetic" href="#cursussen"><span>Bekijk cursussen</span>${icon.arrow}</a></div>
     </div>
   </div>
 </section>`;
@@ -253,7 +253,7 @@ const footer = `<footer class="footer">
   <div class="wrap footer__inner">
     ${logo('logo--light')}
     <div><p class="footer__h">Studio</p><p>${val(site.city, 'Adres volgt')}<br>Afspraak via Instagram</p></div>
-    <nav aria-label="Footer"><p class="footer__h">Menu</p><a href="/#behandelingen">Behandelingen</a><a href="/#portfolio">Portfolio</a><a href="/academy/">Academy</a><a href="${ig}" target="_blank" rel="noopener">Instagram</a></nav>
+    <nav aria-label="Footer"><p class="footer__h">Menu</p><a href="/#behandelingen">Behandelingen</a><a href="/#portfolio">Portfolio</a><a href="/#academy">Academy</a><a href="${ig}" target="_blank" rel="noopener">Instagram</a></nav>
     <p class="footer__fine">© ${year} ${site.name} · ${site.tagline} · Geen cookies, geen trackers.</p>
   </div>
 </footer>
@@ -267,33 +267,8 @@ const homeHero = fanHero({
   actions: `${bookBtn('Boek je afspraak', 'btn btn--gold magnetic')}<a class="btn btn--ghost magnetic" href="#behandelingen"><span>Behandelingen</span></a>`,
 });
 
-const home = `${head({ title: `${site.name} · Lashes, brows & skin · ${site.tagline}`, desc: 'Studio Nazz: lashextensions, lash volume lift, brow threading en lamination, PhiLings, microneedling, plasmapen en facials. Plus een academy met 1-op-1 en groepscursussen.', path: '/', page: 'home' })}
-${header('home')}
-<main id="main">
-${homeHero}
-${marquee(['Lashextensions', 'Lash volume lift', 'Brow threading', 'Brow lamination', 'PhiLings', 'Microneedling', 'Plasmapen', 'Facials', 'Powderbrows'])}
-${intro}
-${treatments}
-${portfolio}
-${browCompare}
-${promo}
-${academyTeaser}
-${ctaBlock('Jouw <em>moment.</em>', 'Kies je behandeling en vraag je afspraak aan. Studio Nazz bevestigt persoonlijk.', bookBtn('Boek je afspraak', 'btn btn--gold magnetic'))}
-</main>
-${footer}
-${bookingDialog}
-</body>
-</html>
-`;
 
 // ── academy ─────────────────────────────────────────────────────────────────
-const academyHero = fanHero({
-  variant: 'academy',
-  eyebrow: 'Studio Nazz Academy',
-  title: '<span class="line"><span>Word een échte</span></span> <span class="line"><em>lash professional.</em></span>',
-  lead: `${esc(A.sub)} ${esc(A.intro)}`,
-  actions: `${bookBtn('Schrijf je in', 'btn btn--gold magnetic', `Cursus: ${A.courses[0].name}`)}<a class="btn btn--ghost magnetic" href="#cursussen"><span>Bekijk cursussen</span></a>`,
-});
 
 const modules = `<section class="section modules" aria-labelledby="modules-titel">
   <div class="wrap">
@@ -348,16 +323,23 @@ const academySteps = `<section class="section steps" aria-labelledby="stappen-ti
   </div>
 </section>`;
 
-const academyPage = `${head({ title: `Academy · ${site.name} · Lash- en browcursussen`, desc: 'Studio Nazz Academy: word een échte lash professional. 1-op-1 en groepscursussen met theorie, praktijk op model, starterspakket en certificaat.', path: '/academy/', page: 'academy' })}
-${header('academy')}
+
+const home = `${head({ title: `${site.name} · Lashes, brows & skin · ${site.tagline}`, desc: 'Studio Nazz: lashextensions, lash volume lift, brow threading en lamination, PhiLings, microneedling, plasmapen en facials. Plus een academy met 1-op-1 en groepscursussen.', path: '/', page: 'home' })}
+${header('home')}
 <main id="main">
-${academyHero}
-${marquee(['1-op-1 cursus', 'Groepscursus', 'Starterspakket', 'Certificaat', 'Werken op model', 'Nazorg & ondersteuning'])}
+${homeHero}
+${marquee(['Lashextensions', 'Lash volume lift', 'Brow threading', 'Brow lamination', 'PhiLings', 'Microneedling', 'Plasmapen', 'Facials', 'Powderbrows'])}
+${intro}
+${treatments}
+${portfolio}
+${browCompare}
+${promo}
+${academyTeaser}
 ${modules}
 ${formats}
 ${courses}
 ${academySteps}
-${ctaBlock('Invest in <em>yourself.</em>', 'Meld je aan via DM. We nemen contact met je op om een datum te plannen.', bookBtn('Schrijf je in', 'btn btn--gold magnetic', `Cursus: ${A.courses[0].name}`))}
+${ctaBlock('Jouw <em>moment.</em>', 'Kies je behandeling en vraag je afspraak aan. Studio Nazz bevestigt persoonlijk.', bookBtn('Boek je afspraak', 'btn btn--gold magnetic'))}
 </main>
 ${footer}
 ${bookingDialog}
@@ -377,10 +359,9 @@ ${header('plain')}
 `;
 
 await rm('public', { recursive: true, force: true });
-await mkdir('public/academy', { recursive: true });
+await mkdir('public', { recursive: true });
 await cp('assets', 'public/assets', { recursive: true });
 await writeFile('public/index.html', home);
-await writeFile('public/academy/index.html', academyPage);
 await writeFile('public/404.html', notFound);
 await writeFile('public/robots.txt', site.draft || isTodo(site.url) ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\n`);
 console.log(`public/ gebouwd${site.draft ? ' (concept: noindex)' : ''}`);

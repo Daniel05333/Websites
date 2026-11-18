@@ -72,6 +72,8 @@ em { font-style: italic; font-family: var(--serif); }
 .btn--dark { --bg: var(--ink); --fg: var(--cream); }
 .btn--ghost { --bg: transparent; --fg: var(--cream); border-color: var(--line-light); }
 .btn--ghost:hover { border-color: var(--gold); }
+.btn--line { --bg: transparent; --fg: var(--ink); border-color: var(--line); }
+.btn--line:hover { border-color: var(--gold); }
 .btn--sm { min-height: 44px; padding: 0 20px; font-size: 12px; }
 .btn--block { width: 100%; }
 

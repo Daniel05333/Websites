@@ -6,7 +6,7 @@ import { server } from '../tools/serve.mjs';
 const exe = process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium';
 const PORT = 4614;
 const base = `http://localhost:${PORT}`;
-const pages = ['/', '/academy/', '/404.html'];
+const pages = ['/', '/404.html'];
 const axeSrc = await readFile(new URL('../node_modules/axe-core/axe.min.js', import.meta.url), 'utf8');
 
 let failed = 0, passed = 0;
@@ -102,8 +102,8 @@ console.log('Interactie');
     const pos = await page.locator('.compare__media').first().evaluate((el) => el.style.getPropertyValue('--pos'));
     if (pos !== '20%') throw new Error(pos);
   });
-  await page.goto(base + '/academy/', { waitUntil: 'networkidle' });
-  await check('academy: aanmeldknop vult de cursus in', async () => {
+  await page.goto(base + '/', { waitUntil: 'networkidle' });
+  await check('academy-sectie: aanmeldknop vult de cursus in', async () => {
     await page.locator('.course:has-text("Russian volume") .course__book').first().click();
     const v = await page.locator('#boek select').inputValue();
     if (v !== 'Cursus: Russian volume') throw new Error(v);
@@ -115,7 +115,7 @@ console.log('Zonder JavaScript');
 {
   const ctx = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 860 } });
   const page = await ctx.newPage();
-  for (const p of ['/', '/academy/']) {
+  for (const p of ['/']) {
     await page.goto(base + p);
     await page.waitForTimeout(1200);
     await check(`${p} — inhoud zichtbaar, alle behandelingen leesbaar`, async () => {
