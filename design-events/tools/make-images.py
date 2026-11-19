@@ -14,7 +14,8 @@ COLS = [(0, 305), (307, 612), (615, 900)]
 def crop(name, box):
     return Image.open(SRC / name).convert('RGB').crop(tuple(round(v * S) for v in box))
 
-def save(im, name, q=84):
+def save(im, name, q=82):
+    im.thumbnail((820, 1100), Image.LANCZOS)
     im = im.filter(ImageFilter.UnsharpMask(radius=1.1, percent=30, threshold=2))
     im.save(OUT / f'{name}.webp', quality=q, method=6)
     print(f'{name}.webp {im.size[0]}×{im.size[1]}')
@@ -55,12 +56,13 @@ def disc(name, cx, cy, r, out, size=560):
     d.putalpha(m.resize((size, size), Image.LANCZOS))
     d.save(OUT / out, optimize=True)
     print(out)
-disc(A, 135, 388, 96, 'logo-badge.png')
+disc(A, 135, 388, 96, 'logo-badge.png', 240)
 # goud-op-zwart: zwart wordt transparant, goud blijft
 im = Image.open(SRC / C).convert('RGB').crop(tuple(round(v * S) for v in (318, 1480, 604, 1766)))
 im = im.resize((800, 800), Image.LANCZOS)
 lum = im.convert('L').point(lambda v: 0 if v < 50 else 255 if v > 120 else round(255 * (v - 50) / 70))
 im.putalpha(lum)
 im = im.crop(lum.getbbox())
+im.thumbnail((420, 460), Image.LANCZOS)
 im.save(OUT / 'logo-goud.png', optimize=True)
 print('logo-goud.png', im.size)

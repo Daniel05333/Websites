@@ -46,7 +46,7 @@ ${site.draft ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<meta n
 const header = `<a class="skip" href="#main">Naar de inhoud</a>
 <div class="progress" data-progress aria-hidden="true"></div>
 <header class="masthead" data-masthead>
-  <a class="masthead__brand" href="#top" aria-label="Design Events, naar boven"><img src="/assets/img/logo-badge.png" alt="" width="560" height="560"><span>Design <em>Events</em></span></a>
+  <a class="masthead__brand" href="#top" aria-label="Design Events, naar boven"><img src="/assets/img/logo-badge.png" alt="" width="240" height="240"><span>Design <em>Events</em></span></a>
   <nav class="masthead__nav" aria-label="Hoofdmenu">
     <a href="#opties">Opties</a>
     <a href="#events">Events</a>
@@ -125,7 +125,7 @@ const gallery = `<section class="section events" id="events" aria-labelledby="ev
 </dialog>`;
 
 const feature = `<section class="feature" aria-label="Design Events">
-  <img class="feature__logo reveal" src="/assets/img/logo-goud.png" alt="Design Events" width="601" height="661" loading="lazy">
+  <img class="feature__logo reveal" src="/assets/img/logo-goud.png" alt="Design Events" width="420" height="462" loading="lazy">
   <p class="feature__quote reveal">Voor ${site.occasions.join(', ').toLowerCase().replace(/, ([^,]*)$/, ' en $1')} <em>met allure.</em></p>
 </section>`;
 
@@ -171,7 +171,7 @@ const request = `<section class="section request" id="aanvraag" aria-labelledby=
 
 const footer = `<footer class="footer">
   <div class="wrap footer__inner">
-    <img class="footer__logo" src="/assets/img/logo-goud.png" alt="Design Events" width="601" height="661" loading="lazy">
+    <img class="footer__logo" src="/assets/img/logo-goud.png" alt="Design Events" width="420" height="462" loading="lazy">
     <p>${site.tagline} · ${site.city}, Nederland<br>DM voor info en offertes</p>
     <nav aria-label="Footer"><a href="#opties">Opties</a><a href="#events">Events</a><a href="#aanvraag">Aanvraag</a><a href="${ig}" target="_blank" rel="noopener">Instagram</a></nav>
     <p class="footer__fine">© ${year} ${site.name} · Geen cookies, geen trackers.</p>
