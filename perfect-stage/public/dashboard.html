@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js')</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Perfect Stage · Dashboard (preview)</title>
+<meta name="description" content="The Perfect Stage uit Rotterdam: bruidsbanken, weddingstages, bloemenbogen, trapbloemen en special effects. Bekijk de collecties en vraag direct jullie datum aan.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f6f1e9">
+<link rel="icon" href="/assets/img/logo.png" type="image/png">
+<link rel="preload" href="/assets/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/dashboard.css">
+<script src="/assets/js/dashboard.js" defer></script>
+</head>
+<body class="dsh">
+<aside class="dsh__side">
+  <p class="dsh__brand"><img src="/assets/img/logo.png" alt="" width="40" height="40">The Perfect Stage</p>
+  <nav aria-label="Dashboard"><button type="button" data-tab="aanvragen" aria-current="page">Aanvragen</button><button type="button" data-tab="planning">Planning</button><button type="button" data-tab="collecties">Collecties</button><button type="button" data-tab="cijfers">Cijfers</button></nav>
+  <a class="dsh__back" href="index.html">← Naar de website</a>
+  <p class="dsh__demo">Preview met <b>verzonnen demo-gegevens</b>. Aanvragen die je op de website instuurt, verschijnen hier ook (in deze browser).</p>
+</aside>
+<main class="dsh__main" id="main">
+  <header class="dsh__top"><div><p class="dsh__date" data-today></p><h1 data-title>Aanvragen</h1></div><label class="dsh__search"><span class="sr-only">Zoek</span><input type="search" placeholder="Zoek op naam, zaal of plaats…" data-search></label></header>
+  <div data-view></div>
+</main>
+<dialog class="dsh__drawer" data-drawer aria-labelledby="drawer-title"><div data-drawer-body></div></dialog>
+<script type="application/json" id="ps-data">{"collections":["Wonderland","Vaiana","Cleopatra","Cinderella","Aladdin","Aurora","Snow White","Jasmine","Bella","Rapunzel","Dreamydecor","Cinderella’s C."],"parts":["Bruidsbanken","Weddingstages","Bloemenbogen","Trapbloemen","Special effects","Welkomstborden","Inkomsthal","Backdrops","Bogen","360 graden"]}</script>
+</body>
+</html>
