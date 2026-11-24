@@ -17,22 +17,40 @@ export const site = {
   url: todo('domeinnaam (yourlashes.nl?)'),
   contact: { instagram: 'yourlashes.nl', address: todo('adres / wijk (home based)') },
 
-  // Prijslijst (uit highlight "Prices"; nog in te vullen). min = duur voor het
-  // boekingssysteem (schatting, laten bevestigen).
+  // Prijslijst uit de highlight "Prices" (Lashes by Estella). "2 weken" en
+  // "3 weken" = refill na 2 of 3 weken. min = duur voor het boekingssysteem
+  // (schatting, laten bevestigen).
   prices: [
-    { cat: 'Lashes', items: [
-      { name: 'Classic set', desc: 'Eén extension per eigen wimper: natuurlijk en verzorgd.', min: 120, price: todo('prijs classic') },
-      { name: 'Hybrid set', desc: 'Mix van classic en volume voor textuur en volheid.', min: 135, price: todo('prijs hybrid') },
-      { name: 'Volume set', desc: 'Zachte, volle fans voor een glamorous look.', min: 150, price: todo('prijs volume') },
-      { name: 'Wispy set', desc: 'Speelse pieken voor de populaire wispy look.', min: 150, price: todo('prijs wispy') },
-      { name: 'Refill', desc: 'Je set weer vol en fris.', min: 75, price: todo('prijs refill') },
-      { name: 'Verwijderen', desc: 'Je extensions veilig verwijderd.', min: 30, price: todo('prijs verwijderen') },
-    ] },
-    { cat: 'Lashlifts', items: [
-      { name: 'Lashlift', desc: 'Je eigen wimpers gelift: een open blik, zonder extensions.', min: 60, price: todo('prijs lashlift') },
-      { name: 'Lashlift + tint', desc: 'Gelift én gekleurd voor extra definitie.', min: 70, price: todo('prijs lashlift + tint') },
-    ] },
+    { cat: 'Volume', lead: 'Zachte, volle fans voor een glamorous look.', items: [
+      { name: 'Volume · nieuwe set', label: 'Nieuwe set', min: 150, price: '€50' },
+      { name: 'Volume · refill 2 weken', label: 'Refill na 2 weken', min: 75, price: '€40' },
+      { name: 'Volume · refill 3 weken', label: 'Refill na 3 weken', min: 90, price: '€45' } ] },
+    { cat: 'Hybrid', lead: 'Mix van classic en volume voor textuur en volheid.', items: [
+      { name: 'Hybrid · nieuwe set', label: 'Nieuwe set', min: 135, price: '€50' },
+      { name: 'Hybrid · refill 2 weken', label: 'Refill na 2 weken', min: 75, price: '€40' },
+      { name: 'Hybrid · refill 3 weken', label: 'Refill na 3 weken', min: 90, price: '€45' } ] },
+    { cat: 'Wet set', lead: 'Glanzende “natte” look met spikes.', items: [
+      { name: 'Wet set · nieuwe set', label: 'Nieuwe set', min: 135, price: '€50' },
+      { name: 'Wet set · refill 2 weken', label: 'Refill na 2 weken', min: 75, price: '€40' },
+      { name: 'Wet set · refill 3 weken', label: 'Refill na 3 weken', min: 90, price: '€45' } ] },
+    { cat: 'One by one', lead: 'Eén extension per eigen wimper: natuurlijk en verzorgd.', items: [
+      { name: 'One by one · nieuwe set', label: 'Nieuwe set', min: 120, price: '€45' },
+      { name: 'One by one · refill 2 weken', label: 'Refill na 2 weken', min: 60, price: '€35' },
+      { name: 'One by one · refill 3 weken', label: 'Refill na 3 weken', min: 75, price: '€40' } ] },
+    { cat: 'Lashlift', lead: 'Je eigen wimpers gelift: een open blik, zonder extensions.', items: [
+      { name: 'Lashlift met tint', label: 'Met tint', min: 60, price: '€45' },
+      { name: 'Lashlift zonder tint', label: 'Zonder tint', min: 50, price: '€40' } ] },
   ],
+
+  // Uit de highlight "Aftercare".
+  aftercare: [
+    'De eerste 24 uur niet onder de zonnebank',
+    'De eerste 24 uur niet in aanraking laten komen met water',
+    'Wimpers dagelijks wassen met water',
+    'Niet aan je wimpers zitten',
+    'Laat je wimpers professioneel verwijderen, zo voorkom je schade',
+  ],
+  product: { name: 'Lashfoam', price: '€10', desc: 'Conditioning lash shampoo om je wimpers dagelijks schoon te houden. Te koop bij je afspraak.' },
 
   // Uit highlight "Payments" (nog in te vullen).
   payments: todo('betaalmogelijkheden, aanbetaling en hoe die werkt'),
@@ -40,12 +58,24 @@ export const site = {
   policy: todo('house policy: te laat komen, annuleren, verzetten, gasten meenemen, enz.'),
 
   work: [
-    { img: 'lashes-hybrid', label: 'Hybrid' },
-    { img: 'lashes-natural', label: 'Natural volume' },
-    { img: 'lashes-volume', label: 'Volume' },
-    { img: 'lashlift-borstel', label: 'Lashlift' },
-    { img: 'lashes-close', label: 'Wispy' },
-    { img: 'lashes-wispy', label: 'Close-up' },
+    { img: 'volume-dramatisch', label: 'Volume', cat: 'lashes' },
+    { img: 'lashlift-bruin', label: 'Lashlift', cat: 'lashlift' },
+    { img: 'hybrid-groen', label: 'Hybrid', cat: 'lashes' },
+    { img: 'wet-set-blauw', label: 'Wet set', cat: 'lashes' },
+    { img: 'lashlift-zijkant', label: 'Lashlift', cat: 'lashlift' },
+    { img: 'lashes-hybrid', label: 'Hybrid', cat: 'lashes' },
+    { img: 'volume-groen', label: 'Volume', cat: 'lashes' },
+    { img: 'lashlift-story', label: 'Lashlift', cat: 'lashlift' },
+    { img: 'wispy-bruin', label: 'Wispy', cat: 'lashes' },
+    { img: 'cat-eye', label: 'Cat eye', cat: 'lashes' },
+    { img: 'lashlift-borstel', label: 'Lashlift', cat: 'lashlift' },
+    { img: 'volume-wispy', label: 'Volume', cat: 'lashes' },
+    { img: 'lashes-natural', label: 'Natural', cat: 'lashes' },
+    { img: 'lashlift-close', label: 'Lashlift', cat: 'lashlift' },
+    { img: 'volume-bruin', label: 'Volume', cat: 'lashes' },
+    { img: 'lashes-volume', label: 'Volume', cat: 'lashes' },
+    { img: 'lashlift-donker', label: 'Lashlift', cat: 'lashlift' },
+    { img: 'volume-donker', label: 'Volume', cat: 'lashes' },
   ],
 
   steps: [

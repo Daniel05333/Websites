@@ -64,7 +64,7 @@ console.log('Interactie');
     if (a === b) throw new Error(a);
   });
   await check('Boek bij Lashlift opent de wizard bij datum & tijd', async () => {
-    await page.locator('.pcol__book[data-pre="Lashlift"]').click(); await page.waitForTimeout(400);
+    await page.locator('.pcol__book[data-pre="Lashlift met tint"]').click(); await page.waitForTimeout(400);
     const t = await page.locator('.wz__picked').textContent();
     if (!t.includes('Lashlift')) throw new Error(t);
   });

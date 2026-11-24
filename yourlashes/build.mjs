@@ -27,7 +27,7 @@ const todoBox = (v, hint) => `<div class="todo-box"><p class="todo-box__tag">In 
 // gegevens voor het boekingssysteem (assets/js/booking.js)
 const data = {
   brand: site.name, key: 'yourlashes', dashboard: null,
-  categories: site.prices.map((c) => ({ name: c.cat, items: c.items.filter((i) => i.name !== 'Verwijderen' || true).map((i) => ({ name: i.name, desc: i.desc, min: i.min })) })),
+  categories: site.prices.map((c) => ({ name: c.cat, items: c.items.map((i) => ({ name: i.name, desc: i.label, min: i.min, price: i.price })) })),
   courses: [], promo: false, policy: true,
 };
 
@@ -57,7 +57,7 @@ const header = `<a class="skip" href="#main">Naar de inhoud</a>
 <div class="progress" data-progress aria-hidden="true"></div>
 <header class="masthead" data-masthead>
   <a class="masthead__brand" href="#top" aria-label="Yourlashes, naar boven">${logo()}<span>Yourlashes</span></a>
-  <nav class="masthead__nav" aria-label="Hoofdmenu"><a href="#werk">Werk</a><a href="#prijzen">Prijzen</a><a href="#info">Betalen &amp; policy</a></nav>
+  <nav class="masthead__nav" aria-label="Hoofdmenu"><a href="#werk">Werk</a><a href="#prijzen">Prijzen</a><a href="#aftercare">Aftercare</a><a href="#info">Info</a></nav>
   ${book('Boek nu', 'btn btn--sm btn--light masthead__cta')}
 </header>`;
 
@@ -68,20 +68,20 @@ const hero = `<section class="hero" id="top" data-hero>
     <div class="hero__copy">
       <p class="eyebrow">${icon.pin}${site.city} · ${site.region} · Home based</p>
       <h1 class="hero__title"><span class="line"><span>Lashes</span></span> <span class="line"><em>made for you.</em></span></h1>
-      <p class="hero__lead">Wimperextensions en lashlifts ${site.by}. Kies je behandeling en boek direct een vrij moment, zonder eerst te DM’en.</p>
+      <p class="hero__lead">Wimperextensions en lashlifts ${site.by}, nieuwe set vanaf €45. Kies je behandeling en boek direct een vrij moment, zonder eerst te DM’en.</p>
       <div class="hero__actions">${book('Boek je afspraak', 'btn btn--light magnetic')}<a class="btn btn--ghost magnetic" href="#prijzen"><span>Bekijk prijzen</span></a></div>
     </div>
   </div>
 </section>`;
 
-const mItems = ['Classic', 'Hybrid', 'Volume', 'Wispy', 'Lashlift', 'Home based', 'Enschede', 'Boek online'];
+const mItems = ['Volume', 'Hybrid', 'Wet set', 'One by one', 'Lashlift', 'Vanaf €35', 'Home based', 'Enschede'];
 const marquee = `<div class="marquee"><p class="sr-only">${mItems.join(' · ')}</p><div class="marquee__track" aria-hidden="true">${[0, 1].map(() => `<span>${mItems.map((t) => `${t}<i>◇</i>`).join('')}</span>`).join('')}</div></div>`;
 
 const work = `<section class="section work" id="werk" aria-labelledby="werk-titel">
   <div class="wrap">
-    <div class="section__head section__head--split"><div><p class="eyebrow">Resultaten</p><h2 class="title" id="werk-titel">Mijn <em>werk.</em></h2></div><p class="section__lead">Lashes en lashlifts uit de studio. Klik op een foto om hem groot te bekijken.</p></div>
+    <div class="section__head section__head--split"><div><p class="eyebrow">Resultaten</p><h2 class="title" id="werk-titel">Mijn <em>werk.</em></h2></div><div class="filters" role="group" aria-label="Filter op behandeling">${[['alle', 'Alles'], ['lashes', 'Lashes'], ['lashlift', 'Lashlift']].map(([k, l], i) => `<button class="filter" type="button" data-filter="${k}" aria-pressed="${i === 0}">${l}</button>`).join('')}</div></div>
     <ul class="grid" data-grid>
-      ${site.work.map((w, i) => `<li class="card reveal" data-cat="all" style="--d:${(i % 3) * 0.06}s"><button class="card__btn tilt" type="button" data-zoom="/assets/img/${w.img}.webp" data-label="${esc(w.label)}" aria-label="Vergroot: ${esc(w.label)}"><img src="/assets/img/${w.img}.webp" alt="${esc(w.label)} door Yourlashes" loading="${i < 3 ? 'eager' : 'lazy'}"><span class="card__label">${esc(w.label)}</span><span class="card__shine" aria-hidden="true"></span></button></li>`).join('\n      ')}
+      ${site.work.map((w, i) => `<li class="card reveal" data-cat="${w.cat}" style="--d:${(i % 3) * 0.06}s"><button class="card__btn tilt" type="button" data-zoom="/assets/img/${w.img}.webp" data-label="${esc(w.label)}" aria-label="Vergroot: ${esc(w.label)}"><img src="/assets/img/${w.img}.webp" alt="${esc(w.label)} door Yourlashes" loading="${i < 6 ? 'eager' : 'lazy'}"><span class="card__label">${esc(w.label)}</span><span class="card__shine" aria-hidden="true"></span></button></li>`).join('\n      ')}
     </ul>
     <p class="work__more"><a class="link" href="${ig}" target="_blank" rel="noopener">${icon.ig}Meer op Instagram @${site.contact.instagram}</a></p>
   </div>
@@ -95,11 +95,25 @@ const work = `<section class="section work" id="werk" aria-labelledby="werk-tite
 
 const prices = `<section class="section prices" id="prijzen" aria-labelledby="prijzen-titel">
   <div class="wrap">
-    <div class="section__head section__head--center"><p class="eyebrow">Prijzen</p><h2 class="title" id="prijzen-titel">Kies je <em>set.</em></h2></div>
+    <div class="section__head section__head--center"><p class="eyebrow">Prijslijst</p><h2 class="title" id="prijzen-titel">Kies je <em>set.</em></h2><p class="section__lead">Lashes by Estella. Refill = je set opvullen na 2 of 3 weken.</p></div>
     <div class="price-cols">
-      ${site.prices.map((c) => `<section class="pcol reveal" aria-labelledby="pc-${c.cat}"><h3 id="pc-${c.cat}">${esc(c.cat)}</h3><ul>${c.items.map((t) => `<li><div><b>${esc(t.name)}</b><small>${esc(t.desc)} · ${dur(t.min)}</small></div>${price(t.price)}${book('Boek', 'pcol__book', t.name)}</li>`).join('')}</ul></section>`).join('\n      ')}
+      ${site.prices.map((c, ci) => `<section class="pcol reveal" style="--d:${(ci % 3) * 0.07}s" aria-labelledby="pc-${ci}"><h3 id="pc-${ci}">${esc(c.cat)}</h3><p class="pcol__lead">${esc(c.lead)}</p><ul>${c.items.map((t) => `<li><div><b>${esc(t.label)}</b><small>${dur(t.min)}</small></div>${price(t.price)}${book('Boek', 'pcol__book', t.name)}</li>`).join('')}</ul></section>`).join('\n      ')}
     </div>
-    <p class="prices__note">Prijzen uit de highlight “Prices” worden hier ingevuld.</p>
+    <p class="prices__note">De duur is een indicatie.</p>
+  </div>
+</section>`;
+
+const aftercare = `<section class="section care" id="aftercare" aria-labelledby="care-titel">
+  <div class="wrap care__grid">
+    <div class="care__list reveal">
+      <p class="eyebrow">Aftercare</p>
+      <h2 class="title" id="care-titel">Zo blijven je lashes <em>mooi.</em></h2>
+      <ol>${site.aftercare.map((a, i) => `<li><span>${String(i + 1).padStart(2, '0')}</span>${esc(a)}</li>`).join('')}</ol>
+    </div>
+    <article class="product tilt reveal" style="--d:.1s">
+      <figure><img src="/assets/img/lashfoam.webp" alt="Lashfoam, conditioning lash shampoo" loading="lazy"></figure>
+      <div><p class="eyebrow">Ook verkrijgbaar</p><h3>${esc(site.product.name)} <span>${esc(site.product.price)}</span></h3><p>${esc(site.product.desc)}</p></div>
+    </article>
   </div>
 </section>`;
 
@@ -147,6 +161,7 @@ ${hero}
 ${marquee}
 ${work}
 ${prices}
+${aftercare}
 ${info}
 ${steps}
 ${cta}

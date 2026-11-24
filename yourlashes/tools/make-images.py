@@ -38,3 +38,29 @@ ImageDraw.Draw(m).ellipse((0, 0, size * 4 - 1, size * 4 - 1), fill=255)
 d.putalpha(m.resize((size, size), Image.LANCZOS))
 d.save(OUT / 'logo.png', optimize=True)
 print('logo.png')
+
+# ── extra foto's (grids 2–4, lashlift-story, lashfoam) ───────────────────
+def gtile(name, rows, col, top=0.0):
+    (x0, x1), (y0, y1) = COLS[col], rows
+    im = Image.open(SRC / name).convert('RGB')
+    return im.crop(tuple(round(v * S) for v in (x0 + 3, y0 + 3 + (y1 - y0) * top, x1 - 3, y1 - 3)))
+G2, G3, G4 = '06-grid-2.jpg', '07-grid-3.jpg', '08-grid-4.jpg'
+R2 = [(368, 776), (778, 1184), (1186, 1592), (1594, 2000)]
+R3 = [(357, 762), (764, 1169), (1171, 1577), (1579, 1985)]
+R4 = [(357, 718), (720, 1126), (1128, 1535), (1537, 1943)]
+save(gtile(G2, R2[0], 1), 'volume-bruin')
+save(gtile(G2, R2[1], 2), 'volume-donker')
+save(gtile(G2, R2[2], 1, .14), 'lashlift-donker')
+save(gtile(G2, R2[2], 2), 'hybrid-groen')
+save(gtile(G2, R2[3], 2), 'wispy-bruin')
+save(gtile(G3, R3[0], 2), 'volume-dramatisch')
+save(gtile(G3, R3[1], 0), 'cat-eye')
+save(gtile(G3, R3[1], 2), 'lashlift-bruin')
+save(gtile(G3, R3[2], 0), 'lashlift-zijkant')
+save(gtile(G3, R3[2], 1), 'lashlift-close')
+save(gtile(G3, R3[3], 1, .14), 'volume-groen')
+save(gtile(G4, R4[0], 2), 'wet-set-blauw')
+save(gtile(G4, R4[1], 1), 'lashlift-glans')
+save(gtile(G4, R4[2], 2), 'volume-wispy')
+save(crop((0, 380, 920, 1700)).crop((0, 0, 1206, 1700)) if False else Image.open(SRC / '05-lashlift.jpg').convert('RGB').crop(tuple(round(v * S) for v in (0, 420, 920, 1600))), 'lashlift-story')
+save(Image.open(SRC / '04-lashfoam.jpg').convert('RGB').crop(tuple(round(v * S) for v in (0, 600, 920, 1770))), 'lashfoam')

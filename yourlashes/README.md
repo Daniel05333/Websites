@@ -19,7 +19,7 @@ npm run preview    # de hele site als één los bestand: voorbeeld/index.html
 
 ## Nog aan te leveren
 
-- De inhoud van de highlights **Prices**, **Payments** en **Housepolicy** (nu als "in te vullen" gemarkeerd), en de duur per behandeling.
+- De inhoud van de highlights **Payments** en **Housepolicy** (nu als "in te vullen" gemarkeerd), en de duur per behandeling. Prijzen en aftercare zijn ingevuld.
 - Of de lijst met behandelingen klopt (nu een voorstel).
 - Toestemming voor de foto's, en het domein (dan `draft: false`).
 - Voor echt direct boeken: een agenda met opslag (bijv. Salonized of eigen systeem, zoals het dashboard van Studio Nazz).

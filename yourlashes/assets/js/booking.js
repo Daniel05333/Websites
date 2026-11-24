@@ -15,7 +15,7 @@
   // ── gedeelde gegevens ────────────────────────────────────────────────────
   // Duur is een schatting voor de demo; laat Studio Nazz die bevestigen.
   const DUR = { 'Classic lashes': 120, 'Hybrid lashes': 135, 'Volume lashes': 150, 'Russian volume': 165, 'Wispy lashes': 150, 'Lash volume lift': 60, 'Refill': 75, 'Brow threading': 20, 'Brow lamination': 45, 'Brow tint': 20, 'Powderbrows': 150, 'PhiLings': 60, 'Microneedling': 60, 'Plasmapen': 60, 'Facials': 60 };
-  const cats = data.categories.map((c) => ({ name: c.name, items: c.items.map((i) => ({ name: i.name, desc: i.desc, cat: c.name, min: i.min ?? DUR[i.name] ?? 60 })) }));
+  const cats = data.categories.map((c) => ({ name: c.name, items: c.items.map((i) => ({ name: i.name, desc: i.desc, cat: c.name, min: i.min ?? DUR[i.name] ?? 60, price: i.price })) }));
   if (data.promo) cats[0].items.push({ name: 'Bring a friend: volle wimperset', desc: '€10 korting voor jou én je vriendin.', cat: 'Lashes', min: 150 });
   if (data.courses?.length) cats.push({ name: 'Academy', items: data.courses.map((c) => ({ name: `Cursus: ${c.name}`, desc: `${c.type} · ${c.days} dag${c.days > 1 ? 'en' : ''}`, cat: 'Academy', min: c.days * 480, course: true })) });
   const all = cats.flatMap((c) => c.items);
@@ -97,7 +97,7 @@
       back.hidden = st.step === 0 || st.step === 3;
       next.textContent = ['Kies datum & tijd', 'Naar gegevens', 'Bevestig afspraak', 'Sluiten'][st.step];
       if (st.step === 0) {
-        body.innerHTML = cats.map((c) => `<section class="wz__cat"><h3>${esc(c.name)}</h3><div class="wz__grid">${c.items.map((t) => `<button type="button" class="wz__opt${st.t?.name === t.name ? ' on' : ''}" data-t="${esc(t.name)}" aria-pressed="${st.t?.name === t.name}"><b>${esc(t.name)}</b><small>${dur(t.min)} · ${t.course ? 'prijs op aanvraag' : 'prijs volgt'}</small></button>`).join('')}</div></section>`).join('');
+        body.innerHTML = cats.map((c) => `<section class="wz__cat"><h3>${esc(c.name)}</h3><div class="wz__grid">${c.items.map((t) => `<button type="button" class="wz__opt${st.t?.name === t.name ? ' on' : ''}" data-t="${esc(t.name)}" aria-pressed="${st.t?.name === t.name}"><b>${esc(t.name)}</b><small>${dur(t.min)} · ${t.price ? esc(t.price) : t.course ? 'prijs op aanvraag' : 'prijs volgt'}</small></button>`).join('')}</div></section>`).join('');
       } else if (st.step === 1) {
         const days = nextDays(14);
         st.d = st.d ?? days[0];
