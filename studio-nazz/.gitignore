@@ -2,3 +2,6 @@ node_modules/
 .vshot.cjs
 .mshot.cjs
 .dbg.cjs
+.sptest.cjs
+.avtest.cjs
+.dbg2.cjs

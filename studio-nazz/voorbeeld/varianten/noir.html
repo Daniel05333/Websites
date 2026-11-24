@@ -1342,22 +1342,28 @@ body[data-page=plain] .masthead { background: var(--ink); }
   const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
   // Beschikbaarheid: ingesteld in het dashboard (tab "Beschikbaarheid"),
   // bewaard in deze browser. Zonder instelling: ma–za 9:00–18:00.
-  const AV_DEFAULT = { step: 30, week: { 0: { open: false, from: '10:00', to: '16:00', pFrom: '', pTo: '' }, 1: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 2: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 3: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 4: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 5: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 6: { open: true, from: '09:00', to: '17:00', pFrom: '', pTo: '' } }, blocked: [] };
+  const AV_DEFAULT = { step: 20, slot: 20, days: {}, week: { 0: { open: false, from: '10:00', to: '16:00', pFrom: '', pTo: '' }, 1: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 2: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 3: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 4: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 5: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 6: { open: true, from: '09:00', to: '17:00', pFrom: '', pTo: '' } }, blocked: [] };
   let AV = AV_DEFAULT;
   try { const s = JSON.parse(localStorage.getItem('nazz-availability') || 'null'); if (s && s.week) AV = s; } catch { /* standaard */ }
   const mins = (t) => { if (!t) return null; const [h, m] = t.split(':').map(Number); return h * 60 + m; };
-  const blockedOn = (d) => AV.blocked.some((b) => iso(d) >= b.from && iso(d) <= (b.to || b.from));
-  const open = (d) => !!AV.week[d.getDay()]?.open && !blockedOn(d);
+  const blockedOn = (d) => (AV.blocked || []).some((b) => iso(d) >= b.from && iso(d) <= (b.to || b.from));
+  const norm = (rs) => { const a = rs.filter(([x, y]) => y > x).sort((p, q) => p[0] - q[0]); const out = []; for (const r of a) { const l = out[out.length - 1]; if (l && r[0] <= l[1]) l[1] = Math.max(l[1], r[1]); else out.push([...r]); } return out; };
+  const ranges = (d) => {
+    if (AV.days?.[iso(d)]) return AV.days[iso(d)];
+    if (blockedOn(d)) return [];
+    const w = AV.week[d.getDay()];
+    if (!w?.open) return [];
+    const f = mins(w.from), t = mins(w.to), pf = mins(w.pFrom), pt = mins(w.pTo);
+    return norm(pf != null && pt != null ? [[f, Math.min(t, pf)], [Math.max(f, pt), t]] : [[f, t]]);
+  };
+  const open = (d) => ranges(d).length > 0;
   const nextDays = (n) => { const out = []; for (let i = 1; out.length < n && i < 200; i++) { const d = addDays(today, i); if (open(d)) out.push(d); } return out; };
   const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
   const slots = (d, min) => {
     const out = [];
-    if (!open(d)) return out;
-    const day = AV.week[d.getDay()];
-    const from = mins(day.from), to = mins(day.to), pf = mins(day.pFrom), pt = mins(day.pTo);
-    const len = Math.min(min, 240);
-    for (let m = from; m + len <= to; m += Number(AV.step) || 30) {
-      if (pf != null && pt != null && m < pt && m + len > pf) continue; // valt in de pauze
+    const rs = ranges(d), len = Math.min(min, 240), step = Number(AV.slot || AV.step) || 30;
+    for (let m = 8 * 60; m + len <= 21 * 60; m += step) {
+      if (!rs.some(([a, b]) => m >= a && m + len <= b)) continue;
       const t = `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
       out.push({ t, free: hash(iso(d) + t) % 3 !== 0 });
     }

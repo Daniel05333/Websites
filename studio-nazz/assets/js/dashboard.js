@@ -35,14 +35,14 @@
     const d = add(today, off);
     if (d.getDay() === 0) continue;
     let t = 9 * 60 + Math.floor(rnd() * 3) * 30;
-    const n = 2 + Math.floor(rnd() * 3);
+    const n = off < 0 ? 2 + Math.floor(rnd() * 3) : 1 + Math.floor(rnd() * 2);
     for (let k = 0; k < n && t < 17 * 60; k++) {
       const [tr, min] = pick(TR);
       const c = pick(clients);
       const past = off < 0 || (off === 0 && t < 11 * 60);
       appts.push({ id: `A${appts.length + 1}`, date: iso(d), start: t, min, treatment: tr, client: c.id, source: pick(['Website', 'Website', 'Instagram', 'Telefoon']),
         status: past ? (rnd() < 0.06 ? 'No-show' : 'Voltooid') : (rnd() < 0.2 ? 'Aanbetaling open' : 'Bevestigd'), price: info[tr].price });
-      t += min + (rnd() < 0.5 ? 30 : 0);
+      t += min + (off < 0 ? (rnd() < 0.5 ? 30 : 0) : 60 + Math.floor(rnd() * 3) * 30);
     }
   }
   // boekingen uit de varianten (deze browser)
@@ -128,40 +128,64 @@
         ${list.slice(0, 60).map((a) => { const c = byClient(a.client); return `<tr data-client="${c.id}" tabindex="0"${a.fresh ? ' class="is-fresh"' : ''}><td>${fmt(a.date)}</td><td>${a.course ? '—' : time(a.start)}</td><td>${esc(c.name)}</td><td>${esc(a.treatment)}</td><td>${esc(a.source)}</td><td>${badge(a.status)}</td><td class="num">${a.price ? euro(a.price) : '—'}</td></tr>`; }).join('')}
         </tbody></table>${list.length ? '' : '<p class="empty">Nog geen boekingen. Maak er een in variant A, B of C.</p>'}</section>`;
     },
-    beschikbaarheid() {
-      const D = avDraft;
-      const order = [1, 2, 3, 4, 5, 6, 0];
-      const preview = Array.from({ length: 10 }, (_, i) => add(today, i + 1));
-      return `<p class="av-note">Wat je hier opslaat, gaat <b>direct</b> door in de boekingssystemen op de website: klanten kunnen alleen boeken op tijden dat je werkt.${avSaved ? ` <span>Laatst opgeslagen: ${esc(avSaved)}</span>` : ''}</p>
-      <div class="av-grid">
-        <section class="card"><div class="cal__bar"><h2>Werktijden per week</h2><div><button type="button" data-av-copy>Maandag → alle werkdagen</button></div></div>
-          <div class="av-week">
-            <div class="av-row av-row--head" aria-hidden="true"><span>Dag</span><span>Open</span><span>Van</span><span>Tot</span><span>Pauze</span></div>
-            ${order.map((n) => { const d = D.week[n]; return `<div class="av-row${d.open ? '' : ' is-off'}">
-              <b>${DAYL[n]}</b>
-              <label class="sw"><input type="checkbox" data-av="open" data-day="${n}"${d.open ? ' checked' : ''} aria-label="${DAYL[n]} open"><i aria-hidden="true"></i><span>${d.open ? 'Open' : 'Gesloten'}</span></label>
-              <input type="time" step="900" data-av="from" data-day="${n}" value="${d.from}" aria-label="${DAYL[n]} van"${d.open ? '' : ' disabled'}>
-              <input type="time" step="900" data-av="to" data-day="${n}" value="${d.to}" aria-label="${DAYL[n]} tot"${d.open ? '' : ' disabled'}>
-              <span class="av-pause"><input type="time" step="900" data-av="pFrom" data-day="${n}" value="${d.pFrom}" aria-label="${DAYL[n]} pauze van"${d.open ? '' : ' disabled'}><i>–</i><input type="time" step="900" data-av="pTo" data-day="${n}" value="${d.pTo}" aria-label="${DAYL[n]} pauze tot"${d.open ? '' : ' disabled'}></span>
-            </div>`; }).join('')}
+    beschikbaarheid(week = avWeek) {
+      avWeek = week;
+      const D = avDraft, step = Number(D.slot) || 20;
+      const s0 = add(today, week * 7 - ((today.getDay() + 6) % 7));
+      const days = Array.from({ length: 7 }, (_, i) => add(s0, i));
+      const rows = []; for (let m = GRID_FROM; m + step <= GRID_TO; m += step) rows.push(m);
+      const cell = (d, m) => {
+        const past = iso(d) < T || (iso(d) === T);
+        const bk = bookedAt(d, m, step);
+        const on = slotOn(d, m, step, D);
+        const cls = bk ? 'is-booked' : on ? 'is-on' : 'is-off';
+        const label = `${DAYL[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]} ${time(m)}: ${bk ? `geboekt door ${bk}` : on ? 'beschikbaar' : 'niet beschikbaar'}`;
+        return `<button type="button" class="sl ${cls}${past ? ' is-past' : ''}${m % 60 === 0 ? ' is-hour' : ''}" data-sl="${iso(d)}|${m}" aria-pressed="${on && !bk}" aria-label="${esc(label)}"${past || bk ? ' disabled' : ''}>${bk ? `<span>${esc(bk.split(' ')[0])}</span>` : ''}</button>`;
+      };
+      const count = (d) => rows.filter((m) => slotOn(d, m, step, D) && !bookedAt(d, m, step)).length;
+      const pv = avPreview;
+      const pvDays = []; for (let i = 1; pvDays.length < 10 && i < 60; i++) { const d = add(today, i); pvDays.push(d); }
+      pv.day = pv.day && pvDays.some((d) => iso(d) === pv.day) ? pv.day : iso(pvDays.find((d) => starts(d, pv.min, D).length) || pvDays[0]);
+      const pvStarts = starts(new Date(`${pv.day}T00:00`), pv.min, D);
+      return `<p class="av-note">Tik of sleep over de slots om ze <b>beschikbaar</b> (groen) of <b>niet beschikbaar</b> (grijs) te maken. Geboekte slots zijn vergrendeld. Rechts zie je meteen wat klanten kunnen boeken.${avSaved ? ` <span>Laatst opgeslagen: ${esc(avSaved)}</span>` : ''}</p>
+      <div class="sp">
+        <section class="card sp__planner">
+          <div class="sp__bar">
+            <div class="sp__nav"><button type="button" data-avw="${week - 1}"${week <= 0 ? ' disabled' : ''} aria-label="Vorige week">‹</button><h2>${s0.getDate()} ${MON[s0.getMonth()]} – ${days[6].getDate()} ${MON[days[6].getMonth()]}</h2><button type="button" data-avw="${week + 1}" aria-label="Volgende week">›</button></div>
+            <label class="sp__len">Slotlengte <select data-av-slot>${[10, 15, 20, 30, 60].map((n) => `<option value="${n}"${n === step ? ' selected' : ''}>${n} min</option>`).join('')}</select></label>
+            <button type="button" class="sp__act" data-av-copyweek>Kopieer week → volgende week</button>
           </div>
-          <label class="av-step">Klanten kunnen starten om de <select data-av="step">${[15, 30, 60].map((s) => `<option value="${s}"${Number(D.step) === s ? ' selected' : ''}>${s} minuten</option>`).join('')}</select></label>
+          <div class="sp__scroll"><div class="sp__grid" style="--rows:${rows.length}" data-grid>
+            <div class="sp__times"><span class="sp__corner"></span>${rows.map((m) => `<span${m % 60 === 0 ? ' class="is-hour"' : ''}>${m % 60 === 0 || step >= 30 ? time(m) : ''}</span>`).join('')}</div>
+            ${days.map((d) => { const past = iso(d) <= T; const ov = !!D.days[iso(d)]; return `<div class="sp__day${past ? ' is-past' : ''}">
+              <div class="sp__head"><p><small>${DAYN[d.getDay()]}</small> <b>${d.getDate()}</b>${ov ? '<i title="Aangepast t.o.v. standaardweek">•</i>' : ''}</p><em>${past ? 'voorbij' : `${count(d)} vrij`}</em>
+                ${past ? '' : `<span class="sp__dayact"><button type="button" data-av-day="all" data-date="${iso(d)}" title="Hele dag beschikbaar">Aan</button><button type="button" data-av-day="none" data-date="${iso(d)}" title="Hele dag niet beschikbaar">Uit</button>${ov ? `<button type="button" data-av-day="reset" data-date="${iso(d)}" title="Terug naar standaardweek">↺</button>` : ''}</span>`}</div>
+              ${rows.map((m) => cell(d, m)).join('')}
+            </div>`; }).join('')}
+          </div></div>
+          <p class="legend"><i class="lg lg--on"></i>Beschikbaar <i class="lg lg--off"></i>Niet beschikbaar <i class="lg lg--bk"></i>Geboekt <i class="lg lg--ov"></i>Aangepaste dag</p>
+          <details class="sp__std"><summary>Standaardweek bewerken <small>(geldt voor alle dagen die je niet zelf hebt aangepast)</small></summary>
+            <div class="av-week">${[1, 2, 3, 4, 5, 6, 0].map((n) => { const w = D.week[n]; return `<div class="av-row${w.open ? '' : ' is-off'}"><b>${DAYL[n]}</b>
+              <label class="sw"><input type="checkbox" data-av="open" data-day="${n}"${w.open ? ' checked' : ''} aria-label="${DAYL[n]} open"><i aria-hidden="true"></i><span>${w.open ? 'Open' : 'Gesloten'}</span></label>
+              <input type="time" step="300" data-av="from" data-day="${n}" value="${w.from}" aria-label="${DAYL[n]} van"${w.open ? '' : ' disabled'}>
+              <input type="time" step="300" data-av="to" data-day="${n}" value="${w.to}" aria-label="${DAYL[n]} tot"${w.open ? '' : ' disabled'}>
+              <span class="av-pause"><input type="time" step="300" data-av="pFrom" data-day="${n}" value="${w.pFrom}" aria-label="${DAYL[n]} pauze van"${w.open ? '' : ' disabled'}><i>–</i><input type="time" step="300" data-av="pTo" data-day="${n}" value="${w.pTo}" aria-label="${DAYL[n]} pauze tot"${w.open ? '' : ' disabled'}></span></div>`; }).join('')}</div>
+          </details>
         </section>
-        <div>
-          <section class="card"><h2>Vrije dagen &amp; vakantie</h2>
-            <form class="av-block" data-av-block>
-              <label><span>Van</span><input type="date" name="from" min="${T}" required></label>
-              <label><span>Tot en met <small>(optioneel)</small></span><input type="date" name="to" min="${T}"></label>
-              <label><span>Reden</span><select name="reason"><option>Vrij</option><option>Vakantie</option><option>Cursus geven</option><option>Ziek</option><option>Anders</option></select></label>
-              <button type="submit" class="d-btn d-btn--dark d-btn--on">Blokkeren</button>
-            </form>
-            <p class="av-quick"><button type="button" data-av-quick="1">Morgen vrij</button><button type="button" data-av-quick="7">Volgende week vrij</button></p>
-            <ul class="av-list">${D.blocked.length ? [...D.blocked].sort((a, b) => a.from.localeCompare(b.from)).map((b) => `<li><span><b>${esc(b.reason)}</b>${fmt(b.from)}${b.to && b.to !== b.from ? ` t/m ${fmt(b.to)}` : ''}${(() => { const n = appts.filter((a) => a.date >= b.from && a.date <= (b.to || b.from) && a.status !== 'Voltooid').length; return n ? `<em class="av-warn">Let op: er ${n === 1 ? 'staat' : 'staan'} al ${n} afspra${n === 1 ? 'ak' : 'ken'} op deze dag${b.to && b.to !== b.from ? 'en' : ''}. Verzet ${n === 1 ? 'die' : 'die'} met de klant${n === 1 ? '' : 'en'}.</em>` : ''; })()}</span><button type="button" data-av-del="${esc(b.id)}" aria-label="Verwijder ${esc(b.reason)} ${fmt(b.from)}">Verwijder</button></li>`).join('') : '<li class="empty">Nog geen vrije dagen ingepland.</li>'}</ul>
-          </section>
-          <section class="card"><h2>Zo zien klanten het</h2><p class="av-sub">Vrije starttijden voor een behandeling van 1 uur (zonder bestaande afspraken).</p>
-            <ul class="av-prev">${preview.map((d) => { const o = avOpen(d, D); const n = o ? avStarts(d, 60, D) : 0; return `<li class="${o ? '' : 'is-off'}"><span>${DAYN[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}</span>${o ? `<b>${D.week[d.getDay()].from}–${D.week[d.getDay()].to}</b><em>${n} starttijden</em>` : `<b>Gesloten</b><em>${esc(avReason(d, D))}</em>`}</li>`; }).join('')}</ul>
-          </section>
-        </div>
+        <aside class="sp__preview" aria-label="Klantweergave (preview)">
+          <p class="sp__ptitle">Klantweergave <small>preview · zo ziet het eruit op de website</small></p>
+          <div class="phone"><div class="phone__screen">
+            <p class="phone__brand"><span class="logo"></span>Studio Nazz</p>
+            <h3>Boek je afspraak</h3>
+            <label class="pv-field"><span>Behandeling</span><select data-pv-t>${PV_TR.map(([n, m]) => `<option value="${esc(n)}" data-min="${m}"${n === pv.t ? ' selected' : ''}>${esc(n)} · ${m} min</option>`).join('')}</select></label>
+            <p class="pv-h">Kies een dag</p>
+            <div class="pv-days">${pvDays.map((d) => { const n = starts(d, pv.min, D).length; return `<button type="button" class="pv-day${iso(d) === pv.day ? ' on' : ''}" data-pv-day="${iso(d)}"${n ? '' : ' disabled'}><small>${DAYN[d.getDay()]}</small><b>${d.getDate()}</b><small>${n ? `${n} vrij` : 'vol'}</small></button>`; }).join('')}</div>
+            <p class="pv-h">Vrije tijden</p>
+            <div class="pv-times">${pvStarts.length ? pvStarts.map((m) => `<button type="button" class="pv-time${pv.time === m ? ' on' : ''}" data-pv-time="${m}">${time(m)}</button>`).join('') : '<p class="pv-empty">Geen vrije tijden op deze dag.</p>'}</div>
+            ${pv.time != null && pvStarts.includes(pv.time) ? `<form class="pv-form" data-pv-form><label class="pv-field"><span>Naam</span><input name="name" required placeholder="Naam klant"></label><button type="submit">Boek ${time(pv.time)} (test)</button></form>` : ''}
+          </div></div>
+          <p class="sp__pnote">De preview gebruikt je huidige instellingen, ook als je nog niet hebt opgeslagen. Een testboeking verschijnt direct als geboekt in je rooster en in de agenda.</p>
+        </aside>
       </div>
       <div class="av-bar${avDirty ? ' on' : ''}" role="region" aria-label="Opslaan"><p data-av-msg>${avDirty ? 'Je hebt wijzigingen die nog niet zijn opgeslagen.' : 'Alles is opgeslagen.'}</p><button type="button" class="d-btn d-btn--on" data-av-undo${avDirty ? '' : ' disabled'}>Ongedaan maken</button><button type="button" class="d-btn d-btn--dark d-btn--on" data-av-save${avDirty ? '' : ' disabled'}>Opslaan</button></div>`;
     },
@@ -172,69 +196,127 @@
   };
   const titles = { overzicht: 'Overzicht', agenda: 'Agenda', klanten: 'Klanten', boekingen: 'Boekingen', beschikbaarheid: 'Beschikbaarheid', academy: 'Academy' };
   let cur = 'overzicht';
-  // ── beschikbaarheid (zelfde opslag als de boekingssystemen) ──────────────
+  // ── beschikbaarheid: slotplanner ─────────────────────────────────────────
+  // Opslag (deze browser): { slot, week: {0..6: {open, from, to, pFrom, pTo}},
+  //   days: { 'jjjj-mm-dd': [[startMin, eindMin], …] }, blocked: [] }
+  // days[datum] overschrijft de standaardweek voor die dag.
   const AV_KEY = 'nazz-availability';
-  const AV_DEFAULT = { step: 30, week: { 0: { open: false, from: '10:00', to: '16:00', pFrom: '', pTo: '' }, 1: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 2: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 3: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 4: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 5: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 6: { open: true, from: '09:00', to: '17:00', pFrom: '', pTo: '' } }, blocked: [] };
+  const GRID_FROM = 8 * 60, GRID_TO = 21 * 60;
+  const PV_TR = [['Classic lashes', 120], ['Volume lashes', 150], ['Russian volume', 165], ['Refill', 75], ['Lash volume lift', 60], ['Brow lamination', 40], ['Brow threading', 20], ['Brow tint', 20], ['Microneedling', 60], ['Facials', 60]];
+  const wd = (from, to) => ({ open: true, from, to, pFrom: '', pTo: '' });
+  const AV_DEFAULT = { slot: 20, step: 20, week: { 0: { ...wd('10:00', '16:00'), open: false }, 1: wd('09:00', '18:00'), 2: wd('09:00', '18:00'), 3: wd('09:00', '18:00'), 4: wd('09:00', '18:00'), 5: wd('09:00', '18:00'), 6: wd('09:00', '17:00') }, days: {}, blocked: [] };
   let AVS = JSON.parse(JSON.stringify(AV_DEFAULT)), avSaved = '';
-  try { const s = JSON.parse(localStorage.getItem(AV_KEY) || 'null'); if (s && s.week) { AVS = s; avSaved = s.savedLabel || ''; } } catch { /* standaard */ }
-  let avDraft = JSON.parse(JSON.stringify(AVS)), avDirty = false;
+  try { const s = JSON.parse(localStorage.getItem(AV_KEY) || 'null'); if (s && s.week) { AVS = { ...AV_DEFAULT, ...s, days: s.days || {}, slot: s.slot || s.step || 20 }; avSaved = s.savedLabel || ''; } } catch { /* standaard */ }
+  let avDraft = JSON.parse(JSON.stringify(AVS)), avDirty = false, avWeek = 0;
+  const avPreview = { t: PV_TR[3][0], min: PV_TR[3][1], day: '', time: null };
   const toMin = (t) => { if (!t) return null; const [h, m] = t.split(':').map(Number); return h * 60 + m; };
-  const avBlock = (d, A = AVS) => A.blocked.find((b) => iso(d) >= b.from && iso(d) <= (b.to || b.from));
-  const avOpen = (d, A = AVS) => !!A.week[d.getDay()]?.open && !avBlock(d, A);
-  const avReason = (d, A = AVS) => avBlock(d, A)?.reason || 'Gesloten';
-  const avStarts = (d, len, A = AVS) => { const w = A.week[d.getDay()]; const f = toMin(w.from), t = toMin(w.to), pf = toMin(w.pFrom), pt = toMin(w.pTo); let n = 0; for (let m = f; m + len <= t; m += Number(A.step) || 30) { if (pf != null && pt != null && m < pt && m + len > pf) continue; n++; } return n; };
+  const norm = (rs) => { const a = rs.filter(([s, e]) => e > s).sort((x, y) => x[0] - y[0]); const out = []; for (const r of a) { const l = out[out.length - 1]; if (l && r[0] <= l[1]) l[1] = Math.max(l[1], r[1]); else out.push([...r]); } return out; };
+  const minus = (rs, [s, e]) => norm(rs.flatMap(([a, b]) => (e <= a || s >= b ? [[a, b]] : [[a, Math.min(b, s)], [Math.max(a, e), b]])));
+  const ranges = (d, A = AVS) => {
+    const k = iso(d);
+    if (A.days?.[k]) return A.days[k];
+    if (A.blocked?.some((b) => k >= b.from && k <= (b.to || b.from))) return [];
+    const w = A.week[d.getDay()];
+    if (!w?.open) return [];
+    let r = [[toMin(w.from), toMin(w.to)]];
+    if (w.pFrom && w.pTo) r = minus(r, [toMin(w.pFrom), toMin(w.pTo)]);
+    return norm(r);
+  };
+  const inRanges = (rs, s, e) => rs.some(([a, b]) => s >= a && e <= b);
+  const slotOn = (d, m, step, A = AVS) => inRanges(ranges(d, A), m, m + step);
+  const dayAppts = (d) => appts.filter((a) => a.date === iso(d) && !a.course && a.status !== 'No-show');
+  const bookedAt = (d, m, step) => { const a = dayAppts(d).find((x) => x.start < m + step && x.start + x.min > m); return a ? byClient(a.client).name : ''; };
+  const starts = (d, len, A = AVS) => {
+    if (iso(d) <= T) return [];
+    const step = Number(A.slot) || 20, rs = ranges(d, A), ap = dayAppts(d), out = [];
+    for (let m = GRID_FROM; m + len <= GRID_TO; m += step) if (inRanges(rs, m, m + len) && !ap.some((x) => x.start < m + len && x.start + x.min > m)) out.push(m);
+    return out;
+  };
+  const avOpen = (d, A = AVS) => ranges(d, A).length > 0;
+  const avReason = (d, A = AVS) => A.blocked?.find((b) => iso(d) >= b.from && iso(d) <= (b.to || b.from))?.reason || 'Niet beschikbaar';
+  const setSlot = (date, m, on) => {
+    const d = new Date(`${date}T00:00`), step = Number(avDraft.slot) || 20;
+    const cur0 = ranges(d, avDraft);
+    avDraft.days[date] = on ? norm([...cur0, [m, m + step]]) : minus(cur0, [m, m + step]);
+  };
   const avCheck = (A) => {
     for (const [n, w] of Object.entries(A.week)) {
       if (!w.open) continue;
       if (!(toMin(w.to) > toMin(w.from))) return `${DAYL[n]}: de eindtijd moet na de begintijd liggen.`;
       if ((w.pFrom && !w.pTo) || (!w.pFrom && w.pTo)) return `${DAYL[n]}: vul bij de pauze zowel begin als eind in.`;
-      if (w.pFrom && !(toMin(w.pFrom) >= toMin(w.from) && toMin(w.pTo) <= toMin(w.to) && toMin(w.pTo) > toMin(w.pFrom))) return `${DAYL[n]}: de pauze moet binnen je werktijd vallen.`;
     }
     return '';
   };
   const toastEl = document.createElement('div'); toastEl.className = 'd-toast'; toastEl.setAttribute('role', 'status'); document.body.append(toastEl);
-  const toast = (m) => { toastEl.textContent = m; toastEl.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('on'), 3500); };
-  const avRender = (focusSel) => { const y = scrollY; view.innerHTML = V.beschikbaarheid(); scrollTo(0, y); if (focusSel) $(focusSel, view)?.focus(); };
-  const avChange = () => { avDirty = true; const bar = $('.av-bar', view); if (bar) { bar.classList.add('on'); $('[data-av-msg]', view).textContent = 'Je hebt wijzigingen die nog niet zijn opgeslagen.'; $$('[data-av-save],[data-av-undo]', view).forEach((b) => { b.disabled = false; }); } };
+  const toast = (msg) => { toastEl.textContent = msg; toastEl.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('on'), 3500); };
+  const avRender = (focusSel) => { const y = scrollY, sx = $('.sp__scroll', view)?.scrollLeft; view.innerHTML = V.beschikbaarheid(); scrollTo(0, y); if (sx) $('.sp__scroll', view).scrollLeft = sx; const pd = $('.pv-days', view), on = $('.pv-day.on', view); if (pd && on) pd.scrollLeft = on.offsetLeft - pd.offsetLeft - pd.clientWidth / 2 + on.offsetWidth / 2; if (focusSel) $(focusSel, view)?.focus(); };
+  const avChange = () => { avDirty = true; };
+
+  // slots tikken of slepen
+  let paint = null;
+  const paintCell = (btn) => {
+    if (!btn || btn.disabled || !paint || paint.done.has(btn.dataset.sl)) return;
+    const [date, m] = btn.dataset.sl.split('|');
+    setSlot(date, Number(m), paint.on); paint.done.add(btn.dataset.sl);
+    btn.classList.toggle('is-on', paint.on); btn.classList.toggle('is-off', !paint.on); btn.setAttribute('aria-pressed', paint.on);
+  };
+  view.addEventListener('pointerdown', (e) => {
+    const b = e.target.closest('.sl'); if (!b || b.disabled || cur !== 'beschikbaarheid') return;
+    e.preventDefault();
+    paint = { on: !b.classList.contains('is-on'), done: new Set() }; paintCell(b);
+  });
+  addEventListener('pointermove', (e) => { if (!paint) return; paintCell(document.elementFromPoint(e.clientX, e.clientY)?.closest?.('.sl')); });
+  addEventListener('pointerup', () => { if (!paint) return; const n = paint.done.size; paint = null; if (n) { avChange(); avPreview.time = null; avRender(); } });
+
   view.addEventListener('change', (e) => {
-    const el = e.target.closest('[data-av]');
-    if (!el || cur !== 'beschikbaarheid') return;
-    if (el.dataset.av === 'step') avDraft.step = Number(el.value);
-    else if (el.dataset.av === 'open') { avDraft.week[el.dataset.day].open = el.checked; avChange(); avRender(`[data-av="open"][data-day="${el.dataset.day}"]`); return; }
-    else avDraft.week[el.dataset.day][el.dataset.av] = el.value;
-    avChange(); avRender(`[data-av="${el.dataset.av}"][data-day="${el.dataset.day}"]`);
+    if (cur !== 'beschikbaarheid') return;
+    const el = e.target;
+    if (el.matches('[data-av-slot]')) { avDraft.slot = avDraft.step = Number(el.value); avChange(); avPreview.time = null; avRender('[data-av-slot]'); return; }
+    if (el.matches('[data-pv-t]')) { avPreview.t = el.value; avPreview.min = Number(el.selectedOptions[0].dataset.min); avPreview.time = null; avPreview.day = ''; avRender('[data-pv-t]'); return; }
+    const a = el.closest('[data-av]');
+    if (!a) return;
+    if (a.dataset.av === 'open') avDraft.week[a.dataset.day].open = a.checked;
+    else avDraft.week[a.dataset.day][a.dataset.av] = a.value;
+    avChange(); avRender(`[data-av="${a.dataset.av}"][data-day="${a.dataset.day}"]`);
+    $('.sp__std', view).open = true;
   });
   view.addEventListener('submit', (e) => {
-    const f = e.target.closest('[data-av-block]');
-    if (!f) return;
+    const f = e.target.closest('[data-pv-form]'); if (!f) return;
     e.preventDefault();
-    const v = Object.fromEntries(new FormData(f));
-    if (!v.from) return;
-    if (v.to && v.to < v.from) { toast('De einddatum ligt vóór de begindatum.'); return; }
-    avDraft.blocked.push({ id: `B${Date.now().toString(36)}`, from: v.from, to: v.to || '', reason: v.reason });
-    avChange(); avRender();
+    const name = String(new FormData(f).get('name') || '').trim() || 'Testklant';
+    const c = { id: `P${Date.now().toString(36)}`, name, phone: '—', email: '—', since: T, note: 'Testboeking via de klantweergave', referredBy: '', source: 'Preview', isNew: true };
+    clients.unshift(c);
+    appts.push({ id: c.id, date: avPreview.day, start: avPreview.time, min: avPreview.min, treatment: avPreview.t, client: c.id, source: 'Klantweergave (preview)', status: 'Nieuw', price: info[avPreview.t]?.price ?? 0, fresh: true });
+    appts.sort((x, y) => (x.date + String(x.start).padStart(4, '0')).localeCompare(y.date + String(y.start).padStart(4, '0')));
+    toast(`Testboeking: ${avPreview.t} op ${fmt(avPreview.day)} om ${time(avPreview.time)}. Staat nu als geboekt in je rooster.`);
+    avPreview.time = null;
+    const d = new Date(`${avPreview.day}T00:00`); const diff = Math.floor((d - add(today, -((today.getDay() + 6) % 7))) / (7 * 864e5));
+    avWeek = Math.max(0, diff); avRender();
   });
   view.addEventListener('click', (e) => {
     if (cur !== 'beschikbaarheid') return;
-    const del = e.target.closest('[data-av-del]'), q = e.target.closest('[data-av-quick]');
-    if (e.target.closest('[data-av-copy]')) { [2, 3, 4, 5].forEach((n) => { avDraft.week[n] = { ...avDraft.week[1] }; }); avChange(); avRender(); }
-    else if (del) { avDraft.blocked = avDraft.blocked.filter((b) => b.id !== del.dataset.avDel); avChange(); avRender(); }
-    else if (q) {
-      const from = add(today, 1);
-      const to = q.dataset.avQuick === '7' ? add(add(today, 7 - ((today.getDay() + 6) % 7)), 6) : from;
-      const start = q.dataset.avQuick === '7' ? add(today, 7 - ((today.getDay() + 6) % 7)) : from;
-      avDraft.blocked.push({ id: `B${Date.now().toString(36)}`, from: iso(start), to: iso(to), reason: q.dataset.avQuick === '7' ? 'Vakantie' : 'Vrij' });
-      avChange(); avRender();
-    } else if (e.target.closest('[data-av-undo]')) { avDraft = JSON.parse(JSON.stringify(AVS)); avDirty = false; avRender(); }
+    const w = e.target.closest('[data-avw]'), dy = e.target.closest('[data-av-day]'), pd = e.target.closest('[data-pv-day]'), pt = e.target.closest('[data-pv-time]'), sl = e.target.closest('.sl');
+    if (sl && e.detail === 0 && !sl.disabled) { const [date, m] = sl.dataset.sl.split('|'); setSlot(date, Number(m), !sl.classList.contains('is-on')); avChange(); avRender(`[data-sl="${sl.dataset.sl}"]`); return; }
+    if (w) { avWeek = Number(w.dataset.avw); avRender(); }
+    else if (dy) {
+      const date = dy.dataset.date;
+      if (dy.dataset.avDay === 'reset') delete avDraft.days[date];
+      else avDraft.days[date] = dy.dataset.avDay === 'all' ? [[GRID_FROM, GRID_TO]] : [];
+      avChange(); avPreview.time = null; avRender();
+    } else if (e.target.closest('[data-av-copyweek]')) {
+      const s0 = add(today, avWeek * 7 - ((today.getDay() + 6) % 7));
+      for (let i = 0; i < 7; i++) { const d = add(s0, i), n = add(d, 7); avDraft.days[iso(n)] = JSON.parse(JSON.stringify(ranges(d, avDraft))); }
+      avChange(); avWeek += 1; avRender(); toast('Week gekopieerd naar de volgende week.');
+    } else if (pd) { avPreview.day = pd.dataset.pvDay; avPreview.time = null; avRender(); }
+    else if (pt) { avPreview.time = Number(pt.dataset.pvTime); avRender('[data-pv-form] input'); }
+    else if (e.target.closest('[data-av-undo]')) { avDraft = JSON.parse(JSON.stringify(AVS)); avDirty = false; avRender(); }
     else if (e.target.closest('[data-av-save]')) {
-      const err = avCheck(avDraft);
-      if (err) { toast(err); return; }
+      const err = avCheck(avDraft); if (err) { toast(err); return; }
       const now = new Date();
       avSaved = `${now.getDate()} ${MON[now.getMonth()]} om ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-      AVS = JSON.parse(JSON.stringify({ ...avDraft, savedLabel: avSaved }));
+      AVS = JSON.parse(JSON.stringify({ ...avDraft, step: avDraft.slot, savedLabel: avSaved }));
       try { localStorage.setItem(AV_KEY, JSON.stringify(AVS)); } catch { /* opslag niet beschikbaar */ }
-      avDirty = false; avRender();
-      toast('Opgeslagen. Je nieuwe beschikbaarheid staat direct online.');
+      avDirty = false; avRender(); toast('Opgeslagen. Je beschikbaarheid is bijgewerkt.');
     }
   });
 
