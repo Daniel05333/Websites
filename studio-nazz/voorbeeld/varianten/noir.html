@@ -513,7 +513,7 @@ body[data-page=plain] .masthead { background: var(--ink); }
 .ag__nav button { width: 38px; height: 38px; border: 1px solid var(--bk-line); border-radius: 50%; background: var(--bk-paper); font-size: 20px; cursor: pointer; }
 .ag__nav button:disabled { opacity: .3; cursor: default; }
 .ag__nav p { margin: 0; min-width: 120px; text-align: center; font-size: 14px; }
-.ag__week { display: grid; grid-template-columns: repeat(6, minmax(70px, 1fr)); gap: 6px; overflow-x: auto; }
+.ag__week { display: grid; grid-template-columns: repeat(7, minmax(64px, 1fr)); gap: 6px; overflow-x: auto; }
 .ag__day { display: grid; gap: 5px; align-content: start; }
 .ag__dname { display: grid; justify-items: center; margin: 0 0 4px; padding: 6px 0; border-bottom: 1px solid var(--bk-line); line-height: 1.1; }
 .ag__dname small { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--bk-muted); }
@@ -523,7 +523,7 @@ body[data-page=plain] .masthead { background: var(--ink); }
 .ag__slot:disabled { background: transparent; color: var(--bk-muted); opacity: .4; text-decoration: line-through; cursor: not-allowed; }
 .ag__slot.on { background: var(--bk-accent); color: var(--bk-on-accent); }
 .ag__day.is-past { opacity: .4; }
-.ag__none { text-align: center; color: var(--bk-muted); }
+.ag__none { text-align: center; color: var(--bk-muted); font-size: 13px; }
 .ag__empty { grid-column: 1 / -1; margin: 0; padding: 30px 10px; text-align: center; color: var(--bk-muted); }
 .ag__ticket { padding: 16px; margin-bottom: 16px; border-radius: var(--bk-radius); background: var(--bk-bg); }
 .ag__tname { margin: 0; font: 400 22px/1.15 var(--bk-serif); }
@@ -1340,13 +1340,24 @@ body[data-page=plain] .masthead { background: var(--ink); }
   const dur = (m) => (m >= 480 ? `${m / 480} dag${m > 480 ? 'en' : ''}` : m >= 60 ? `${Math.floor(m / 60)} uur${m % 60 ? ` ${m % 60} min` : ''}` : `${m} min`);
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
-  const open = (d) => d.getDay() !== 0; // demo-openingstijden: ma–za
-  const nextDays = (n) => { const out = []; for (let i = 1; out.length < n; i++) { const d = addDays(today, i); if (open(d)) out.push(d); } return out; };
+  // Beschikbaarheid: ingesteld in het dashboard (tab "Beschikbaarheid"),
+  // bewaard in deze browser. Zonder instelling: ma–za 9:00–18:00.
+  const AV_DEFAULT = { step: 30, week: { 0: { open: false, from: '10:00', to: '16:00', pFrom: '', pTo: '' }, 1: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 2: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 3: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 4: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 5: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 6: { open: true, from: '09:00', to: '17:00', pFrom: '', pTo: '' } }, blocked: [] };
+  let AV = AV_DEFAULT;
+  try { const s = JSON.parse(localStorage.getItem('nazz-availability') || 'null'); if (s && s.week) AV = s; } catch { /* standaard */ }
+  const mins = (t) => { if (!t) return null; const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+  const blockedOn = (d) => AV.blocked.some((b) => iso(d) >= b.from && iso(d) <= (b.to || b.from));
+  const open = (d) => !!AV.week[d.getDay()]?.open && !blockedOn(d);
+  const nextDays = (n) => { const out = []; for (let i = 1; out.length < n && i < 200; i++) { const d = addDays(today, i); if (open(d)) out.push(d); } return out; };
   const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
   const slots = (d, min) => {
     const out = [];
-    const end = 18 * 60 - Math.min(min, 240);
-    for (let m = 9 * 60; m <= end; m += 30) {
+    if (!open(d)) return out;
+    const day = AV.week[d.getDay()];
+    const from = mins(day.from), to = mins(day.to), pf = mins(day.pFrom), pt = mins(day.pTo);
+    const len = Math.min(min, 240);
+    for (let m = from; m + len <= to; m += Number(AV.step) || 30) {
+      if (pf != null && pt != null && m < pt && m + len > pf) continue; // valt in de pauze
       const t = `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
       out.push({ t, free: hash(iso(d) + t) % 3 !== 0 });
     }
@@ -1457,15 +1468,15 @@ body[data-page=plain] .masthead { background: var(--ink); }
     menu.innerHTML = cats.map((c, ci) => `<details class="ag__group"${ci === 0 ? ' open' : ''}><summary>${esc(c.name)}<small>${c.items.length}</small></summary>${c.items.map((t) => `<label class="ag__item"><input type="radio" name="ag-t" value="${esc(t.name)}"><span><b>${esc(t.name)}</b><small>${dur(t.min)}</small></span></label>`).join('')}</details>`).join('');
     const renderWeek = () => {
       const s = weekStart(st.week);
-      const days = Array.from({ length: 6 }, (_, i) => addDays(s, i));
-      range.textContent = `${days[0].getDate()} ${MON[days[0].getMonth()]} – ${days[5].getDate()} ${MON[days[5].getMonth()]}`;
+      const days = Array.from({ length: 7 }, (_, i) => addDays(s, i));
+      range.textContent = `${days[0].getDate()} ${MON[days[0].getMonth()]} – ${days[6].getDate()} ${MON[days[6].getMonth()]}`;
       $('[data-prev]', root).disabled = st.week === 0;
       if (!st.t) { week.innerHTML = '<p class="ag__empty">Kies eerst een behandeling, dan zie je hier de vrije tijden.</p>'; return; }
       week.innerHTML = days.map((d) => {
-        const past = d <= today;
+        const past = d <= today || !open(d);
         const list = st.t.course ? [] : slots(d, st.t.min);
         return `<div class="ag__day${past ? ' is-past' : ''}"><p class="ag__dname"><small>${DAYN[d.getDay()]}</small><b>${d.getDate()}</b></p>
-          ${past ? '<p class="ag__none">—</p>' : st.t.course
+          ${past ? `<p class="ag__none">${d <= today ? '—' : 'gesloten'}</p>` : st.t.course
             ? `<button type="button" class="ag__slot${st.d && iso(st.d) === iso(d) ? ' on' : ''}" data-d="${iso(d)}" data-time="">Start</button>`
             : list.map((x) => `<button type="button" class="ag__slot${st.d && iso(st.d) === iso(d) && st.time === x.t ? ' on' : ''}" data-d="${iso(d)}" data-time="${x.t}" ${x.free ? '' : 'disabled'} aria-label="${long(d)} ${x.t}${x.free ? '' : ', bezet'}">${x.t}</button>`).join('')}</div>`;
       }).join('');
@@ -1544,7 +1555,7 @@ body[data-page=plain] .masthead { background: var(--ink); }
       say('Hoi! ✨ Ik ben de boekingsassistent van <b>Studio Nazz</b>. Waarvoor wil je een afspraak maken?', () => chips(cats.map((c) => ({ label: c.name, go: () => pickCat(c) }))));
     };
     const pickCat = (c) => say(c.name === 'Academy' ? 'Leuk dat je het vak wilt leren! Welke cursus?' : `Mooi. Welke ${c.name.toLowerCase()}-behandeling?`, () => chips(c.items.map((t) => ({ label: `${esc(t.name)} <small>${dur(t.min)}</small>`, go: () => pickT(t) }))));
-    const pickT = (t) => { st.t = t; say(t.course ? `${esc(t.name.replace('Cursus: ', ''))} duurt ${dur(t.min)}. Vanaf welke datum kun je?` : `${esc(t.name)} duurt ongeveer <b>${dur(t.min)}</b>. Welke dag past jou?`, () => chips(nextDays(8).map((d) => ({ label: short(d), go: () => pickD(d) })))); };
+    const pickT = (t) => { st.t = t; say(t.course ? `${esc(t.name.replace('Cursus: ', ''))} duurt ${dur(t.min)}. Vanaf welke datum kun je?` : `${esc(t.name)} duurt ongeveer <b>${dur(t.min)}</b>. Welke dag past jou?`, () => { const ds = nextDays(8); if (!ds.length) { say('Er zijn op dit moment geen vrije dagen. Stuur Studio Nazz gerust een bericht.'); return; } chips(ds.map((d) => ({ label: short(d), go: () => pickD(d) }))); }); };
     const pickD = (d) => {
       st.d = d;
       if (st.t.course) { st.time = ''; return askName(); }

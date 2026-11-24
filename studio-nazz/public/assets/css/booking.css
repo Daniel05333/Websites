@@ -103,7 +103,7 @@
 .ag__nav button { width: 38px; height: 38px; border: 1px solid var(--bk-line); border-radius: 50%; background: var(--bk-paper); font-size: 20px; cursor: pointer; }
 .ag__nav button:disabled { opacity: .3; cursor: default; }
 .ag__nav p { margin: 0; min-width: 120px; text-align: center; font-size: 14px; }
-.ag__week { display: grid; grid-template-columns: repeat(6, minmax(70px, 1fr)); gap: 6px; overflow-x: auto; }
+.ag__week { display: grid; grid-template-columns: repeat(7, minmax(64px, 1fr)); gap: 6px; overflow-x: auto; }
 .ag__day { display: grid; gap: 5px; align-content: start; }
 .ag__dname { display: grid; justify-items: center; margin: 0 0 4px; padding: 6px 0; border-bottom: 1px solid var(--bk-line); line-height: 1.1; }
 .ag__dname small { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--bk-muted); }
@@ -113,7 +113,7 @@
 .ag__slot:disabled { background: transparent; color: var(--bk-muted); opacity: .4; text-decoration: line-through; cursor: not-allowed; }
 .ag__slot.on { background: var(--bk-accent); color: var(--bk-on-accent); }
 .ag__day.is-past { opacity: .4; }
-.ag__none { text-align: center; color: var(--bk-muted); }
+.ag__none { text-align: center; color: var(--bk-muted); font-size: 13px; }
 .ag__empty { grid-column: 1 / -1; margin: 0; padding: 30px 10px; text-align: center; color: var(--bk-muted); }
 .ag__ticket { padding: 16px; margin-bottom: 16px; border-radius: var(--bk-radius); background: var(--bk-bg); }
 .ag__tname { margin: 0; font: 400 22px/1.15 var(--bk-serif); }

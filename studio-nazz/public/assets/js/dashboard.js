@@ -112,7 +112,7 @@
       const hours = Array.from({ length: 10 }, (_, i) => 9 + i);
       return `<section class="card"><div class="cal__bar"><h2>${days[0].getDate()} ${MON[days[0].getMonth()]} – ${days[5].getDate()} ${MON[days[5].getMonth()]}</h2><div><button type="button" data-week="${week - 1}">‹ Vorige</button><button type="button" data-week="0">Deze week</button><button type="button" data-week="${week + 1}">Volgende ›</button></div></div>
         <div class="cal"><div class="cal__hours">${hours.map((h) => `<span>${h}:00</span>`).join('')}</div>
-        ${days.map((d) => `<div class="cal__day${iso(d) === T ? ' is-today' : ''}"><p>${DAYN[d.getDay()]} <b>${d.getDate()}</b></p><div class="cal__col">${appts.filter((a) => a.date === iso(d)).map((a) => { const c = byClient(a.client); const top = ((a.course ? 9 * 60 : a.start) - 540) / 600 * 100; const h = Math.min(a.course ? 480 : a.min, 1080 - a.start) / 600 * 100; return `<button type="button" class="ev ev--${(info[a.treatment]?.cat || 'academy').toLowerCase()}${a.fresh ? ' ev--fresh' : ''}" style="top:${top}%;height:${h}%" data-client="${c.id}"><b>${a.course ? 'Cursus' : time(a.start)} ${esc(a.treatment)}</b><span>${esc(c.name)}</span></button>`; }).join('')}</div></div>`).join('')}</div>
+        ${days.map((d) => `<div class="cal__day${iso(d) === T ? ' is-today' : ''}${avOpen(d) ? '' : ' is-closed'}"><p>${DAYN[d.getDay()]} <b>${d.getDate()}</b>${avOpen(d) ? '' : `<small>${esc(avReason(d))}</small>`}</p><div class="cal__col">${appts.filter((a) => a.date === iso(d)).map((a) => { const c = byClient(a.client); const top = ((a.course ? 9 * 60 : a.start) - 540) / 600 * 100; const h = Math.min(a.course ? 480 : a.min, 1080 - a.start) / 600 * 100; return `<button type="button" class="ev ev--${(info[a.treatment]?.cat || 'academy').toLowerCase()}${a.fresh ? ' ev--fresh' : ''}" style="top:${top}%;height:${h}%" data-client="${c.id}"><b>${a.course ? 'Cursus' : time(a.start)} ${esc(a.treatment)}</b><span>${esc(c.name)}</span></button>`; }).join('')}</div></div>`).join('')}</div>
         <p class="legend"><i class="ev--lashes"></i>Lashes <i class="ev--brows"></i>Brows <i class="ev--skin"></i>Skin <i class="ev--fresh"></i>Nieuw via website</p></section>`;
     },
     klanten(q = '') {
@@ -128,13 +128,116 @@
         ${list.slice(0, 60).map((a) => { const c = byClient(a.client); return `<tr data-client="${c.id}" tabindex="0"${a.fresh ? ' class="is-fresh"' : ''}><td>${fmt(a.date)}</td><td>${a.course ? '—' : time(a.start)}</td><td>${esc(c.name)}</td><td>${esc(a.treatment)}</td><td>${esc(a.source)}</td><td>${badge(a.status)}</td><td class="num">${a.price ? euro(a.price) : '—'}</td></tr>`; }).join('')}
         </tbody></table>${list.length ? '' : '<p class="empty">Nog geen boekingen. Maak er een in variant A, B of C.</p>'}</section>`;
     },
+    beschikbaarheid() {
+      const D = avDraft;
+      const order = [1, 2, 3, 4, 5, 6, 0];
+      const preview = Array.from({ length: 10 }, (_, i) => add(today, i + 1));
+      return `<p class="av-note">Wat je hier opslaat, gaat <b>direct</b> door in de boekingssystemen op de website: klanten kunnen alleen boeken op tijden dat je werkt.${avSaved ? ` <span>Laatst opgeslagen: ${esc(avSaved)}</span>` : ''}</p>
+      <div class="av-grid">
+        <section class="card"><div class="cal__bar"><h2>Werktijden per week</h2><div><button type="button" data-av-copy>Maandag → alle werkdagen</button></div></div>
+          <div class="av-week">
+            <div class="av-row av-row--head" aria-hidden="true"><span>Dag</span><span>Open</span><span>Van</span><span>Tot</span><span>Pauze</span></div>
+            ${order.map((n) => { const d = D.week[n]; return `<div class="av-row${d.open ? '' : ' is-off'}">
+              <b>${DAYL[n]}</b>
+              <label class="sw"><input type="checkbox" data-av="open" data-day="${n}"${d.open ? ' checked' : ''} aria-label="${DAYL[n]} open"><i aria-hidden="true"></i><span>${d.open ? 'Open' : 'Gesloten'}</span></label>
+              <input type="time" step="900" data-av="from" data-day="${n}" value="${d.from}" aria-label="${DAYL[n]} van"${d.open ? '' : ' disabled'}>
+              <input type="time" step="900" data-av="to" data-day="${n}" value="${d.to}" aria-label="${DAYL[n]} tot"${d.open ? '' : ' disabled'}>
+              <span class="av-pause"><input type="time" step="900" data-av="pFrom" data-day="${n}" value="${d.pFrom}" aria-label="${DAYL[n]} pauze van"${d.open ? '' : ' disabled'}><i>–</i><input type="time" step="900" data-av="pTo" data-day="${n}" value="${d.pTo}" aria-label="${DAYL[n]} pauze tot"${d.open ? '' : ' disabled'}></span>
+            </div>`; }).join('')}
+          </div>
+          <label class="av-step">Klanten kunnen starten om de <select data-av="step">${[15, 30, 60].map((s) => `<option value="${s}"${Number(D.step) === s ? ' selected' : ''}>${s} minuten</option>`).join('')}</select></label>
+        </section>
+        <div>
+          <section class="card"><h2>Vrije dagen &amp; vakantie</h2>
+            <form class="av-block" data-av-block>
+              <label><span>Van</span><input type="date" name="from" min="${T}" required></label>
+              <label><span>Tot en met <small>(optioneel)</small></span><input type="date" name="to" min="${T}"></label>
+              <label><span>Reden</span><select name="reason"><option>Vrij</option><option>Vakantie</option><option>Cursus geven</option><option>Ziek</option><option>Anders</option></select></label>
+              <button type="submit" class="d-btn d-btn--dark d-btn--on">Blokkeren</button>
+            </form>
+            <p class="av-quick"><button type="button" data-av-quick="1">Morgen vrij</button><button type="button" data-av-quick="7">Volgende week vrij</button></p>
+            <ul class="av-list">${D.blocked.length ? [...D.blocked].sort((a, b) => a.from.localeCompare(b.from)).map((b) => `<li><span><b>${esc(b.reason)}</b>${fmt(b.from)}${b.to && b.to !== b.from ? ` t/m ${fmt(b.to)}` : ''}${(() => { const n = appts.filter((a) => a.date >= b.from && a.date <= (b.to || b.from) && a.status !== 'Voltooid').length; return n ? `<em class="av-warn">Let op: er ${n === 1 ? 'staat' : 'staan'} al ${n} afspra${n === 1 ? 'ak' : 'ken'} op deze dag${b.to && b.to !== b.from ? 'en' : ''}. Verzet ${n === 1 ? 'die' : 'die'} met de klant${n === 1 ? '' : 'en'}.</em>` : ''; })()}</span><button type="button" data-av-del="${esc(b.id)}" aria-label="Verwijder ${esc(b.reason)} ${fmt(b.from)}">Verwijder</button></li>`).join('') : '<li class="empty">Nog geen vrije dagen ingepland.</li>'}</ul>
+          </section>
+          <section class="card"><h2>Zo zien klanten het</h2><p class="av-sub">Vrije starttijden voor een behandeling van 1 uur (zonder bestaande afspraken).</p>
+            <ul class="av-prev">${preview.map((d) => { const o = avOpen(d, D); const n = o ? avStarts(d, 60, D) : 0; return `<li class="${o ? '' : 'is-off'}"><span>${DAYN[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}</span>${o ? `<b>${D.week[d.getDay()].from}–${D.week[d.getDay()].to}</b><em>${n} starttijden</em>` : `<b>Gesloten</b><em>${esc(avReason(d, D))}</em>`}</li>`; }).join('')}</ul>
+          </section>
+        </div>
+      </div>
+      <div class="av-bar${avDirty ? ' on' : ''}" role="region" aria-label="Opslaan"><p data-av-msg>${avDirty ? 'Je hebt wijzigingen die nog niet zijn opgeslagen.' : 'Alles is opgeslagen.'}</p><button type="button" class="d-btn d-btn--on" data-av-undo${avDirty ? '' : ' disabled'}>Ongedaan maken</button><button type="button" class="d-btn d-btn--dark d-btn--on" data-av-save${avDirty ? '' : ' disabled'}>Opslaan</button></div>`;
+    },
     academy() {
       return `<section class="kpis"><article><small>Aanmeldingen</small><b>${academy.length}</b><span>open en gepland</span></article><article><small>Eerstvolgende cursus</small><b>${fmt([...academy].filter((a) => a.date >= T).sort((a, b) => a.date.localeCompare(b.date))[0]?.date || T)}</b><span>&nbsp;</span></article><article><small>Gecertificeerd</small><b>${academy.filter((a) => a.status === 'Gecertificeerd').length}</b><span>dit kwartaal</span></article></section>
         <section class="card"><h2>Aanmeldingen</h2><table class="tbl"><thead><tr><th>Cursist</th><th>Cursus</th><th>Vorm</th><th>Datum</th><th>Status</th></tr></thead><tbody>${academy.map((a) => `<tr${a.fresh ? ' class="is-fresh"' : ''}><td><span class="ap__who"><i class="av">${initials(a.name)}</i><b>${esc(a.name)}</b></span></td><td>${esc(a.course)}</td><td>${esc(a.format)}</td><td>${fmt(a.date)}</td><td>${badge(a.status)}</td></tr>`).join('')}</tbody></table></section>`;
     },
   };
-  const titles = { overzicht: 'Overzicht', agenda: 'Agenda', klanten: 'Klanten', boekingen: 'Boekingen', academy: 'Academy' };
+  const titles = { overzicht: 'Overzicht', agenda: 'Agenda', klanten: 'Klanten', boekingen: 'Boekingen', beschikbaarheid: 'Beschikbaarheid', academy: 'Academy' };
   let cur = 'overzicht';
+  // ── beschikbaarheid (zelfde opslag als de boekingssystemen) ──────────────
+  const AV_KEY = 'nazz-availability';
+  const AV_DEFAULT = { step: 30, week: { 0: { open: false, from: '10:00', to: '16:00', pFrom: '', pTo: '' }, 1: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 2: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 3: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 4: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 5: { open: true, from: '09:00', to: '18:00', pFrom: '', pTo: '' }, 6: { open: true, from: '09:00', to: '17:00', pFrom: '', pTo: '' } }, blocked: [] };
+  let AVS = JSON.parse(JSON.stringify(AV_DEFAULT)), avSaved = '';
+  try { const s = JSON.parse(localStorage.getItem(AV_KEY) || 'null'); if (s && s.week) { AVS = s; avSaved = s.savedLabel || ''; } } catch { /* standaard */ }
+  let avDraft = JSON.parse(JSON.stringify(AVS)), avDirty = false;
+  const toMin = (t) => { if (!t) return null; const [h, m] = t.split(':').map(Number); return h * 60 + m; };
+  const avBlock = (d, A = AVS) => A.blocked.find((b) => iso(d) >= b.from && iso(d) <= (b.to || b.from));
+  const avOpen = (d, A = AVS) => !!A.week[d.getDay()]?.open && !avBlock(d, A);
+  const avReason = (d, A = AVS) => avBlock(d, A)?.reason || 'Gesloten';
+  const avStarts = (d, len, A = AVS) => { const w = A.week[d.getDay()]; const f = toMin(w.from), t = toMin(w.to), pf = toMin(w.pFrom), pt = toMin(w.pTo); let n = 0; for (let m = f; m + len <= t; m += Number(A.step) || 30) { if (pf != null && pt != null && m < pt && m + len > pf) continue; n++; } return n; };
+  const avCheck = (A) => {
+    for (const [n, w] of Object.entries(A.week)) {
+      if (!w.open) continue;
+      if (!(toMin(w.to) > toMin(w.from))) return `${DAYL[n]}: de eindtijd moet na de begintijd liggen.`;
+      if ((w.pFrom && !w.pTo) || (!w.pFrom && w.pTo)) return `${DAYL[n]}: vul bij de pauze zowel begin als eind in.`;
+      if (w.pFrom && !(toMin(w.pFrom) >= toMin(w.from) && toMin(w.pTo) <= toMin(w.to) && toMin(w.pTo) > toMin(w.pFrom))) return `${DAYL[n]}: de pauze moet binnen je werktijd vallen.`;
+    }
+    return '';
+  };
+  const toastEl = document.createElement('div'); toastEl.className = 'd-toast'; toastEl.setAttribute('role', 'status'); document.body.append(toastEl);
+  const toast = (m) => { toastEl.textContent = m; toastEl.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('on'), 3500); };
+  const avRender = (focusSel) => { const y = scrollY; view.innerHTML = V.beschikbaarheid(); scrollTo(0, y); if (focusSel) $(focusSel, view)?.focus(); };
+  const avChange = () => { avDirty = true; const bar = $('.av-bar', view); if (bar) { bar.classList.add('on'); $('[data-av-msg]', view).textContent = 'Je hebt wijzigingen die nog niet zijn opgeslagen.'; $$('[data-av-save],[data-av-undo]', view).forEach((b) => { b.disabled = false; }); } };
+  view.addEventListener('change', (e) => {
+    const el = e.target.closest('[data-av]');
+    if (!el || cur !== 'beschikbaarheid') return;
+    if (el.dataset.av === 'step') avDraft.step = Number(el.value);
+    else if (el.dataset.av === 'open') { avDraft.week[el.dataset.day].open = el.checked; avChange(); avRender(`[data-av="open"][data-day="${el.dataset.day}"]`); return; }
+    else avDraft.week[el.dataset.day][el.dataset.av] = el.value;
+    avChange(); avRender(`[data-av="${el.dataset.av}"][data-day="${el.dataset.day}"]`);
+  });
+  view.addEventListener('submit', (e) => {
+    const f = e.target.closest('[data-av-block]');
+    if (!f) return;
+    e.preventDefault();
+    const v = Object.fromEntries(new FormData(f));
+    if (!v.from) return;
+    if (v.to && v.to < v.from) { toast('De einddatum ligt vóór de begindatum.'); return; }
+    avDraft.blocked.push({ id: `B${Date.now().toString(36)}`, from: v.from, to: v.to || '', reason: v.reason });
+    avChange(); avRender();
+  });
+  view.addEventListener('click', (e) => {
+    if (cur !== 'beschikbaarheid') return;
+    const del = e.target.closest('[data-av-del]'), q = e.target.closest('[data-av-quick]');
+    if (e.target.closest('[data-av-copy]')) { [2, 3, 4, 5].forEach((n) => { avDraft.week[n] = { ...avDraft.week[1] }; }); avChange(); avRender(); }
+    else if (del) { avDraft.blocked = avDraft.blocked.filter((b) => b.id !== del.dataset.avDel); avChange(); avRender(); }
+    else if (q) {
+      const from = add(today, 1);
+      const to = q.dataset.avQuick === '7' ? add(add(today, 7 - ((today.getDay() + 6) % 7)), 6) : from;
+      const start = q.dataset.avQuick === '7' ? add(today, 7 - ((today.getDay() + 6) % 7)) : from;
+      avDraft.blocked.push({ id: `B${Date.now().toString(36)}`, from: iso(start), to: iso(to), reason: q.dataset.avQuick === '7' ? 'Vakantie' : 'Vrij' });
+      avChange(); avRender();
+    } else if (e.target.closest('[data-av-undo]')) { avDraft = JSON.parse(JSON.stringify(AVS)); avDirty = false; avRender(); }
+    else if (e.target.closest('[data-av-save]')) {
+      const err = avCheck(avDraft);
+      if (err) { toast(err); return; }
+      const now = new Date();
+      avSaved = `${now.getDate()} ${MON[now.getMonth()]} om ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      AVS = JSON.parse(JSON.stringify({ ...avDraft, savedLabel: avSaved }));
+      try { localStorage.setItem(AV_KEY, JSON.stringify(AVS)); } catch { /* opslag niet beschikbaar */ }
+      avDirty = false; avRender();
+      toast('Opgeslagen. Je nieuwe beschikbaarheid staat direct online.');
+    }
+  });
+
   const show = (k, arg) => { cur = k; title.textContent = titles[k]; view.innerHTML = V[k](arg); $$('[data-tab]').forEach((b) => b.toggleAttribute('aria-current', b.dataset.tab === k)); };
   $$('[data-tab]').forEach((b) => b.addEventListener('click', () => { search.value = ''; show(b.dataset.tab); }));
   search.addEventListener('input', () => show('klanten', search.value));

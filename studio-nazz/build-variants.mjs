@@ -211,11 +211,11 @@ ${scripts(['variant', 'booking'])}
 `;
 
 // ══ DASHBOARD ═════════════════════════════════════════════════════════════
-const dashboard = `${head('Studio Nazz · Dashboard (preview)', ['dashboard'])}
+const dashboard = `${head('Studio Nazz · Dashboard (preview)', ['booking', 'dashboard'])}
 <body class="dsh">
 <aside class="dsh__side">
   <p class="dsh__brand"><span class="logo"></span>Studio Nazz</p>
-  <nav aria-label="Dashboard">${[['overzicht', 'Overzicht'], ['agenda', 'Agenda'], ['klanten', 'Klanten'], ['boekingen', 'Boekingen'], ['academy', 'Academy']].map(([k, l], i) => `<button type="button" data-tab="${k}"${i === 0 ? ' aria-current="page"' : ''}>${l}</button>`).join('')}</nav>
+  <nav aria-label="Dashboard">${[['overzicht', 'Overzicht'], ['agenda', 'Agenda'], ['klanten', 'Klanten'], ['boekingen', 'Boekingen'], ['beschikbaarheid', 'Beschikbaarheid'], ['academy', 'Academy']].map(([k, l], i) => `<button type="button" data-tab="${k}"${i === 0 ? ' aria-current="page"' : ''}>${l}</button>`).join('')}</nav>
   <p class="dsh__demo">Preview met <b>verzonnen demo-gegevens</b>. Boekingen die je in de varianten maakt, verschijnen hier ook.</p>
 </aside>
 <main class="dsh__main" id="main">
@@ -231,7 +231,7 @@ ${scripts(['dashboard'])}
 `;
 
 // ══ KEUZEPAGINA ═══════════════════════════════════════════════════════════
-const kies = `${head('Studio Nazz · Kies je stijl', ['kies'])}
+const kies = `${head('Studio Nazz · Kies je stijl', ['booking', 'kies'])}
 <body class="kies">
 <main id="main" class="kies__wrap">
   <header class="kies__head"><span class="logo"></span><p>Concept voor Studio Nazz</p><h1>Kies jouw <em>stijl</em></h1><p class="kies__lead">Drie ontwerpen met dezelfde inhoud, foto’s en branding. Elk ontwerp heeft een eigen manier van boeken. Klik op een ontwerp om het te bekijken.</p></header>

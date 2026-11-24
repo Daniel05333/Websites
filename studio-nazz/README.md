@@ -60,4 +60,6 @@ tests/e2e.mjs           browsertests
 | `atelier.html` | C · Atelier: redactioneel, 3D-fotoring | Chat-assistent |
 | `dashboard.html` | Dashboard-preview: overzicht, agenda, klanten, boekingen, academy | – |
 
+In het dashboard kan Studio Nazz onder **Beschikbaarheid** haar werktijden per dag, pauzes, het tijdslot-interval en vrije dagen of vakanties instellen en altijd aanpassen. Na **Opslaan** gebruiken alle drie de boekingssystemen deze instellingen (gesloten dagen en geblokkeerde data verdwijnen, tijden vallen binnen de werktijd en buiten de pauze).
+
 De boekingssystemen zijn demo's (`assets/js/booking.js`): vrije tijden en duur zijn voorbeelden, er wordt niets echt geboekt. Boekingen worden alleen in de browser bewaard, zodat het dashboard ze als "Nieuw via de website" toont. Het dashboard (`assets/js/dashboard.js`) gebruikt verzonnen klanten en voorbeeldprijzen. Voor livegang is een echte agenda/backend nodig (bijv. Salonized of een eigen systeem).
