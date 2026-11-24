@@ -9,7 +9,8 @@
     "serve": "node tools/serve.mjs",
     "images": "python3 tools/make-images.py",
     "preview": "node build.mjs && node tools/build-preview.mjs",
-    "test": "node build.mjs && node tests/e2e.mjs"
+    "test": "node build.mjs && node tests/e2e.mjs",
+    "variants": "node build.mjs && node build-variants.mjs && node tools/build-variants-preview.mjs"
   },
   "devDependencies": {
     "@fontsource/pinyon-script": "^5.3.0",

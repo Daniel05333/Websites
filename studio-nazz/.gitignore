@@ -1,1 +1,4 @@
 node_modules/
+.vshot.cjs
+.mshot.cjs
+.dbg.cjs

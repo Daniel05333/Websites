@@ -47,3 +47,17 @@ bron/                   de aangeleverde Instagram-screenshots
 tools/                  lokale server, afbeeldingen, voorbeeldbestanden
 tests/e2e.mjs           browsertests
 ```
+
+## Drie ontwerpvarianten + dashboard
+
+`npm run variants` bouwt `public/varianten/` en losse bestanden in `voorbeeld/varianten/` (houd die samen in één map, ze linken naar elkaar):
+
+| Bestand | Ontwerp | Boekingssysteem |
+|---|---|---|
+| `index.html` | Keuzepagina voor de klant | – |
+| `noir.html` | A · Noir: de bestaande site, donker, 3D-wimperwaaier | Stappenwizard in een pop-up |
+| `blush.html` | B · Blush: licht en zacht, 3D-fotostapel | Weekagenda op de pagina |
+| `atelier.html` | C · Atelier: redactioneel, 3D-fotoring | Chat-assistent |
+| `dashboard.html` | Dashboard-preview: overzicht, agenda, klanten, boekingen, academy | – |
+
+De boekingssystemen zijn demo's (`assets/js/booking.js`): vrije tijden en duur zijn voorbeelden, er wordt niets echt geboekt. Boekingen worden alleen in de browser bewaard, zodat het dashboard ze als "Nieuw via de website" toont. Het dashboard (`assets/js/dashboard.js`) gebruikt verzonnen klanten en voorbeeldprijzen. Voor livegang is een echte agenda/backend nodig (bijv. Salonized of een eigen systeem).
